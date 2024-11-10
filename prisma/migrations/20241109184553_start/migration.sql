@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Items" ALTER COLUMN "name" DROP NOT NULL,
+ALTER COLUMN "description" DROP NOT NULL,
+ALTER COLUMN "poster" DROP NOT NULL;
