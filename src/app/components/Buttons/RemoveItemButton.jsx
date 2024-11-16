@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { PRISMA_DELETE_ITEM } from "@prismaFuncs/prismaFuncs"
-import { Minus, X } from "lucide-react"
+import { LoaderCircle, Minus, X } from "lucide-react"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -15,9 +15,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/app/components/ui/button"
 import { toast } from "sonner"
-import { setNotificationsForUsers } from "@/app/components/AppDynamic/functions/notifications.js"
-import { useQuery } from "@tanstack/react-query"
-import { TMDB_GET_DETAILS } from "@/lib/movieFuncs"
+import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
 
 export function RemoveItemButton({
     infoItem,
@@ -25,12 +23,9 @@ export function RemoveItemButton({
     disabled,
     isDialog = false,
 }) {
-    const item = useQuery({
-        queryKey: ["details", infoItem.id],
-        queryFn: () => TMDB_GET_DETAILS(infoItem.id, appData.board.type),
-    })
+    const details = useGetDetailsQuery(infoItem.id, appData.board.type)
     async function handleRemove() {
-        let content = `${item.data.name ? item.data.name : item.data.title} removed from ${appData.board.boardName}`
+        let content = `${details.data.name ? details.data.name : details.data.title} removed from ${appData.board.boardName}`
         await PRISMA_DELETE_ITEM(
             appData.board,
             infoItem,
@@ -49,6 +44,13 @@ export function RemoveItemButton({
         true: `col-start-1 mx-auto flex flex-row items-center place-self-end transition-colors hover:bg-rose-600 md:col-end-4 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-rose-600`,
         false: `absolute right-1 top-1 z-50 h-8 w-8 rounded border border-solid border-zinc-700 bg-zinc-900/70 transition-colors hover:bg-rose-600 md:left-2 md:top-2 md:h-10 md:w-10 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100 dark:hover:bg-rose-600`,
     }
+    if (details.isLoading)
+        return (
+            <Button disabled={true} className={dialogButtonStyles[isDialog]}>
+                <LoaderCircle className={`h-4 w-4 animate-spin`} />
+                {isDialog && <p>Loading...</p>}
+            </Button>
+        )
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -66,7 +68,9 @@ export function RemoveItemButton({
                     <AlertDialogTitle>
                         Remove{" "}
                         <i>
-                            {item.data.name ? item.data.name : item.data.title}
+                            {details.data.name
+                                ? details.data.name
+                                : details.data.title}
                         </i>{" "}
                         ?
                     </AlertDialogTitle>

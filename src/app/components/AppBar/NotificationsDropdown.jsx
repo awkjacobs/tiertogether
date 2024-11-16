@@ -20,9 +20,6 @@ import getNotifications from "./getNotifications"
 import { useAuth } from "@clerk/nextjs"
 import { PRISMA_VIEW_NOTIFICATIONS } from "@prismaFuncs/prismaFuncs"
 
-// TODO - setup mark all as read button
-// TODO - setup click notification to mark as read
-
 export default function Notifications({ boardIdArray }) {
     const { userId } = useAuth()
 

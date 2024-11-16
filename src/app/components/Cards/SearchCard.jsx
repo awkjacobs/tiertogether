@@ -1,8 +1,6 @@
 import { GenreBadge, ReleaseBadge } from "@/app/components/Utility/Badges"
 import { useMediaQuery } from "@/app/hooks/use-media-query"
-import { TMDB_GET_DETAILS } from "@/lib/movieFuncs"
 import { PRISMA_ADD_ITEM } from "@prismaFuncs/prismaFuncs"
-import { useQuery } from "@tanstack/react-query"
 import { Check, Plus } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -12,6 +10,7 @@ import Overview from "./Card Components/Overview"
 import SearchCardContainer from "./Card Components/SearchCardContainer"
 import { SearchLogo } from "./Card Components/SearchLogo"
 import { itemType } from "@/lib/const"
+import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
 
 export default function SearchCard({ item, board, type, queryType, style }) {
     const [alreadyIncluded, setAlreadyIncluded] = useState(
@@ -55,10 +54,8 @@ export default function SearchCard({ item, board, type, queryType, style }) {
                 })
             })
     }
-    const details = useQuery({
-        queryKey: ["details", item.id],
-        queryFn: () => TMDB_GET_DETAILS(item.id, type),
-    })
+    const details = useGetDetailsQuery(item.id, type)
+
     return (
         <SearchCardContainer
             style={style}
@@ -77,7 +74,12 @@ export default function SearchCard({ item, board, type, queryType, style }) {
             >
                 {!alreadyIncluded ? <Plus /> : <Check />}
             </Button>
-            <Poster source={item.poster_path} height={240} width={120} />
+            <Poster
+                itemId={item.id}
+                boardType={board.type}
+                height={240}
+                width={120}
+            />
 
             <div
                 className={`flex min-w-[50%] flex-1 flex-col justify-between p-4 pb-0 md:p-6 md:pb-4`}

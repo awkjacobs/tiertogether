@@ -3,15 +3,12 @@ import Link from "next/link"
 import Image from "next/image"
 import EditBoardButton from "@/components/Buttons/EditBoardButton"
 import { motion } from "framer-motion"
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/effect-fade"
 import { Autoplay, EffectFade } from "swiper/modules"
 import { Clapperboard, Tv } from "lucide-react"
 import AnimeCross from "@/components/Utility/animeCross"
-import { TMDB_GET_DETAILS } from "@/lib/movieFuncs"
-import { useQuery } from "@tanstack/react-query"
-import { PRISMA_ADD_PATHS_TO_ITEMS } from "@prismaFuncs/prismaFuncs"
 
 export default function BoardCard({ board, appData, index }) {
     const { user } = appData

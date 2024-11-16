@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { ClerkProvider } from "@clerk/nextjs"
 import { dark } from "@clerk/themes"
 import QueryProvider from "./providers/QueryProvider"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 export const metadata = {
     title: "tiertogether",
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
             <html lang="en" suppressHydrationWarning>
                 <body>
                     <QueryProvider>
+                        <ReactQueryDevtools />
                         <ThemeProvider
                             attribute="class"
                             defaultTheme="system"

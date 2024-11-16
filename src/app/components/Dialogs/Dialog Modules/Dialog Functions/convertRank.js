@@ -8,7 +8,7 @@ export function convertRank(rank, appData) {
 
     let score
     switch (true) {
-        case rank <= 2 - threshold:
+        case rank <= 2 - threshold && rank > 0:
             score = `S ${subrank}`
             break
         case rank < 3:

@@ -3,7 +3,6 @@ import { motion } from "framer-motion"
 import Poster from "../ui/Poster"
 import { useSearchParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
-import { TMDB_GET_DETAILS } from "@/lib/movieFuncs"
 import { LoaderCircle } from "lucide-react"
 
 const size = {
@@ -15,10 +14,10 @@ const size = {
 
 export function CardOverlay({ item, board }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const posterUrls = useQuery({
-        queryKey: ["posterUrls", board.id],
-        queryFn: () => getPosterUrls(board.items),
-    })
+    // const posterUrls = useQuery({
+    //     queryKey: ["posterUrls", board.id],
+    //     queryFn: () => getPosterUrls(board.items),
+    // })
 
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
@@ -40,12 +39,12 @@ export function CardOverlay({ item, board }) {
         else if (!isDesktop) return 60
     }
 
-    if (posterUrls.isLoading)
-        return (
-            <div className={`bg-zinc-900`}>
-                <LoaderCircle className={`h-full w-full animate-spin`} />
-            </div>
-        )
+    // if (posterUrls.isLoading)
+    //     return (
+    //         <div className={`bg-zinc-900`}>
+    //             <LoaderCircle className={`h-full w-full animate-spin`} />
+    //         </div>
+    //     )
 
     return (
         <motion.div
@@ -54,7 +53,9 @@ export function CardOverlay({ item, board }) {
             animate={{ scale: 1.25, rotate: 10 }}
         >
             <Poster
-                source={posterUrls.data.get(item.id)}
+                // source={posterUrls.data.get(item.id)}
+                itemId={item.id}
+                boardType={board.type}
                 width={width()}
                 height={height()}
             />

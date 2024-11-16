@@ -9,16 +9,14 @@ import { userRanksArray } from "./Dialog Functions/userRanksArray"
 import DescriptionDetails from "./Dialog Components/DescriptionDetails"
 import { ScrollArea } from "../../ui/scroll-area"
 import { useQuery } from "@tanstack/react-query"
+import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
 
 export default function InfoDialogContent({ item, appData }) {
     const { users, serverRanks, board } = appData
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
-    const itemInfo = useQuery({
-        queryKey: ["details", item.id],
-        queryFn: () => TMDB_GET_DETAILS(item.id, board.type),
-    })
-    const name = itemInfo.data.name ? itemInfo.data.name : itemInfo.data.title
+    const details = useGetDetailsQuery(item.id, board.type)
+    const name = details.data.name ? details.data.name : details.data.title
 
     const [ranks, setRanks] = useState({
         averageRank: "",
@@ -61,7 +59,10 @@ export default function InfoDialogContent({ item, appData }) {
             >
                 <Poster
                     className={`row-start-1 row-end-3 h-40 w-auto justify-self-center shadow-lg md:h-64 md:w-auto`}
-                    source={itemInfo.data.poster_path}
+                    // source={itemInfo.data.poster_path}
+                    // queryKey={["details", item.id, board.type]}
+                    itemId={item.id}
+                    boardType={board.type}
                     height={256}
                     width={170}
                 />
@@ -81,7 +82,7 @@ export default function InfoDialogContent({ item, appData }) {
                     />
 
                     <ScrollArea className={`max-h-64 p-1 pr-4 leading-7`}>
-                        {itemInfo.data.overview}
+                        {details.data.overview}
                     </ScrollArea>
                 </div>
             </div>
@@ -95,13 +96,14 @@ export default function InfoDialogContent({ item, appData }) {
                 <div className={`flex h-28 flex-row items-center gap-4`}>
                     <Poster
                         className={`justify-self-left row-start-1 row-end-3 h-28 w-auto shadow-lg`}
-                        source={itemInfo.data.poster_path}
+                        itemId={item.id}
+                        boardType={board.type}
                         height={320}
                         width={224.4}
                     />
                     <Logo
                         itemId={item.id}
-                        title={itemInfo.title}
+                        title={details.title}
                         type={appData.board.type}
                     />
                 </div>
@@ -137,7 +139,7 @@ export default function InfoDialogContent({ item, appData }) {
                             />
 
                             <div className={`text-sm leading-7`}>
-                                {itemInfo.data.overview}
+                                {details.data.overview}
                             </div>
                         </div>
                     </TabsContent>

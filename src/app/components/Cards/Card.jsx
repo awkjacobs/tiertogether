@@ -12,10 +12,8 @@ import { useMediaQuery } from "@/app/hooks/use-media-query"
 import { scoreDif } from "@/lib/const"
 import { RankGroup, RankOverall } from "../Utility/RankGroup"
 import { useSearchParams } from "next/navigation"
-import { useQuery } from "@tanstack/react-query"
 import { LoaderCircle } from "lucide-react"
-import { TMDB_GET_DETAILS } from "@/lib/movieFuncs"
-import MissingPoster from "../Utility/MissingPoster"
+import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
 
 const size = {
     null: "w-10 md:w-16",
@@ -38,12 +36,10 @@ export function Card({
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
 
-    const itemInfo = useQuery({
-        queryKey: ["details", item.id],
-        queryFn: () => TMDB_GET_DETAILS(item.id, appData.board.type),
-    })
+    const details = useGetDetailsQuery(item.id, appData.board.type)
 
-    if (itemInfo.isLoading)
+    //! no good for mobile
+    if (details.isLoading)
         return (
             <li
                 className={`${size[urlCardSize]} relative mx-1 flex aspect-[2/3] w-32 items-center justify-center overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
@@ -54,9 +50,9 @@ export function Card({
             </li>
         )
 
-    const name = itemInfo.data.name ? itemInfo.data.name : itemInfo.data.title
+    // const name = itemInfo.data.name ? itemInfo.data.name : itemInfo.data.title
 
-    const { user, boardOwner } = appData
+    const { user, boardOwner, board } = appData
 
     // ? need to check into this with change in added by row
     const allowedToRemoveItemFromBoard = boardOwner
@@ -98,14 +94,15 @@ export function Card({
                           : "opacity-100"
                 }`}
             >
-                {itemInfo.data.poster_path && (
-                    <Poster
-                        source={itemInfo.data.poster_path}
-                        width={width()}
-                        height={height()}
-                    />
-                )}
-                {!itemInfo.data.poster_path && <MissingPoster />}
+                {/* {itemInfo.data.poster_path && ( */}
+                <Poster
+                    itemId={item.id}
+                    boardType={board.type}
+                    width={width()}
+                    height={height()}
+                />
+                {/* )} */}
+                {/* {!itemInfo.data.poster_path && <MissingPoster />} */}
             </li>
         )
 
@@ -125,7 +122,9 @@ export function Card({
                                 setIsOpen={setDialogIsOpen}
                                 trigger={
                                     <Poster
-                                        source={itemInfo.data.poster_path}
+                                        // source={itemInfo.data.poster_path}
+                                        itemId={item.id}
+                                        boardType={board.type}
                                         width={width()}
                                         height={height()}
                                     />
@@ -145,15 +144,23 @@ export function Card({
                                         isDialog={true}
                                     />
                                 }
-                                title={name}
-                                backdrop={itemInfo.data.backdrop_path}
+                                title={
+                                    details.data.name
+                                        ? details.data.name
+                                        : details.data.title
+                                }
+                                backdrop={details.data.backdrop_path}
                                 hideDescription={true}
                                 hideTitle={true}
                             />
                             {children}
                         </li>
                     </TooltipTrigger>
-                    <TooltipContent>{name}</TooltipContent>
+                    <TooltipContent>
+                        {details.data.name
+                            ? details.data.name
+                            : details.data.title}
+                    </TooltipContent>
                     {difference && (
                         <TooltipContent side="bottom">
                             <RankingsTooltipDisplay difference={difference}>
@@ -181,7 +188,9 @@ export function Card({
                     setIsOpen={setDialogIsOpen}
                     trigger={
                         <Poster
-                            source={itemInfo.data.poster_path}
+                            // source={itemInfo.data.poster_path}
+                            itemId={item.id}
+                            boardType={board.type}
                             width={width()}
                             height={height()}
                         />
@@ -198,8 +207,12 @@ export function Card({
                             isDialog={true}
                         />
                     }
-                    title={name}
-                    backdrop={itemInfo.data.backdrop_path}
+                    title={
+                        details.data.name
+                            ? details.data.name
+                            : details.data.title
+                    }
+                    backdrop={details.data.backdrop_path}
                     hideDescription={true}
                     hideTitle={true}
                 />

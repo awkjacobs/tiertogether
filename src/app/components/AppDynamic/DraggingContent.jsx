@@ -22,25 +22,9 @@ import {
     useSensors,
 } from "@dnd-kit/core"
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
-import { TMDB_GET_DETAILS } from "@/lib/movieFuncs"
-import { useQuery } from "@tanstack/react-query"
 
-async function getPosterUrls(boardItems) {
-    let posterUrls = new Map()
-    boardItems.forEach(async (item) => {
-        let data = await TMDB_GET_DETAILS(item.id, item.type)
-        if (data.poster_path) posterUrls.set(item.id, data.poster_path)
-    })
-
-    return posterUrls
-}
 export default function DraggingContent({ appData, boardItems, boardName }) {
     const { board, boardOwner, serverRanks, user, users } = appData
-
-    const posterUrls = useQuery({
-        queryKey: ["posterUrls", board.id],
-        queryFn: () => getPosterUrls(boardItems),
-    })
 
     const [ranks, setRanks] = useState(sortItems(boardItems, user, board.id))
     useEffect(() => {

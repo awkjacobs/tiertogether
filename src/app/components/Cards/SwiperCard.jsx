@@ -1,17 +1,19 @@
 import { useDroppable } from "@dnd-kit/core"
 import Image from "next/image"
-import { useEffect } from "react"
+import { use, useEffect } from "react"
 import { RemoveItemButton } from "../Buttons/RemoveItemButton"
 import Backdrop from "../ui/backdrop"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
 import { convertDate } from "@/lib/utils"
-import { useQuery } from "@tanstack/react-query"
-import { TMDB_GET_CREDITS, TMDB_GET_DETAILS } from "@/lib/movieFuncs"
 import MissingPoster from "../Utility/MissingPoster"
 import Logo from "../Dialogs/Dialog Modules/Dialog Components/Logo"
 import { Skeleton } from "@/components/ui/skeleton"
 import { findDirectors } from "../Utility/findDirectors"
+import {
+    useGetCreditsQuery,
+    useGetDetailsQuery,
+} from "@/app/hooks/use-get-fetch-query"
 // TODO - change mobile formating, maybe just poster
 
 export default function SwiperCard(props) {
@@ -34,14 +36,8 @@ export default function SwiperCard(props) {
         data: { type: "tier" },
     })
 
-    const details = useQuery({
-        queryKey: ["details", item.id],
-        queryFn: () => TMDB_GET_DETAILS(item.id, board.type),
-    })
-    const credits = useQuery({
-        queryKey: ["credits", item.id],
-        queryFn: () => TMDB_GET_CREDITS(item.id, board.type),
-    })
+    const details = useGetDetailsQuery(item.id, board.type)
+    const credits = useGetCreditsQuery(item.id, board.type)
 
     const allowedToRemoveItemFromBoard = appData.boardOwner
         ? true

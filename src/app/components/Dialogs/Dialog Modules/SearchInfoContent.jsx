@@ -16,7 +16,8 @@ export default function SearchInfoContent({ item, type, queryType }) {
             >
                 <Poster
                     className={`row-start-1 row-end-3 h-40 w-auto justify-self-center shadow-lg md:h-64 md:w-auto`}
-                    source={item.poster_path}
+                    itemId={item.id}
+                    boardType={type}
                     height={256}
                     width={170}
                 />
@@ -27,7 +28,7 @@ export default function SearchInfoContent({ item, type, queryType }) {
                         type={type}
                     />
                 </div>
-                <DescriptionContainer item={item} />
+                <DescriptionContainer item={item} type={type} />
                 <div
                     className={`flex flex-col gap-4 md:col-start-1 md:col-end-3`}
                 >

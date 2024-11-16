@@ -1,19 +1,15 @@
-import { useQuery } from "@tanstack/react-query"
 import DescriptionGroup from "./DescriptionGroup"
-import { TMDB_GET_CREDITS, TMDB_GET_DETAILS } from "@/lib/movieFuncs"
 import { creditCasting } from "@/app/components/Utility/creditCasting"
 import { findDirectors } from "@/app/components/Utility/findDirectors"
 import { Skeleton } from "@/app/components/ui/skeleton"
+import {
+    useGetCreditsQuery,
+    useGetDetailsQuery,
+} from "@/app/hooks/use-get-fetch-query"
 
 export default function DescriptionDetails({ itemId, type, queryType }) {
-    const credits = useQuery({
-        queryKey: ["credits", itemId],
-        queryFn: () => TMDB_GET_CREDITS(itemId, type),
-    })
-    const details = useQuery({
-        queryKey: ["details", itemId],
-        queryFn: () => TMDB_GET_DETAILS(itemId, type),
-    })
+    const credits = useGetCreditsQuery(itemId, type)
+    const details = useGetDetailsQuery(itemId, type)
 
     return (
         <div

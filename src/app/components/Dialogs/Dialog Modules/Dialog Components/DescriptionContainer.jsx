@@ -1,13 +1,19 @@
-import { useQuery } from "@tanstack/react-query"
 import { GenreBadge, ReleaseBadge } from "@/app/components/Utility/Badges"
-import { TMDB_GET_DETAILS } from "@/lib/movieFuncs"
+import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
+import { Skeleton } from "@/app/components/ui/skeleton"
 
 export default function DescriptionContainer({ item, type }) {
-    const details = useQuery({
-        queryKey: ["details", item.id],
-        queryFn: () => TMDB_GET_DETAILS(item.id, type),
-    })
+    const details = useGetDetailsQuery(item.id, type)
 
+    if (details.isLoading)
+        return (
+            <div
+                className={`relative row-start-2 row-end-3 flex h-min flex-wrap gap-2 md:col-start-2`}
+            >
+                <Skeleton className={`h-4 w-16`} />
+                <Skeleton className={`h-4 w-16`} />
+            </div>
+        )
     return (
         <div
             className={`relative row-start-2 row-end-3 flex h-min flex-wrap gap-2 md:col-start-2`}
