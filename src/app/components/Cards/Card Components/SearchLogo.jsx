@@ -1,15 +1,11 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { useQuery } from "@tanstack/react-query"
-import { TMDB_GET_IMAGES } from "@/lib/movieFuncs"
 import CardTitle from "./SearchCardTitle"
 import { findLogo } from "@/lib/utils"
+import { useGetImagesQuery } from "@/app/hooks/use-get-fetch-query"
 
 export function SearchLogo({ itemId, title, type }) {
-    const images = useQuery({
-        queryKey: ["logo", itemId],
-        queryFn: () => TMDB_GET_IMAGES(itemId, type === "anime" ? "tv" : type),
-    })
+    const images = useGetImagesQuery(itemId, type)
     const logo = findLogo(images.data)
 
     if (logo)
