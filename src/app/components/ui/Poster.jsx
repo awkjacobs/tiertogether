@@ -25,5 +25,5 @@ export default function Poster({
         )
     if (!details.isLoading && !details.data.poster_path)
         return <MissingPoster />
-    return <LoaderCircle className={`h-8 w-8 animate-spin`} />
+    return <LoaderCircle className={`h-8 w-8 animate-spin text-purple-500`} />
 }

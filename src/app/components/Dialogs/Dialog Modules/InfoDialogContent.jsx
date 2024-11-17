@@ -8,7 +8,6 @@ import RankingsContainer from "./Dialog Components/RankingsContainer"
 import { userRanksArray } from "./Dialog Functions/userRanksArray"
 import DescriptionDetails from "./Dialog Components/DescriptionDetails"
 import { ScrollArea } from "../../ui/scroll-area"
-import { useQuery } from "@tanstack/react-query"
 import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
 
 export default function InfoDialogContent({ item, appData }) {
@@ -59,8 +58,6 @@ export default function InfoDialogContent({ item, appData }) {
             >
                 <Poster
                     className={`row-start-1 row-end-3 h-40 w-auto justify-self-center shadow-lg md:h-64 md:w-auto`}
-                    // source={itemInfo.data.poster_path}
-                    // queryKey={["details", item.id, board.type]}
                     itemId={item.id}
                     boardType={board.type}
                     height={256}
@@ -76,10 +73,7 @@ export default function InfoDialogContent({ item, appData }) {
                 <div
                     className={`flex flex-col gap-4 md:col-start-1 md:col-end-3`}
                 >
-                    <DescriptionDetails
-                        itemId={item.id}
-                        type={appData.board.type}
-                    />
+                    <DescriptionDetails itemId={item.id} type={board.type} />
 
                     <ScrollArea className={`max-h-64 p-1 pr-4 leading-7`}>
                         {details.data.overview}
@@ -98,13 +92,13 @@ export default function InfoDialogContent({ item, appData }) {
                         className={`justify-self-left row-start-1 row-end-3 h-28 w-auto shadow-lg`}
                         itemId={item.id}
                         boardType={board.type}
-                        height={320}
-                        width={224.4}
+                        height={112}
+                        width={75}
                     />
                     <Logo
                         itemId={item.id}
-                        title={details.title}
-                        type={appData.board.type}
+                        title={details.data.title}
+                        type={board.type}
                     />
                 </div>
                 <Tabs
@@ -132,10 +126,13 @@ export default function InfoDialogContent({ item, appData }) {
                         className={`row-start-2 row-end-3 overflow-y-scroll`}
                     >
                         <div className={`flex flex-col gap-4`}>
-                            <DescriptionContainer item={item} />
+                            <DescriptionContainer
+                                item={item}
+                                type={board.type}
+                            />
                             <DescriptionDetails
                                 itemId={item.id}
-                                type={appData.board.type}
+                                type={board.type}
                             />
 
                             <div className={`text-sm leading-7`}>

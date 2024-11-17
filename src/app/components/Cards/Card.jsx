@@ -38,19 +38,20 @@ export function Card({
 
     const details = useGetDetailsQuery(item.id, appData.board.type)
 
-    //! no good for mobile
     if (details.isLoading)
         return (
             <li
-                className={`${size[urlCardSize]} relative mx-1 flex aspect-[2/3] w-32 items-center justify-center overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
+                className={`${size[urlCardSize]} relative mx-1 flex aspect-[2/3] items-center justify-center overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
                     tier === "cardsQueue" ? "opacity-0" : "opacity-100"
                 }`}
             >
-                <LoaderCircle className={`h-8 w-8 animate-spin`} />
+                <LoaderCircle
+                    className={`h-8 w-8 animate-spin text-purple-500`}
+                />
             </li>
         )
 
-    // const name = itemInfo.data.name ? itemInfo.data.name : itemInfo.data.title
+    const name = details.data.name ? details.data.name : details.data.title
 
     const { user, boardOwner, board } = appData
 
@@ -94,15 +95,12 @@ export function Card({
                           : "opacity-100"
                 }`}
             >
-                {/* {itemInfo.data.poster_path && ( */}
                 <Poster
                     itemId={item.id}
                     boardType={board.type}
                     width={width()}
                     height={height()}
                 />
-                {/* )} */}
-                {/* {!itemInfo.data.poster_path && <MissingPoster />} */}
             </li>
         )
 
@@ -122,7 +120,6 @@ export function Card({
                                 setIsOpen={setDialogIsOpen}
                                 trigger={
                                     <Poster
-                                        // source={itemInfo.data.poster_path}
                                         itemId={item.id}
                                         boardType={board.type}
                                         width={width()}
@@ -144,11 +141,7 @@ export function Card({
                                         isDialog={true}
                                     />
                                 }
-                                title={
-                                    details.data.name
-                                        ? details.data.name
-                                        : details.data.title
-                                }
+                                title={name}
                                 backdrop={details.data.backdrop_path}
                                 hideDescription={true}
                                 hideTitle={true}
@@ -188,7 +181,6 @@ export function Card({
                     setIsOpen={setDialogIsOpen}
                     trigger={
                         <Poster
-                            // source={itemInfo.data.poster_path}
                             itemId={item.id}
                             boardType={board.type}
                             width={width()}
@@ -207,11 +199,7 @@ export function Card({
                             isDialog={true}
                         />
                     }
-                    title={
-                        details.data.name
-                            ? details.data.name
-                            : details.data.title
-                    }
+                    title={name}
                     backdrop={details.data.backdrop_path}
                     hideDescription={true}
                     hideTitle={true}

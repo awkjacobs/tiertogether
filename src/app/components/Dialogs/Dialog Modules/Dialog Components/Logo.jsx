@@ -1,14 +1,10 @@
 import CardTitle from "@/app/components/Cards/Card Components/SearchCardTitle"
-import { TMDB_GET_IMAGES } from "@/lib/movieFuncs"
+import { useGetImagesQuery } from "@/app/hooks/use-get-fetch-query"
 import { findLogo } from "@/lib/utils"
-import { useQuery } from "@tanstack/react-query"
 import Image from "next/image"
 
 export default function Logo({ itemId, title, type, swiper = false }) {
-    const images = useQuery({
-        queryKey: ["logo", itemId],
-        queryFn: () => TMDB_GET_IMAGES(itemId, type === "anime" ? "tv" : type),
-    })
+    const images = useGetImagesQuery(itemId, type)
     const logo = findLogo(images.data)
 
     if (!images.isLoading && logo)

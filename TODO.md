@@ -57,6 +57,10 @@ Add Dialog
 [ ] just redo the search, virtualizer is acting up
 [ ] add more search options
 
+Create Admin Page
+[ ] add admin page
+[ ] add admin role
+
 Upgrade to next 15
 [X] DND-KIT had issues in the upgrade process, used --legacy-deps, may need to revisit if issues persist
 
