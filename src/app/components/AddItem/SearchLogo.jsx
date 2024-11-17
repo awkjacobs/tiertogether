@@ -1,6 +1,6 @@
 import Image from "next/image"
-import { motion } from "framer-motion"
-import CardTitle from "./SearchCardTitle"
+import { motion } from "motion/react"
+import CardTitle from "../Cards/Card Components/CardTitle"
 import { findLogo } from "@/lib/utils"
 import { useGetImagesQuery } from "@/app/hooks/use-get-fetch-query"
 

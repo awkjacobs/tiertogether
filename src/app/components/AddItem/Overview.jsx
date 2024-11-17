@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ResponsiveDialog } from "@/components/ui/ResponsiveDialog"
-import SearchInfoContent from "@/components/Dialogs/Dialog Modules/SearchInfoContent"
+import SearchInfoContent from "./SearchInfoContent"
 import { Check, Plus } from "lucide-react"
 
 export default function Overview({

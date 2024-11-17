@@ -63,7 +63,7 @@ export default function BoardBar({
             <div className={`flex flex-row gap-1 px-1 md:gap-2 md:px-2`}>
                 <Button
                     variant="outline"
-                    className={`h-4 w-4 px-2 md:h-6 md:w-6`}
+                    className={`h-8 w-8 px-2 md:h-10 md:w-10`}
                     onClick={handleZoomIn}
                     disabled={currentCardSize === "3"}
                 >
@@ -71,7 +71,7 @@ export default function BoardBar({
                 </Button>
                 <Button
                     variant="outline"
-                    className={`h-4 w-4 px-2 md:h-6 md:w-6`}
+                    className={`h-8 w-8 px-2 md:h-10 md:w-10`}
                     onClick={handleZoomOut}
                     disabled={
                         currentCardSize === "1" || currentCardSize === null

@@ -58,7 +58,6 @@ import {
 import ToggleButton from "../ui/ToggleButton"
 import { toast } from "sonner"
 
-// TODO - move items from any removed rows back to queue
 const formSchema = z.object({
     boardName: z
         .string()

@@ -1,7 +1,7 @@
 import { useMediaQuery } from "@/app/hooks/use-media-query"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useRef } from "react"
-import SearchCard from "../../../Cards/SearchCard"
+import SearchCard from "./SearchCard"
 import { Button } from "@/app/components/ui/button"
 
 export default function VirtualizedList({

@@ -1,8 +1,8 @@
 import { useState } from "react"
-import SearchBox from "./Dialog Components/SearchBox"
-import VirtualizedList from "./Dialog Components/VirtualizedList"
-import SearchLoadingContainer from "./Dialog Components/SearchLoadingContainer"
-import MovieTvSearch from "./Dialog Components/movie-tv-search"
+import SearchBox from "./SearchBox"
+import VirtualizedList from "./VirtualizedList"
+import SearchLoadingContainer from "./SearchLoadingContainer"
+import MovieTvSearch from "./movie-tv-search"
 
 // TODO - add more search options
 // TODO - figure out how to add pages as you go
@@ -28,20 +28,12 @@ export default function AddDialogContent({ appData, board }) {
         <section
             className={`flex h-full flex-1 flex-col items-start overflow-y-hidden p-4 md:overflow-x-visible md:p-0`}
         >
-            {/* <SearchBox
-                onChangeSearch={onChangeSearch}
-                debouncedTerm={debouncedTerm}
-                queryType={queryType}
-                setQueryType={setQueryType}
-                queryTypesList={queryTypesList}
-                /> */}
             <MovieTvSearch
                 setQueryResults={setQueryResults}
                 setLoading={setLoading}
                 clearResults={clearResults}
                 queryType={queryType}
                 setQueryType={setQueryType}
-                // queryTypesList={queryTypesList}
                 type={type}
                 pageCount={pageCount}
                 setPageCount={setPageCount}
