@@ -4,6 +4,7 @@ import { useMediaQuery } from "@/app/hooks/use-media-query"
 import DescriptionDetails from "../Dialogs/Dialog Modules/Dialog Components/DescriptionDetails"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { SearchLogo } from "./SearchLogo"
+import Logo from "../Dialogs/Dialog Modules/Dialog Components/Logo"
 
 export default function SearchInfoContent({ item, type, queryType }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -47,22 +48,24 @@ export default function SearchInfoContent({ item, type, queryType }) {
     if (!isDesktop) {
         return (
             <div
-                className={`relative z-10 grid h-full flex-1 grid-cols-[auto] grid-rows-[9rem,auto,1fr] gap-4 p-6`}
+                className={`relative z-10 grid h-full flex-1 grid-cols-[auto] grid-rows-[9rem,auto,1fr] gap-4 px-6 py-0`}
             >
-                <div className={`flex flex-row gap-4`}>
+                <div className={`flex h-28 flex-row gap-4`}>
                     <Poster
-                        classes={`row-start-1 row-end-3 shadow-lg justify-self-left h-28 w-auto `}
-                        source={item.poster_path}
-                        height={320}
-                        width={224.4}
+                        className={`justify-self-left row-start-1 row-end-3 h-28 w-auto shadow-lg`}
+                        itemId={item.id}
+                        boardType={type}
+                        height={112}
+                        width={75}
                     />
-                    <SearchLogo
+                    <Logo
                         itemId={item.id}
                         title={item.title ? item.title : item.name}
                         type={type}
                     />
                 </div>
-                <DescriptionContainer item={item} />
+                {/* title={item.title ? item.title : item.name} */}
+                <DescriptionContainer item={item} type={type} />
                 <div className={`flex flex-col gap-4 overflow-y-scroll`}>
                     <DescriptionDetails
                         itemId={item.id}

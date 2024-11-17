@@ -50,7 +50,7 @@ finish notifications
 [/] uses forms for:
 ---[ ] NewBoard dialog
 ---[X] EditDialog
----[ ] AddDialog
+---[X] AddDialog
 ---[ ] Accept Invitation
 
 Add Dialog
