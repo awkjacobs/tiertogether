@@ -14,7 +14,7 @@ import { RankGroup, RankOverall } from "../Utility/RankGroup"
 import { useSearchParams } from "next/navigation"
 import { LoaderCircle } from "lucide-react"
 import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
-
+import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
 const size = {
     null: "w-10 md:w-16",
     1: "w-10 md:w-16",
@@ -30,7 +30,7 @@ export function Card({
     tier,
     activeItem,
     setDialogIsOpen,
-    vsScore = false,
+    difference = false,
 }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const searchParams = useSearchParams()
@@ -62,7 +62,7 @@ export function Card({
           ? true
           : false
 
-    const difference = scoreDif(vsScore)
+    // const difference = scoreDif(vsScore)
     const userRank = item.rank.find((rank) => rank.userId === appData.user.id)
     userRank.name = appData.user.name
     userRank.id = userRank.userId
@@ -87,7 +87,7 @@ export function Card({
     if (activeItem)
         return (
             <li
-                className={`${size[urlCardSize]} relative mx-1 block aspect-[2/3] w-32 overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
+                className={`${size[urlCardSize]} relative mx-1 block aspect-[2/3] overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
                     isDragging
                         ? "opacity-50"
                         : tier === "cardsQueue"
@@ -177,6 +177,8 @@ export function Card({
                         : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
                 } relative aspect-[2/3] overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
             >
+                {children}
+
                 <ResponsiveDialog
                     setIsOpen={setDialogIsOpen}
                     trigger={
@@ -204,46 +206,6 @@ export function Card({
                     hideDescription={true}
                     hideTitle={true}
                 />
-                {children}
             </li>
         )
-}
-function RankingsTooltipDisplay({ difference, children }) {
-    return (
-        <div className={`space-y-2`}>
-            {difference === "higher" && (
-                <>
-                    Board average is{" "}
-                    <b>
-                        <i>HIGHER</i>
-                    </b>{" "}
-                    than your rating
-                </>
-            )}
-            {difference === "equals" && (
-                <>
-                    Board average is{" "}
-                    <b>
-                        <i>EQUAL</i>
-                    </b>{" "}
-                    to your rating
-                </>
-            )}
-            {difference === "lower" && (
-                <>
-                    Board average is{" "}
-                    <b>
-                        <i>LOWER</i>
-                    </b>{" "}
-                    than your rating
-                </>
-            )}
-
-            <div
-                className={`space-y-2 rounded border border-zinc-300 p-2 dark:border-zinc-800`}
-            >
-                {children}
-            </div>
-        </div>
-    )
 }

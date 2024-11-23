@@ -2,8 +2,8 @@ import { scoreDif } from "@/lib/const"
 import { Circle } from "lucide-react"
 import { DownTriangle, UpTriangle } from "../../Utility/Triangles"
 
-export default function RankBadge({ vsScore }) {
-    const difference = scoreDif(vsScore)
+export default function RankBadge({ difference }) {
+    // const difference = scoreDif(vsScore)
 
     return (
         <div className={`absolute right-0 top-0 h-6 w-6 text-white`}>

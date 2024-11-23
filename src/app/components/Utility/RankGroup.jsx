@@ -13,7 +13,6 @@ export function RankGroup({ rank, appData }) {
     )
 }
 export function RankOverall({ averageRank, appData, className }) {
-    console.log(averageRank)
     return (
         <div
             className={cn(

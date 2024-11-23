@@ -1,5 +1,6 @@
 import { ScrollArea } from "@/app/components/ui/scroll-area"
 import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
+import RankChart from "@/app/components/Utility/RankingChart"
 
 export default function RankingsContainer({ ranks, appData }) {
     const boardRanksMinusUser = ranks.userRanks
@@ -21,6 +22,7 @@ export default function RankingsContainer({ ranks, appData }) {
             </h4>
             <ScrollArea className={`pr-3`}>
                 <div className={`space-y-2`}>
+                    <RankChart ranks={ranks.userRanks} />
                     <RankOverall
                         averageRank={ranks.averageRank}
                         appData={appData}

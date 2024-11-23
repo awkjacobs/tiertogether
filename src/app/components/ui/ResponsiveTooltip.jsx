@@ -12,7 +12,12 @@ import {
 
 import { useMediaQuery } from "@/app/hooks/use-media-query"
 
-export default function ResponsiveTooltip({ trigger, content, side, classes }) {
+export default function ResponsiveTooltip({
+    trigger,
+    content,
+    side,
+    className,
+}) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
     if (isDesktop)
@@ -20,7 +25,7 @@ export default function ResponsiveTooltip({ trigger, content, side, classes }) {
             <TooltipProvider delayDuration={100}>
                 <Tooltip>
                     <TooltipTrigger asChild>{trigger}</TooltipTrigger>
-                    <TooltipContent side={side} className={classes}>
+                    <TooltipContent side={side} className={className}>
                         {content}
                     </TooltipContent>
                 </Tooltip>
@@ -29,8 +34,8 @@ export default function ResponsiveTooltip({ trigger, content, side, classes }) {
     if (!isDesktop)
         return (
             <Popover>
-                <PopoverTrigger>{trigger}</PopoverTrigger>
-                <PopoverContent side={side} className={classes}>
+                <PopoverTrigger asChild>{trigger}</PopoverTrigger>
+                <PopoverContent side={side} className={className}>
                     {content}
                 </PopoverContent>
             </Popover>
