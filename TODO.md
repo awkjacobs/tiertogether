@@ -27,7 +27,9 @@
 [X] redo items to reduce the amount of data in db, switch to fetching with cache
 [ ] add filters to notifications
 [X] deal with invalid date for last air date - Search Card
-[ ] add chart to server ranks
+[X] add chart to server ranks
+[X] make server ranks repsonsive instead of just tooltips
+[ ] try context providers for appData
 [ ] add tooltips to buttons
 [ ] clean up the landing page
 [ ] use auth in server funcs
@@ -54,7 +56,7 @@ finish notifications
 ---[ ] Accept Invitation
 
 Add Dialog
-[ ] just redo the search, virtualizer is acting up
+[X] add pagination
 [ ] add more search options
 
 Create Admin Page

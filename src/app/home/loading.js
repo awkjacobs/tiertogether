@@ -17,7 +17,7 @@ export default function HomeLoading() {
                 >
                     <Button variant="ghost" asChild>
                         <Link
-                            className={`flex h-full cursor-pointer flex-row content-center items-center gap-2 px-2`}
+                            className={`flex h-full cursor-pointer flex-row content-center items-center gap-1 px-2`}
                             href={`/home`}
                         >
                             <LogoTriangles className={`h-full w-auto`} />

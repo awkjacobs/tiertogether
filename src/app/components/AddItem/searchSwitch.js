@@ -1,5 +1,4 @@
 import {
-    TMDB_SEARCH,
     TMDB_SEARCH_ACTOR_MOVIE,
     TMDB_SEARCH_DIRECTOR,
     TMDB_SEARCH_ANIME_SERIES,
@@ -9,42 +8,32 @@ import {
     TMDB_SEARCH_TV_SERIES,
 } from "@/lib/movieFuncs"
 
-export const searchSwitch = async (type, queryType, query) => {
-    let res
+export const searchFunc = (type, queryType, query, page) => {
     if (type === "movie") {
         switch (queryType) {
             case "Director":
-                res = await TMDB_SEARCH_DIRECTOR(query)
-                break
+                return TMDB_SEARCH_DIRECTOR(query, page)
             case "Actor":
-                res = await TMDB_SEARCH_ACTOR_MOVIE(query)
-                break
+                return TMDB_SEARCH_ACTOR_MOVIE(query, page)
 
             default:
-                res = await TMDB_SEARCH_TITLE(query)
-                break
+                return TMDB_SEARCH_TITLE(query, page)
         }
     }
     if (type === "anime") {
         switch (queryType) {
             case "Movie":
-                res = await TMDB_SEARCH_ANIME_MOVIE(query)
-                break
-
+                return TMDB_SEARCH_ANIME_MOVIE(query, page)
             default:
-                res = await TMDB_SEARCH_ANIME_SERIES(query)
-                break
+                return TMDB_SEARCH_ANIME_SERIES(query, page)
         }
     }
     if (type === "tv") {
         switch (queryType) {
             case "Actor":
-                res = await TMDB_SEARCH_ACTOR_TV(query)
-                break
-
+                return TMDB_SEARCH_ACTOR_TV(query, page)
             default:
-                res = await TMDB_SEARCH_TV_SERIES(query)
-                break
+                return TMDB_SEARCH_TV_SERIES(query, page)
         }
     }
     return res

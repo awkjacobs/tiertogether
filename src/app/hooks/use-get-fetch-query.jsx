@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query"
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
     TMDB_GET_CREDITS,
     TMDB_GET_DETAILS,
     TMDB_GET_IMAGES,
 } from "@/lib/movieFuncs"
+import { searchFunc } from "../components/AddItem/searchSwitch"
 
 export const useGetDetailsQuery = (itemId, boardType) => {
     return useQuery({
@@ -24,5 +25,17 @@ export const useGetImagesQuery = (itemId, boardType) => {
         queryKey: ["logo", itemId, boardType],
         queryFn: () =>
             TMDB_GET_IMAGES(itemId, boardType === "anime" ? "tv" : boardType),
+        staleTime: Infinity,
+    })
+}
+
+export const useGetSearchQuery = (boardType, queryType, query, page = 1) => {
+    console.log(query)
+    return useQuery({
+        queryKey: ["search", boardType, queryType, query, page],
+        queryFn: () => searchFunc(boardType, queryType, query, page),
+        staleTime: Infinity,
+        enabled: query !== "",
+        placeholderData: keepPreviousData(),
     })
 }

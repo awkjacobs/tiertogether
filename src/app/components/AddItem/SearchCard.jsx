@@ -13,6 +13,7 @@ import { itemType } from "@/lib/const"
 import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
 
 export default function SearchCard({ item, board, type, queryType, style }) {
+    console.log(item)
     const [alreadyIncluded, setAlreadyIncluded] = useState(
         board.items.some((boardItem) => boardItem.id === item.id),
     )

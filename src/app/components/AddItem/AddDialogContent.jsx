@@ -28,8 +28,9 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { queryTypesList } from "@/lib/const"
-import { searchSwitch } from "./searchSwitch"
 import { LoadingSpinner } from "../ui/LoadingSpinner"
+import { useMutation } from "@tanstack/react-query"
+import { useGetSearchQuery } from "@/app/hooks/use-get-fetch-query"
 
 const formSchema = z.object({
     query: z.string().min(1, { message: "Query cannot be empty" }),
@@ -38,19 +39,15 @@ const formSchema = z.object({
 })
 
 // TODO - add more search options
-// TODO - figure out how to add pages as you go
 
 export default function AddDialogContent({ appData, board }) {
     const type = board.type
-
-    // const [queryType, setQueryType] = useState(
-    //     type == "movie" ? "Title" : "Series",
-    // )
-
-    const [queryResults, setQueryResults] = useState([])
-    const [pageCount, setPageCount] = useState()
+    const [queryValues, setQueryValues] = useState({
+        type: type,
+        queryType: queryTypesList(type)[0],
+        query: "",
+    })
     const [currentPage, setCurrentPage] = useState(1)
-    const [loading, setLoading] = useState(false)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const [selectValue, setSelectValue] = useState(queryTypesList(type)[0])
@@ -65,31 +62,57 @@ export default function AddDialogContent({ appData, board }) {
     })
 
     useEffect(() => {
-        if (form.getValues("query") === "") clearResults()
+        if (form.getValues("query") === "")
+            mutate({
+                type: type,
+                queryType: queryTypesList(type)[0],
+                query: "",
+            })
     }, [form.getValues("query")])
 
-    const onSubmit = async (values) => {
-        console.log(values)
-        let pageCount
-        const res = await searchSwitch(type, values.queryType, values.query)
-        setQueryResults(res)
-    }
+    const queryResults = useGetSearchQuery(
+        queryValues.type,
+        queryValues.queryType,
+        queryValues.query,
+        currentPage,
+    )
+    useEffect(() => {
+        rowVirtualizer.scrollToIndex(0)
+    }, [queryResults.isLoading])
 
-    const clearResults = () => {
-        setLoading(false)
-        setQueryResults([])
+    const { mutate } = useMutation({
+        mutationFn: (values) =>
+            setQueryValues({
+                type: type,
+                queryType: values.queryType,
+                query: values.query,
+                page: currentPage,
+            }),
+    })
+
+    const onSubmit = async (values) => {
+        if (values.query === "") return
+        mutate(values)
     }
 
     const parentRef = useRef()
     const rowVirtualizer = useVirtualizer({
-        count:
-            queryResults.length <= 20 ? queryResults.length : currentPage * 20,
+        count: queryResults?.data?.results.length,
         getScrollElement: () => parentRef.current,
         estimateSize: () => (isDesktop ? 240 : 96),
         overscan: isDesktop ? 3 : 7,
         gap: 16,
         enabled: !form.formState.isSubmitting,
     })
+
+    const handlePrevPage = () => {
+        setCurrentPage(currentPage - 1)
+        rowVirtualizer.scrollToIndex(0)
+    }
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1)
+        rowVirtualizer.scrollToIndex(0)
+    }
 
     return (
         <section
@@ -166,34 +189,32 @@ export default function AddDialogContent({ appData, board }) {
                         )}
                     />
 
-                    <Button type="submit">
-                        {form.formState.isSubmitting && (
+                    <Button type="submit" disabled={queryResults.isLoading}>
+                        {queryResults.isLoading && (
                             <LoaderCircle
                                 className={`h-4 w-4 animate-spin md:mr-2`}
                             />
                         )}
-                        {!form.formState.isSubmitting && (
+                        {!queryResults.isLoading && (
                             <Search className="h-4 w-4 md:mr-2" />
                         )}
 
-                        {isDesktop && !form.formState.isSubmitting && "Search"}
-                        {isDesktop &&
-                            form.formState.isSubmitting &&
-                            "Searching"}
+                        {isDesktop && !queryResults.isLoading && "Search"}
+                        {isDesktop && queryResults.isLoading && "Searching"}
                     </Button>
                 </form>
             </Form>
-            {form.formState.isSubmitting && (
+            {queryResults.isLoading && (
                 <div
                     className={`flex w-full flex-1 items-center justify-center md:min-h-32`}
                 >
                     <LoadingSpinner size={96} className={`text-purple-500`} />
                 </div>
             )}
-            {!form.formState.isSubmitting && (
+            {queryResults.data && (
                 <div
                     ref={parentRef}
-                    className={`mt-4 h-full max-h-[1024px] w-full ${loading ? "flex-grow-0" : "flex-1"} justify-start overflow-y-scroll`}
+                    className={`mt-4 h-full max-h-[1024px] w-full flex-1 justify-start overflow-y-scroll`}
                     type="always"
                 >
                     <div
@@ -209,7 +230,9 @@ export default function AddDialogContent({ appData, board }) {
                                 queryType={form.getValues("queryType")}
                                 key={virtualItem.index}
                                 user={appData.user}
-                                item={queryResults[virtualItem.index]}
+                                item={
+                                    queryResults.data.results[virtualItem.index]
+                                }
                                 board={board}
                                 virtualizedStyles={virtualItem.start}
                                 style={{
@@ -218,14 +241,26 @@ export default function AddDialogContent({ appData, board }) {
                             />
                         ))}
                     </div>
-                    {currentPage < pageCount && (
-                        <Button
-                            variant="ghost"
-                            className={`float-end my-2`}
-                            onClick={() => setCurrentPage(currentPage + 1)}
-                        >
-                            Next Page
-                        </Button>
+                    {queryResults.data.total_pages > 1 && (
+                        <div className={`my-2 flex flex-row justify-between`}>
+                            <Button
+                                variant="ghost"
+                                onClick={handlePrevPage}
+                                disabled={currentPage === 1}
+                            >
+                                Previous Page
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                onClick={handleNextPage}
+                                disabled={
+                                    currentPage ===
+                                    queryResults.data.total_pages
+                                }
+                            >
+                                Next Page
+                            </Button>
+                        </div>
                     )}
                 </div>
             )}
