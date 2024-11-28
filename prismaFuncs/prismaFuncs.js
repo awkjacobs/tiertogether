@@ -12,7 +12,11 @@ export async function PRISMA_GET_BOARDS() {
         include: {
             items: {
                 include: {
-                    rank: true,
+                    rank: {
+                        where: {
+                            boardId: boardId,
+                        },
+                    },
                 },
             },
             users: true,
@@ -101,80 +105,31 @@ export async function PRISMA_UPDATE_BOARD(boardId, values) {
     revalidatePath("/board/[boardId]", "page")
 }
 
-export async function PRISMA_CREATE_NEW_BOARD(creationObj) {
+export async function PRISMA_CREATE_NEW_BOARD(values) {
     await prisma.board.create({
         data: {
-            boardName: creationObj.boardName,
-            type: creationObj.type,
-            special: creationObj.special,
-            bleachers: creationObj.bleachers,
-            bleachersLabel: creationObj.bleachersLabel,
-            dugout: creationObj.dugout,
-            dugoutLabel: creationObj.dugoutLabel,
-            specialThreshold: creationObj.specialThreshold,
+            boardName: values.boardName,
+            type: values.boardType,
+            bleachersLabel: values.bleachersLabel,
+            dugoutLabel: values.dugoutLabel,
+            specialThreshold: values.specialThreshold,
+            special: values.tierOptions.includes("Special"),
+            bleachers: values.tierOptions.includes("Bleachers"),
+            dugout: values.tierOptions.includes("Dugout"),
 
             owner: {
                 connect: {
-                    id: creationObj.owner.id,
+                    id: values.ownerId,
                 },
             },
             users: {
                 connect: {
-                    id: creationObj.owner.id,
+                    id: values.ownerId,
                 },
             },
-        },
-        include: {
-            items: true,
-            owner: true,
-            users: true,
         },
     })
     revalidatePath("/*", "page")
-}
-export async function PRISMA_JOIN_BOARD(boardId, itemsIdArray) {
-    const { userId } = await auth()
-
-    const boardUpdate = prisma.board.update({
-        where: {
-            id: boardId,
-        },
-        data: {
-            users: {
-                connect: {
-                    id: userId,
-                },
-            },
-        },
-    })
-    let createdRanks = itemsIdArray.map((itemId) => ({
-        rank: "",
-        itemsId: itemId,
-        boardId: boardId,
-    }))
-
-    const userUpdate = prisma.user.update({
-        where: {
-            id: userId,
-        },
-        data: {
-            Rank: {
-                createMany: {
-                    data: createdRanks,
-                },
-            },
-        },
-    })
-    await clerkClient().users.updateUserMetadata(userId, {
-        publicMetadata: {
-            inviteId: null,
-        },
-        unsafeMetadata: {
-            inviteId: null,
-        },
-    })
-    await prisma.$transaction([boardUpdate, userUpdate])
-    revalidatePath("/home", "page")
 }
 export async function PRISMA_DELETE_BOARD(boardId) {
     await prisma.board.delete({
@@ -184,7 +139,8 @@ export async function PRISMA_DELETE_BOARD(boardId) {
     })
     revalidatePath("/*", "page")
 }
-export async function PRISMA_LEAVE_BOARD(boardId, itemsIdArray, userId) {
+export async function PRISMA_LEAVE_BOARD(boardId, itemsIdArray, content, type) {
+    const { userId: activeUserId } = await auth()
     const leave = prisma.board.update({
         where: {
             id: boardId,
@@ -192,28 +148,133 @@ export async function PRISMA_LEAVE_BOARD(boardId, itemsIdArray, userId) {
         data: {
             users: {
                 disconnect: {
-                    id: userId,
+                    id: activeUserId,
+                },
+            },
+            Notification: {
+                create: {
+                    content: content,
+                    type: type,
+                    viewed: {
+                        connect: {
+                            id: activeUserId,
+                        },
+                    },
                 },
             },
         },
     })
     const remove = prisma.rank.deleteMany({
-        where: { itemsId: { in: itemsIdArray }, userId: userId },
+        where: { itemsId: { in: itemsIdArray }, userId: activeUserId },
     })
 
     await prisma.$transaction([leave, remove])
     revalidatePath("/*", "page")
 }
-
-export async function PRISMA_MAKE_NEW_OWNER(boardId, userId) {
-    await prisma.board.update({
+export async function PRISMA_KICK_USER(
+    boardId,
+    itemsIdArray,
+    kickingUserId,
+    content,
+    type,
+) {
+    const { userId: activeUserId } = await auth()
+    const leave = prisma.board.update({
         where: {
             id: boardId,
         },
         data: {
-            ownerId: userId,
+            users: {
+                disconnect: {
+                    id: kickingUserId,
+                },
+            },
+            Notification: {
+                create: {
+                    content: content,
+                    type: type,
+                    viewed: {
+                        connect: {
+                            id: activeUserId,
+                        },
+                    },
+                    User: {
+                        connect: {
+                            id: kickingUserId,
+                        },
+                    },
+                },
+            },
         },
     })
+    const removeRanks = prisma.rank.deleteMany({
+        where: { itemsId: { in: itemsIdArray }, userId: kickingUserId },
+    })
+
+    await prisma.$transaction([leave, removeRanks])
+    revalidatePath("/*", "page")
+}
+
+export async function PRISMA_MAKE_NEW_OWNER(
+    boardId,
+    itemsIdArray,
+    leaveObj,
+    newOwnerObj,
+) {
+    const { userId: activeUserId } = await auth()
+
+    const leave = prisma.board.update({
+        where: {
+            id: boardId,
+        },
+        data: {
+            users: {
+                disconnect: {
+                    id: activeUserId,
+                },
+            },
+            ownerId: newOwnerObj.newOwnerId,
+
+            Notification: {
+                create: [
+                    {
+                        content: newOwnerObj.content,
+                        type: newOwnerObj.type,
+                        viewed: {
+                            connect: {
+                                id: activeUserId,
+                            },
+                        },
+                        User: {
+                            connect: {
+                                id: activeUserId,
+                            },
+                        },
+                    },
+                    {
+                        content: leaveObj.content,
+                        type: leaveObj.type,
+                        viewed: {
+                            connect: {
+                                id: activeUserId,
+                            },
+                        },
+                        User: {
+                            connect: {
+                                id: activeUserId,
+                            },
+                        },
+                    },
+                ],
+            },
+        },
+    })
+    const remove = prisma.rank.deleteMany({
+        where: { itemsId: { in: itemsIdArray }, userId: activeUserId },
+    })
+
+    await prisma.$transaction([leave, remove])
+
     revalidatePath("/*", "page")
 }
 export async function PRISMA_ADD_BOARD_TYPE(boardId) {
@@ -463,23 +524,6 @@ export async function PRISMA_DELETE_ITEM(board, item, content, type) {
         },
     })
 
-    // await prisma.board.update({
-    //     where: { id: board.id },
-    //     data: {
-    //         items: {
-    //             disconnect: {
-    //                 id: item.id,
-    //             },
-    //         },
-    //     },
-    //     include: {
-    //         items: {
-    //             include: {
-    //                 Board: true,
-    //             },
-    //         },
-    //     },
-    // })
     await prisma.$transaction([removeItem, ...removeRanks, removeNotifications])
 
     revalidatePath("/board/[boardId]", "page")
@@ -542,6 +586,9 @@ export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
     const invites = prisma.notification.findMany({
         where: {
             userId: userId,
+            Invitation: {
+                isNot: null,
+            },
         },
         include: {
             User: true,
@@ -549,12 +596,16 @@ export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
             Invitation: {
                 include: { accepted: true, declined: true },
             },
+            viewed: true,
         },
     })
     const boardNotifications = prisma.notification.findMany({
         where: {
             boardId: {
                 in: boardIdArray,
+            },
+            Invitation: {
+                is: null,
             },
         },
         include: {
@@ -668,7 +719,7 @@ export async function PRISMA_CREATE_NEWUSER_INVITE_NOTIFICATION(
                     create: {
                         type: "Invitation",
                         content: "You've been invited to a board!",
-                        viewed: false,
+                        viewed: {},
                         User: { connect: { id: userId } },
                         Board: { connect: { id: boardId } },
                     },
@@ -753,38 +804,114 @@ export async function PRISMA_GET_INVITATION(inviteId) {
         },
     })
 }
-// export async function PRISMA_GET_USER_INVITES(userId) {
-//     return await prisma.invitation.findMany({
-//         where: { userId: userId },
-//         include: {
-//             Notification: true,
-//         },
-//     })
-// }
-export async function PRISMA_ACCEPT_INVITATION(id) {
+export async function PRISMA_ACCEPT_INVITATION(
+    boardId,
+    itemsIdArray,
+    notificationId,
+    invitationId,
+    content,
+) {
     const { userId } = await auth()
 
-    await prisma.invitation.update({
-        where: { id: id },
+    const boardUpdate = prisma.board.update({
+        where: {
+            id: boardId,
+        },
+        data: {
+            users: {
+                connect: {
+                    id: userId,
+                },
+            },
+            Notification: {
+                create: {
+                    content: content,
+                    type: "join",
+                    viewed: {
+                        connect: {
+                            id: userId,
+                        },
+                    },
+                },
+            },
+        },
+    })
+    let createdRanks = itemsIdArray.map((itemId) => ({
+        rank: "",
+        itemsId: itemId,
+        boardId: boardId,
+    }))
+
+    const userUpdate = prisma.user.update({
+        where: {
+            id: userId,
+        },
+        data: {
+            Rank: {
+                createMany: {
+                    data: createdRanks,
+                },
+            },
+        },
+    })
+    const viewedNotifications = prisma.notification.update({
+        where: { id: notificationId },
+        data: {
+            viewed: {
+                connect: {
+                    id: userId,
+                },
+            },
+        },
+    })
+    const invitation = prisma.invitation.update({
+        where: { id: invitationId },
         data: {
             accepted: { connect: { id: userId } },
         },
     })
+    let meta = (await clerkClient()).users.updateUserMetadata(userId, {
+        publicMetadata: {
+            inviteId: null,
+        },
+        unsafeMetadata: {
+            inviteId: null,
+        },
+    })
+    await prisma.$transaction([
+        boardUpdate,
+        userUpdate,
+        viewedNotifications,
+        invitation,
+    ])
     revalidatePath("/home", "page")
 }
-export async function PRISMA_DECLINE_INVITATION(id) {
+
+export async function PRISMA_DECLINE_INVITATION(invitationId, notificationId) {
     const { userId } = await auth()
 
-    await prisma.invitation.update({
-        where: { id: id },
+    const invitation = prisma.invitation.update({
+        where: { id: invitationId },
         data: {
             declined: { connect: { id: userId } },
         },
     })
-    clerkClient().users.updateUserMetadata(userId, {
+    let meta = (await clerkClient()).users.updateUserMetadata(userId, {
         publicMetadata: { inviteId: null },
         undafeMetadata: { inviteId: null },
     })
+
+    const viewedNotifications = prisma.notification.update({
+        where: { id: notificationId },
+        data: {
+            viewed: {
+                connect: {
+                    id: userId,
+                },
+            },
+        },
+    })
+    await prisma.$transaction([invitation, viewedNotifications])
 
     revalidatePath("/home", "page")
 }

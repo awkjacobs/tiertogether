@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import { dark } from "@clerk/themes"
 import QueryProvider from "./providers/QueryProvider"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import Head from "next/head"
 
 export const metadata = {
     title: "tiertogether",
@@ -23,6 +24,15 @@ export default function RootLayout({ children }) {
             }}
         >
             <html lang="en" suppressHydrationWarning>
+                <Head>
+                    <title>tiertogether</title>
+                    <meta name="description" content="Rank media together." />
+                    <meta
+                        property="og:title"
+                        content="tiertogether"
+                        key="title"
+                    />
+                </Head>
                 <body>
                     <QueryProvider>
                         <ReactQueryDevtools />

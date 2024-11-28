@@ -1,10 +1,7 @@
-import { scoreDif } from "@/lib/const"
-import { Circle } from "lucide-react"
+import { Equal } from "lucide-react"
 import { DownTriangle, UpTriangle } from "../../Utility/Triangles"
 
 export default function RankBadge({ difference }) {
-    // const difference = scoreDif(vsScore)
-
     return (
         <div className={`absolute right-0 top-0 h-6 w-6 text-white`}>
             <div
@@ -15,7 +12,7 @@ export default function RankBadge({ difference }) {
                 <UpTriangle fill="currentColor" className={`absolute top-0`} />
             )}
             {difference === "equals" && (
-                <Circle fill="currentColor" className={`absolute top-0 p-1`} />
+                <Equal fill="currentColor" className={`absolute top-0 p-1`} />
             )}
             {difference === "lower" && (
                 <DownTriangle

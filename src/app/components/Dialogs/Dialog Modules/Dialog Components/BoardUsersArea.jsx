@@ -9,7 +9,7 @@ import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { PRISMA_LEAVE_BOARD } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_KICK_USER, PRISMA_LEAVE_BOARD } from "@prismaFuncs/prismaFuncs"
 import { toast } from "sonner"
 
 export default function BoardUsersArea({ board, appData }) {
@@ -57,11 +57,15 @@ function UserListItem({ user, board, className }) {
     })
     async function onSubmit() {
         const itemsIdArray = board.items.map((item) => item.id)
-        await PRISMA_LEAVE_BOARD(board.id, itemsIdArray, user.id).finally(
-            () => {
-                toast(`${user.name} has been removed from ${board.boardName}`)
-            },
-        )
+        await PRISMA_KICK_USER(
+            board.id,
+            itemsIdArray,
+            user.id,
+            `${user.name} was removed from ${board.boardName}.`,
+            "kick",
+        ).finally(() => {
+            toast(`${user.name} has been removed from ${board.boardName}`)
+        })
     }
 
     const isOwner = user.id === board.ownerId

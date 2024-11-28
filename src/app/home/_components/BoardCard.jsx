@@ -9,6 +9,7 @@ import "swiper/css/effect-fade"
 import { Autoplay, EffectFade } from "swiper/modules"
 import { Clapperboard, Tv } from "lucide-react"
 import AnimeCross from "@/components/Utility/animeCross"
+import Crown from "@/app/components/Utility/Crown"
 
 export default function BoardCard({ board, appData, index }) {
     const { user } = appData
@@ -18,7 +19,7 @@ export default function BoardCard({ board, appData, index }) {
 
     const boardItemsBackdrops = board.items
         .flatMap((item) => item.backdrop_path)
-        .filter((item) => item !== null || item !== undefined)
+        .filter((item) => item !== null && item !== undefined)
 
     return (
         <motion.div
@@ -29,7 +30,12 @@ export default function BoardCard({ board, appData, index }) {
             layout
             className={`relative flex h-48 min-w-60 max-w-xl flex-1 cursor-pointer flex-col overflow-hidden rounded-md bg-surface-100 shadow-lg drop-shadow-lg transition-[shadow] hover:shadow-purple-900/70`}
         >
-            <BoardTypeIcon type={board.type} />
+            <div
+                className={`absolute z-30 flex flex-col items-center gap-2 p-2`}
+            >
+                <BoardTypeIcon type={board.type} />
+                {isOwner && <Crown />}
+            </div>
             <Link
                 href={`board/${board.id}`}
                 prefetch={true}
@@ -131,7 +137,7 @@ function CrossFade({ backgrounds, index }) {
 }
 function BoardTypeIcon({ type }) {
     return (
-        <div className={`absolute z-30 p-2`}>
+        <>
             {type === "movie" && (
                 <Clapperboard className={`stroke-purple-200`} />
             )}
@@ -139,6 +145,6 @@ function BoardTypeIcon({ type }) {
             {type === "anime" && (
                 <AnimeCross className={`h-6 w-6 text-purple-200`} />
             )}
-        </div>
+        </>
     )
 }

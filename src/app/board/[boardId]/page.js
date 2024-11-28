@@ -17,11 +17,21 @@ import { auth } from "@clerk/nextjs/server"
 // * - add a board description area
 // * - add rotten tomatoes score
 
+export async function generateMetadata({ params }, parent) {
+    // read route params
+    const boardId = (await params).boardId
+
+    const board = await PRISMA_GET_SPECIFIC_BOARD(boardId)
+
+    return {
+        title: `${board.boardName} | tiertogether`,
+    }
+}
+
 export default async function Board({ params }) {
     const { userId } = await auth()
 
-    const boardParams = await params
-    const boardId = boardParams.boardId
+    const boardId = (await params).boardId
 
     // TODO - combine these two queries
     const board = await PRISMA_GET_SPECIFIC_BOARD(boardId)

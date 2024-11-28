@@ -2,20 +2,17 @@ import { Form } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 
 import { useForm } from "react-hook-form"
-import { TYPE_RETURN } from "@/lib/const"
+import { NOTIFICATION_ICONS as NOTIFICATION_ICON } from "@/lib/const"
 import { LoaderCircle } from "lucide-react"
 import { PRISMA_VIEW_NOTIFICATION } from "@prismaFuncs/prismaFuncs"
+import { convertDate, simplifiedDate } from "@/lib/utils"
 
-export default function StandardNotification({
-    content,
-    type,
-    userViewed,
-    notificationId,
-}) {
+export default function StandardNotification({ notification, userViewed }) {
+    const { content, type, id, createdAt } = notification
     const form = useForm({})
 
     async function onSubmit() {
-        await PRISMA_VIEW_NOTIFICATION(notificationId)
+        await PRISMA_VIEW_NOTIFICATION(id)
     }
 
     return (
@@ -28,11 +25,16 @@ export default function StandardNotification({
                     disabled={userViewed}
                 >
                     <div
-                        className={`flex w-full flex-row items-center gap-2 p-4`}
+                        className={`flex w-full flex-row items-center gap-2 p-4 text-left`}
                     >
-                        {TYPE_RETURN[type].icon}
-                        <p className={`col-start-2 col-end-3 text-wrap`}>
+                        {NOTIFICATION_ICON[type]}
+                        <h5
+                            className={`col-start-2 col-end-3 flex-1 text-wrap`}
+                        >
                             {content}
+                        </h5>
+                        <p className="self-start text-xs opacity-50">
+                            {simplifiedDate(createdAt)}
                         </p>
                     </div>
                     {form.formState.isSubmitting && (

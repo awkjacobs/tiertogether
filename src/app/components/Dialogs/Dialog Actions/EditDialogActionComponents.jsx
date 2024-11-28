@@ -31,15 +31,9 @@ export function DeleteBoardButton({
     const isOnDeletingBoard = pathname === `/board/${board.id}`
 
     const handleRemove = () => {
-        if (isOnDeletingBoard) {
-            router.push("/home")
-            setTimeout(() => {
-                PRISMA_DELETE_BOARD(board.id)
-            }, 1000)
-        } else {
-            PRISMA_DELETE_BOARD(board.id)
-            setIsDialogOpen(false)
-        }
+        if (isOnDeletingBoard) router.push("/home")
+        PRISMA_DELETE_BOARD(board.id)
+        setIsDialogOpen(false)
     }
 
     return (
@@ -94,30 +88,36 @@ export function LeaveBoardButton({
     const needToDesignateNewOwner = isOwner && board.users.length > 1
 
     const itemsIdArray = board.items.map((item) => item.id)
+    const newOwner = (selectedUserId) =>
+        board.users.find((user) => user.id === selectedUserId)
 
-    const handleLeave = () => {
-        if (isOnLeavingBoard) {
-            router.push("/home")
-            setTimeout(() => {
-                PRISMA_LEAVE_BOARD(board.id, itemsIdArray, user.id)
-            }, 1000)
-        } else {
-            PRISMA_LEAVE_BOARD(board.id, itemsIdArray, user.id)
-            setIsDialogOpen(false)
-        }
+    // TODO - need to redo, as leave and designate will need both a new owner notification and a leave notification
+    const leaveObj = [
+        board.id,
+        itemsIdArray,
+        `${user.name} left ${board.boardName}.`,
+        "leave",
+    ]
+    const leaveAndDesignateObj = [
+        board.id,
+        itemsIdArray,
+        { content: `${user.name} left ${board.boardName}.`, type: "leave" },
+        {
+            content: `${newOwner(selectedUser)?.name} is the new owner of ${board.boardName}.`,
+            type: "newOwner",
+            newOwnerId: selectedUser,
+        },
+    ]
+
+    const handleLeave = async () => {
+        if (isOnLeavingBoard) router.push("/home")
+        await PRISMA_LEAVE_BOARD(...leaveObj)
+        setIsDialogOpen(false)
     }
-    const handleDesignateAndLeave = () => {
-        if (isOnLeavingBoard) {
-            router.push("/home")
-            setTimeout(() => {
-                PRISMA_LEAVE_BOARD(board.id, itemsIdArray, user.id)
-                PRISMA_MAKE_NEW_OWNER(board.id, selectedUser)
-            }, 1000)
-        } else {
-            PRISMA_LEAVE_BOARD(board.id, itemsIdArray, user.id)
-            PRISMA_MAKE_NEW_OWNER(board.id, selectedUser)
-            setIsDialogOpen(false)
-        }
+    const handleDesignateAndLeave = async () => {
+        if (isOnLeavingBoard) router.push("/home")
+        await PRISMA_MAKE_NEW_OWNER(...leaveAndDesignateObj)
+        setIsDialogOpen(false)
     }
 
     return (

@@ -12,7 +12,10 @@ import { auth, currentUser } from "@clerk/nextjs/server"
 async function makeBoardWait() {
     await new Promise((resolve) => setTimeout(resolve, 100000))
 }
-
+export const metadata = {
+    title: "Home | tiertogether",
+    description: "The home for all your boards.",
+}
 export default async function Home() {
     const { userId } = await auth()
     const user = await currentUser()

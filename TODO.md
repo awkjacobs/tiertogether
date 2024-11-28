@@ -25,7 +25,6 @@
 [X] move items from any removed rows back to queue
 [X] server average ranks seem wrong
 [X] redo items to reduce the amount of data in db, switch to fetching with cache
-[ ] add filters to notifications
 [X] deal with invalid date for last air date - Search Card
 [X] add chart to server ranks
 [X] make server ranks repsonsive instead of just tooltips
@@ -33,7 +32,8 @@
 [ ] add tooltips to buttons
 [ ] clean up the landing page
 [ ] use auth in server funcs
-[ ] add title on each page, and include # of unread notifications
+[X] add title on each page
+[ ] include # of unread notifications in title
 [ ] add favicon
 [ ] make board text into text fields
 [ ] add list view
@@ -44,16 +44,21 @@ finish notifications
 [X] optimize notifications to cut down on db calls and storage
 [X] setup mark all as read button
 [X] setup click notification to mark as read
-[ ] add notifications for all applicable actions
---- [ ] someone joining a board
---- [ ] someone leaving a board
---- [ ] someone being kicked from a board
+[X] add notifications for all applicable actions
+--- [X] someone joining a board
+--- [X] someone leaving a board
+--- [X] someone being kicked from a board
+--- [X] new board owner
+[X] add date to notifications
+[X] add filters to notifications
+[ ] serve only a limited number, and use an add button
+[ ] simplify the content of the notifications if db space is an issue
 
-[/] uses forms for:
----[ ] NewBoard dialog
+[X] uses forms for:
+---[X] NewBoard dialog
 ---[X] EditDialog
 ---[X] AddDialog
----[ ] Accept Invitation
+---[X] Accept Invitation
 
 Add Dialog
 [X] add pagination

@@ -7,7 +7,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Bell, Eye, LoaderCircle } from "lucide-react"
+import { Bell, Eye, ListFilter, LoaderCircle } from "lucide-react"
 import { Form } from "@/components/ui/form"
 
 import { useForm } from "react-hook-form"
@@ -19,12 +19,15 @@ import { useQuery } from "@tanstack/react-query"
 import getNotifications from "./getNotifications"
 import { useAuth } from "@clerk/nextjs"
 import { PRISMA_VIEW_NOTIFICATIONS } from "@prismaFuncs/prismaFuncs"
+import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group"
+import { useState } from "react"
 
 export default function Notifications({ boardIdArray }) {
     const { userId } = useAuth()
+    const [filter, setFilter] = useState("All")
 
     const { data, isError, isPending, error } = useQuery({
-        queryKey: ["notifications"],
+        queryKey: ["notifications", ...boardIdArray],
         queryFn: () => getNotifications(boardIdArray),
     })
 
@@ -32,6 +35,28 @@ export default function Notifications({ boardIdArray }) {
         (notification) =>
             !notification.viewed.map((view) => view.id).includes(userId),
     )
+    const invites = data.filter(
+        (notification) => notification.type == "Invitation",
+    )
+    const items = data.filter(
+        (notification) =>
+            notification.type == "itemAdded" ||
+            notification.type == "itemRemoved",
+    )
+    const users = data.filter(
+        (notification) =>
+            notification.type == "join" ||
+            notification.type == "leave" ||
+            notification.type == "kick",
+    )
+
+    const filteredNotifications = () => {
+        if (filter == "All") return data
+        else if (filter == "Unread") return unreadNotifications
+        else if (filter == "Invites") return invites
+        else if (filter == "Items") return items
+        else if (filter == "Users") return users
+    }
     const form = useForm({})
 
     async function onSubmit() {
@@ -93,6 +118,47 @@ export default function Notifications({ boardIdArray }) {
                     </Form>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <DropdownMenuLabel className={`sticky flex items-center gap-2`}>
+                    <ListFilter
+                        className={`text-purple-800 dark:text-purple-400`}
+                    />
+                    <ToggleGroup
+                        type="single"
+                        value={filter}
+                        onValueChange={setFilter}
+                    >
+                        <ToggleGroupItem className={`h-6 text-xs`} value="All">
+                            All
+                        </ToggleGroupItem>
+
+                        <ToggleGroupItem
+                            className={`h-6 text-xs`}
+                            value="Unread"
+                        >
+                            Unread
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                            className={`h-6 text-xs`}
+                            value="Invites"
+                        >
+                            Invites
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                            className={`h-6 text-xs`}
+                            value="Items"
+                        >
+                            Items
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                            className={`h-6 text-xs`}
+                            value="Users"
+                        >
+                            Users
+                        </ToggleGroupItem>
+                    </ToggleGroup>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+
                 <div
                     className={`no-scrollbar flex h-[calc(100svh_-_9rem)] flex-col overflow-y-scroll md:h-[600px]`}
                 >
@@ -113,7 +179,7 @@ export default function Notifications({ boardIdArray }) {
                     )}
                     {!isPending &&
                         !isError &&
-                        data.map((item) => (
+                        filteredNotifications().map((item) => (
                             <Notification notification={item} key={item.id} />
                         ))}
                 </div>

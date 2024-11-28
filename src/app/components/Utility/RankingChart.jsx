@@ -10,21 +10,24 @@ const scoreBar = {
     7: { style: `bg-zinc-600/10`, rank: "Bleachers" },
     8: { style: `bg-zinc-600/10`, rank: "Dugout" },
 }
+const scoreFlex = (scoreGroup) => {
+    if (scoreGroup.length > 1)
+        return "flex-[" + scoreGroup.length + "_" + scoreGroup.length + "_0%]"
+    else return "flex-1"
+}
 
 export default function RankChart({ ranks }) {
-    const scores1 = ranks
+    const scores = ranks
         .map((rank) => {
             return { score: rank.rank.split(".")[0], user: rank.name }
         })
         .filter((item) => item.score !== "7")
-    console.log(scores1)
+        .reduce((acc, curr) => {
+            const key = curr.score
+            acc[key] = acc[key] ? [...acc[key], curr] : [curr]
+            return acc
+        }, [])
 
-    const scores = scores1.reduce((acc, curr) => {
-        const key = curr.score
-        acc[key] = acc[key] ? [...acc[key], curr] : [curr]
-        return acc
-    }, [])
-    console.log(scores)
     if (scores.length > 0)
         return (
             <div
@@ -36,15 +39,15 @@ export default function RankChart({ ranks }) {
                         trigger={
                             <div
                                 key={index}
-                                className={`h-full text-center font-bold flex-${scoreGroup.length} ${scoreBar[index].style}`}
+                                className={`h-full text-center font-bold ${scoreFlex(scoreGroup)} ${scoreBar[index].style}`}
                             >
                                 {scoreBar[index].rank}
                             </div>
                         }
                         content={
-                            <div className={`flex flex-wrap gap-2`}>
+                            <div className={`flex flex-col flex-wrap gap-2`}>
                                 {scoreGroup.map((score) => (
-                                    <p key={score}>{score.user}</p>
+                                    <p key={score.user}>{score.user}</p>
                                 ))}
                             </div>
                         }

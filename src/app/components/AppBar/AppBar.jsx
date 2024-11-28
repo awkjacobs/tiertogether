@@ -15,11 +15,10 @@ import { ClerkProvider } from "@clerk/nextjs"
 
 export default async function AppBar({ appData }) {
     const boardIdArray = appData.user.boards.map((board) => board.id)
-
     const queryClient = new QueryClient()
 
     await queryClient.prefetchQuery({
-        queryKey: ["notifications"],
+        queryKey: ["notifications", ...boardIdArray],
         queryFn: () => getNotifications(boardIdArray),
     })
 

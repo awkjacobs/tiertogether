@@ -14,7 +14,7 @@ export default function RankedCardClone(props) {
     const userRank = item.rank.find((ranking) => {
         return ranking.userId === appData.user.id
     })
-
+    console.log(userRank, item.id)
     userRank.name = appData.user.name
     userRank.id = userRank.userId
 
