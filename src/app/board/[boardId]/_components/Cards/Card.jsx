@@ -1,20 +1,19 @@
+import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
+import { useMediaQuery } from "@/app/hooks/use-media-query"
+import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
+import { LoaderCircle } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { RemoveItemButton } from "../Buttons/RemoveItemButton"
+import InfoDialogContent from "@/components/Dialogs/Dialog Modules/InfoDialogContent"
+import Poster from "@/components/ui/Poster"
+import { ResponsiveDialog } from "@/components/ui/ResponsiveDialog"
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from "../ui/tooltip"
-import Poster from "../ui/Poster"
-import { ResponsiveDialog } from "../ui/ResponsiveDialog"
-import InfoDialogContent from "../Dialogs/Dialog Modules/InfoDialogContent"
-import { RemoveItemButton } from "../Buttons/RemoveItemButton"
-import { useMediaQuery } from "@/app/hooks/use-media-query"
-import { scoreDif } from "@/lib/const"
-import { RankGroup, RankOverall } from "../Utility/RankGroup"
-import { useSearchParams } from "next/navigation"
-import { LoaderCircle } from "lucide-react"
-import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
-import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
+} from "@/components/ui/tooltip"
+import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 const size = {
     null: "w-10 md:w-16",
     1: "w-10 md:w-16",

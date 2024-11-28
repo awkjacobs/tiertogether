@@ -1,4 +1,4 @@
-import CardTitle from "@/app/components/Cards/Card Components/CardTitle"
+import CardTitle from "@/components/Utility/CardTitle"
 import { useGetImagesQuery } from "@/app/hooks/use-get-fetch-query"
 import { findLogo } from "@/lib/utils"
 import Image from "next/image"

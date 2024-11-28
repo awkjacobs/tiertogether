@@ -18,7 +18,7 @@
 [X] fix slider
 [X] NewBoard dialog invite users?
 [X] finish remove user from boards button
-[/] add card scale options
+[X] add card scale options
 --- url params will become async await, also not super smooth, find better option
 [X] invites are broken
 [X] add created at to notifications
@@ -28,6 +28,7 @@
 [X] deal with invalid date for last air date - Search Card
 [X] add chart to server ranks
 [X] make server ranks repsonsive instead of just tooltips
+[ ] replace user vs server ranks with all users and server ranks
 [ ] try context providers for appData
 [ ] add tooltips to buttons
 [ ] clean up the landing page

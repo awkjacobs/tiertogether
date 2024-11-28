@@ -1,10 +1,10 @@
-import DescriptionContainer from "../Dialogs/Dialog Modules/Dialog Components/DescriptionContainer"
-import Poster from "../ui/Poster"
+import DescriptionContainer from "../../../../components/Dialogs/Dialog Modules/Dialog Components/DescriptionContainer"
+import Poster from "../../../../components/ui/Poster"
 import { useMediaQuery } from "@/app/hooks/use-media-query"
-import DescriptionDetails from "../Dialogs/Dialog Modules/Dialog Components/DescriptionDetails"
+import DescriptionDetails from "../../../../components/Dialogs/Dialog Modules/Dialog Components/DescriptionDetails"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { SearchLogo } from "./SearchLogo"
-import Logo from "../Dialogs/Dialog Modules/Dialog Components/Logo"
+import Logo from "../../../../components/Dialogs/Dialog Modules/Dialog Components/Logo"
 
 export default function SearchInfoContent({ item, type, queryType }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")

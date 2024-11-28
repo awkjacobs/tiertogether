@@ -1,7 +1,11 @@
 import RankBadge from "./Card Components/RankBadge"
 import { Card } from "./Card"
 import { useMediaQuery } from "@/app/hooks/use-media-query"
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
 import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 import { scoreDif } from "@/lib/const"

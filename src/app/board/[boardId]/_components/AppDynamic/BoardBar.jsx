@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react"
+import EditBoardButton from "@/components/Buttons/EditBoardButton"
+import { Button } from "@/components/ui/button"
 import { ZoomIn, ZoomOut } from "lucide-react"
-import RankingsToggle from "./RankingsToggle"
-import { Button } from "../ui/button"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import EditBoardButton from "../Buttons/EditBoardButton"
+import { useCallback } from "react"
+import RankingsToggle from "./RankingsToggle"
 
 export default function BoardBar({
     title,

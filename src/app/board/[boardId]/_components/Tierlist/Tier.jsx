@@ -2,7 +2,7 @@ import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import Draggable from "../Cards/Draggable"
 import RankedCardClone from "../Cards/RankedCardClone"
 import { Star } from "lucide-react"
-import ResponsiveTooltip from "../ui/ResponsiveTooltip"
+import ResponsiveTooltip from "../../../../components/ui/ResponsiveTooltip"
 import { cn } from "@/lib/utils"
 
 // ? - reduce the number of renders by being more selective of the entries

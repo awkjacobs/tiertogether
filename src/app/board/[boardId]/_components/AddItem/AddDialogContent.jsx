@@ -28,7 +28,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { queryTypesList } from "@/lib/const"
-import { LoadingSpinner } from "../ui/LoadingSpinner"
+import { LoadingSpinner } from "../../../../components/ui/LoadingSpinner"
 import { useMutation } from "@tanstack/react-query"
 import { useGetSearchQuery } from "@/app/hooks/use-get-fetch-query"
 

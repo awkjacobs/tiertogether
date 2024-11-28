@@ -4,9 +4,9 @@ import {
     PRISMA_GET_BOARD_NOTIFICATIONS,
 } from "@prismaFuncs/prismaFuncs"
 import { serverAverage } from "@/lib/serverFuncs"
-import AppBar from "../../components/AppBar/AppBar"
-import PageContainer from "@/app/components/AppDynamic/PageContainer"
-import DraggingContent from "@/app/components/AppDynamic/DraggingContent"
+import AppBar from "@/components/AppBar/AppBar"
+import PageContainer from "./_components/AppDynamic/PageContainer"
+import DraggingContent from "./_components/AppDynamic/DraggingContent"
 import { auth } from "@clerk/nextjs/server"
 
 // TODO - revist card scale options

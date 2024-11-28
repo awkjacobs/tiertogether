@@ -1,5 +1,5 @@
 import { Equal } from "lucide-react"
-import { DownTriangle, UpTriangle } from "../../Utility/Triangles"
+import { DownTriangle, UpTriangle } from "@/components/Utility/Triangles"
 
 export default function RankBadge({ difference }) {
     return (

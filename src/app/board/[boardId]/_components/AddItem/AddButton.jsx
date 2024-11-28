@@ -1,5 +1,5 @@
 import AddDialogContent from "./AddDialogContent"
-import { ResponsiveDialog } from "../ui/ResponsiveDialog"
+import { ResponsiveDialog } from "../../../../components/ui/ResponsiveDialog"
 import { Plus } from "lucide-react"
 
 export default function AddButton(props) {

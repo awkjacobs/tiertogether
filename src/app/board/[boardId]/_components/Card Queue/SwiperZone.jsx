@@ -1,11 +1,10 @@
 import { EffectCards, Mousewheel } from "swiper/modules"
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/effect-cards"
 import "swiper/css/mousewheel"
 import SwiperCard from "../Cards/SwiperCard"
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
-import { useLayoutEffect } from "react"
 
 export default function SwiperZone(props) {
     const { isDesktop, tier, queue } = props

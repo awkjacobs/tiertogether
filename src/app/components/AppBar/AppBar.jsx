@@ -1,5 +1,5 @@
 import Link from "next/link"
-import SideDrawer from "../Drawer/Drawer Components/SideDrawer"
+import SideDrawer from "./_components/Drawer/Drawer Components/SideDrawer"
 import NotificationsDropdown from "./NotificationsDropdown"
 import { House } from "lucide-react"
 import ThemeToggle from "./ThemeToggle"

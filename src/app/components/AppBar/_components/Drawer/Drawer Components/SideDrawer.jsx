@@ -2,7 +2,7 @@
 
 import { LucideMenu } from "lucide-react"
 import BoardLinks from "./BoardLinks"
-import AddBoardButton from "../../Buttons/AddBoardButton"
+import AddBoardButton from "@/app/components/Buttons/AddBoardButton"
 import ProfileButton from "./ProfileButton"
 import { sortedBoards } from "@/lib/const"
 import {

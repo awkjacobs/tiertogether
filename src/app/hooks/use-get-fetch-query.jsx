@@ -4,7 +4,7 @@ import {
     TMDB_GET_DETAILS,
     TMDB_GET_IMAGES,
 } from "@/lib/movieFuncs"
-import { searchFunc } from "../components/AddItem/searchSwitch"
+import { searchFunc } from "../board/[boardId]/_components/AddItem/searchSwitch"
 
 export const useGetDetailsQuery = (itemId, boardType) => {
     return useQuery({
