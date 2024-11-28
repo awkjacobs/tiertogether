@@ -7,6 +7,7 @@ export default async function makeUpdates(
     user,
     boardId,
 ) {
+    if (changedItems.length === 0) return
     let changedItemsIdArray = changedItems.map((item) => item.id)
     let scoresObj = {}
     changedItems.forEach((item) => {

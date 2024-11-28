@@ -1,9 +1,8 @@
-import Link from "next/link"
-import { House } from "lucide-react"
-import PageContainer from "@/app/components/AppDynamic/PageContainer"
+import PageContainer from "@/app/components/Utility/PageContainer"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
-import LogoTriangles from "../components/Utility/LogoTriangles"
+import LogoTriangles from "@/components/Utility/LogoTriangles"
+import Link from "next/link"
 
 export default function HomeLoading() {
     return (

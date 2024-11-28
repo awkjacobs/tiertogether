@@ -28,6 +28,7 @@
 [X] deal with invalid date for last air date - Search Card
 [X] add chart to server ranks
 [X] make server ranks repsonsive instead of just tooltips
+[ ] redo ranking and server stuff, db calls are very slow
 [ ] replace user vs server ranks with all users and server ranks
 [ ] try context providers for appData
 [ ] add tooltips to buttons

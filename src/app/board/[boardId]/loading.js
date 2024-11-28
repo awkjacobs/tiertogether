@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { House } from "lucide-react"
-import PageContainer from "./_components/AppDynamic/PageContainer"
+import PageContainer from "@/components/Utility/PageContainer"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import LogoTriangles from "@/components/Utility/LogoTriangles"
