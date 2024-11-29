@@ -1,17 +1,15 @@
 export function convertRank(rank, appData) {
     const { board } = appData
-    const { bleachersLabel, dugoutLabel, specialThreshold } = board
-
-    let threshold = specialThreshold / 100
+    const { bleachersLabel, dugoutLabel } = board
 
     let subrank = Number(rank.split(".")[1]) + 1
 
     let score
     switch (true) {
-        case rank < 2 - threshold && rank > 0:
+        case rank < 2 && rank > 0:
             score = `S ${subrank}`
             break
-        case rank < 3 && rank >= 2 - threshold:
+        case rank < 3 && rank >= 2:
             score = `A ${subrank}`
             break
         case rank < 4 && rank >= 3:

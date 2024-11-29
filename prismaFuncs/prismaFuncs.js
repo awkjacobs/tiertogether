@@ -54,7 +54,6 @@ export async function PRISMA_UPDATE_BOARD(boardId, values) {
             bleachersLabel: values.bleachersLabel,
             dugout: values.tierOptions.includes("Dugout"),
             dugoutLabel: values.dugoutLabel,
-            specialThreshold: values.specialThreshold,
         },
     })
     let transaction = [boardOptions]
@@ -112,7 +111,6 @@ export async function PRISMA_CREATE_NEW_BOARD(values) {
             type: values.boardType,
             bleachersLabel: values.bleachersLabel,
             dugoutLabel: values.dugoutLabel,
-            specialThreshold: values.specialThreshold,
             special: values.tierOptions.includes("Special"),
             bleachers: values.tierOptions.includes("Bleachers"),
             dugout: values.tierOptions.includes("Dugout"),

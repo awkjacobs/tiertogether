@@ -49,7 +49,6 @@ import {
     ExtraRowTooltip,
     InfoPopover,
     InfoTooltip,
-    SpecialThresholdTooltip,
 } from "../Dialogs/Dialog Modules/Dialog Components/RowTooltips"
 import ToggleButton from "../ui/ToggleButton"
 import {
@@ -63,7 +62,6 @@ const formSchema = z.object({
         .string()
         .min(3, { message: "Board name must be at least 3 characters" }),
     tierOptions: z.array(z.string()).optional(),
-    specialThreshold: z.number(),
     bleachersLabel: z
         .string()
         .min(1, { message: "Bleachers label must be at least 1 character" }),
@@ -98,11 +96,9 @@ export default function EditBoardButton({
             bleachersLabel: board.bleachersLabel,
             dugoutLabel: board.dugoutLabel,
             tierOptions: boardRowOptions(),
-            specialThreshold: board.specialThreshold,
         },
         defaultValues: {
             tierOptions: boardRowOptions(),
-            specialThreshold: 50,
         },
     })
 
@@ -247,72 +243,6 @@ export default function EditBoardButton({
                                         )}
                                     />
 
-                                    {form
-                                        .getValues("tierOptions")
-                                        .includes("Special") && (
-                                        <FormField
-                                            control={form.control}
-                                            name="specialThreshold"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel
-                                                        className={`flex flex-row gap-4 text-purple-800 dark:text-purple-400`}
-                                                    >
-                                                        Special Threshold
-                                                        <InfoTooltip
-                                                            side={"top"}
-                                                            component={
-                                                                <SpecialThresholdTooltip />
-                                                            }
-                                                        />
-                                                    </FormLabel>
-                                                    <FormControl>
-                                                        <ToggleGroup
-                                                            type="single"
-                                                            variant="outline"
-                                                            groupColor="purple"
-                                                            id="specialThreshold"
-                                                            className={`mt-2`}
-                                                            {...field}
-                                                            disabled={!isOwner}
-                                                            onValueChange={(
-                                                                value,
-                                                            ) =>
-                                                                form.setValue(
-                                                                    "specialThreshold",
-                                                                    value,
-                                                                )
-                                                            }
-                                                        >
-                                                            <ToggleGroupItem
-                                                                value={50}
-                                                                className={`flex-1`}
-                                                            >
-                                                                50%
-                                                            </ToggleGroupItem>
-                                                            <ToggleGroupItem
-                                                                value={75}
-                                                                className={`flex-1`}
-                                                            >
-                                                                75%
-                                                            </ToggleGroupItem>
-                                                            <ToggleGroupItem
-                                                                value={100}
-                                                                className={`flex-1`}
-                                                            >
-                                                                100%
-                                                            </ToggleGroupItem>
-                                                        </ToggleGroup>
-                                                    </FormControl>
-                                                    <FormDescription hidden>
-                                                        Set the special
-                                                        threshold.
-                                                    </FormDescription>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    )}
                                     {form
                                         .getValues("tierOptions")
                                         .includes("Bleachers") && (
@@ -579,85 +509,6 @@ export default function EditBoardButton({
                                                 )}
                                             />
 
-                                            {form
-                                                .getValues("tierOptions")
-                                                .includes("Special") && (
-                                                <FormField
-                                                    control={form.control}
-                                                    name="specialThreshold"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel
-                                                                className={`flex flex-row gap-4 text-purple-800 dark:text-purple-400`}
-                                                            >
-                                                                Special
-                                                                Threshold
-                                                                <InfoPopover
-                                                                    component={
-                                                                        <SpecialThresholdTooltip />
-                                                                    }
-                                                                />
-                                                            </FormLabel>
-                                                            <FormControl>
-                                                                <ToggleGroup
-                                                                    type="single"
-                                                                    variant="outline"
-                                                                    groupColor="purple"
-                                                                    id="specialThreshold"
-                                                                    className={`mt-2`}
-                                                                    {...field}
-                                                                    disabled={
-                                                                        !isOwner
-                                                                    }
-                                                                    defaultValue={form.getValues(
-                                                                        "specialThreshold",
-                                                                    )}
-                                                                    onValueChange={(
-                                                                        value,
-                                                                    ) =>
-                                                                        form.setValue(
-                                                                            "specialThreshold",
-                                                                            value,
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <ToggleGroupItem
-                                                                        value={
-                                                                            50
-                                                                        }
-                                                                        className={`flex-1`}
-                                                                    >
-                                                                        50%
-                                                                    </ToggleGroupItem>
-                                                                    <ToggleGroupItem
-                                                                        value={
-                                                                            75
-                                                                        }
-                                                                        className={`flex-1`}
-                                                                    >
-                                                                        75%
-                                                                    </ToggleGroupItem>
-                                                                    <ToggleGroupItem
-                                                                        value={
-                                                                            100
-                                                                        }
-                                                                        className={`flex-1`}
-                                                                    >
-                                                                        100%
-                                                                    </ToggleGroupItem>
-                                                                </ToggleGroup>
-                                                            </FormControl>
-                                                            <FormDescription
-                                                                hidden
-                                                            >
-                                                                Set the special
-                                                                threshold.
-                                                            </FormDescription>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                            )}
                                             {form
                                                 .getValues("tierOptions")
                                                 .includes("Bleachers") && (

@@ -67,26 +67,3 @@ export function ExtraRowTooltip() {
         </div>
     )
 }
-export function SpecialThresholdTooltip() {
-    return (
-        <div className={`flex flex-col gap-3 text-sm`}>
-            <h6 className={`font-bold text-purple-800 dark:text-purple-400`}>
-                Special Threshold
-            </h6>
-            <p className={`font-normal`}>
-                Special Threshold determines how strict the qualifications for
-                the Overall Rankings Special tier is calculated.
-            </p>
-            <p className={`font-normal`}>
-                The percentage indicates the percent of user rankings required
-                for an item to be considered Special on the Overall Rankings.
-            </p>
-            <p className={`font-normal`}>
-                A standard tier has a threshold of 50%, the average of the users
-                rankings. A threshold of 100% would require every user rank on
-                an item to be Special for it to appear in the Overall Rankings
-                Special tier.
-            </p>
-        </div>
-    )
-}

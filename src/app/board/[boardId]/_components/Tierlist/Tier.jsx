@@ -58,26 +58,14 @@ export function Tier(props) {
             }`}
         >
             {props.tier === "sRank" && (
-                <ResponsiveTooltip
-                    content={
-                        <p>
-                            Reserved for items with at least{" "}
-                            {appData.board.specialThreshold}% Special Rankings
-                            from users
-                        </p>
-                    }
-                    side={"right"}
-                    trigger={
-                        <div
-                            className={cn(
-                                `flex h-full w-[clamp(2rem,_10vw,_5rem)] min-w-11 items-center justify-center overflow-hidden p-1 text-center text-tierClamp font-semibold`,
-                                style,
-                            )}
-                        >
-                            <Star color="#ffffff" />
-                        </div>
-                    }
-                />
+                <div
+                    className={cn(
+                        `flex h-full w-[clamp(2rem,_10vw,_5rem)] min-w-11 items-center justify-center overflow-hidden p-1 text-center text-tierClamp font-semibold`,
+                        style,
+                    )}
+                >
+                    <Star color="#ffffff" />
+                </div>
             )}
             {props.tier !== "sRank" && (
                 <div
