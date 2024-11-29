@@ -1,4 +1,12 @@
 export default function sortItems(boardItems, user, boardId) {
+    const filterFunc = (item, score) => {
+        return (
+            item.rank
+                .find((ranking) => ranking.userId === user.id)
+                ?.rank.split(".")[0] == score
+        )
+    }
+
     const newState = {}
     newState.allItems = boardItems
     const usersRanked = boardItems.filter((item) =>
@@ -8,60 +16,17 @@ export default function sortItems(boardItems, user, boardId) {
         ),
     )
 
-    let queue = usersRanked.filter(
-        (item) =>
-            item.rank.find((ranking) => ranking.userId === user.id)?.rank ===
-            "",
-    )
-    let bleachers = usersRanked.filter(
-        (item) =>
-            item.rank
-                .find((ranking) => ranking.userId === user.id)
-                ?.rank.split(".")[0] == 7,
-    )
-    let dugout = usersRanked.filter(
-        (item) =>
-            item.rank
-                .find((ranking) => ranking.userId === user.id)
-                ?.rank.split(".")[0] == 8,
-    )
+    let queue = usersRanked.filter((item) => filterFunc(item, ""))
 
-    let s = usersRanked.filter(
-        (item) =>
-            item.rank
-                .find((ranking) => ranking.userId === user.id)
-                ?.rank.split(".")[0] == 1,
-    )
-    let a = usersRanked.filter(
-        (item) =>
-            item.rank
-                .find((ranking) => ranking.userId === user.id)
-                ?.rank.split(".")[0] == 2,
-    )
-    let b = usersRanked.filter(
-        (item) =>
-            item.rank
-                .find((ranking) => ranking.userId === user.id)
-                ?.rank.split(".")[0] == 3,
-    )
-    let c = usersRanked.filter(
-        (item) =>
-            item.rank
-                .find((ranking) => ranking.userId === user.id)
-                ?.rank.split(".")[0] == 4,
-    )
-    let d = usersRanked.filter(
-        (item) =>
-            item.rank
-                .find((ranking) => ranking.userId === user.id)
-                ?.rank.split(".")[0] == 5,
-    )
-    let f = usersRanked.filter(
-        (item) =>
-            item.rank
-                .find((ranking) => ranking.userId === user.id)
-                ?.rank.split(".")[0] == 6,
-    )
+    let s = usersRanked.filter((item) => filterFunc(item, 1))
+    let a = usersRanked.filter((item) => filterFunc(item, 2))
+    let b = usersRanked.filter((item) => filterFunc(item, 3))
+    let c = usersRanked.filter((item) => filterFunc(item, 4))
+    let d = usersRanked.filter((item) => filterFunc(item, 5))
+    let f = usersRanked.filter((item) => filterFunc(item, 6))
+
+    let bleachers = usersRanked.filter((item) => filterFunc(item, 7))
+    let dugout = usersRanked.filter((item) => filterFunc(item, 8))
 
     bleachers.sort((a, b) => sort(a, b, user))
     dugout.sort((a, b) => sort(a, b, user))
