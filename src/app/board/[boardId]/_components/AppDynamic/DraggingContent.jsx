@@ -30,6 +30,7 @@ export default function DraggingContent({ appData }) {
     const boardItems = appData.board.items
 
     const [ranks, setRanks] = useState(sortItems(boardItems, user, board.id))
+
     useEffect(() => {
         setRanks(sortItems(boardItems, user, board.id))
     }, [boardItems, user, board.id])
@@ -208,7 +209,7 @@ export default function DraggingContent({ appData }) {
                     <TierContainer
                         ranks={ranks}
                         showServerRanks={showServerRanks}
-                        serverRanks={serverRanks}
+                        // serverRanks={serverRanks}
                         activeItem={activeItem ? true : false}
                     />
                 </div>

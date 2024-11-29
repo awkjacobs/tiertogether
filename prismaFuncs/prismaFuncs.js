@@ -576,7 +576,7 @@ export async function PRISMA_UPDATE_RANK(itemsIds, user, boardId, scoreObj) {
         }),
     )
 
-    revalidatePath("/board/[boardId]", "page")
+    // revalidatePath("/board/[boardId]", "page")
 }
 export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
     const { userId } = await auth()

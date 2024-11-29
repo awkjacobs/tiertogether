@@ -1,15 +1,32 @@
 import { ScrollArea } from "@/app/components/ui/scroll-area"
 import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 import RankChart from "@/app/components/Utility/RankingChart"
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
+import { useContext, useState } from "react"
+import { ItemRankContext } from "@/app/components/_providers/itemRankProvider"
+import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
+import { userRanksArray } from "../Dialog Functions/userRanksArray"
 
-export default function RankingsContainer({ ranks, appData }) {
+export default function RankingsContainer({ item }) {
+    const appData = useContext(AppDataContext)
+    const userRank = useContext(ItemRankContext)
+
+    const { board } = appData
+
+    const serverRanks = useGetServerAverages(board.id)
+
+    if (serverRanks.isLoading) return <p>Loading...</p>
+
+    const ranks = {
+        averageRank: serverRanks.data.allItems.find(
+            (rank) => rank.id === item.id,
+        )?.averageRank,
+        userRanks: userRanksArray(item, userRank, appData),
+    }
+
     const boardRanksMinusUser = ranks.userRanks
         .filter((rank) => rank.id !== appData.user.id)
         .toSorted((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-
-    const userRank = ranks.userRanks.filter(
-        (rank) => rank.id === appData.user.id,
-    )
 
     return (
         <div
@@ -25,19 +42,12 @@ export default function RankingsContainer({ ranks, appData }) {
                     <RankChart ranks={ranks.userRanks} />
                     <RankOverall
                         averageRank={ranks.averageRank}
-                        appData={appData}
                         className={`border-b border-emerald-500 pb-2`}
                     />
-                    <RankGroup rank={userRank[0]} appData={appData} />
+                    <RankGroup rank={userRank} />
 
                     {boardRanksMinusUser.map((rank, index) => {
-                        return (
-                            <RankGroup
-                                key={index}
-                                rank={rank}
-                                appData={appData}
-                            />
-                        )
+                        return <RankGroup key={index} rank={rank} />
                     })}
                 </div>
             </ScrollArea>

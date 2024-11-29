@@ -1,9 +1,12 @@
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 import { Tier } from "./Tier"
 import { useContext } from "react"
+import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
 
 export function TierContainer(props) {
     const appData = useContext(AppDataContext)
+    const serverRanks = useGetServerAverages(appData.board.id)
+
     return (
         <section
             className={`flex w-full flex-col gap-2 self-start md:gap-4 ${
@@ -18,8 +21,8 @@ export function TierContainer(props) {
                         tier="bleachers"
                         label={appData.board.bleachersLabel}
                         entries={
-                            props.showServerRanks
-                                ? props.serverRanks.bleachers
+                            props.showServerRanks && serverRanks.data
+                                ? serverRanks.data.bleachers
                                 : props.ranks.bleachers
                         }
                         {...props}
@@ -32,8 +35,8 @@ export function TierContainer(props) {
                         tier="sRank"
                         label="S"
                         entries={
-                            props.showServerRanks
-                                ? props.serverRanks.sRank
+                            props.showServerRanks && serverRanks.data
+                                ? serverRanks.data.sRank
                                 : props.ranks.sRank
                         }
                         {...props}
@@ -43,8 +46,8 @@ export function TierContainer(props) {
                     tier="aRank"
                     label="A"
                     entries={
-                        props.showServerRanks
-                            ? props.serverRanks.aRank
+                        props.showServerRanks && serverRanks.data
+                            ? serverRanks.data.aRank
                             : props.ranks.aRank
                     }
                     {...props}
@@ -53,8 +56,8 @@ export function TierContainer(props) {
                     tier="bRank"
                     label="B"
                     entries={
-                        props.showServerRanks
-                            ? props.serverRanks.bRank
+                        props.showServerRanks && serverRanks.data
+                            ? serverRanks.data.bRank
                             : props.ranks.bRank
                     }
                     {...props}
@@ -63,8 +66,8 @@ export function TierContainer(props) {
                     tier="cRank"
                     label="C"
                     entries={
-                        props.showServerRanks
-                            ? props.serverRanks.cRank
+                        props.showServerRanks && serverRanks.data
+                            ? serverRanks.data.cRank
                             : props.ranks.cRank
                     }
                     {...props}
@@ -73,8 +76,8 @@ export function TierContainer(props) {
                     tier="dRank"
                     label="D"
                     entries={
-                        props.showServerRanks
-                            ? props.serverRanks.dRank
+                        props.showServerRanks && serverRanks.data
+                            ? serverRanks.data.dRank
                             : props.ranks.dRank
                     }
                     {...props}
@@ -83,8 +86,8 @@ export function TierContainer(props) {
                     tier="fRank"
                     label="F"
                     entries={
-                        props.showServerRanks
-                            ? props.serverRanks.fRank
+                        props.showServerRanks && serverRanks.data
+                            ? serverRanks.data.fRank
                             : props.ranks.fRank
                     }
                     {...props}
@@ -96,8 +99,8 @@ export function TierContainer(props) {
                         tier="dugout"
                         label={appData.board.dugoutLabel}
                         entries={
-                            props.showServerRanks
-                                ? props.serverRanks.dugout
+                            props.showServerRanks && serverRanks.data
+                                ? serverRanks.data.dugout
                                 : props.ranks.dugout
                         }
                         {...props}

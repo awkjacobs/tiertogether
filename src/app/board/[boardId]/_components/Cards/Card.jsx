@@ -16,6 +16,9 @@ import {
 import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
+import { ItemRankContext } from "@/app/components/_providers/itemRankProvider"
+import { contextRankConvert } from "@/lib/const"
+
 const size = {
     null: "w-10 md:w-16",
     1: "w-10 md:w-16",
@@ -24,6 +27,7 @@ const size = {
 }
 
 export function Card({
+    index,
     item,
     children,
     isDragging,
@@ -36,7 +40,6 @@ export function Card({
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
-
     const details = useGetDetailsQuery(item.id, appData.board.type)
 
     if (details.isLoading)
@@ -63,10 +66,14 @@ export function Card({
           ? true
           : false
 
-    // const difference = scoreDif(vsScore)
-    const userRank = item.rank.find((rank) => rank.userId === appData.user.id)
-    userRank.name = appData.user.name
-    userRank.id = userRank.userId
+    const userRank = {
+        boardId: appData.board.id,
+        id: appData.user.id,
+        itemsId: item.id,
+        name: appData.user.name,
+        rank: contextRankConvert(tier, index),
+        userId: appData.user.id,
+    }
 
     const width = () => {
         if (isDesktop && urlCardSize === "2") return 80
@@ -107,67 +114,76 @@ export function Card({
 
     if (!activeItem && isDesktop)
         return (
-            <TooltipProvider delayDuration={tier === "cardsQueue" ? 9999 : 100}>
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <li
-                            className={`block ${size[urlCardSize]} ${
-                                tier === "cardsQueue"
-                                    ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
-                                    : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
-                            } relative aspect-[2/3] overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
-                        >
-                            <ResponsiveDialog
-                                setIsOpen={setDialogIsOpen}
-                                trigger={
-                                    <Poster
-                                        itemId={item.id}
-                                        boardType={board.type}
-                                        width={width()}
-                                        height={height()}
-                                    />
-                                }
-                                triggerClasses={`p-0 h-auto w-auto`}
-                                component={
-                                    <InfoDialogContent
-                                        item={item}
-                                        appData={appData}
-                                    />
-                                }
-                                footer={
-                                    <RemoveItemButton
-                                        infoItem={item}
-                                        appData={appData}
-                                        disabled={!allowedToRemoveItemFromBoard}
-                                        isDialog={true}
-                                    />
-                                }
-                                title={name}
-                                backdrop={details.data.backdrop_path}
-                                hideDescription={true}
-                                hideTitle={true}
-                            />
-                            {children}
-                        </li>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        {details.data.name
-                            ? details.data.name
-                            : details.data.title}
-                    </TooltipContent>
-                    {difference && (
-                        <TooltipContent side="bottom">
-                            <RankingsTooltipDisplay difference={difference}>
-                                <RankOverall
-                                    appData={appData}
-                                    averageRank={item.averageRank}
+            <ItemRankContext.Provider value={userRank}>
+                <TooltipProvider
+                    delayDuration={tier === "cardsQueue" ? 9999 : 100}
+                >
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <li
+                                className={`block ${size[urlCardSize]} ${
+                                    tier === "cardsQueue"
+                                        ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
+                                        : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
+                                } relative aspect-[2/3] overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
+                            >
+                                <ResponsiveDialog
+                                    setIsOpen={setDialogIsOpen}
+                                    trigger={
+                                        <Poster
+                                            itemId={item.id}
+                                            boardType={board.type}
+                                            width={width()}
+                                            height={height()}
+                                        />
+                                    }
+                                    triggerClasses={`p-0 h-auto w-auto`}
+                                    component={
+                                        <InfoDialogContent
+                                            item={item}
+                                            appData={appData}
+                                        />
+                                    }
+                                    footer={
+                                        <RemoveItemButton
+                                            infoItem={item}
+                                            appData={appData}
+                                            disabled={
+                                                !allowedToRemoveItemFromBoard
+                                            }
+                                            isDialog={true}
+                                        />
+                                    }
+                                    title={name}
+                                    backdrop={details.data.backdrop_path}
+                                    hideDescription={true}
+                                    hideTitle={true}
                                 />
-                                <RankGroup appData={appData} rank={userRank} />
-                            </RankingsTooltipDisplay>
+                                {children}
+                            </li>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            {details.data.name
+                                ? details.data.name
+                                : details.data.title}
                         </TooltipContent>
-                    )}
-                </Tooltip>
-            </TooltipProvider>
+                        {difference && (
+                            <TooltipContent side="bottom">
+                                <RankingsTooltipDisplay difference={difference}>
+                                    <RankOverall
+                                        appData={appData}
+                                        averageRank={item.averageRank}
+                                    />
+                                    <RankGroup
+                                        appData={appData}
+                                        rank={userRank}
+                                    />
+                                </RankingsTooltipDisplay>
+                            </TooltipContent>
+                        )}
+                    </Tooltip>
+                </TooltipProvider>
+            </ItemRankContext.Provider>
         )
     if (!activeItem && !isDesktop)
         return (

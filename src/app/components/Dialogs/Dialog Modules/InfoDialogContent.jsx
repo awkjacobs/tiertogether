@@ -9,47 +9,42 @@ import { userRanksArray } from "./Dialog Functions/userRanksArray"
 import DescriptionDetails from "./Dialog Components/DescriptionDetails"
 import { ScrollArea } from "../../ui/scroll-area"
 import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
+import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
 
 export default function InfoDialogContent({ item, appData }) {
-    const { users, serverRanks, board } = appData
+    const { board } = appData
+    const serverRanks = useGetServerAverages(board.id)
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
     const details = useGetDetailsQuery(item.id, board.type)
     const name = details.data.name ? details.data.name : details.data.title
 
-    const [ranks, setRanks] = useState({
-        averageRank: "",
-        userRanks: [{ name: "", rank: "" }],
-    })
+    // const [ranks, setRanks] = useState({
+    //     averageRank: "",
+    //     userRanks: [{ name: "", rank: "" }],
+    // })
 
-    function findServerRank() {
-        if (!item) return
-        const average = serverRanks
+    // function findServerRank() {
+    //     if (!item) return
 
-        const serverRankings = average.allItems
+    //     let serverRank = serverRanks.data.allItems.find(
+    //         (rank) => rank.id === item.id,
+    //     )?.averageRank
+    //     return serverRank
+    // }
 
-        let serverRank = serverRankings.find(
-            (rank) => rank.id === item.id,
-        )?.averageRank
-        return serverRank
-    }
+    // useEffect(() => {
+    //     if (!item) return
 
-    useEffect(() => {
-        if (!item) return
+    //     userRank(item)
+    // }, [item])
 
-        userRank(item)
-    }, [item])
-
-    function userRank(item) {
-        let serverRank = findServerRank()
-
-        let ranksArray = userRanksArray(item, users, board.id)
-
-        setRanks({
-            averageRank: serverRank,
-            userRanks: ranksArray,
-        })
-    }
+    // function userRank(item) {
+    //     setRanks({
+    //         averageRank: findServerRank(),
+    //         userRanks: userRanksArray(item, board.users, board.id),
+    //     })
+    // }
 
     if (isDesktop) {
         return (
@@ -68,7 +63,7 @@ export default function InfoDialogContent({ item, appData }) {
                 >
                     <Logo itemId={item.id} title={name} type={board.type} />
                 </div>
-                <RankingsContainer ranks={ranks} appData={appData} />
+                <RankingsContainer item={item} />
                 <DescriptionContainer item={item} type={board.type} />
                 <div
                     className={`flex flex-col gap-4 md:col-start-1 md:col-end-3`}
@@ -144,7 +139,7 @@ export default function InfoDialogContent({ item, appData }) {
                         value="ranks"
                         className={`row-start-2 row-end-3 overflow-hidden`}
                     >
-                        <RankingsContainer ranks={ranks} appData={appData} />
+                        <RankingsContainer item={item} />
                     </TabsContent>
                 </Tabs>
             </div>

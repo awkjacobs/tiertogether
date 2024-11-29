@@ -8,6 +8,7 @@ import AppBar from "@/components/AppBar/AppBar"
 import PageContainer from "@/components/Utility/PageContainer"
 import DraggingContent from "./_components/AppDynamic/DraggingContent"
 import { auth } from "@clerk/nextjs/server"
+import { QueryClient } from "@tanstack/react-query"
 
 // TODO - revist card scale options
 
@@ -30,25 +31,24 @@ export async function generateMetadata({ params }, parent) {
 
 export default async function Board({ params }) {
     const { userId } = await auth()
+    const queryClient = new QueryClient()
 
     const boardId = (await params).boardId
 
-    // TODO - combine these two queries
+    await queryClient.prefetchQuery({
+        queryKey: ["averages", boardId],
+        queryFn: () => serverAverage(boardId),
+    })
+
+    // TODO - combine these three queries?
     const board = await PRISMA_GET_SPECIFIC_BOARD(boardId)
     const userDB = await PRISMA_GET_USER(userId)
-
-    const users = board.users
-    const serverRanks = serverAverage(board)
-
     const notifications = await PRISMA_GET_BOARD_NOTIFICATIONS(boardId, userDB)
 
     const appData = {
         board,
-        serverRanks,
         user: userDB,
-        users,
     }
-    // const timer = await makeBoardWait()
     return (
         <PageContainer>
             <AppBar appData={appData} notifications={notifications} />
