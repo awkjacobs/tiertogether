@@ -2,18 +2,17 @@ import EditBoardButton from "@/components/Buttons/EditBoardButton"
 import { Button } from "@/components/ui/button"
 import { ZoomIn, ZoomOut } from "lucide-react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback } from "react"
+import { useCallback, useContext } from "react"
 import RankingsToggle from "./RankingsToggle"
+import { AppDataContext } from "../../../../components/_providers/appDataProvider"
 
 export default function BoardBar({
-    title,
     showServerRanks,
     setShowServerRanks,
     queueIsOpen,
     setQueueIsOpen,
-    board,
-    appData,
 }) {
+    const appData = useContext(AppDataContext)
     const isOwner = appData.user.id === appData.board.owner.id
 
     const router = useRouter()
@@ -58,7 +57,7 @@ export default function BoardBar({
             <h1
                 className={`flex-1 text-base font-bold text-purple-700 md:text-2xl dark:text-purple-200`}
             >
-                {title}
+                {appData.board.boardName}
             </h1>
             <div className={`flex flex-row gap-1 px-1 md:gap-2 md:px-2`}>
                 <Button
@@ -89,7 +88,7 @@ export default function BoardBar({
             <EditBoardButton
                 triggerClasses={`ml-1 cursor-pointer`}
                 appData={appData}
-                board={board}
+                board={appData.board}
                 isOwner={isOwner}
             />
         </div>

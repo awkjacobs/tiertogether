@@ -38,6 +38,7 @@ import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PRISMA_UPDATE_BOARD } from "@prismaFuncs/prismaFuncs"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { z } from "zod"
 import {
     DeleteBoardButton,
@@ -45,18 +46,17 @@ import {
 } from "../Dialogs/Dialog Actions/EditDialogActionComponents"
 import BoardUsersArea from "../Dialogs/Dialog Modules/Dialog Components/BoardUsersArea"
 import {
-    BleachersIcon,
-    DugoutIcon,
-    SpecialIcon,
-} from "../Utility/ExtraRowIcons"
-import {
     ExtraRowTooltip,
     InfoPopover,
     InfoTooltip,
     SpecialThresholdTooltip,
 } from "../Dialogs/Dialog Modules/Dialog Components/RowTooltips"
 import ToggleButton from "../ui/ToggleButton"
-import { toast } from "sonner"
+import {
+    BleachersIcon,
+    DugoutIcon,
+    SpecialIcon,
+} from "../Utility/ExtraRowIcons"
 
 const formSchema = z.object({
     boardName: z
@@ -735,11 +735,7 @@ export default function EditBoardButton({
                                 <div
                                     className={`row-start-1 row-end-2 grid grid-rows-subgrid gap-4 overflow-hidden`}
                                 >
-                                    <BoardUsersArea
-                                        // users={users}
-                                        board={board}
-                                        appData={appData}
-                                    />
+                                    <BoardUsersArea />
                                 </div>
                             </TabsContent>
                         </Tabs>

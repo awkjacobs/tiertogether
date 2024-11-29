@@ -9,9 +9,12 @@ import {
 import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
 import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 import { scoreDif } from "@/lib/const"
+import { useContext } from "react"
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 
 export default function RankedCardClone(props) {
-    const { item, appData } = props
+    const { item } = props
+    const appData = useContext(AppDataContext)
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
     const average = item.averageRank.split(".")[0]
@@ -39,11 +42,8 @@ export default function RankedCardClone(props) {
                     </PopoverTrigger>
                     <PopoverContent side={"bottom"}>
                         <RankingsTooltipDisplay difference={difference}>
-                            <RankOverall
-                                appData={appData}
-                                averageRank={item.averageRank}
-                            />
-                            <RankGroup appData={appData} rank={userRank} />
+                            <RankOverall averageRank={item.averageRank} />
+                            <RankGroup rank={userRank} />
                         </RankingsTooltipDisplay>
                     </PopoverContent>
                 </Popover>

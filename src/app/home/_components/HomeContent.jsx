@@ -1,15 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import BoardCard from "./BoardCard"
-import HomeBoardsBar from "./HomeBoardsBar"
-import { PRISMA_UPDATE_DISPLAY_NAME } from "../../../../prismaFuncs/prismaFuncs"
-import EmptyBoardsDisplay from "./EmptyBoardDisplay"
-import UserBoardsContainer from "./UserBoardsContainer"
-import { sortedBoards } from "../../../../lib/const"
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
@@ -25,12 +17,20 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import { useEffect, useState } from "react"
+import { sortedBoards } from "../../../../lib/const"
+import { PRISMA_UPDATE_DISPLAY_NAME } from "../../../../prismaFuncs/prismaFuncs"
+import BoardCard from "./BoardCard"
+import EmptyBoardsDisplay from "./EmptyBoardDisplay"
+import HomeBoardsBar from "./HomeBoardsBar"
+import UserBoardsContainer from "./UserBoardsContainer"
 
+import { Button } from "@/app/components/ui/button"
+import { Input } from "@/app/components/ui/input"
+import { AppDataContext } from "@/components/_providers/appDataProvider"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Input } from "@/app/components/ui/input"
-import { Button } from "@/app/components/ui/button"
 
 const formSchema = z.object({
     displayName: z.string().min(4, { message: "Minimum 4 characters" }),
@@ -61,106 +61,112 @@ export default function HomeContent({ appData }) {
     }
 
     return (
-        <section
-            className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
-        >
-            <HomeBoardsBar appData={appData} />
-            <UserBoardsContainer>
-                {userBoards.length === 0 && <EmptyBoardsDisplay />}
-                {userBoards.length > 0 &&
-                    sortedBoards(userBoards).map((board, index) => {
-                        return (
-                            <BoardCard
-                                board={board}
-                                key={index}
-                                index={index}
-                                appData={appData}
-                            />
-                        )
-                    })}
-            </UserBoardsContainer>
-            {(newUser || user.name == "null") && (
-                <AlertDialog
-                    open={newUserDialogOpen}
-                    onOpenChange={setNewUserDialogOpen}
-                >
-                    <Form {...form}>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                    Welcome to tiertogether!
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    Get started by updating your display name.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <form
-                                onSubmit={form.handleSubmit(onSubmit)}
-                                className="flex flex-col gap-4"
-                            >
-                                <FormField
-                                    control={form.control}
-                                    name="displayName"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                className={`text-purple-800 dark:text-purple-400`}
-                                            >
-                                                Display Name
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder={
-                                                        user.name == "null" ||
-                                                        user.name == "null null"
-                                                            ? "Please enter a Display Name"
-                                                            : user.name
-                                                    }
-                                                    type="text"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
+        <AppDataContext.Provider value={appData}>
+            <section
+                className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
+            >
+                <HomeBoardsBar appData={appData} />
+                <UserBoardsContainer>
+                    {userBoards.length === 0 && <EmptyBoardsDisplay />}
+                    {userBoards.length > 0 &&
+                        sortedBoards(userBoards).map((board, index) => {
+                            return (
+                                <BoardCard
+                                    board={board}
+                                    key={index}
+                                    index={index}
+                                    appData={appData}
                                 />
-                                <p className={`text-sm text-zinc-400`}>
-                                    By default, we use the name associated with
-                                    the account you logged in with, but not
-                                    everyone wants to show their real name.
-                                </p>
-                                <p className={`text-sm text-zinc-400`}>
-                                    You can change your display name anytime by
-                                    selecting your profile.
-                                </p>
+                            )
+                        })}
+                </UserBoardsContainer>
+                {(newUser || user.name == "null") && (
+                    <AlertDialog
+                        open={newUserDialogOpen}
+                        onOpenChange={setNewUserDialogOpen}
+                    >
+                        <Form {...form}>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                        Welcome to tiertogether!
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        Get started by updating your display
+                                        name.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <form
+                                    onSubmit={form.handleSubmit(onSubmit)}
+                                    className="flex flex-col gap-4"
+                                >
+                                    <FormField
+                                        control={form.control}
+                                        name="displayName"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    className={`text-purple-800 dark:text-purple-400`}
+                                                >
+                                                    Display Name
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder={
+                                                            user.name ==
+                                                                "null" ||
+                                                            user.name ==
+                                                                "null null"
+                                                                ? "Please enter a Display Name"
+                                                                : user.name
+                                                        }
+                                                        type="text"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <p className={`text-sm text-zinc-400`}>
+                                        By default, we use the name associated
+                                        with the account you logged in with, but
+                                        not everyone wants to show their real
+                                        name.
+                                    </p>
+                                    <p className={`text-sm text-zinc-400`}>
+                                        You can change your display name anytime
+                                        by selecting your profile.
+                                    </p>
 
-                                <AlertDialogFooter className={`mt-4`}>
-                                    <AlertDialogCancel
-                                        size="sm"
-                                        onClick={() =>
-                                            setNewUserDialogOpen(false)
-                                        }
-                                        variant="outline"
-                                        disabled={
-                                            user.name == "null" ||
-                                            user.name == "null null"
-                                        }
-                                        className={`border border-transparent`}
-                                    >
-                                        Nah, I&apos;m good
-                                    </AlertDialogCancel>
-                                    <Button type="submit" className={`h-8`}>
-                                        {form.formState.isSubmitting &&
-                                            "Updating..."}
-                                        {!form.formState.isSubmitting &&
-                                            "Update Display Name"}
-                                    </Button>
-                                </AlertDialogFooter>
-                            </form>
-                        </AlertDialogContent>
-                    </Form>
-                </AlertDialog>
-            )}
-        </section>
+                                    <AlertDialogFooter className={`mt-4`}>
+                                        <AlertDialogCancel
+                                            size="sm"
+                                            onClick={() =>
+                                                setNewUserDialogOpen(false)
+                                            }
+                                            variant="outline"
+                                            disabled={
+                                                user.name == "null" ||
+                                                user.name == "null null"
+                                            }
+                                            className={`border border-transparent`}
+                                        >
+                                            Nah, I&apos;m good
+                                        </AlertDialogCancel>
+                                        <Button type="submit" className={`h-8`}>
+                                            {form.formState.isSubmitting &&
+                                                "Updating..."}
+                                            {!form.formState.isSubmitting &&
+                                                "Update Display Name"}
+                                        </Button>
+                                    </AlertDialogFooter>
+                                </form>
+                            </AlertDialogContent>
+                        </Form>
+                    </AlertDialog>
+                )}
+            </section>
+        </AppDataContext.Provider>
     )
 }

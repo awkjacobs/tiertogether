@@ -38,17 +38,12 @@ export default async function Board({ params }) {
     const userDB = await PRISMA_GET_USER(userId)
 
     const users = board.users
-    const serverRanks = await serverAverage(board)
+    const serverRanks = serverAverage(board)
 
     const notifications = await PRISMA_GET_BOARD_NOTIFICATIONS(boardId, userDB)
 
-    const boardItems = board.items
-    const boardName = board.boardName
-    const boardOwner = userDB.id === board.owner.id
-
     const appData = {
         board,
-        boardOwner,
         serverRanks,
         user: userDB,
         users,
@@ -57,11 +52,7 @@ export default async function Board({ params }) {
     return (
         <PageContainer>
             <AppBar appData={appData} notifications={notifications} />
-            <DraggingContent
-                appData={appData}
-                boardItems={boardItems}
-                boardName={boardName}
-            />
+            <DraggingContent appData={appData} />
         </PageContainer>
     )
 }

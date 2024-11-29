@@ -1,6 +1,9 @@
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 import { Tier } from "./Tier"
+import { useContext } from "react"
 
 export function TierContainer(props) {
+    const appData = useContext(AppDataContext)
     return (
         <section
             className={`flex w-full flex-col gap-2 self-start md:gap-4 ${
@@ -9,11 +12,11 @@ export function TierContainer(props) {
                     : "border-2 border-transparent"
             }`}
         >
-            {props.appData.board.bleachers && (
+            {appData.board.bleachers && (
                 <div>
                     <Tier
                         tier="bleachers"
-                        label={props.appData.board.bleachersLabel}
+                        label={appData.board.bleachersLabel}
                         entries={
                             props.showServerRanks
                                 ? props.serverRanks.bleachers
@@ -24,7 +27,7 @@ export function TierContainer(props) {
                 </div>
             )}
             <div className={`flex flex-col gap-1`}>
-                {props.appData.board.special && (
+                {appData.board.special && (
                     <Tier
                         tier="sRank"
                         label="S"
@@ -87,11 +90,11 @@ export function TierContainer(props) {
                     {...props}
                 />
             </div>
-            {props.appData.board.dugout && (
+            {appData.board.dugout && (
                 <div>
                     <Tier
                         tier="dugout"
-                        label={props.appData.board.dugoutLabel}
+                        label={appData.board.dugoutLabel}
                         entries={
                             props.showServerRanks
                                 ? props.serverRanks.dugout

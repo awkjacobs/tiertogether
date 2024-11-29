@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { convertDate } from "@/lib/utils"
 import { useDroppable } from "@dnd-kit/core"
 import Image from "next/image"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { RemoveItemButton } from "../Buttons/RemoveItemButton"
 import Logo from "@/components/Dialogs/Dialog Modules/Dialog Components/Logo"
 import Backdrop from "@/components/ui/backdrop"
@@ -14,11 +14,11 @@ import { findDirectors } from "@/components/Utility/findDirectors"
 import MissingPoster from "@/components/Utility/MissingPoster"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 // TODO - change mobile formating, maybe just poster
 
 export default function SwiperCard(props) {
     const {
-        appData,
         index,
         item,
         tier,
@@ -28,9 +28,10 @@ export default function SwiperCard(props) {
         setActiveCard,
         setActiveCardIndex,
         queueIsOpen,
-        board,
     } = props
 
+    const appData = useContext(AppDataContext)
+    const { board } = appData
     const { active, isOver, setNodeRef } = useDroppable({
         id: tier + item.id,
         data: { type: "tier" },

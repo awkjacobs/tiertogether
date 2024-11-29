@@ -22,9 +22,12 @@ import {
     useSensors,
 } from "@dnd-kit/core"
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
+import { AppDataContext } from "@/components/_providers/appDataProvider"
 
-export default function DraggingContent({ appData, boardItems, boardName }) {
-    const { board, boardOwner, serverRanks, user, users } = appData
+export default function DraggingContent({ appData }) {
+    const { board, serverRanks, user } = appData
+
+    const boardItems = appData.board.items
 
     const [ranks, setRanks] = useState(sortItems(boardItems, user, board.id))
     useEffect(() => {
@@ -185,46 +188,43 @@ export default function DraggingContent({ appData, boardItems, boardName }) {
     const sensors = useSensors(mouseSensor, touchSensor)
 
     return (
-        <DndContext
-            sensors={sensors}
-            // collisionDetection={closestCorners}
-            onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
-            onDragEnd={handleDragEnd}
-        >
-            <div
-                className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll pb-8`}
+        <AppDataContext.Provider value={appData}>
+            <DndContext
+                sensors={sensors}
+                // collisionDetection={closestCorners}
+                onDragStart={handleDragStart}
+                onDragOver={handleDragOver}
+                onDragEnd={handleDragEnd}
             >
-                <BoardBar
-                    title={boardName}
-                    showServerRanks={showServerRanks}
-                    setShowServerRanks={setShowServerRanks}
+                <div
+                    className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll pb-8`}
+                >
+                    <BoardBar
+                        showServerRanks={showServerRanks}
+                        setShowServerRanks={setShowServerRanks}
+                        queueIsOpen={queueIsOpen}
+                        setQueueIsOpen={setQueueIsOpen}
+                    />
+                    <TierContainer
+                        ranks={ranks}
+                        showServerRanks={showServerRanks}
+                        serverRanks={serverRanks}
+                        activeItem={activeItem ? true : false}
+                    />
+                </div>
+                <CardQueue
+                    board={board}
+                    queue={ranks.cardsQueue}
+                    activeCardIndex={activeCardIndex}
+                    setActiveCardIndex={setActiveCardIndex}
                     queueIsOpen={queueIsOpen}
                     setQueueIsOpen={setQueueIsOpen}
-                    board={board}
-                    appData={appData}
-                />
-                <TierContainer
-                    ranks={ranks}
-                    showServerRanks={showServerRanks}
-                    serverRanks={serverRanks}
-                    appData={appData}
                     activeItem={activeItem ? true : false}
                 />
-            </div>
-            <CardQueue
-                board={board}
-                appData={appData}
-                queue={ranks.cardsQueue}
-                activeCardIndex={activeCardIndex}
-                setActiveCardIndex={setActiveCardIndex}
-                queueIsOpen={queueIsOpen}
-                setQueueIsOpen={setQueueIsOpen}
-                activeItem={activeItem ? true : false}
-            />
-            <DragOverlay modifiers={[restrictToWindowEdges]}>
-                <CardOverlay item={activeItem} board={board} />
-            </DragOverlay>
-        </DndContext>
+                <DragOverlay modifiers={[restrictToWindowEdges]}>
+                    <CardOverlay item={activeItem} />
+                </DragOverlay>
+            </DndContext>
+        </AppDataContext.Provider>
     )
 }

@@ -14,6 +14,8 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
+import { useContext } from "react"
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 const size = {
     null: "w-10 md:w-16",
     1: "w-10 md:w-16",
@@ -25,12 +27,12 @@ export function Card({
     item,
     children,
     isDragging,
-    appData,
     tier,
     activeItem,
     setDialogIsOpen,
     difference = false,
 }) {
+    const appData = useContext(AppDataContext)
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")

@@ -59,11 +59,7 @@ export default function CardQueue(props) {
                 />
             )}
             {QUEUE_IS_EMPTY && <EmptyStatement />}
-            <AddButton
-                isOpen={props.queueIsOpen}
-                {...props}
-                isDesktop={isDesktop}
-            />
+            <AddButton />
         </motion.div>
     )
 }

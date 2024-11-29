@@ -4,10 +4,13 @@ import RankedCardClone from "../Cards/RankedCardClone"
 import { Star } from "lucide-react"
 import ResponsiveTooltip from "../../../../components/ui/ResponsiveTooltip"
 import { cn } from "@/lib/utils"
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
+import { useContext } from "react"
 
 // ? - reduce the number of renders by being more selective of the entries
 
 export function Tier(props) {
+    const appData = useContext(AppDataContext)
     const { active, isOver, setNodeRef } = useSortable({
         id: props.tier,
         data: { type: "tier" },
@@ -59,8 +62,8 @@ export function Tier(props) {
                     content={
                         <p>
                             Reserved for items with at least{" "}
-                            {props.appData.board.specialThreshold}% Special
-                            Rankings from users
+                            {appData.board.specialThreshold}% Special Rankings
+                            from users
                         </p>
                     }
                     side={"right"}
@@ -107,7 +110,6 @@ export function Tier(props) {
                                         item={item}
                                         tier={props.tier}
                                         active={active}
-                                        appData={props.appData}
                                         activeItem={props.activeItem}
                                     ></Draggable>
                                 )
@@ -126,7 +128,6 @@ export function Tier(props) {
                                 item={item}
                                 tier={props.tier}
                                 queueShouldBeOpen={props.queueShouldBeOpen}
-                                appData={props.appData}
                             />
                         )
                     })}

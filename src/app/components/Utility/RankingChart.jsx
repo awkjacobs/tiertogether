@@ -1,20 +1,5 @@
 import ResponsiveTooltip from "@/app/components/ui/ResponsiveTooltip"
-
-const scoreBar = {
-    1: { style: "sRank", rank: "S" },
-    2: { style: `bg-teal-500/20`, rank: "A" },
-    3: { style: `bg-green-500/20`, rank: "B" },
-    4: { style: `bg-yellow-500/20`, rank: "C" },
-    5: { style: `bg-orange-500/20`, rank: "D" },
-    6: { style: `bg-red-500/20`, rank: "F" },
-    7: { style: `bg-zinc-600/10`, rank: "Bleachers" },
-    8: { style: `bg-zinc-600/10`, rank: "Dugout" },
-}
-const scoreFlex = (scoreGroup) => {
-    if (scoreGroup.length > 1)
-        return "flex-[" + scoreGroup.length + "_" + scoreGroup.length + "_0%]"
-    else return "flex-1"
-}
+import { scoreBar, scoreFlex } from "@/lib/const"
 
 export default function RankChart({ ranks }) {
     const scores = ranks

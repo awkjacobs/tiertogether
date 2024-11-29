@@ -40,7 +40,9 @@ const formSchema = z.object({
 
 // TODO - add more search options
 
-export default function AddDialogContent({ appData, board }) {
+export default function AddDialogContent() {
+    const appData = useContext(AppDataContext)
+    const { board } = appData
     const type = board.type
     const [queryValues, setQueryValues] = useState({
         type: type,

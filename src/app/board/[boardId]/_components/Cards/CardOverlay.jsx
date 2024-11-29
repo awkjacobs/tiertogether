@@ -2,6 +2,8 @@ import { useMediaQuery } from "@/app/hooks/use-media-query"
 import { motion } from "motion/react"
 import Poster from "@/components/ui/Poster"
 import { useSearchParams } from "next/navigation"
+import { useContext } from "react"
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 
 const size = {
     null: "w-10 md:w-16",
@@ -10,7 +12,9 @@ const size = {
     3: "w-20 md:w-24",
 }
 
-export function CardOverlay({ item, board }) {
+export function CardOverlay({ item }) {
+    const appData = useContext(AppDataContext)
+    const { board } = appData
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
     const searchParams = useSearchParams()

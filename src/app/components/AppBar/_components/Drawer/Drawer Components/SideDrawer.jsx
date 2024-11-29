@@ -18,13 +18,6 @@ import { Button } from "@/components/ui/button"
 
 export default function SideDrawer({ appData }) {
     const userBoards = appData.user.boards
-    // const testBoards = [
-    //     ...userBoards,
-    //     ...userBoards,
-    //     ...userBoards,
-    //     ...userBoards,
-    //     ...userBoards,
-    // ]
 
     return (
         <Sheet>

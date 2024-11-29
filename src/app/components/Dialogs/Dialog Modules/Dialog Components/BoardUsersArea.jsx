@@ -1,18 +1,21 @@
 import { Button } from "@/app/components/ui/button"
+import { AppDataContext } from "@/components/_providers/appDataProvider"
+import { Form } from "@/components/ui/form"
 import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
-import { LoaderCircle, UserMinus } from "lucide-react"
-import InviteUserButton from "../../../Buttons/InviteUserButton"
-import Crown from "../../../Utility/Crown"
-import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { PRISMA_KICK_USER } from "@prismaFuncs/prismaFuncs"
+import { LoaderCircle, UserMinus } from "lucide-react"
+import { useContext } from "react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { PRISMA_KICK_USER, PRISMA_LEAVE_BOARD } from "@prismaFuncs/prismaFuncs"
 import { toast } from "sonner"
+import { z } from "zod"
+import InviteUserButton from "@/components/Buttons/InviteUserButton"
+import Crown from "@/components/Utility/Crown"
 
-export default function BoardUsersArea({ board, appData }) {
+export default function BoardUsersArea({ board }) {
+    const appData = useContext(AppDataContext)
     const { users } = board
     const boardUsersMinusActiveUser = users
         .filter((user) => user.id !== appData.user.id)
