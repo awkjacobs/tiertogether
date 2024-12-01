@@ -31,9 +31,14 @@
 [X] redo ranking and server stuff, db calls are very slow
 [X] replace user vs server ranks with all users and server ranks
 [X] try context providers for appData
+[ ] set up local development database https://vercel.com/docs/storage/vercel-postgres/local-development#option-2:-local-postgres-instance-with-docker
+[ ] get production OAuth keys
+--- [ ] Google
+--- [ ] Apple
+--- [ ] Microsoft
 [ ] add tooltips and maybe shorcuts to buttons
 [ ] clean up the landing page
-[ ] add favicon
+[X] add favicon
 [X] add title on each page
 [ ] include # of unread notifications in title
 [ ] make board text into text fields
