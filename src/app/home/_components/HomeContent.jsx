@@ -61,7 +61,7 @@ export default function HomeContent({ appData }) {
     }
 
     return (
-        <AppDataContext.Provider value={appData}>
+        <AppDataContext.Provider value={{ appData }}>
             <section
                 className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
             >

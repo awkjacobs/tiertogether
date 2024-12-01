@@ -305,7 +305,7 @@ export default function EditBoardButton({
                         </Form>
 
                         <div className={`flex`}>
-                            <BoardUsersArea board={board} appData={appData} />
+                            <BoardUsersArea board={board} />
                         </div>
                     </section>
                     <Form {...form}>
@@ -586,7 +586,7 @@ export default function EditBoardButton({
                                 <div
                                     className={`row-start-1 row-end-2 grid grid-rows-subgrid gap-4 overflow-hidden`}
                                 >
-                                    <BoardUsersArea />
+                                    <BoardUsersArea board={board} />
                                 </div>
                             </TabsContent>
                         </Tabs>

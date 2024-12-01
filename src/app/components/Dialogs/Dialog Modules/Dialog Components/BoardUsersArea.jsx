@@ -16,8 +16,8 @@ import Crown from "@/components/Utility/Crown"
 
 export default function BoardUsersArea({ board }) {
     const { appData } = useContext(AppDataContext)
-    const { users } = board
-    const boardUsersMinusActiveUser = users
+
+    const boardUsersMinusActiveUser = board.users
         .filter((user) => user.id !== appData.user.id)
         .toSorted((a, b) =>
             a.createdAt > b.createdAt ? 1 : a.createdAt < b.createdAt ? -1 : 0,

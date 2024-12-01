@@ -28,15 +28,14 @@
 [X] deal with invalid date for last air date - Search Card
 [X] add chart to server ranks
 [X] make server ranks repsonsive instead of just tooltips
-[ ] redo ranking and server stuff, db calls are very slow
-[ ] replace user vs server ranks with all users and server ranks
-[ ] try context providers for appData
-[ ] add tooltips to buttons
+[X] redo ranking and server stuff, db calls are very slow
+[X] replace user vs server ranks with all users and server ranks
+[X] try context providers for appData
+[ ] add tooltips and maybe shorcuts to buttons
 [ ] clean up the landing page
-[ ] use auth in server funcs
+[ ] add favicon
 [X] add title on each page
 [ ] include # of unread notifications in title
-[ ] add favicon
 [ ] make board text into text fields
 [ ] add list view
 
