@@ -1,10 +1,11 @@
-import { ScrollArea } from "@/app/components/ui/scroll-area"
-import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 import RankChart from "@/app/components/Utility/RankingChart"
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
-import { useContext, useState } from "react"
 import { ItemRankContext } from "@/app/components/_providers/itemRankProvider"
-import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
+import { ScrollArea } from "@/app/components/ui/scroll-area"
+import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
+import { serverAverage } from "@/lib/serverFuncs"
+import { useQuery } from "@tanstack/react-query"
+import { useContext } from "react"
 import { userRanksArray } from "../Dialog Functions/userRanksArray"
 
 export default function RankingsContainer({ item }) {
@@ -13,7 +14,11 @@ export default function RankingsContainer({ item }) {
 
     const { board } = appData
 
-    const serverRanks = useGetServerAverages(board.id)
+    const serverRanks = useQuery({
+        queryKey: ["averages", board.id],
+        queryFn: () => serverAverage(board.id),
+        refetchOnMount: true,
+    })
 
     if (serverRanks.isLoading) return <p>Loading...</p>
 

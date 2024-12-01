@@ -25,7 +25,7 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers"
 import { AppDataContext } from "@/components/_providers/appDataProvider"
 
 export default function DraggingContent({ appData }) {
-    const { board, serverRanks, user } = appData
+    const { board, user } = appData
 
     const boardItems = appData.board.items
 

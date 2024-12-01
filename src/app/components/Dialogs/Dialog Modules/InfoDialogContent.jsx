@@ -1,50 +1,19 @@
+import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@/app/hooks/use-media-query"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useEffect, useState } from "react"
 import Poster from "../../ui/Poster"
+import { ScrollArea } from "../../ui/scroll-area"
 import DescriptionContainer from "./Dialog Components/DescriptionContainer"
+import DescriptionDetails from "./Dialog Components/DescriptionDetails"
 import Logo from "./Dialog Components/Logo"
 import RankingsContainer from "./Dialog Components/RankingsContainer"
-import { userRanksArray } from "./Dialog Functions/userRanksArray"
-import DescriptionDetails from "./Dialog Components/DescriptionDetails"
-import { ScrollArea } from "../../ui/scroll-area"
-import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
-import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
 
 export default function InfoDialogContent({ item, appData }) {
     const { board } = appData
-    const serverRanks = useGetServerAverages(board.id)
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
     const details = useGetDetailsQuery(item.id, board.type)
     const name = details.data.name ? details.data.name : details.data.title
-
-    // const [ranks, setRanks] = useState({
-    //     averageRank: "",
-    //     userRanks: [{ name: "", rank: "" }],
-    // })
-
-    // function findServerRank() {
-    //     if (!item) return
-
-    //     let serverRank = serverRanks.data.allItems.find(
-    //         (rank) => rank.id === item.id,
-    //     )?.averageRank
-    //     return serverRank
-    // }
-
-    // useEffect(() => {
-    //     if (!item) return
-
-    //     userRank(item)
-    // }, [item])
-
-    // function userRank(item) {
-    //     setRanks({
-    //         averageRank: findServerRank(),
-    //         userRanks: userRanksArray(item, board.users, board.id),
-    //     })
-    // }
 
     if (isDesktop) {
         return (
