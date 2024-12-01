@@ -11,7 +11,6 @@ export default function HomeBoardsBar({ appData }) {
             >
                 My Boards
             </h1>
-            {/* <InviteUserButton size={"icon"} /> */}
             <AddBoardButton appData={appData} />
         </div>
     )

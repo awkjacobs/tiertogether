@@ -1,0 +1,170 @@
+.box {
+    background-color: fuchsia;
+    overflow: visible;
+    mask-image: radial-gradient(black 00%, rgba(0, 0, 0, 0) 70%);
+    position: absolute;
+    /* mask-size: 40rem 40rem; */
+}
+.color2 {
+    background-color: rgb(244, 143, 244);
+}
+.op30 {
+    opacity: 0.3;
+}
+.op60 {
+    opacity: 0.6;
+}
+.op90 {
+    opacity: 0.9;
+}
+.sm {
+    width: 20rem;
+    height: 20rem;
+    transform: translate(-50%, -50%);
+}
+.md {
+    width: 30rem;
+    height: 30rem;
+    transform: translate(-50%, -50%);
+}
+.lg {
+    width: 40rem;
+    height: 40rem;
+    transform: translate(-50%, -50%);
+}
+.xl {
+    width: 50rem;
+    height: 50rem;
+    transform: translate(-50%, -50%);
+}
+.anim1 {
+    animation: gradient 15s ease infinite;
+}
+.anim2 {
+    animation: gradient 20s ease infinite;
+}
+.anim3 {
+    animation: reverseGradient 25s ease infinite;
+}
+.anim4 {
+    animation: gradient 30s ease infinite;
+}
+.anim5 {
+    animation: reverseGradient 35s ease infinite;
+}
+.anim6 {
+    animation: gradient 40s ease infinite;
+}
+.anim7 {
+    animation: gradient 45s ease infinite;
+}
+.anim8 {
+    animation: reverseGradient 50s ease infinite;
+}
+.pos1 {
+    top: 50%;
+    left: 100%;
+}
+.pos2 {
+    top: 70%;
+    left: 20%;
+}
+.pos3 {
+    top: 30%;
+    left: 50%;
+}
+.pos4 {
+    top: 10%;
+    left: 100%;
+}
+.pos5 {
+    top: 20%;
+    left: 20%;
+}
+.pos6 {
+    top: 40%;
+    left: 60%;
+}
+.pos7 {
+    top: 70%;
+    left: 70%;
+}
+.pos8 {
+    top: 10%;
+    left: 40%;
+}
+.pos9 {
+    top: 10%;
+    left: 60%;
+}
+.pos10 {
+    top: 70%;
+    left: 20%;
+}
+.pos11 {
+    top: 30%;
+    left: 50%;
+}
+.pos12 {
+    top: 10%;
+    left: 100%;
+}
+.pos13 {
+    top: 95%;
+    left: 55%;
+}
+.pos14 {
+    top: 40%;
+    left: 60%;
+}
+.pos15 {
+    top: 70%;
+    left: 70%;
+}
+.pos16 {
+    top: 25%;
+    left: 75%;
+}
+.texture {
+    background-color: transparent;
+    background-image: radial-gradient(transparent 1px, #121212 1px);
+    background-size: 20px 20px;
+
+    opacity: 1;
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    flex: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    justify-content: center;
+    inset: -20px;
+    overflow: visible;
+    padding: 50px 0 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+}
+@keyframes gradient {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 100;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes reverseGradient {
+    0% {
+        opacity: 100;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100;
+    }
+}
