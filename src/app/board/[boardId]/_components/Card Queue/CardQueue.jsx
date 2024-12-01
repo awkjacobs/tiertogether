@@ -1,14 +1,16 @@
 import AddButton from "../AddItem/AddButton"
 import SwiperZone from "./SwiperZone"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useMediaQuery } from "@/app/hooks/use-media-query"
 import { useDroppable } from "@dnd-kit/core"
 import { motion } from "motion/react"
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 
 export default function CardQueue(props) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
+    const { showDifference } = useContext(AppDataContext)
 
     const QUEUE_IS_EMPTY = props.queue.length === 0
 
@@ -47,7 +49,7 @@ export default function CardQueue(props) {
                 queueIsOpen={props.queueIsOpen}
                 handleClose={handleClose}
                 isDesktop={isDesktop}
-                disabled={QUEUE_IS_EMPTY}
+                disabled={QUEUE_IS_EMPTY || showDifference}
             />
             {!QUEUE_IS_EMPTY && (
                 <SwiperZone

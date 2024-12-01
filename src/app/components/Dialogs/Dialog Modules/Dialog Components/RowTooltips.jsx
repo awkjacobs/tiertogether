@@ -45,8 +45,7 @@ export function ExtraRowTooltip() {
                 Special
             </h6>
             <p className={`font-normal`}>
-                The best of the best. A tier at the top of the rankings with a
-                customizable threshold for the overall rankings.
+                The best of the best. A tier at the top of the rankings.
             </p>
             <h6
                 className={`mt-2 font-bold text-purple-800 dark:text-purple-400`}

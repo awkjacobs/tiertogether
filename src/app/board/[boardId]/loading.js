@@ -47,15 +47,20 @@ export default function BoardLoading() {
                 className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll pb-8`}
             >
                 <div
-                    className={`my-2 flex h-10 w-full items-center justify-end`}
+                    className={`my-2 grid w-full grid-cols-[1fr,auto] grid-rows-[auto,auto] items-center gap-2 md:grid-cols-[1fr,auto,auto] md:grid-rows-[auto]`}
                 >
-                    <h1
-                        className={`flex-1 text-base font-bold text-purple-700 md:text-2xl dark:text-purple-200`}
+                    <Skeleton
+                        className={`col-start-1 row-start-1 h-10 flex-1 md:h-10`}
+                    />
+                    <div
+                        className={`col-start-1 col-end-3 row-start-2 flex w-full flex-row items-center gap-2 md:col-start-2 md:col-end-3 md:row-start-1`}
                     >
-                        <Skeleton className={`h-8 w-96`} />
-                    </h1>
-                    <Skeleton className={`m-1 h-8 w-32`} />
-                    <Skeleton className={`m-1 h-8 w-8`} />
+                        <Skeleton className={`h-8 w-16 md:h-10 md:w-20`} />
+                        <Skeleton className={`h-8 flex-1 md:h-10 md:w-52`} />
+                    </div>
+                    <Skeleton
+                        className={`col-start-2 row-start-1 h-10 w-10 md:col-start-3`}
+                    />
                 </div>
                 <section
                     className={`flex w-full flex-col gap-2 self-start border-2 border-transparent md:gap-4`}

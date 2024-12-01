@@ -13,15 +13,11 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
 
-export default function BoardBar({
-    showServerRanks,
-    setShowServerRanks,
-    queueIsOpen,
-    setQueueIsOpen,
-    setUserEntries,
-}) {
+export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
+    const serverRanks = useGetServerAverages(appData.board.id)
     const isOwner = appData.user.id === appData.board.owner.id
 
     const router = useRouter()
@@ -63,17 +59,17 @@ export default function BoardBar({
 
     return (
         <div
-            className={`my-2 flex w-full flex-col items-center justify-end md:flex-row`}
+            className={`my-2 grid w-full grid-cols-[1fr,auto] grid-rows-[auto,auto] items-center gap-2 md:grid-cols-[1fr,auto,auto] md:grid-rows-[auto]`}
         >
-            <div className={`flex-1`}>
-                <h1
-                    className={`flex-1 text-base font-bold text-purple-700 md:text-2xl dark:text-purple-200`}
-                >
-                    {appData.board.boardName}
-                </h1>
-            </div>
-            <div className={`flex flex-row`}>
-                <div className={`flex flex-row px-1 md:px-2`}>
+            <h1
+                className={`col-start-1 row-start-1 flex-1 text-base font-bold text-purple-700 md:text-2xl dark:text-purple-200`}
+            >
+                {appData.board.boardName}
+            </h1>
+            <div
+                className={`col-start-1 col-end-3 row-start-2 flex w-full flex-row items-center gap-2 md:col-start-2 md:col-end-3 md:row-start-1`}
+            >
+                <div className={`flex flex-row`}>
                     <Button
                         variant="outline"
                         className={`h-8 w-8 rounded-e-none px-2 md:h-10 md:w-10`}
@@ -96,8 +92,9 @@ export default function BoardBar({
                 <Select
                     defaultValue={appData.user.id}
                     onValueChange={(value) => setUserEntries(value)}
+                    disabled={!serverRanks.data}
                 >
-                    <SelectTrigger className="h-8 w-40 md:h-10 md:w-52">
+                    <SelectTrigger className="h-8 flex-1 md:h-10 md:w-52">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -115,14 +112,14 @@ export default function BoardBar({
                             ))}
                     </SelectContent>
                 </Select>
-
-                <EditBoardButton
-                    triggerClasses={`ml-1 cursor-pointer`}
-                    appData={appData}
-                    board={appData.board}
-                    isOwner={isOwner}
-                />
             </div>
+
+            <EditBoardButton
+                triggerClasses={`cursor-pointer row-start-1 col-start-2 md:col-start-3`}
+                appData={appData}
+                board={appData.board}
+                isOwner={isOwner}
+            />
         </div>
     )
 }

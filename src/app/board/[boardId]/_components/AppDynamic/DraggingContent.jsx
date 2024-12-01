@@ -212,14 +212,9 @@ export default function DraggingContent({ appData }) {
                 <div
                     className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll pb-8`}
                 >
-                    <BoardBar
-                        queueIsOpen={queueIsOpen}
-                        setQueueIsOpen={setQueueIsOpen}
-                        setUserEntries={setUserEntries}
-                    />
+                    <BoardBar setUserEntries={setUserEntries} />
                     <TierContainer
                         ranks={ranks}
-                        userEntries={userEntries}
                         activeItem={activeItem ? true : false}
                     />
                 </div>
