@@ -17,7 +17,8 @@ export default function RankingsContainer({ item }) {
     const serverRanks = useQuery({
         queryKey: ["averages", board.id],
         queryFn: () => serverAverage(board.id),
-        refetchOnMount: true,
+        // refetchOnMount: true,
+        staleTime: 5 * 1000,
     })
 
     if (serverRanks.isLoading) return <p>Loading...</p>

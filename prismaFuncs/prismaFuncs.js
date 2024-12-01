@@ -4,6 +4,10 @@ import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs/server"
 import { clerkClient } from "@clerk/nextjs/server"
 import { MAKE_ID } from "@/lib/utils"
+import { QueryClient } from "@tanstack/react-query"
+import { serverAverage } from "@/lib/serverFuncs"
+
+const queryClient = new QueryClient()
 
 const prisma = new PrismaClient()
 
@@ -575,6 +579,17 @@ export async function PRISMA_UPDATE_RANK(itemsIds, user, boardId, scoreObj) {
             })
         }),
     )
+
+    queryClient.invalidateQueries({
+        queryKey: ["averages", boardId],
+        stale: true,
+    })
+    queryClient.prefetchQuery({
+        queryKey: ["averages", boardId],
+        queryFn: () => serverAverage(boardId),
+    })
+
+    // revalidatePath("/board/[boardId]", "page")
 }
 export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
     const { userId } = await auth()
