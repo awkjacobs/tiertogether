@@ -10,7 +10,7 @@ import { useContext } from "react"
 // ? - reduce the number of renders by being more selective of the entries
 
 export function Tier(props) {
-    const appData = useContext(AppDataContext)
+    const { appData } = useContext(AppDataContext)
     const { active, isOver, setNodeRef } = useSortable({
         id: props.tier,
         data: { type: "tier" },
@@ -79,7 +79,7 @@ export function Tier(props) {
                 </div>
             )}
 
-            {!props.showServerRanks && (
+            {!appData.showDifference && (
                 <SortableContext items={entries ? entries : []} id={props.tier}>
                     <ul
                         ref={setNodeRef}
@@ -105,7 +105,7 @@ export function Tier(props) {
                     </ul>
                 </SortableContext>
             )}
-            {props.showServerRanks && (
+            {appData.showDifference && (
                 <ul className={`flex flex-1 flex-wrap gap-y-2 p-2 md:gap-y-4`}>
                     {entries.map((item, index) => {
                         return (

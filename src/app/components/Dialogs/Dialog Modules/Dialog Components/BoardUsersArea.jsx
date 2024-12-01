@@ -15,7 +15,7 @@ import InviteUserButton from "@/components/Buttons/InviteUserButton"
 import Crown from "@/components/Utility/Crown"
 
 export default function BoardUsersArea({ board }) {
-    const appData = useContext(AppDataContext)
+    const { appData } = useContext(AppDataContext)
     const { users } = board
     const boardUsersMinusActiveUser = users
         .filter((user) => user.id !== appData.user.id)

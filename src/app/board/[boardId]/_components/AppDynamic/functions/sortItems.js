@@ -1,8 +1,8 @@
-export default function sortItems(boardItems, user, boardId) {
+export default function sortItems(boardItems, userId, boardId) {
     const filterFunc = (item, score) => {
         return (
             item.rank
-                .find((ranking) => ranking.userId === user.id)
+                .find((ranking) => ranking.userId === userId)
                 ?.rank.split(".")[0] == score
         )
     }
@@ -12,7 +12,7 @@ export default function sortItems(boardItems, user, boardId) {
     const usersRanked = boardItems.filter((item) =>
         item.rank.filter(
             (userRank) =>
-                userRank.userId === user.id && userRank.boardId === boardId,
+                userRank.userId === userId && userRank.boardId === boardId,
         ),
     )
 
@@ -28,14 +28,14 @@ export default function sortItems(boardItems, user, boardId) {
     let bleachers = usersRanked.filter((item) => filterFunc(item, 7))
     let dugout = usersRanked.filter((item) => filterFunc(item, 8))
 
-    bleachers.sort((a, b) => sort(a, b, user))
-    dugout.sort((a, b) => sort(a, b, user))
-    s.sort((a, b) => sort(a, b, user))
-    a.sort((a, b) => sort(a, b, user))
-    b.sort((a, b) => sort(a, b, user))
-    c.sort((a, b) => sort(a, b, user))
-    d.sort((a, b) => sort(a, b, user))
-    f.sort((a, b) => sort(a, b, user))
+    bleachers.sort((a, b) => sort(a, b, userId))
+    dugout.sort((a, b) => sort(a, b, userId))
+    s.sort((a, b) => sort(a, b, userId))
+    a.sort((a, b) => sort(a, b, userId))
+    b.sort((a, b) => sort(a, b, userId))
+    c.sort((a, b) => sort(a, b, userId))
+    d.sort((a, b) => sort(a, b, userId))
+    f.sort((a, b) => sort(a, b, userId))
 
     newState.cardsQueue = !queue ? [] : queue
     newState.bleachers = !bleachers ? [] : bleachers
@@ -49,22 +49,19 @@ export default function sortItems(boardItems, user, boardId) {
 
     return newState
 }
-function sort(a, b, user) {
+function sort(a, b, userId) {
     return Number(
-        a.rank.find((rank) => rank.userId === user.id).rank.split(".")[1],
-    ) >
-        Number(
-            b.rank.find((rank) => rank.userId === user.id).rank.split(".")[1],
-        )
+        a.rank.find((rank) => rank.userId === userId).rank.split(".")[1],
+    ) > Number(b.rank.find((rank) => rank.userId === userId).rank.split(".")[1])
         ? 1
         : Number(
                 a.rank
-                    .find((rank) => rank.userId === user.id)
+                    .find((rank) => rank.userId === userId)
                     .rank.split(".")[1],
             ) <
             Number(
                 b.rank
-                    .find((rank) => rank.userId === user.id)
+                    .find((rank) => rank.userId === userId)
                     .rank.split(".")[1],
             )
           ? -1

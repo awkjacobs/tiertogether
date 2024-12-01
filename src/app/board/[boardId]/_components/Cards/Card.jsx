@@ -17,7 +17,7 @@ import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@/app/components/_providers/itemRankProvider"
-import { contextRankConvert } from "@/lib/const"
+import { comparedRank, contextRankConvert } from "@/lib/const"
 
 const size = {
     null: "w-10 md:w-16",
@@ -35,8 +35,9 @@ export function Card({
     activeItem,
     setDialogIsOpen,
     difference = false,
+    scoreToCompareAgainst,
 }) {
-    const appData = useContext(AppDataContext)
+    const { appData, userEntries } = useContext(AppDataContext)
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
@@ -170,14 +171,31 @@ export function Card({
                         {difference && (
                             <TooltipContent side="bottom">
                                 <RankingsTooltipDisplay difference={difference}>
-                                    <RankOverall
+                                    {userEntries === "overall" && (
+                                        <RankOverall
+                                            averageRank={item.averageRank}
+                                        />
+                                    )}
+                                    {userEntries !== "overall" && (
+                                        <RankGroup
+                                            rank={comparedRank(
+                                                item,
+                                                appData,
+                                                userEntries,
+                                                scoreToCompareAgainst,
+                                            )}
+                                        />
+                                    )}
+                                    <RankGroup rank={userRank} />
+
+                                    {/* <RankOverall
                                         appData={appData}
                                         averageRank={item.averageRank}
                                     />
                                     <RankGroup
                                         appData={appData}
                                         rank={userRank}
-                                    />
+                                    /> */}
                                 </RankingsTooltipDisplay>
                             </TooltipContent>
                         )}

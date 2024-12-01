@@ -4,13 +4,16 @@ import { useContext } from "react"
 import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
 
 export function TierContainer(props) {
-    const appData = useContext(AppDataContext)
+    const { appData } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
+
+    const userEntries = props.userEntries
+    const showServerRanks = userEntries === "overall"
 
     return (
         <section
             className={`flex w-full flex-col gap-2 self-start md:gap-4 ${
-                props.showServerRanks
+                showServerRanks
                     ? "rounded-lg border-2 border-emerald-500"
                     : "border-2 border-transparent"
             }`}
@@ -21,7 +24,7 @@ export function TierContainer(props) {
                         tier="bleachers"
                         label={appData.board.bleachersLabel}
                         entries={
-                            props.showServerRanks && serverRanks.data
+                            showServerRanks && serverRanks.data
                                 ? serverRanks.data.bleachers
                                 : props.ranks.bleachers
                         }
@@ -35,7 +38,7 @@ export function TierContainer(props) {
                         tier="sRank"
                         label="S"
                         entries={
-                            props.showServerRanks && serverRanks.data
+                            showServerRanks && serverRanks.data
                                 ? serverRanks.data.sRank
                                 : props.ranks.sRank
                         }
@@ -46,7 +49,7 @@ export function TierContainer(props) {
                     tier="aRank"
                     label="A"
                     entries={
-                        props.showServerRanks && serverRanks.data
+                        showServerRanks && serverRanks.data
                             ? serverRanks.data.aRank
                             : props.ranks.aRank
                     }
@@ -56,7 +59,7 @@ export function TierContainer(props) {
                     tier="bRank"
                     label="B"
                     entries={
-                        props.showServerRanks && serverRanks.data
+                        showServerRanks && serverRanks.data
                             ? serverRanks.data.bRank
                             : props.ranks.bRank
                     }
@@ -66,7 +69,7 @@ export function TierContainer(props) {
                     tier="cRank"
                     label="C"
                     entries={
-                        props.showServerRanks && serverRanks.data
+                        showServerRanks && serverRanks.data
                             ? serverRanks.data.cRank
                             : props.ranks.cRank
                     }
@@ -76,7 +79,7 @@ export function TierContainer(props) {
                     tier="dRank"
                     label="D"
                     entries={
-                        props.showServerRanks && serverRanks.data
+                        showServerRanks && serverRanks.data
                             ? serverRanks.data.dRank
                             : props.ranks.dRank
                     }
@@ -86,7 +89,7 @@ export function TierContainer(props) {
                     tier="fRank"
                     label="F"
                     entries={
-                        props.showServerRanks && serverRanks.data
+                        showServerRanks && serverRanks.data
                             ? serverRanks.data.fRank
                             : props.ranks.fRank
                     }
@@ -99,7 +102,7 @@ export function TierContainer(props) {
                         tier="dugout"
                         label={appData.board.dugoutLabel}
                         entries={
-                            props.showServerRanks && serverRanks.data
+                            showServerRanks && serverRanks.data
                                 ? serverRanks.data.dugout
                                 : props.ranks.dugout
                         }

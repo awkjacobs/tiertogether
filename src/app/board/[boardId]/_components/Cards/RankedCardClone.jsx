@@ -8,16 +8,21 @@ import {
 } from "@/components/ui/popover"
 import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
 import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
-import { scoreDif } from "@/lib/const"
+import { comparedRank, scoreDif } from "@/lib/const"
 import { useContext } from "react"
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 
 export default function RankedCardClone(props) {
     const { item } = props
-    const appData = useContext(AppDataContext)
+    const { appData, userEntries } = useContext(AppDataContext)
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
-    const average = item.averageRank.split(".")[0]
+    const scoreToCompareAgainst = item?.averageRank
+        ? item.averageRank
+        : item.rank.find((ranking) => {
+              return ranking.userId === userEntries
+          }).rank
+
     const userRank = item.rank.find((ranking) => {
         return ranking.userId === appData.user.id
     })
@@ -26,11 +31,12 @@ export default function RankedCardClone(props) {
     userRank.id = userRank.userId
 
     const serverAverageIsHigherThanUserScore = () => {
-        if (average < userRank.rank.split(".")[0]) return 1
-        if (average == userRank.rank.split(".")[0]) return 0
+        if (scoreToCompareAgainst.split(".")[0] < userRank.rank.split(".")[0])
+            return 1
+        if (scoreToCompareAgainst.split(".")[0] == userRank.rank.split(".")[0])
+            return 0
         else return -1
     }
-
     const difference = scoreDif(serverAverageIsHigherThanUserScore())
 
     if (!isDesktop)
@@ -42,7 +48,21 @@ export default function RankedCardClone(props) {
                     </PopoverTrigger>
                     <PopoverContent side={"bottom"}>
                         <RankingsTooltipDisplay difference={difference}>
-                            <RankOverall averageRank={item.averageRank} />
+                            {userEntries === "overall" && (
+                                <RankOverall
+                                    averageRank={scoreToCompareAgainst}
+                                />
+                            )}
+                            {userEntries !== "overall" && (
+                                <RankGroup
+                                    rank={comparedRank(
+                                        item,
+                                        appData,
+                                        userEntries,
+                                        scoreToCompareAgainst,
+                                    )}
+                                />
+                            )}
                             <RankGroup rank={userRank} />
                         </RankingsTooltipDisplay>
                     </PopoverContent>
@@ -51,7 +71,11 @@ export default function RankedCardClone(props) {
         )
 
     return (
-        <Card {...props} difference={difference}>
+        <Card
+            {...props}
+            difference={difference}
+            scoreToCompareAgainst={scoreToCompareAgainst}
+        >
             <RankBadge difference={difference} />
         </Card>
     )

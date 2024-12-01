@@ -13,7 +13,7 @@ const size = {
 }
 
 export function CardOverlay({ item }) {
-    const appData = useContext(AppDataContext)
+    const { appData } = useContext(AppDataContext)
     const { board } = appData
     const isDesktop = useMediaQuery("(min-width: 768px)")
 

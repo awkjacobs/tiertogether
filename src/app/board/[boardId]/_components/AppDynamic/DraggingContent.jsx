@@ -27,17 +27,27 @@ import { AppDataContext } from "@/components/_providers/appDataProvider"
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
 
-    const boardItems = appData.board.items
+    const boardItems = board.items
+    const [userEntries, setUserEntries] = useState(user.id)
 
-    const [ranks, setRanks] = useState(sortItems(boardItems, user, board.id))
+    const [ranks, setRanks] = useState(
+        sortItems(boardItems, userEntries, board.id),
+    )
+
+    let showDifference = userEntries !== user.id
+    appData.showDifference = showDifference
+
+    const [queueIsOpen, setQueueIsOpen] = useState(!showDifference)
 
     useEffect(() => {
-        setRanks(sortItems(boardItems, user, board.id))
-    }, [boardItems, user, board.id])
+        if (showDifference) setQueueIsOpen(false)
+        else setQueueIsOpen(true)
+    }, [showDifference])
 
-    const [showServerRanks, setShowServerRanks] = useState(false)
-
-    const [queueIsOpen, setQueueIsOpen] = useState(true)
+    useEffect(() => {
+        if (userEntries === "overall") return
+        setRanks(sortItems(boardItems, userEntries, board.id))
+    }, [boardItems, userEntries, board.id])
 
     const [activeCardIndex, setActiveCardIndex] = useState(0)
 
@@ -189,7 +199,9 @@ export default function DraggingContent({ appData }) {
     const sensors = useSensors(mouseSensor, touchSensor)
 
     return (
-        <AppDataContext.Provider value={appData}>
+        <AppDataContext.Provider
+            value={{ appData, userEntries, showDifference }}
+        >
             <DndContext
                 sensors={sensors}
                 // collisionDetection={closestCorners}
@@ -201,15 +213,13 @@ export default function DraggingContent({ appData }) {
                     className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll pb-8`}
                 >
                     <BoardBar
-                        showServerRanks={showServerRanks}
-                        setShowServerRanks={setShowServerRanks}
                         queueIsOpen={queueIsOpen}
                         setQueueIsOpen={setQueueIsOpen}
+                        setUserEntries={setUserEntries}
                     />
                     <TierContainer
                         ranks={ranks}
-                        showServerRanks={showServerRanks}
-                        // serverRanks={serverRanks}
+                        userEntries={userEntries}
                         activeItem={activeItem ? true : false}
                     />
                 </div>

@@ -30,7 +30,7 @@ export default function SwiperCard(props) {
         queueIsOpen,
     } = props
 
-    const appData = useContext(AppDataContext)
+    const { appData } = useContext(AppDataContext)
     const { board } = appData
     const { active, isOver, setNodeRef } = useDroppable({
         id: tier + item.id,

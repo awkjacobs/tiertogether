@@ -9,7 +9,7 @@ import { useContext } from "react"
 import { userRanksArray } from "../Dialog Functions/userRanksArray"
 
 export default function RankingsContainer({ item }) {
-    const appData = useContext(AppDataContext)
+    const { appData } = useContext(AppDataContext)
     const userRank = useContext(ItemRankContext)
 
     const { board } = appData
