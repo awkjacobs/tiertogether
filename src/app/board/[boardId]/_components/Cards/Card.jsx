@@ -17,7 +17,7 @@ import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@/app/components/_providers/itemRankProvider"
-import { comparedRank, contextRankConvert } from "@/lib/const"
+import { comparedRank } from "@/lib/const"
 
 const size = {
     null: "w-10 md:w-16",
@@ -72,7 +72,7 @@ export function Card({
         id: appData.user.id,
         itemsId: item.id,
         name: appData.user.name,
-        rank: contextRankConvert(tier, index),
+        rank: item.rank.find((rank) => rank.userId === appData.user.id).rank,
         userId: appData.user.id,
     }
 
@@ -187,15 +187,6 @@ export function Card({
                                         />
                                     )}
                                     <RankGroup rank={userRank} />
-
-                                    {/* <RankOverall
-                                        appData={appData}
-                                        averageRank={item.averageRank}
-                                    />
-                                    <RankGroup
-                                        appData={appData}
-                                        rank={userRank}
-                                    /> */}
                                 </RankingsTooltipDisplay>
                             </TooltipContent>
                         )}
@@ -205,42 +196,44 @@ export function Card({
         )
     if (!activeItem && !isDesktop)
         return (
-            <li
-                className={`${size[urlCardSize]} block ${
-                    tier === "cardsQueue"
-                        ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
-                        : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
-                } relative aspect-[2/3] overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
-            >
-                {children}
+            <ItemRankContext.Provider value={userRank}>
+                <li
+                    className={`${size[urlCardSize]} block ${
+                        tier === "cardsQueue"
+                            ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
+                            : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
+                    } relative aspect-[2/3] overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
+                >
+                    {children}
 
-                <ResponsiveDialog
-                    setIsOpen={setDialogIsOpen}
-                    trigger={
-                        <Poster
-                            itemId={item.id}
-                            boardType={board.type}
-                            width={width()}
-                            height={height()}
-                        />
-                    }
-                    triggerClasses={`p-0 h-auto w-auto`}
-                    component={
-                        <InfoDialogContent item={item} appData={appData} />
-                    }
-                    footer={
-                        <RemoveItemButton
-                            infoItem={item}
-                            appData={appData}
-                            disabled={!allowedToRemoveItemFromBoard}
-                            isDialog={true}
-                        />
-                    }
-                    title={name}
-                    backdrop={details.data.backdrop_path}
-                    hideDescription={true}
-                    hideTitle={true}
-                />
-            </li>
+                    <ResponsiveDialog
+                        setIsOpen={setDialogIsOpen}
+                        trigger={
+                            <Poster
+                                itemId={item.id}
+                                boardType={board.type}
+                                width={width()}
+                                height={height()}
+                            />
+                        }
+                        triggerClasses={`p-0 h-auto w-auto`}
+                        component={
+                            <InfoDialogContent item={item} appData={appData} />
+                        }
+                        footer={
+                            <RemoveItemButton
+                                infoItem={item}
+                                appData={appData}
+                                disabled={!allowedToRemoveItemFromBoard}
+                                isDialog={true}
+                            />
+                        }
+                        title={name}
+                        backdrop={details.data.backdrop_path}
+                        hideDescription={true}
+                        hideTitle={true}
+                    />
+                </li>
+            </ItemRankContext.Provider>
         )
 }

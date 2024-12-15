@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { LoaderCircle, Search } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import SearchCard from "./SearchCard"
 
 import {
@@ -27,10 +27,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { queryTypesList } from "@/lib/const"
-import { LoadingSpinner } from "../../../../components/ui/LoadingSpinner"
-import { useMutation } from "@tanstack/react-query"
+import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 import { useGetSearchQuery } from "@/app/hooks/use-get-fetch-query"
+import { queryTypesList } from "@/lib/const"
+import { useMutation } from "@tanstack/react-query"
+import { LoadingSpinner } from "../../../../components/ui/LoadingSpinner"
 
 const formSchema = z.object({
     query: z.string().min(1, { message: "Query cannot be empty" }),
@@ -41,7 +42,7 @@ const formSchema = z.object({
 // TODO - add more search options
 
 export default function AddDialogContent() {
-    const appData = useContext(AppDataContext)
+    const { appData } = useContext(AppDataContext)
     const { board } = appData
     const type = board.type
     const [queryValues, setQueryValues] = useState({
