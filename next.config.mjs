@@ -12,6 +12,10 @@ const nextConfig = {
 
     //     return config
     // },
+    experimental: {
+        reactCompiler: true,
+    },
+
     images: {
         remotePatterns: [
             {
