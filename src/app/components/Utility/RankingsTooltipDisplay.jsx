@@ -1,31 +1,45 @@
-export default function RankingsTooltipDisplay({ difference, children }) {
+import { findUserName } from "@lib/const"
+import { AppDataContext } from "../_providers/appDataProvider"
+import { useContext } from "react"
+
+export default function RankingsTooltipDisplay({
+    difference,
+    userEntries,
+    children,
+}) {
+    const { appData } = useContext(AppDataContext)
+    const comparedAgainst =
+        userEntries === "overall"
+            ? "Board average"
+            : `${findUserName(userEntries, appData)}'s rank`
+
     return (
-        <div className={`space-y-2 text-sm`}>
+        <div className={`space-y-2 whitespace-nowrap text-sm`}>
             {difference === "higher" && (
                 <>
-                    Board average is{" "}
+                    {comparedAgainst} is{" "}
                     <b>
                         <i>HIGHER</i>
                     </b>{" "}
-                    than your rating
+                    than your rank
                 </>
             )}
             {difference === "equals" && (
                 <>
-                    Board average is{" "}
+                    {comparedAgainst} is{" "}
                     <b>
                         <i>EQUAL</i>
                     </b>{" "}
-                    to your rating
+                    to your rank
                 </>
             )}
             {difference === "lower" && (
                 <>
-                    Board average is{" "}
+                    {comparedAgainst} is{" "}
                     <b>
                         <i>LOWER</i>
                     </b>{" "}
-                    than your rating
+                    than your rank
                 </>
             )}
 

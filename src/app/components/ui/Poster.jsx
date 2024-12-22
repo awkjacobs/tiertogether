@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@lib/utils"
 import { LoaderCircle } from "lucide-react"
 import Image from "next/image"
 import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"

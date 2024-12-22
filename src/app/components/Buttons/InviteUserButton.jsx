@@ -9,7 +9,7 @@ import {
     Share2,
 } from "lucide-react"
 import { Button } from "../ui/button"
-import INVITE_USER from "@/lib/invite"
+import INVITE_USER from "@lib/invite"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -38,7 +38,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { useState, useRef, useContext } from "react"
-import { PRISMA_CREATE_LINK_INVITATION } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_CREATE_LINK_INVITATION } from "@api/prismaFuncs"
 
 import { useQuery } from "@tanstack/react-query"
 import { toast } from "sonner"

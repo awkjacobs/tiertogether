@@ -3,9 +3,9 @@ import { PrismaClient } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs/server"
 import { clerkClient } from "@clerk/nextjs/server"
-import { MAKE_ID } from "@/lib/utils"
+import { MAKE_ID } from "@lib/utils"
 import { QueryClient } from "@tanstack/react-query"
-import { serverAverage } from "@/lib/serverFuncs"
+import { serverAverage } from "@lib/serverFuncs"
 
 const queryClient = new QueryClient()
 

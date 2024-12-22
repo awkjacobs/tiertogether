@@ -18,7 +18,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { PRISMA_CREATE_NEW_BOARD } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_CREATE_NEW_BOARD } from "@api/prismaFuncs"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { LoaderCircle } from "lucide-react"
 import { useState } from "react"
@@ -85,7 +85,6 @@ export default function AddBoardButton({ appData }) {
     const onSubmit = async (values) => {
         values.ownerId = appData.user.id
 
-        console.log(values)
         await PRISMA_CREATE_NEW_BOARD(values).finally(() => {
             toast(`${values.boardName} has been created`)
             form.reset()

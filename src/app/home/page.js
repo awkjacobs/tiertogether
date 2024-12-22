@@ -3,7 +3,7 @@ import {
     PRISMA_CREATE_USER,
     PRISMA_GET_INVITATION,
     PRISMA_GET_USER,
-} from "@prismaFuncs/prismaFuncs"
+} from "@api/prismaFuncs"
 import AppBar from "@/components/AppBar/AppBar"
 import HomeContainer from "./_components/HomeContainer"
 import HomeContent from "./_components/HomeContent"

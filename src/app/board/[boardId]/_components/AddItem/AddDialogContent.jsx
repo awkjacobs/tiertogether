@@ -29,7 +29,7 @@ import { z } from "zod"
 
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 import { useGetSearchQuery } from "@/app/hooks/use-get-fetch-query"
-import { queryTypesList } from "@/lib/const"
+import { queryTypesList } from "@lib/const"
 import { useMutation } from "@tanstack/react-query"
 import { LoadingSpinner } from "../../../../components/ui/LoadingSpinner"
 

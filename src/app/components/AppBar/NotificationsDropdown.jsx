@@ -18,7 +18,7 @@ import Notification from "./Notification"
 import { useQuery } from "@tanstack/react-query"
 import getNotifications from "./getNotifications"
 import { useAuth } from "@clerk/nextjs"
-import { PRISMA_VIEW_NOTIFICATIONS } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_VIEW_NOTIFICATIONS } from "@api/prismaFuncs"
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group"
 import { useState } from "react"
 

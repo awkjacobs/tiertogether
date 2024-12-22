@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/popover"
 import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
 import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
-import { comparedRank, scoreDif } from "@/lib/const"
+import { comparedRank, scoreDif } from "@lib/const"
 import { useContext } from "react"
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 
@@ -46,8 +46,11 @@ export default function RankedCardClone(props) {
                     <PopoverTrigger>
                         <RankBadge difference={difference} />
                     </PopoverTrigger>
-                    <PopoverContent side={"bottom"}>
-                        <RankingsTooltipDisplay difference={difference}>
+                    <PopoverContent side={"bottom"} className={`w-fit`}>
+                        <RankingsTooltipDisplay
+                            difference={difference}
+                            userEntries={userEntries}
+                        >
                             {userEntries === "overall" && (
                                 <RankOverall
                                     averageRank={scoreToCompareAgainst}

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { serverAverage } from "@/lib/serverFuncs"
+import { serverAverage } from "@lib/serverFuncs"
 
 export const useGetServerAverages = (boardId) => {
     return useQuery({

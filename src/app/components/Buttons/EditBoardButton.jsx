@@ -19,7 +19,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from "@/lib/utils"
+import { cn } from "@lib/utils"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { EllipsisVertical, LoaderCircle } from "lucide-react"
 import { useState } from "react"
@@ -36,7 +36,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { PRISMA_UPDATE_BOARD } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_UPDATE_BOARD } from "@api/prismaFuncs"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"

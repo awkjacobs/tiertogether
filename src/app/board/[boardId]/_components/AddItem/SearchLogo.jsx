@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { motion } from "motion/react"
 import CardTitle from "@/components/Utility/CardTitle"
-import { findLogo } from "@/lib/utils"
+import { findLogo } from "@lib/utils"
 import { useGetImagesQuery } from "@/app/hooks/use-get-fetch-query"
 
 export function SearchLogo({ itemId, title, type }) {

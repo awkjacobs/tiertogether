@@ -6,7 +6,7 @@ import {
     TMDB_SEARCH_TITLE,
     TMDB_SEARCH_ACTOR_TV,
     TMDB_SEARCH_TV_SERIES,
-} from "@/lib/movieFuncs"
+} from "@api/movieFuncs"
 
 export const searchFunc = (type, queryType, query, page) => {
     if (type === "movie") {

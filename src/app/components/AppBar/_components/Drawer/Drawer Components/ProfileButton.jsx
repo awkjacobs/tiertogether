@@ -39,14 +39,14 @@ import {
 
 import { useMediaQuery } from "@/app/hooks/use-media-query"
 import { Button } from "@/components/ui/button"
-import { LogOut, Settings, UserCog } from "lucide-react"
-import { SignOutButton } from "@clerk/nextjs"
+import { Bird, LogOut, Settings, UserCog, UserPen } from "lucide-react"
+import { SignOutButton, UserProfile } from "@clerk/nextjs"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Input } from "@/components/ui/input"
-import { PRISMA_UPDATE_DISPLAY_NAME } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_UPDATE_DISPLAY_NAME } from "@api/prismaFuncs"
 import { toast } from "sonner"
 
 const formSchema = z.object({
@@ -56,18 +56,6 @@ const formSchema = z.object({
 export default function ProfileButton({ appData }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const [isOpen, setIsOpen] = useState()
-
-    const form = useForm({
-        resolver: zodResolver(formSchema),
-        values: {
-            displayName: appData.user.name,
-        },
-    })
-
-    async function onSubmit(values) {
-        await PRISMA_UPDATE_DISPLAY_NAME(appData.user, values.displayName)
-        toast("Display Name Updated")
-    }
 
     if (isDesktop) {
         return (
@@ -104,49 +92,17 @@ export default function ProfileButton({ appData }) {
                         </SignOutButton>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <Form {...form}>
-                    <DialogContent className="max-w-screen-md">
-                        <form
-                            onSubmit={form.handleSubmit(onSubmit)}
-                            className="flex flex-col gap-4"
-                        >
-                            <DialogHeader>
-                                <DialogTitle>Edit Profile</DialogTitle>
-                                <VisuallyHidden.Root>
-                                    <DialogDescription>
-                                        Edit Profile
-                                    </DialogDescription>
-                                </VisuallyHidden.Root>
-                            </DialogHeader>
-                            <FormField
-                                control={form.control}
-                                name="displayName"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel
-                                            className={`text-purple-800 dark:text-purple-400`}
-                                        >
-                                            Display Name
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input type="text" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-
-                            <DialogFooter>
-                                <Button type="submit" className={`h-8`}>
-                                    {form.formState.isSubmitting &&
-                                        "Updating..."}
-                                    {!form.formState.isSubmitting &&
-                                        "Update Display Name"}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </DialogContent>
-                </Form>
+                <DialogContent
+                    className={`xs:rounded-xl max-w-fit gap-0 overflow-y-scroll rounded-xl p-0 sm:rounded-xl md:overflow-clip md:rounded-xl`}
+                >
+                    <DialogHeader className={`h-0 min-h-0 p-0`}>
+                        <VisuallyHidden.Root>
+                            <DialogTitle>Edit Profile</DialogTitle>
+                            <DialogDescription>Edit Profile</DialogDescription>
+                        </VisuallyHidden.Root>
+                    </DialogHeader>
+                    <Profile appData={appData} />
+                </DialogContent>
             </Dialog>
         )
     }
@@ -191,52 +147,76 @@ export default function ProfileButton({ appData }) {
                         </SignOutButton>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <Form {...form}>
-                    <DrawerContent className={`h-[90svh]`}>
-                        <form
-                            onSubmit={form.handleSubmit(onSubmit)}
-                            className="flex h-full flex-col gap-4"
-                        >
-                            <DrawerHeader className="text-left">
-                                <DrawerTitle>Edit Profile</DrawerTitle>
-                                <VisuallyHidden.Root>
-                                    <DrawerDescription>
-                                        Edit Profile
-                                    </DrawerDescription>
-                                </VisuallyHidden.Root>
-                            </DrawerHeader>
-                            <div className={`mx-4 flex-1`}>
-                                <FormField
-                                    control={form.control}
-                                    name="displayName"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                className={`text-purple-800 dark:text-purple-400`}
-                                            >
-                                                Display Name
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input type="text" {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-
-                            <DrawerFooter>
-                                <Button type="submit" className={`h-8`}>
-                                    {form.formState.isSubmitting &&
-                                        "Updating..."}
-                                    {!form.formState.isSubmitting &&
-                                        "Update Display Name"}
-                                </Button>
-                            </DrawerFooter>
-                        </form>
-                    </DrawerContent>
-                </Form>
+                <DrawerContent className={`max-h-[100svh] overflow-clip`}>
+                    <DrawerHeader className={`h-0 min-h-0 p-0`}>
+                        <VisuallyHidden.Root>
+                            <DialogTitle>Edit Profile</DialogTitle>
+                            <DialogDescription>Edit Profile</DialogDescription>
+                        </VisuallyHidden.Root>
+                    </DrawerHeader>
+                    <Profile appData={appData} />
+                </DrawerContent>
             </Drawer>
         )
     }
+}
+
+function Profile({ appData }) {
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+        values: {
+            displayName: appData.user.name,
+        },
+    })
+
+    async function onSubmit(values) {
+        await PRISMA_UPDATE_DISPLAY_NAME(appData.user, values.displayName)
+        toast("Display Name Updated")
+    }
+
+    return (
+        <UserProfile
+            routing="hash"
+            appearance={{
+                elements: {
+                    cardBox: "max-w-[100vw] h-[95svh] overflow-clip",
+                    scrollBox: "overflow-y-scroll flex-1",
+                    navbarMobileMenuRow: "bg-transparent",
+                },
+            }}
+        >
+            <UserProfile.Page
+                label="Display Name"
+                url="custom"
+                labelIcon={<UserPen className={`h-4 w-4`} />}
+            >
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-4"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="displayName"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Display Name</FormLabel>
+                                    <FormControl>
+                                        <Input type="text" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <Button type="submit" className={`h-8`}>
+                            {form.formState.isSubmitting && "Updating..."}
+                            {!form.formState.isSubmitting &&
+                                "Update Display Name"}
+                        </Button>
+                    </form>
+                </Form>
+            </UserProfile.Page>
+        </UserProfile>
+    )
 }

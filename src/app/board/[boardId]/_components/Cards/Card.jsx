@@ -17,7 +17,7 @@ import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@/app/components/_providers/itemRankProvider"
-import { comparedRank } from "@/lib/const"
+import { comparedRank } from "@lib/const"
 
 const size = {
     null: "w-10 md:w-16",
@@ -169,8 +169,11 @@ export function Card({
                                 : details.data.title}
                         </TooltipContent>
                         {difference && (
-                            <TooltipContent side="bottom">
-                                <RankingsTooltipDisplay difference={difference}>
+                            <TooltipContent>
+                                <RankingsTooltipDisplay
+                                    difference={difference}
+                                    userEntries={userEntries}
+                                >
                                     {userEntries === "overall" && (
                                         <RankOverall
                                             averageRank={item.averageRank}

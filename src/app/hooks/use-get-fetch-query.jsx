@@ -3,7 +3,7 @@ import {
     TMDB_GET_CREDITS,
     TMDB_GET_DETAILS,
     TMDB_GET_IMAGES,
-} from "@/lib/movieFuncs"
+} from "@api/movieFuncs"
 import { searchFunc } from "../board/[boardId]/_components/AddItem/searchSwitch"
 
 export const useGetDetailsQuery = (itemId, boardType) => {
@@ -30,7 +30,6 @@ export const useGetImagesQuery = (itemId, boardType) => {
 }
 
 export const useGetSearchQuery = (boardType, queryType, query, page = 1) => {
-    console.log(query)
     return useQuery({
         queryKey: ["search", boardType, queryType, query, page],
         queryFn: () => searchFunc(boardType, queryType, query, page),

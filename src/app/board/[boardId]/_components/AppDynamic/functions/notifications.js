@@ -1,4 +1,4 @@
-import { PRISMA_SET_BOARD_NOTIFICATIONS } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_SET_BOARD_NOTIFICATIONS } from "@api/prismaFuncs"
 
 export async function setNotificationsForUsers(
     board,

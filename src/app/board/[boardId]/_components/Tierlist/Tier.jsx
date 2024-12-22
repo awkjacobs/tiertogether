@@ -3,7 +3,7 @@ import Draggable from "../Cards/Draggable"
 import RankedCardClone from "../Cards/RankedCardClone"
 import { Star } from "lucide-react"
 import ResponsiveTooltip from "../../../../components/ui/ResponsiveTooltip"
-import { cn } from "@/lib/utils"
+import { cn } from "@lib/utils"
 import { AppDataContext } from "@/app/components/_providers/appDataProvider"
 import { useContext } from "react"
 

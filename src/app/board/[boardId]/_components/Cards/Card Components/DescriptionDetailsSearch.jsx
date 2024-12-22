@@ -1,5 +1,5 @@
 import DescriptionGroupSearch from "./DescriptionsGroupSearch"
-import { convertDate } from "@/lib/utils"
+import { convertDate } from "@lib/utils"
 
 export default function DescriptionDetailsSearch(props) {
     const { itemInfo } = props

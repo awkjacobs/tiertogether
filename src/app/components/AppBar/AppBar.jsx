@@ -35,7 +35,7 @@ export default async function AppBar({ appData }) {
                         href={`/`}
                     >
                         <LogoTriangles className={`h-full w-auto`} />
-                        <h1
+                        {/* <h1
                             className={`text-base font-medium text-purple-500 dark:text-purple-200`}
                         >
                             tier
@@ -44,7 +44,7 @@ export default async function AppBar({ appData }) {
                             >
                                 together
                             </span>
-                        </h1>
+                        </h1> */}
                     </Link>
                 </Button>
                 <div className={`flex items-center justify-center`}>

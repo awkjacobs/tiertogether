@@ -2,8 +2,8 @@ import {
     PRISMA_GET_SPECIFIC_BOARD,
     PRISMA_GET_USER,
     PRISMA_GET_BOARD_NOTIFICATIONS,
-} from "@prismaFuncs/prismaFuncs"
-import { serverAverage } from "@/lib/serverFuncs"
+} from "@api/prismaFuncs"
+import { serverAverage } from "@lib/serverFuncs"
 import AppBar from "@/components/AppBar/AppBar"
 import PageContainer from "@/components/Utility/PageContainer"
 import DraggingContent from "./_components/AppDynamic/DraggingContent"

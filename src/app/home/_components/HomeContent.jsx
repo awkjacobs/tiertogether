@@ -17,9 +17,9 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import { PRISMA_UPDATE_DISPLAY_NAME } from "@api/prismaFuncs"
+import { sortedBoards } from "@lib/const"
 import { useEffect, useState } from "react"
-import { sortedBoards } from "../../../../lib/const"
-import { PRISMA_UPDATE_DISPLAY_NAME } from "../../../../prismaFuncs/prismaFuncs"
 import BoardCard from "./BoardCard"
 import EmptyBoardsDisplay from "./EmptyBoardDisplay"
 import HomeBoardsBar from "./HomeBoardsBar"

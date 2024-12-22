@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { PRISMA_DELETE_ITEM } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_DELETE_ITEM } from "@api/prismaFuncs"
 import { LoaderCircle, Minus, X } from "lucide-react"
 import {
     AlertDialog,

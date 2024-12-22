@@ -1,6 +1,6 @@
 import CardTitle from "@/components/Utility/CardTitle"
 import { useGetImagesQuery } from "@/app/hooks/use-get-fetch-query"
-import { findLogo } from "@/lib/utils"
+import { findLogo } from "@lib/utils"
 import Image from "next/image"
 
 export default function Logo({ itemId, title, type, swiper = false }) {

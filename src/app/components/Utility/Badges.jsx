@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge"
-import { cn, convertDate } from "@/lib/utils"
-import { TMDB_genres } from "@/lib/tmdbGenres"
+import { cn, convertDate } from "@lib/utils"
+import { TMDB_genres } from "@lib/tmdbGenres"
 
 export function ReleaseBadge({ release }) {
     let releaseArr = release.map((date) => (date ? convertDate(date) : null))

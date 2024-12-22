@@ -1,6 +1,6 @@
 import { GenreBadge, ReleaseBadge } from "@/app/components/Utility/Badges"
 import { useMediaQuery } from "@/app/hooks/use-media-query"
-import { PRISMA_ADD_ITEM } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_ADD_ITEM } from "@api/prismaFuncs"
 import { Check, LoaderCircle, Plus } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -9,7 +9,7 @@ import Poster from "../../../../components/ui/Poster"
 import Overview from "./Overview"
 import SearchCardContainer from "./SearchCardContainer"
 import { SearchLogo } from "./SearchLogo"
-import { itemType } from "@/lib/const"
+import { itemType } from "@lib/const"
 import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
 import {
     Form,

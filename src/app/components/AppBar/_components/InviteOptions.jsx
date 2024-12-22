@@ -6,7 +6,7 @@ import {
     PRISMA_DECLINE_INVITATION,
     PRISMA_ACCEPT_INVITATION,
     PRISMA_GET_USER,
-} from "@prismaFuncs/prismaFuncs"
+} from "@api/prismaFuncs"
 import { useAuth } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"

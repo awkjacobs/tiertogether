@@ -4,7 +4,7 @@ import { LucideMenu } from "lucide-react"
 import BoardLinks from "./BoardLinks"
 import AddBoardButton from "@/app/components/Buttons/AddBoardButton"
 import ProfileButton from "./ProfileButton"
-import { sortedBoards } from "@/lib/const"
+import { sortedBoards } from "@lib/const"
 import {
     Sheet,
     SheetContent,
@@ -15,6 +15,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
+import { UserButton, UserProfile } from "@clerk/nextjs"
 
 export default function SideDrawer({ appData }) {
     const userBoards = appData.user.boards

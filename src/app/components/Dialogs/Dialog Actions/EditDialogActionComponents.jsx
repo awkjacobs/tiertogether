@@ -14,7 +14,7 @@ import {
     PRISMA_LEAVE_BOARD,
     PRISMA_MAKE_NEW_OWNER,
     PRISMA_UPDATE_BOARD,
-} from "@prismaFuncs/prismaFuncs"
+} from "@api/prismaFuncs"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "../../ui/button"
 import DesignateNewBoardOwner from "../Dialog Modules/Dialog Components/DesignateNewBoardOwner"

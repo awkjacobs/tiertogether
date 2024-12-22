@@ -1,5 +1,5 @@
 import ResponsiveTooltip from "@/app/components/ui/ResponsiveTooltip"
-import { scoreBar, scoreFlex } from "@/lib/const"
+import { scoreBar, scoreFlex } from "@lib/const"
 
 export default function RankChart({ ranks }) {
     const scores = ranks

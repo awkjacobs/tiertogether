@@ -33,9 +33,9 @@
 [X] try context providers for appData
 [ ] set up local development database https://vercel.com/docs/storage/vercel-postgres/local-development#option-2:-local-postgres-instance-with-docker
 [ ] get production OAuth keys
---- [ ] Google
---- [ ] Apple
---- [ ] Microsoft
+--- [X] Google
+--- [ ] ~~Apple~~ Requires a paid apple developer account, $100/year
+--- [X] Microsoft
 [ ] add tooltips and maybe shorcuts to buttons
 [ ] clean up the landing page
 [X] add favicon

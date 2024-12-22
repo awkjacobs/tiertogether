@@ -3,7 +3,7 @@ import {
     useGetDetailsQuery,
 } from "@/app/hooks/use-get-fetch-query"
 import { Skeleton } from "@/components/ui/skeleton"
-import { convertDate } from "@/lib/utils"
+import { convertDate } from "@lib/utils"
 import { useDroppable } from "@dnd-kit/core"
 import Image from "next/image"
 import { useContext, useEffect } from "react"

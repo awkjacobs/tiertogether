@@ -1,4 +1,4 @@
-import { PRISMA_UPDATE_RANK } from "@prismaFuncs/prismaFuncs"
+import { PRISMA_UPDATE_RANK } from "@api/prismaFuncs"
 
 export default async function makeUpdates(
     changedItems,
