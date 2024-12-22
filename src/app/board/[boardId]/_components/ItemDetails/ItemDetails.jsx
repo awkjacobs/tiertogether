@@ -40,7 +40,9 @@ export default function ItemDetails({ item }) {
             <CastAndStatus itemId={item.id} type={board.type} />
 
             <div className={`text-sm leading-7`}>{details.data.overview}</div>
-            <Collection collection={details.data.belongs_to_collection} />
+            {details.data.belongs_to_collection && (
+                <Collection collection={details.data.belongs_to_collection} />
+            )}
         </div>
     )
 }

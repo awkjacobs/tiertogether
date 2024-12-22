@@ -36,7 +36,7 @@ export default function RankingsContainer({ item }) {
 
     return (
         <div
-            className={`flex h-full flex-col overflow-hidden rounded p-4 md:h-full md:min-w-72 md:dark:bg-surface-900/90`}
+            className={`flex h-full flex-col overflow-hidden rounded p-4 md:h-full md:min-w-72 md:border md:dark:border-zinc-800 md:dark:bg-surface-900/90`}
         >
             <h4
                 className={`pb-3 font-bold text-purple-800 dark:text-purple-400`}

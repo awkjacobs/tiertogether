@@ -179,9 +179,10 @@ function Profile({ appData }) {
             routing="hash"
             appearance={{
                 elements: {
-                    cardBox: "max-w-[100vw] h-[95svh] overflow-clip",
+                    cardBox:
+                        "max-w-[100vw] max-h-[95svh] overflow-clip shadow-none",
                     scrollBox: "overflow-y-scroll flex-1",
-                    navbarMobileMenuRow: "bg-transparent",
+                    navbarMobileMenuRow: "bg-none",
                 },
             }}
         >

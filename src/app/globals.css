@@ -191,6 +191,9 @@ a {
 .flex-30 {
     flex: 30 30 0%;
 }
+.bg-none {
+    background: none;
+}
 /* ========Swiper======= */
 /* ===================== */
 .swiper {
