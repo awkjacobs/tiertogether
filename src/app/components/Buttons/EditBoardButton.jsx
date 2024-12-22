@@ -1,5 +1,5 @@
-import { useMediaQuery } from "@/app/hooks/use-media-query"
-import { Button } from "@/components/ui/button"
+import { useMediaQuery } from "@app/hooks/use-media-query"
+import { Button } from "@components/ui/button"
 import {
     Dialog,
     DialogContent,
@@ -8,7 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@components/ui/dialog"
 import {
     Drawer,
     DrawerContent,
@@ -17,14 +17,14 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from "@/components/ui/drawer"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "@components/ui/drawer"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
 import { cn } from "@lib/utils"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { EllipsisVertical, LoaderCircle } from "lucide-react"
 import { useState } from "react"
 
-import { ToggleGroup, ToggleGroupItem } from "@/components//ui/toggle-group"
+import { ToggleGroup, ToggleGroupItem } from "@components//ui/toggle-group"
 import {
     Form,
     FormControl,
@@ -33,8 +33,8 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@components/ui/form"
+import { Input } from "@components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PRISMA_UPDATE_BOARD } from "@api/prismaFuncs"
 import { useForm } from "react-hook-form"

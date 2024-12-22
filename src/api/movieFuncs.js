@@ -240,3 +240,23 @@ export async function TMDB_GET_DETAILS(id, type) {
 
     return res
 }
+export async function TMDB_GET_COLLECTION(id) {
+    const options = {
+        method: "GET",
+        headers: {
+            accept: "application/json",
+            Authorization: `${process.env.MOVIEDB_TOKEN}`,
+        },
+    }
+
+    const res = await fetch(
+        `
+        https://api.themoviedb.org/3/collection/${id}`,
+        options,
+        { cache: "force-cache" },
+    )
+        .then((response) => response.json())
+        .catch((err) => console.error("Get Collection Error: " + err))
+
+    return res
+}

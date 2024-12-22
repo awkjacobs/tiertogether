@@ -4,7 +4,7 @@ import {
     PRISMA_GET_INVITATION,
     PRISMA_GET_USER,
 } from "@api/prismaFuncs"
-import AppBar from "@/components/AppBar/AppBar"
+import AppBar from "@components/AppBar/AppBar"
 import HomeContainer from "./_components/HomeContainer"
 import HomeContent from "./_components/HomeContent"
 import { auth, currentUser } from "@clerk/nextjs/server"

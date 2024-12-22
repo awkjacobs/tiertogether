@@ -22,7 +22,7 @@ import {
     useSensors,
 } from "@dnd-kit/core"
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
-import { AppDataContext } from "@/components/_providers/appDataProvider"
+import { AppDataContext } from "@components/_providers/appDataProvider"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData

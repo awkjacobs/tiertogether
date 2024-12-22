@@ -1,7 +1,7 @@
-import { AppDataContext } from "@/app/components/_providers/appDataProvider"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { Tier } from "./Tier"
 import { useContext } from "react"
-import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
+import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 
 export function TierContainer(props) {
     const { appData, userEntries } = useContext(AppDataContext)

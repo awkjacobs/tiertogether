@@ -31,8 +31,10 @@
 [X] redo ranking and server stuff, db calls are very slow
 [X] replace user vs server ranks with all users and server ranks
 [X] try context providers for appData
+[ ] redo info dialog to use info component for all instances
+[ ] redo the scoring system to go top down using length and better score data, allow for scalability
 [ ] set up local development database https://vercel.com/docs/storage/vercel-postgres/local-development#option-2:-local-postgres-instance-with-docker
-[ ] get production OAuth keys
+[X] get production OAuth keys
 --- [X] Google
 --- [ ] ~~Apple~~ Requires a paid apple developer account, $100/year
 --- [X] Microsoft

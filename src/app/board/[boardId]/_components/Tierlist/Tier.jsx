@@ -4,7 +4,7 @@ import RankedCardClone from "../Cards/RankedCardClone"
 import { Star } from "lucide-react"
 import ResponsiveTooltip from "../../../../components/ui/ResponsiveTooltip"
 import { cn } from "@lib/utils"
-import { AppDataContext } from "@/app/components/_providers/appDataProvider"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { useContext } from "react"
 
 // ? - reduce the number of renders by being more selective of the entries

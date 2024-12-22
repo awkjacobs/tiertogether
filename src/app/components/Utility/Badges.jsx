@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@components/ui/badge"
 import { cn, convertDate } from "@lib/utils"
 import { TMDB_genres } from "@lib/tmdbGenres"
 

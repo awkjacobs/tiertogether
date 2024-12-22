@@ -5,7 +5,7 @@ import "swiper/css/effect-cards"
 import "swiper/css/mousewheel"
 import SwiperCard from "../Cards/SwiperCard"
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
-import { useMediaQuery } from "@/app/hooks/use-media-query"
+import { useMediaQuery } from "@app/hooks/use-media-query"
 
 export default function SwiperZone(props) {
     const isDesktop = useMediaQuery("(min-width: 768px)")

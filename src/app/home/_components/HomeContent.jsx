@@ -8,7 +8,7 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+} from "@components/ui/alert-dialog"
 import {
     Form,
     FormControl,
@@ -16,7 +16,7 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
+} from "@components/ui/form"
 import { PRISMA_UPDATE_DISPLAY_NAME } from "@api/prismaFuncs"
 import { sortedBoards } from "@lib/const"
 import { useEffect, useState } from "react"
@@ -25,9 +25,9 @@ import EmptyBoardsDisplay from "./EmptyBoardDisplay"
 import HomeBoardsBar from "./HomeBoardsBar"
 import UserBoardsContainer from "./UserBoardsContainer"
 
-import { Button } from "@/app/components/ui/button"
-import { Input } from "@/app/components/ui/input"
-import { AppDataContext } from "@/components/_providers/appDataProvider"
+import { Button } from "@app/components/ui/button"
+import { Input } from "@app/components/ui/input"
+import { AppDataContext } from "@components/_providers/appDataProvider"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"

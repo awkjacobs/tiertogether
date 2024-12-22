@@ -12,6 +12,7 @@ import {
 } from "@tanstack/react-query"
 import getNotifications from "./getNotifications"
 import { ClerkProvider } from "@clerk/nextjs"
+import LogoButton from "./_components/LogoButton"
 
 export default async function AppBar({ appData }) {
     const boardIdArray = appData.user.boards.map((board) => board.id)
@@ -34,17 +35,7 @@ export default async function AppBar({ appData }) {
                         className={`flex h-full cursor-pointer flex-row content-center items-center gap-1 px-2`}
                         href={`/`}
                     >
-                        <LogoTriangles className={`h-full w-auto`} />
-                        {/* <h1
-                            className={`text-base font-medium text-purple-500 dark:text-purple-200`}
-                        >
-                            tier
-                            <span
-                                className={`text-purple-800 dark:text-purple-500`}
-                            >
-                                together
-                            </span>
-                        </h1> */}
+                        <LogoButton />
                     </Link>
                 </Button>
                 <div className={`flex items-center justify-center`}>

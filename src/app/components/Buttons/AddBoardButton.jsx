@@ -1,5 +1,5 @@
-import { useMediaQuery } from "@/app/hooks/use-media-query"
-import { Button } from "@/components/ui/button"
+import { useMediaQuery } from "@app/hooks/use-media-query"
+import { Button } from "@components/ui/button"
 import {
     Dialog,
     DialogContent,
@@ -8,7 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@components/ui/dialog"
 import {
     Drawer,
     DrawerContent,
@@ -17,13 +17,13 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@components/ui/drawer"
 import { PRISMA_CREATE_NEW_BOARD } from "@api/prismaFuncs"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { LoaderCircle } from "lucide-react"
 import { useState } from "react"
 
-import { ToggleGroup, ToggleGroupItem } from "@/components//ui/toggle-group"
+import { ToggleGroup, ToggleGroupItem } from "@components//ui/toggle-group"
 import {
     Form,
     FormControl,
@@ -32,9 +32,9 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import AnimeCross from "@/components/Utility/animeCross"
+} from "@components/ui/form"
+import { Input } from "@components/ui/input"
+import AnimeCross from "@components/Utility/animeCross"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Clapperboard, Tv } from "lucide-react"
 import { useForm } from "react-hook-form"

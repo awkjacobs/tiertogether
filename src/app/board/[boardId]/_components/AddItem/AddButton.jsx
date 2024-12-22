@@ -1,7 +1,7 @@
 import AddDialogContent from "./AddDialogContent"
 import { ResponsiveDialog } from "../../../../components/ui/ResponsiveDialog"
 import { Plus } from "lucide-react"
-import { useMediaQuery } from "@/app/hooks/use-media-query"
+import { useMediaQuery } from "@app/hooks/use-media-query"
 
 export default function AddButton() {
     const isDesktop = useMediaQuery("(min-width: 768px)")

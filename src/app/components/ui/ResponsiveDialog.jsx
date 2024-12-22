@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@/app/hooks/use-media-query"
+import { useMediaQuery } from "@app/hooks/use-media-query"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import Backdrop from "./backdrop"
 import { Button } from "./button"
@@ -26,6 +26,7 @@ export function ResponsiveDialog({
     setIsOpen,
     title,
     trigger,
+    triggerIsAsChild = true,
     triggerClasses,
     component,
     hideTitle,
@@ -43,7 +44,7 @@ export function ResponsiveDialog({
     if (isDesktop) {
         return (
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTrigger asChild>
+                <DialogTrigger asChild={triggerIsAsChild}>
                     <Button
                         size={triggerSize}
                         variant={triggerVariant ? triggerVariant : "ghost"}

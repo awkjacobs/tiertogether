@@ -1,22 +1,22 @@
-import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
-import { useMediaQuery } from "@/app/hooks/use-media-query"
-import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
+import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
+import { useMediaQuery } from "@app/hooks/use-media-query"
+import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
 import { LoaderCircle } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { RemoveItemButton } from "../Buttons/RemoveItemButton"
-import InfoDialogContent from "@/components/Dialogs/Dialog Modules/InfoDialogContent"
-import Poster from "@/components/ui/Poster"
-import { ResponsiveDialog } from "@/components/ui/ResponsiveDialog"
+import InfoDialogContent from "../Dialogs/InfoDialogContent"
+import Poster from "@components/ui/Poster"
+import { ResponsiveDialog } from "@components/ui/ResponsiveDialog"
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
+} from "@components/ui/tooltip"
+import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
 import { useContext } from "react"
-import { AppDataContext } from "@/app/components/_providers/appDataProvider"
-import { ItemRankContext } from "@/app/components/_providers/itemRankProvider"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
 import { comparedRank } from "@lib/const"
 
 const size = {

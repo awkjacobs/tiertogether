@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@components/ui/input"
+import { Button } from "@components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -9,7 +9,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@components/ui/dropdown-menu"
 
 export default function SearchBox({
     onChangeSearch,

@@ -6,9 +6,9 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@components/ui/dropdown-menu"
 import { Bell, Eye, ListFilter, LoaderCircle } from "lucide-react"
-import { Form } from "@/components/ui/form"
+import { Form } from "@components/ui/form"
 
 import { useForm } from "react-hook-form"
 

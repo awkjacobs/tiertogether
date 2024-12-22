@@ -1,12 +1,12 @@
-import RankChart from "@/app/components/Utility/RankingChart"
-import { AppDataContext } from "@/app/components/_providers/appDataProvider"
-import { ItemRankContext } from "@/app/components/_providers/itemRankProvider"
-import { ScrollArea } from "@/app/components/ui/scroll-area"
-import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
+import RankChart from "@app/components/Utility/RankingChart"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
+import { ScrollArea } from "@app/components/ui/scroll-area"
+import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
 import { serverAverage } from "@lib/serverFuncs"
 import { useQuery } from "@tanstack/react-query"
 import { useContext } from "react"
-import { userRanksArray } from "../Dialog Functions/userRanksArray"
+import { userRanksArray } from "./userRanksArray"
 
 export default function RankingsContainer({ item }) {
     const { appData } = useContext(AppDataContext)
@@ -36,7 +36,7 @@ export default function RankingsContainer({ item }) {
 
     return (
         <div
-            className={`flex h-full flex-col overflow-hidden md:col-start-3 md:col-end-4 md:row-start-2 md:row-end-4 md:h-72`}
+            className={`flex h-full flex-col overflow-hidden rounded p-4 md:h-full md:min-w-72 md:dark:bg-surface-900/90`}
         >
             <h4
                 className={`pb-3 font-bold text-purple-800 dark:text-purple-400`}

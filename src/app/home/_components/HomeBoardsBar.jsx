@@ -1,5 +1,5 @@
-import InviteUserButton from "@/app/components/Buttons/InviteUserButton"
-import AddBoardButton from "@/components/Buttons/AddBoardButton"
+import InviteUserButton from "@app/components/Buttons/InviteUserButton"
+import AddBoardButton from "@components/Buttons/AddBoardButton"
 
 export default function HomeBoardsBar({ appData }) {
     return (

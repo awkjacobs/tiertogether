@@ -9,7 +9,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@components/ui/dialog"
 import {
     Drawer,
     DrawerClose,
@@ -19,7 +19,7 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@components/ui/drawer"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -27,7 +27,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@components/ui/dropdown-menu"
 import {
     Form,
     FormControl,
@@ -35,17 +35,17 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
+} from "@components/ui/form"
 
-import { useMediaQuery } from "@/app/hooks/use-media-query"
-import { Button } from "@/components/ui/button"
+import { useMediaQuery } from "@app/hooks/use-media-query"
+import { Button } from "@components/ui/button"
 import { Bird, LogOut, Settings, UserCog, UserPen } from "lucide-react"
 import { SignOutButton, UserProfile } from "@clerk/nextjs"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Input } from "@/components/ui/input"
+import { Input } from "@components/ui/input"
 import { PRISMA_UPDATE_DISPLAY_NAME } from "@api/prismaFuncs"
 import { toast } from "sonner"
 

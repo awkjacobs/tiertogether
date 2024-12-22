@@ -1,20 +1,20 @@
 import {
     useGetCreditsQuery,
     useGetDetailsQuery,
-} from "@/app/hooks/use-get-fetch-query"
-import { Skeleton } from "@/components/ui/skeleton"
+} from "@app/hooks/use-get-fetch-query"
+import { Skeleton } from "@components/ui/skeleton"
 import { convertDate } from "@lib/utils"
 import { useDroppable } from "@dnd-kit/core"
 import Image from "next/image"
 import { useContext, useEffect } from "react"
 import { RemoveItemButton } from "../Buttons/RemoveItemButton"
-import Logo from "@/components/Dialogs/Dialog Modules/Dialog Components/Logo"
-import Backdrop from "@/components/ui/backdrop"
-import { findDirectors } from "@/components/Utility/findDirectors"
-import MissingPoster from "@/components/Utility/MissingPoster"
+import Logo from "@app/board/[boardId]/_components/ItemDetails/Logo"
+import Backdrop from "@components/ui/backdrop"
+import { findDirectors } from "@components/Utility/findDirectors"
+import MissingPoster from "@components/Utility/MissingPoster"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
-import { AppDataContext } from "@/app/components/_providers/appDataProvider"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
 // TODO - change mobile formating, maybe just poster
 
 export default function SwiperCard(props) {

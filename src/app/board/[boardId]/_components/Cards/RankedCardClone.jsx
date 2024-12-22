@@ -1,16 +1,12 @@
 import RankBadge from "./Card Components/RankBadge"
 import { Card } from "./Card"
-import { useMediaQuery } from "@/app/hooks/use-media-query"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import RankingsTooltipDisplay from "@/components/Utility/RankingsTooltipDisplay"
-import { RankGroup, RankOverall } from "@/components/Utility/RankGroup"
+import { useMediaQuery } from "@app/hooks/use-media-query"
+import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover"
+import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
+import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
 import { comparedRank, scoreDif } from "@lib/const"
 import { useContext } from "react"
-import { AppDataContext } from "@/app/components/_providers/appDataProvider"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
 
 export default function RankedCardClone(props) {
     const { item } = props

@@ -1,5 +1,5 @@
 import { NOTIFICATION_ICONS } from "@lib/const"
-import { useGetInvitationData } from "@/app/hooks/use-get-notification"
+import { useGetInvitationData } from "@app/hooks/use-get-notification"
 import InviteOptions from "./InviteOptions"
 import { Skeleton } from "../../ui/skeleton"
 import { simplifiedDate } from "@lib/utils"

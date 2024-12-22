@@ -3,14 +3,10 @@ import {
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from "@/components/ui/tooltip"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@components/ui/tooltip"
+import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover"
 
-import { useMediaQuery } from "@/app/hooks/use-media-query"
+import { useMediaQuery } from "@app/hooks/use-media-query"
 
 export default function ResponsiveTooltip({
     trigger,

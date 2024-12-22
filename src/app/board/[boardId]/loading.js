@@ -1,9 +1,9 @@
 import Link from "next/link"
 import { House } from "lucide-react"
-import PageContainer from "@/components/Utility/PageContainer"
-import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import LogoTriangles from "@/components/Utility/LogoTriangles"
+import PageContainer from "@components/Utility/PageContainer"
+import { Button } from "@components/ui/button"
+import { Skeleton } from "@components/ui/skeleton"
+import LogoTriangles from "@components/Utility/LogoTriangles"
 
 export default function BoardLoading() {
     return (

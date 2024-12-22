@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@components/ui/button"
 import {
     PRISMA_DECLINE_INVITATION,
     PRISMA_ACCEPT_INVITATION,
@@ -11,7 +11,7 @@ import { useAuth } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Form } from "@/components/ui/form"
+import { Form } from "@components/ui/form"
 import { LoaderCircle } from "lucide-react"
 
 // TODO - change to form

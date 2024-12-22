@@ -1,7 +1,7 @@
-import PageContainer from "@/app/components/Utility/PageContainer"
-import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import LogoTriangles from "@/components/Utility/LogoTriangles"
+import PageContainer from "@app/components/Utility/PageContainer"
+import { Button } from "@components/ui/button"
+import { Skeleton } from "@components/ui/skeleton"
+import LogoTriangles from "@components/Utility/LogoTriangles"
 import Link from "next/link"
 
 export default function HomeLoading() {

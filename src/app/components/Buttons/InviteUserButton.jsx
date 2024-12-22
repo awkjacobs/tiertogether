@@ -20,7 +20,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@components/ui/alert-dialog"
 import {
     Form,
     FormControl,
@@ -29,10 +29,10 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "@components/ui/form"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
 
-import { Input } from "@/components/ui/input"
+import { Input } from "@components/ui/input"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"

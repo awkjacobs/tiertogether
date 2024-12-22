@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@components/ui/skeleton"
 import { useEffect, useState } from "react"
 
 export default function DescriptionGroupSearch(props) {

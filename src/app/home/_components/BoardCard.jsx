@@ -1,15 +1,15 @@
 import { Suspense, use, useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import EditBoardButton from "@/components/Buttons/EditBoardButton"
+import EditBoardButton from "@components/Buttons/EditBoardButton"
 import { motion } from "motion/react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/effect-fade"
 import { Autoplay, EffectFade } from "swiper/modules"
 import { Clapperboard, Tv } from "lucide-react"
-import AnimeCross from "@/components/Utility/animeCross"
-import Crown from "@/app/components/Utility/Crown"
+import AnimeCross from "@components/Utility/animeCross"
+import Crown from "@app/components/Utility/Crown"
 
 export default function BoardCard({ board, appData, index }) {
     const { user } = appData

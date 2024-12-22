@@ -1,5 +1,5 @@
-import EditBoardButton from "@/components/Buttons/EditBoardButton"
-import { Button } from "@/components/ui/button"
+import EditBoardButton from "@components/Buttons/EditBoardButton"
+import { Button } from "@components/ui/button"
 import { ZoomIn, ZoomOut } from "lucide-react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useContext } from "react"
@@ -11,9 +11,9 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
-import { Separator } from "@/components/ui/separator"
-import { useGetServerAverages } from "@/app/hooks/use-get-serverAverage"
+} from "@components/ui/select"
+import { Separator } from "@components/ui/separator"
+import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)

@@ -1,6 +1,6 @@
 import Link from "next/link"
-import Spacing from "@/components/Utility/Spacing"
-import { Button } from "@/components/ui/button"
+import Spacing from "@components/Utility/Spacing"
+import { Button } from "@components/ui/button"
 import {
     SignInButton,
     SignOutButton,
@@ -8,7 +8,7 @@ import {
     SignedOut,
     UserButton,
 } from "@clerk/nextjs"
-import DotsBackground from "@/components/Utility/dotsBackground"
+import DotsBackground from "@components/Utility/dotsBackground"
 // TODO - clean up the landing page
 
 export default function LandingPage() {

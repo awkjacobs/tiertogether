@@ -1,8 +1,8 @@
-import { GenreBadge, ReleaseBadge } from "@/app/components/Utility/Badges"
-import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
-import { Skeleton } from "@/app/components/ui/skeleton"
+import { GenreBadge, ReleaseBadge } from "@app/components/Utility/Badges"
+import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
+import { Skeleton } from "@app/components/ui/skeleton"
 
-export default function DescriptionContainer({ item, type }) {
+export default function ItemBadges({ item, type }) {
     const details = useGetDetailsQuery(item.id, type)
 
     if (details.isLoading)

@@ -1,5 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
+    TMDB_GET_COLLECTION,
     TMDB_GET_CREDITS,
     TMDB_GET_DETAILS,
     TMDB_GET_IMAGES,
@@ -25,6 +26,13 @@ export const useGetImagesQuery = (itemId, boardType) => {
         queryKey: ["logo", itemId, boardType],
         queryFn: () =>
             TMDB_GET_IMAGES(itemId, boardType === "anime" ? "tv" : boardType),
+        staleTime: Infinity,
+    })
+}
+export const useGetCollectionQuery = (collectionId) => {
+    return useQuery({
+        queryKey: ["collection", collectionId],
+        queryFn: () => TMDB_GET_COLLECTION(collectionId),
         staleTime: Infinity,
     })
 }

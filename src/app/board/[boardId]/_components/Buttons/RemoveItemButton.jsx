@@ -12,10 +12,10 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/app/components/ui/button"
+} from "@components/ui/alert-dialog"
+import { Button } from "@app/components/ui/button"
 import { toast } from "sonner"
-import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
+import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 
 export function RemoveItemButton({
     infoItem,

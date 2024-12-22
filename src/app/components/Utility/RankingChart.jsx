@@ -1,4 +1,4 @@
-import ResponsiveTooltip from "@/app/components/ui/ResponsiveTooltip"
+import ResponsiveTooltip from "@app/components/ui/ResponsiveTooltip"
 import { scoreBar, scoreFlex } from "@lib/const"
 
 export default function RankChart({ ranks }) {

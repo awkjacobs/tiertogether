@@ -1,13 +1,13 @@
 import DescriptionGroup from "./DescriptionGroup"
-import { creditCasting } from "@/app/components/Utility/creditCasting"
-import { findDirectors } from "@/app/components/Utility/findDirectors"
-import { Skeleton } from "@/app/components/ui/skeleton"
+import { creditCasting } from "@components/Utility/creditCasting"
+import { findDirectors } from "@components/Utility/findDirectors"
+import { Skeleton } from "@app/components/ui/skeleton"
 import {
     useGetCreditsQuery,
     useGetDetailsQuery,
-} from "@/app/hooks/use-get-fetch-query"
+} from "@app/hooks/use-get-fetch-query"
 
-export default function DescriptionDetails({ itemId, type, queryType }) {
+export default function CastAndStatus({ itemId, type }) {
     const credits = useGetCreditsQuery(itemId, type)
     const details = useGetDetailsQuery(itemId, type)
 
@@ -63,6 +63,21 @@ export default function DescriptionDetails({ itemId, type, queryType }) {
                         ${details.data.status}`}
                     />
                 )}
+            {!details.isLoading && details.data?.budget && (
+                <DescriptionGroup
+                    section={"Budget:"}
+                    content={`$
+                        ${details.data.budget.toLocaleString()}`}
+                />
+            )}
+            {!details.isLoading && details.data?.revenue && (
+                <DescriptionGroup
+                    section={"Revenue:"}
+                    content={`$
+                        ${details.data.revenue.toLocaleString()}`}
+                />
+            )}
+
             {details.isLoading && (
                 <>
                     <Skeleton className={`h-4 w-full`} />

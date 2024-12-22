@@ -1,29 +1,20 @@
-import { Button } from "@/components/ui/button"
-import { ResponsiveDialog } from "@/components/ui/ResponsiveDialog"
-import SearchInfoContent from "./SearchInfoContent"
+import { Button } from "@components/ui/button"
+import { ResponsiveDialog } from "@components/ui/ResponsiveDialog"
 import { Check, Plus } from "lucide-react"
+import InfoDialogContent from "../Dialogs/InfoDialogContent"
 
 export default function Overview({
     isDesktop,
     item,
-    type,
-    queryType,
     alreadyIncluded,
     handleAdd,
-    loading,
 }) {
     return (
         <ResponsiveDialog
             trigger={"Details"}
             triggerSize={"sm"}
             triggerClasses={`text-purple-200 ${isDesktop ? "" : "text-xs"}`}
-            component={
-                <SearchInfoContent
-                    item={item}
-                    type={type}
-                    queryType={queryType}
-                />
-            }
+            component={<InfoDialogContent item={item} search={true} />}
             dialogClasses={`md:max-w-screen-sm`}
             footer={
                 <Button
@@ -33,7 +24,6 @@ export default function Overview({
                             ? ""
                             : "bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-600"
                     } `}
-                    disabled={loading}
                     onClick={handleAdd}
                 >
                     {!alreadyIncluded ? (

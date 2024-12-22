@@ -1,6 +1,6 @@
-import { useMediaQuery } from "@/app/hooks/use-media-query"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useMediaQuery } from "@app/hooks/use-media-query"
+import { Button } from "@components/ui/button"
+import { Input } from "@components/ui/input"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { LoaderCircle, Search } from "lucide-react"
 import { useContext, useEffect, useRef, useState } from "react"
@@ -12,7 +12,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@components/ui/select"
 
 import {
     Form,
@@ -22,13 +22,13 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
+} from "@components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { AppDataContext } from "@/app/components/_providers/appDataProvider"
-import { useGetSearchQuery } from "@/app/hooks/use-get-fetch-query"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { useGetSearchQuery } from "@app/hooks/use-get-fetch-query"
 import { queryTypesList } from "@lib/const"
 import { useMutation } from "@tanstack/react-query"
 import { LoadingSpinner } from "../../../../components/ui/LoadingSpinner"

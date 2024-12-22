@@ -1,5 +1,5 @@
-import { GenreBadge, ReleaseBadge } from "@/app/components/Utility/Badges"
-import { useMediaQuery } from "@/app/hooks/use-media-query"
+import { GenreBadge, ReleaseBadge } from "@app/components/Utility/Badges"
+import { useMediaQuery } from "@app/hooks/use-media-query"
 import { PRISMA_ADD_ITEM } from "@api/prismaFuncs"
 import { Check, LoaderCircle, Plus } from "lucide-react"
 import { useState } from "react"
@@ -10,7 +10,7 @@ import Overview from "./Overview"
 import SearchCardContainer from "./SearchCardContainer"
 import { SearchLogo } from "./SearchLogo"
 import { itemType } from "@lib/const"
-import { useGetDetailsQuery } from "@/app/hooks/use-get-fetch-query"
+import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import {
     Form,
     FormControl,
@@ -19,7 +19,7 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
+} from "@components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -141,8 +141,6 @@ export default function SearchCard({ item, board, type, queryType, style }) {
                         <Overview
                             isDesktop={isDesktop}
                             item={item}
-                            type={type}
-                            queryType={queryType}
                             alreadyIncluded={alreadyIncluded}
                             handleAdd={handleAdd}
                         />
@@ -152,8 +150,6 @@ export default function SearchCard({ item, board, type, queryType, style }) {
                     <Overview
                         isDesktop={isDesktop}
                         item={item}
-                        type={type}
-                        queryType={queryType}
                         alreadyIncluded={alreadyIncluded}
                         handleAdd={handleAdd}
                     />

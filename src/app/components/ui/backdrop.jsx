@@ -5,7 +5,7 @@ export default function Backdrop({ backdrop, fill, mobile }) {
         <div
             className={`${
                 fill ? "h-auto" : mobile ? "h-52" : "h-64"
-            }  absolute w-full inset-0 -z-10 bg-zinc-900`}
+            } absolute inset-0 -z-10 w-full bg-zinc-900`}
         >
             {backdrop && (
                 <Image
@@ -14,13 +14,13 @@ export default function Backdrop({ backdrop, fill, mobile }) {
                     priority={true}
                     alt="Backdrop"
                     src={`http://image.tmdb.org/t/p/original${backdrop}`}
-                    className={`object-cover object-[0_25%] -z-20 ${
+                    className={`-z-20 object-cover object-[0_25%] ${
                         mobile ? "rounded-t-md" : ""
                     }`}
                 />
             )}
             <div
-                className={`w-full h-full bg-gradient-to-b from-backdrop-800/60 to-backdrop-900/70 -z-10`}
+                className={`-z-10 h-full w-full bg-gradient-to-b from-backdrop-800/60 to-backdrop-900/70`}
             />
         </div>
     )
