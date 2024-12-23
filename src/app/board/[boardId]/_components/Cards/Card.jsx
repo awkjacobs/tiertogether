@@ -58,14 +58,11 @@ export function Card({
 
     const name = details.data.name ? details.data.name : details.data.title
 
-    const { user, boardOwner, board } = appData
+    const { user, board } = appData
 
     // ? need to check into this with change in added by row
-    const allowedToRemoveItemFromBoard = boardOwner
-        ? true
-        : user.id === item.addedBy.id
-          ? true
-          : false
+    const allowedToRemoveItemFromBoard =
+        user.id === board.ownerId || user.id === item.addedBy.id
 
     const userRank = {
         boardId: appData.board.id,
