@@ -39,10 +39,7 @@ export function Tier(props) {
         case "fRank":
             style = `bg-red-500/20`
             break
-        case "bleachers":
-            style = `bg-zinc-600/10`
-            break
-        case "dugout":
+        case "bleachers" || "dugout":
             style = `bg-zinc-600/10`
             break
         default:
@@ -57,27 +54,15 @@ export function Tier(props) {
                     : "bg-surface-200 dark:bg-surface-900"
             }`}
         >
-            {props.tier === "sRank" && (
-                <div
-                    className={cn(
-                        `flex h-full w-[clamp(2rem,_10vw,_5rem)] min-w-11 items-center justify-center overflow-hidden p-1 text-center text-tierClamp font-semibold`,
-                        style,
-                    )}
-                >
-                    <Star color="#ffffff" />
-                </div>
-            )}
-            {props.tier !== "sRank" && (
-                <div
-                    className={`flex w-[clamp(2rem,_10vw,_5rem)] min-w-11 items-center justify-center overflow-hidden p-1 text-center font-semibold ${
-                        props.tier === "bleachers" || props.tier === "dugout"
-                            ? "text-tierClampSmall"
-                            : "text-tierClamp"
-                    } ${style}`}
-                >
-                    {props.label}
-                </div>
-            )}
+            <div
+                className={`flex w-[clamp(2rem,_10vw,_5rem)] min-w-11 items-center justify-center overflow-hidden p-1 text-center font-semibold ${
+                    props.tier === "bleachers" || props.tier === "dugout"
+                        ? "text-tierClampSmall"
+                        : "text-tierClamp"
+                } ${style}`}
+            >
+                {props.label}
+            </div>
 
             {!appData.showDifference && (
                 <SortableContext items={entries ? entries : []} id={props.tier}>
