@@ -45,6 +45,7 @@
 [ ] include # of unread notifications in title
 [ ] make board text into text fields
 [ ] add list view
+[ ] deal with the multiple modals when opening collection cards
 
 [ ] create actual README file
 

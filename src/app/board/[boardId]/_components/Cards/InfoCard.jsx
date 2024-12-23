@@ -9,23 +9,13 @@ import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { useState } from "react"
 import { toast } from "sonner"
 import InfoDialogContent from "../Dialogs/InfoDialogContent"
-import { useMediaQuery } from "@app/hooks/use-media-query"
-import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@app/components/ui/tooltip"
 
 export default function InfoCard({ item }) {
     const { appData } = useContext(AppDataContext)
     const { board } = appData
+
     const name = item?.name ? item.name : item.title
 
-    const details = useGetDetailsQuery(item.id, appData.board.type)
-
-    const isDesktop = useMediaQuery("(min-width: 768px)")
     const [alreadyIncluded, setAlreadyIncluded] = useState(
         board.items.some((boardItem) => boardItem.id === item.id),
     )
@@ -40,7 +30,7 @@ export default function InfoCard({ item }) {
             {
                 id: item.id,
                 backdrop_path: item.backdrop_path,
-                type: itemType(board, queryType),
+                type: itemType(board, item.media_type),
             },
             content,
             "itemAdded",
@@ -65,27 +55,17 @@ export default function InfoCard({ item }) {
     return (
         <ResponsiveDialog
             trigger={
-                <TooltipProvider delayDuration={100}>
-                    <Tooltip>
-                        <TooltipTrigger>
-                            <Poster
-                                className={`row-start-1 row-end-3 h-28 w-auto justify-self-center shadow-lg transition-all md:hover:scale-105 md:hover:shadow-purple-200/50`}
-                                itemId={item.id}
-                                boardType={board.type}
-                                height={256}
-                                width={170}
-                            />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            {item.name ? item.name : item.title}
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
+                <Poster
+                    className={`row-start-1 row-end-3 h-28 w-auto justify-self-center shadow-lg transition-all md:hover:scale-105 md:hover:shadow-purple-200/50`}
+                    itemId={item.id}
+                    boardType={board.type}
+                    height={256}
+                    width={170}
+                />
             }
             triggerSize={"sm"}
             triggerClasses={`p-0 h-auto w-auto`}
-            triggerIsAsChild={false}
-            component={<InfoDialogContent item={item} search={true} />}
+            component={<InfoDialogContent item={item} ignoreRankings={true} />}
             dialogClasses={`md:max-w-screen-sm`}
             footer={
                 <Button

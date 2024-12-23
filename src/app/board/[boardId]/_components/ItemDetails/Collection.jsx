@@ -22,16 +22,7 @@ export default function Collection({ collection }) {
 
             <div className="flex flex-row flex-wrap justify-center gap-2">
                 {items.data.parts.map((part) => (
-                    // <TooltipProvider key={part.id}>
-                    //     <Tooltip>
-                    //         <TooltipTrigger asChild>
                     <InfoCard key={part.id} item={part} />
-                    //         </TooltipTrigger>
-                    //         <TooltipContent>
-                    //             {part.name ? part.name : part.title}
-                    //         </TooltipContent>
-                    //     </Tooltip>
-                    // </TooltipProvider>
                 ))}
             </div>
         </div>

@@ -26,7 +26,6 @@ export function ResponsiveDialog({
     setIsOpen,
     title,
     trigger,
-    triggerIsAsChild = true,
     triggerClasses,
     component,
     hideTitle,
@@ -44,7 +43,7 @@ export function ResponsiveDialog({
     if (isDesktop) {
         return (
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTrigger asChild={triggerIsAsChild}>
+                <DialogTrigger asChild>
                     <Button
                         size={triggerSize}
                         variant={triggerVariant ? triggerVariant : "ghost"}

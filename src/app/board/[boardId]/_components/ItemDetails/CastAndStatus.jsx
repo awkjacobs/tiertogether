@@ -10,7 +10,7 @@ import {
 export default function CastAndStatus({ itemId, type }) {
     const credits = useGetCreditsQuery(itemId, type)
     const details = useGetDetailsQuery(itemId, type)
-    console.log(details.data.budget, typeof details.data.budget)
+
     return (
         <div
             className={

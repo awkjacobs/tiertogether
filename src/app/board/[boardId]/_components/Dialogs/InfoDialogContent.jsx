@@ -9,7 +9,7 @@ import ItemDetails from "../ItemDetails/ItemDetails"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { Item } from "@radix-ui/react-toggle-group"
 
-export default function InfoDialogContent({ item, search = false }) {
+export default function InfoDialogContent({ item, ignoreRankings = false }) {
     const { appData } = useContext(AppDataContext)
     const { board } = appData
     const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -37,7 +37,7 @@ export default function InfoDialogContent({ item, search = false }) {
                     </div>
                     <ItemDetails item={item} />
                 </div>
-                {!search && <RankingsContainer item={item} />}
+                {!ignoreRankings && <RankingsContainer item={item} />}
             </div>
         )
     }
@@ -60,7 +60,7 @@ export default function InfoDialogContent({ item, search = false }) {
                         type={board.type}
                     />
                 </div>
-                {!search && (
+                {!ignoreRankings && (
                     <Tabs
                         defaultValue="info"
                         className={`row-span-2 row-start-2 row-end-4 grid h-full grid-rows-subgrid gap-4`}
@@ -95,7 +95,7 @@ export default function InfoDialogContent({ item, search = false }) {
                         </TabsContent>
                     </Tabs>
                 )}
-                {search && <ItemDetails item={item} />}
+                {ignoreRankings && <ItemDetails item={item} />}
             </div>
         )
     }
