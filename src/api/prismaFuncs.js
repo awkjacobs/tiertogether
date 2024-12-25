@@ -170,15 +170,25 @@ export async function PRISMA_UPDATE_BOARD(boardId, values) {
 }
 
 export async function PRISMA_CREATE_NEW_BOARD(values) {
+    const tierLabels = [
+        values.specialLabel,
+        values.tier1Label,
+        values.tier2Label,
+        values.tier3Label,
+        values.tier4Label,
+        values.tier5Label,
+    ]
+
     await prisma.board.create({
         data: {
             boardName: values.boardName,
             type: values.boardType,
-            bleachersLabel: values.bleachersLabel,
-            dugoutLabel: values.dugoutLabel,
             special: values.tierOptions.includes("Special"),
+            tierLabels: JSON.stringify(tierLabels),
             bleachers: values.tierOptions.includes("Bleachers"),
+            bleachersLabel: values.bleachersLabel,
             dugout: values.tierOptions.includes("Dugout"),
+            dugoutLabel: values.dugoutLabel,
 
             owner: {
                 connect: {

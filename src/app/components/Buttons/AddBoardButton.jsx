@@ -58,6 +58,9 @@ const formSchema = z.object({
         .min(3, { message: "Board name must be at least 3 characters" }),
     boardType: z.string().min(1, { message: "Board type is required" }),
     tierOptions: z.array(z.string()).optional(),
+    specialLabel: z
+        .string()
+        .min(1, { message: "Special tier label must be at least 1 character" }),
     tier1Label: z
         .string()
         .min(1, { message: "Tier 1 label must be at least 1 character" }),
@@ -73,9 +76,6 @@ const formSchema = z.object({
     tier5Label: z
         .string()
         .min(1, { message: "Tier 5 label must be at least 1 character" }),
-    tier6Label: z
-        .string()
-        .min(1, { message: "Tier 6 label must be at least 1 character" }),
 
     bleachersLabel: z
         .string()
@@ -96,12 +96,12 @@ export default function AddBoardButton({ appData }) {
             boardName: "",
             boardType: "",
             tierOptions: [],
-            tier1Label: "S",
-            tier2Label: "A",
-            tier3Label: "B",
-            tier4Label: "C",
-            tier5Label: "D",
-            tier6Label: "F",
+            specialLabel: "S",
+            tier1Label: "A",
+            tier2Label: "B",
+            tier3Label: "C",
+            tier4Label: "D",
+            tier5Label: "F",
             bleachersLabel: "Bleachers",
             dugoutLabel: "Dugout",
         },
