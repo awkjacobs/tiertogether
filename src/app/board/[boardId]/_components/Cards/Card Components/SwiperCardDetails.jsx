@@ -1,3 +1,5 @@
+import { convertDate, releaseDate } from "@lib/const"
+
 export function SwiperCardDetails({
     type,
     date,
@@ -11,14 +13,18 @@ export function SwiperCardDetails({
     const directorsJoin =
         directors?.length > 1 ? directors.join(", ") : directors
 
+    const release = releaseDate(date)
+
     return (
         <div
             className={`grid grid-cols-[auto_1fr] gap-1 rounded bg-surface-900/60 p-2 text-xs text-purple-50`}
         >
-            <SwiperCardDetailsGroup
-                section={type === "movie" ? "Released:" : "Air Dates:"}
-                content={date}
-            />
+            {release && (
+                <SwiperCardDetailsGroup
+                    section={type === "movie" ? "Released:" : "Air Dates:"}
+                    content={release}
+                />
+            )}
             {directors && (
                 <SwiperCardDetailsGroup
                     section={directorPluralisation}

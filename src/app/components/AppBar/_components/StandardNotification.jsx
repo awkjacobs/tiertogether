@@ -1,11 +1,13 @@
-import { Form } from "@components/ui/form"
 import { Button } from "@components/ui/button"
+import { Form } from "@components/ui/form"
 
-import { useForm } from "react-hook-form"
-import { NOTIFICATION_ICONS as NOTIFICATION_ICON } from "@lib/const"
-import { LoaderCircle } from "lucide-react"
 import { PRISMA_VIEW_NOTIFICATION } from "@api/prismaFuncs"
-import { convertDate, simplifiedDate } from "@lib/utils"
+import {
+    NOTIFICATION_ICONS as NOTIFICATION_ICON,
+    simplifiedDate,
+} from "@lib/const"
+import { LoaderCircle } from "lucide-react"
+import { useForm } from "react-hook-form"
 
 export default function StandardNotification({ notification, userViewed }) {
     const { content, type, id, createdAt } = notification

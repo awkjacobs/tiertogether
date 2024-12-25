@@ -25,6 +25,7 @@ export default function Collection({ collection }) {
                     <InfoCard
                         key={part.id}
                         item={part}
+                        itemType={part.media_type}
                         size={{ height: 256, width: 170 }}
                         searchOrCollection="collection"
                     />

@@ -3,7 +3,6 @@ import {
     useGetDetailsQuery,
 } from "@app/hooks/use-get-fetch-query"
 import { Skeleton } from "@components/ui/skeleton"
-import { convertDate } from "@lib/utils"
 import { useDroppable } from "@dnd-kit/core"
 import Image from "next/image"
 import { useContext, useEffect } from "react"
@@ -31,20 +30,17 @@ export default function SwiperCard(props) {
     } = props
 
     const { appData } = useContext(AppDataContext)
-    const { board } = appData
+    const { user, board } = appData
     const { active, isOver, setNodeRef } = useDroppable({
         id: tier + item.id,
         data: { type: "tier" },
     })
 
-    const details = useGetDetailsQuery(item.id, board.type)
-    const credits = useGetCreditsQuery(item.id, board.type)
+    const details = useGetDetailsQuery(item.id, item.type)
+    const credits = useGetCreditsQuery(item.id, item.type)
 
-    const allowedToRemoveItemFromBoard = appData.boardOwner
-        ? true
-        : appData.user.id === item.addedBy.id
-          ? true
-          : false
+    const allowedToRemoveItemFromBoard =
+        user.id === board.ownerId || user.id === item.addedBy.id
 
     useEffect(() => {
         if (isActive) {
@@ -106,7 +102,7 @@ export default function SwiperCard(props) {
                                 ? details.data.name
                                 : details.data.title
                         }
-                        type={board.type}
+                        type={item.type}
                         swiper={true}
                     />
                     {isDesktop && (
@@ -114,22 +110,17 @@ export default function SwiperCard(props) {
                             <div className={`flex-1`} />
                             {!details.isLoading && !credits.isLoading && (
                                 <SwiperCardDetails
-                                    type={board.type}
+                                    type={item.type}
                                     date={
                                         details.data.release_date
-                                            ? convertDate(
-                                                  details.data.release_date,
-                                              )
-                                            : convertDate(
+                                            ? [details.data.release_date]
+                                            : [
                                                   details.data.first_air_date,
-                                              ) +
-                                              " - " +
-                                              convertDate(
-                                                  details.data.last_air_date,
-                                              )
+                                                  details.data?.last_air_date,
+                                              ]
                                     }
                                     directors={
-                                        board.type === "movie"
+                                        item.type === "movie"
                                             ? findDirectors(credits.data)
                                             : null
                                     }

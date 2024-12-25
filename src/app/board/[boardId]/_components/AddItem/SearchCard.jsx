@@ -1,29 +1,20 @@
-import { GenreBadge, ReleaseBadge } from "@app/components/Utility/Badges"
-import { useMediaQuery } from "@app/hooks/use-media-query"
 import { PRISMA_ADD_ITEM } from "@api/prismaFuncs"
-import { Check, Info, LoaderCircle, Plus } from "lucide-react"
+import { GenreBadge, ReleaseBadge } from "@app/components/Utility/Badges"
+import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
+import { useMediaQuery } from "@app/hooks/use-media-query"
+import { Form } from "@components/ui/form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { itemType } from "@lib/const"
+import { Check, LoaderCircle, Plus } from "lucide-react"
 import { useState } from "react"
+import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { z } from "zod"
 import { Button } from "../../../../components/ui/button"
-import Poster from "../../../../components/ui/Poster"
+import InfoCard from "../Cards/InfoCard"
 import Overview from "./Overview"
 import SearchCardContainer from "./SearchCardContainer"
 import { SearchLogo } from "./SearchLogo"
-import { itemType } from "@lib/const"
-import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@components/ui/form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import InfoCard from "../Cards/InfoCard"
 
 const formSchema = z.object({})
 
@@ -32,6 +23,8 @@ export default function SearchCard({ item, board, type, queryType, style }) {
         board.items.some((boardItem) => boardItem.id === item.id),
     )
     const name = item?.name ? item.name : item.title
+
+    item.type = itemType(board, queryType)
 
     const backdropSource = `http://image.tmdb.org/t/p/original${item.backdrop_path}`
 
@@ -52,7 +45,7 @@ export default function SearchCard({ item, board, type, queryType, style }) {
             {
                 id: item.id,
                 backdrop_path: item.backdrop_path,
-                type: itemType(board, queryType),
+                type: item.type,
             },
             content,
             "itemAdded",
@@ -73,7 +66,7 @@ export default function SearchCard({ item, board, type, queryType, style }) {
                 })
             })
     }
-    const details = useGetDetailsQuery(item.id, type)
+    const details = useGetDetailsQuery(item.id, item.type)
 
     return (
         <SearchCardContainer
@@ -108,7 +101,7 @@ export default function SearchCard({ item, board, type, queryType, style }) {
 
             <InfoCard
                 item={item}
-                queryType={board.type}
+                itemType={item.type}
                 size={{ height: 240, width: 120 }}
                 searchOrCollection={"search"}
             />
@@ -116,7 +109,7 @@ export default function SearchCard({ item, board, type, queryType, style }) {
             <div
                 className={`flex min-w-[50%] flex-1 flex-col justify-between p-4 pb-0 md:p-6 md:pb-4`}
             >
-                <SearchLogo itemId={item.id} title={name} type={type} />
+                <SearchLogo itemId={item.id} title={name} type={item.type} />
                 {isDesktop && (
                     <div className={`flex items-center justify-between`}>
                         <div className={`flex flex-wrap items-center gap-2`}>

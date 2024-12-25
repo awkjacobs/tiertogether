@@ -1,17 +1,12 @@
 import { Badge } from "@components/ui/badge"
-import { cn, convertDate } from "@lib/utils"
+import { cn } from "@lib/utils"
+import { convertDate, releaseDate } from "@lib/const"
 import { TMDB_genres } from "@lib/tmdbGenres"
 
 export function ReleaseBadge({ release }) {
-    let releaseArr = release.map((date) => (date ? convertDate(date) : null))
+    const date = releaseDate(release)
 
-    if (releaseArr.length < 2 || !releaseArr[1])
-        return <Badge className={`h-min min-w-max`}>{releaseArr[0]}</Badge>
-    return (
-        <Badge className={`h-min min-w-max`}>
-            {releaseArr[0] + " - " + releaseArr[1]}
-        </Badge>
-    )
+    return <Badge className={`h-min min-w-max`}>{date}</Badge>
 }
 
 export function GenreBadge({ genreId, className }) {

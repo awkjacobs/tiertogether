@@ -1,10 +1,11 @@
 import Image from "next/image"
 import { motion } from "motion/react"
 import CardTitle from "@components/Utility/CardTitle"
-import { findLogo } from "@lib/utils"
+import { findLogo } from "@lib/const"
 import { useGetImagesQuery } from "@app/hooks/use-get-fetch-query"
 
 export function SearchLogo({ itemId, title, type }) {
+    console.log(type)
     const images = useGetImagesQuery(itemId, type)
     const logo = findLogo(images.data)
 
@@ -21,7 +22,7 @@ export function SearchLogo({ itemId, title, type }) {
                     src={`http://image.tmdb.org/t/p/original${logo}`}
                     width={700}
                     height={128}
-                    alt="Logo"
+                    alt={title}
                 />
             </motion.div>
         )

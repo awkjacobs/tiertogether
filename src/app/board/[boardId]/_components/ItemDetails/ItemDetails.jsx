@@ -12,16 +12,16 @@ export default function ItemDetails({ item }) {
     const { appData } = useContext(AppDataContext)
     const { board } = appData
 
-    const details = useGetDetailsQuery(item.id, board.type)
+    const details = useGetDetailsQuery(item.id, item.type)
 
     if (isDesktop)
         return (
             <>
-                <ItemBadges item={item} type={board.type} />
+                <ItemBadges item={item} type={item.type} />
                 <div
                     className={`flex flex-col gap-4 md:col-start-1 md:col-end-3`}
                 >
-                    <CastAndStatus itemId={item.id} type={board.type} />
+                    <CastAndStatus itemId={item.id} type={item.type} />
 
                     <ScrollArea className={`max-h-64 p-1 pr-4 leading-7`}>
                         {details.data.overview}
@@ -36,8 +36,8 @@ export default function ItemDetails({ item }) {
         )
     return (
         <div className={`flex flex-col gap-4`}>
-            <ItemBadges item={item} type={board.type} />
-            <CastAndStatus itemId={item.id} type={board.type} />
+            <ItemBadges item={item} type={item.type} />
+            <CastAndStatus itemId={item.id} type={item.type} />
 
             <div className={`text-sm leading-7`}>{details.data.overview}</div>
             {details.data.belongs_to_collection && (

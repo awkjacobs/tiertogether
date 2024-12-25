@@ -38,10 +38,11 @@ export function Card({
     scoreToCompareAgainst,
 }) {
     const { appData, userEntries } = useContext(AppDataContext)
+    const { user, board } = appData
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
-    const details = useGetDetailsQuery(item.id, appData.board.type)
+    const details = useGetDetailsQuery(item.id, item.type)
 
     if (details.isLoading)
         return (
@@ -57,8 +58,6 @@ export function Card({
         )
 
     const name = details.data.name ? details.data.name : details.data.title
-
-    const { user, board } = appData
 
     // ? need to check into this with change in added by row
     const allowedToRemoveItemFromBoard =
@@ -103,7 +102,7 @@ export function Card({
             >
                 <Poster
                     itemId={item.id}
-                    boardType={board.type}
+                    itemType={item.type}
                     width={width()}
                     height={height()}
                 />
@@ -130,7 +129,7 @@ export function Card({
                                     trigger={
                                         <Poster
                                             itemId={item.id}
-                                            boardType={board.type}
+                                            itemType={item.type}
                                             width={width()}
                                             height={height()}
                                         />
@@ -211,7 +210,7 @@ export function Card({
                         trigger={
                             <Poster
                                 itemId={item.id}
-                                boardType={board.type}
+                                itemType={item.type}
                                 width={width()}
                                 height={height()}
                             />

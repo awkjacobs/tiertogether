@@ -7,25 +7,24 @@ import {
 } from "@api/movieFuncs"
 import { searchFunc } from "../board/[boardId]/_components/AddItem/searchSwitch"
 
-export const useGetDetailsQuery = (itemId, boardType) => {
+export const useGetDetailsQuery = (itemId, itemType) => {
     return useQuery({
-        queryKey: ["details", itemId, boardType],
-        queryFn: () => TMDB_GET_DETAILS(itemId, boardType),
+        queryKey: ["details", itemId, itemType],
+        queryFn: () => TMDB_GET_DETAILS(itemId, itemType),
         staleTime: Infinity,
     })
 }
-export const useGetCreditsQuery = (itemId, boardType) => {
+export const useGetCreditsQuery = (itemId, itemType) => {
     return useQuery({
-        queryKey: ["credits", itemId, boardType],
-        queryFn: () => TMDB_GET_CREDITS(itemId, boardType),
+        queryKey: ["credits", itemId, itemType],
+        queryFn: () => TMDB_GET_CREDITS(itemId, itemType),
         staleTime: Infinity,
     })
 }
-export const useGetImagesQuery = (itemId, boardType) => {
+export const useGetImagesQuery = (itemId, itemType) => {
     return useQuery({
-        queryKey: ["logo", itemId, boardType],
-        queryFn: () =>
-            TMDB_GET_IMAGES(itemId, boardType === "anime" ? "tv" : boardType),
+        queryKey: ["logo", itemId, itemType],
+        queryFn: () => TMDB_GET_IMAGES(itemId, itemType),
         staleTime: Infinity,
     })
 }

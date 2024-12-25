@@ -7,14 +7,13 @@ import RankingsContainer from "../Rankings/RankingsContainer"
 import { useContext } from "react"
 import ItemDetails from "../ItemDetails/ItemDetails"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
-import { Item } from "@radix-ui/react-toggle-group"
 
 export default function InfoDialogContent({ item, ignoreRankings = false }) {
     const { appData } = useContext(AppDataContext)
     const { board } = appData
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
-    const details = useGetDetailsQuery(item.id, board.type)
+    const details = useGetDetailsQuery(item.id, item.type)
     const name = details.data.name ? details.data.name : details.data.title
 
     if (isDesktop) {
@@ -26,14 +25,14 @@ export default function InfoDialogContent({ item, ignoreRankings = false }) {
                     <Poster
                         className={`row-start-1 row-end-3 h-64 w-auto justify-self-center shadow-lg`}
                         itemId={item.id}
-                        boardType={board.type}
+                        itemType={item.type}
                         height={256}
                         width={170}
                     />
                     <div
                         className={`flex items-center md:col-start-2 md:col-end-3 md:h-44`}
                     >
-                        <Logo itemId={item.id} title={name} type={board.type} />
+                        <Logo itemId={item.id} title={name} type={item.type} />
                     </div>
                     <ItemDetails item={item} />
                 </div>
@@ -50,14 +49,14 @@ export default function InfoDialogContent({ item, ignoreRankings = false }) {
                     <Poster
                         className={`justify-self-left row-start-1 row-end-3 h-28 w-auto shadow-lg`}
                         itemId={item.id}
-                        boardType={board.type}
+                        itemType={board.type}
                         height={112}
                         width={75}
                     />
                     <Logo
                         itemId={item.id}
                         title={details.data.title}
-                        type={board.type}
+                        type={item.type}
                     />
                 </div>
                 {!ignoreRankings && (

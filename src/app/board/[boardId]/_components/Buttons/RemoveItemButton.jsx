@@ -23,7 +23,7 @@ export function RemoveItemButton({
     disabled,
     isDialog = false,
 }) {
-    const details = useGetDetailsQuery(infoItem.id, appData.board.type)
+    const details = useGetDetailsQuery(infoItem.id, infoItem.type)
     async function handleRemove() {
         let content = `${details.data.name ? details.data.name : details.data.title} removed from ${appData.board.boardName}`
         await PRISMA_DELETE_ITEM(

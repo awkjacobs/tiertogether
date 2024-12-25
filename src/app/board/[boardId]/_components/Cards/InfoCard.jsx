@@ -10,10 +10,13 @@ import { useState } from "react"
 import { toast } from "sonner"
 import InfoDialogContent from "../Dialogs/InfoDialogContent"
 
-export default function InfoCard({ item }) {
+export default function InfoCard({ item, itemType, size, searchOrCollection }) {
     const { appData } = useContext(AppDataContext)
     const { board } = appData
 
+    item.type = itemType
+
+    console.log(size.height, size.width)
     const name = item?.name ? item.name : item.title
 
     const [alreadyIncluded, setAlreadyIncluded] = useState(
@@ -30,7 +33,7 @@ export default function InfoCard({ item }) {
             {
                 id: item.id,
                 backdrop_path: item.backdrop_path,
-                type: itemType(board, item.media_type),
+                type: item.type,
             },
             content,
             "itemAdded",
@@ -56,11 +59,11 @@ export default function InfoCard({ item }) {
         <ResponsiveDialog
             trigger={
                 <Poster
-                    className={`row-start-1 row-end-3 h-28 w-auto justify-self-center shadow-lg transition-all md:hover:scale-105 md:hover:shadow-purple-200/50`}
+                    className={`row-start-1 row-end-3 ${searchOrCollection == "search" && "h-60"} ${searchOrCollection == "collection" && "h-28 transition-all md:hover:scale-105 md:hover:shadow-purple-200/50"} w-auto justify-self-center shadow-lg`}
                     itemId={item.id}
-                    boardType={board.type}
-                    height={256}
-                    width={170}
+                    itemType={itemType}
+                    height={size.height}
+                    width={size.width}
                 />
             }
             triggerSize={"sm"}
