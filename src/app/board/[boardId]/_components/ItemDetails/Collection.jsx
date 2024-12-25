@@ -22,7 +22,12 @@ export default function Collection({ collection }) {
 
             <div className="flex flex-row flex-wrap justify-center gap-2">
                 {items.data.parts.map((part) => (
-                    <InfoCard key={part.id} item={part} />
+                    <InfoCard
+                        key={part.id}
+                        item={part}
+                        size={{ height: 256, width: 170 }}
+                        searchOrCollection="collection"
+                    />
                 ))}
             </div>
         </div>

@@ -6,6 +6,8 @@ import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 export function TierContainer(props) {
     const { appData, userEntries } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
+    const { board } = appData
+    const tierLabels = JSON.parse(board.tierLabels)
 
     const showServerRanks = userEntries === "overall"
 
@@ -17,11 +19,11 @@ export function TierContainer(props) {
                     : "border-2 border-transparent"
             }`}
         >
-            {appData.board.bleachers && (
+            {board.bleachers && (
                 <div>
                     <Tier
                         tier="bleachers"
-                        label={appData.board.bleachersLabel}
+                        label={board.bleachersLabel}
                         entries={
                             showServerRanks && serverRanks.data
                                 ? serverRanks.data.bleachers
@@ -32,10 +34,10 @@ export function TierContainer(props) {
                 </div>
             )}
             <div className={`flex flex-col gap-1`}>
-                {appData.board.special && (
+                {board.special && (
                     <Tier
                         tier="sRank"
-                        label="S"
+                        label={tierLabels[0]}
                         entries={
                             showServerRanks && serverRanks.data
                                 ? serverRanks.data.sRank
@@ -46,7 +48,7 @@ export function TierContainer(props) {
                 )}
                 <Tier
                     tier="aRank"
-                    label="A"
+                    label={tierLabels[1]}
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.aRank
@@ -56,7 +58,7 @@ export function TierContainer(props) {
                 />
                 <Tier
                     tier="bRank"
-                    label="B"
+                    label={tierLabels[2]}
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.bRank
@@ -66,7 +68,7 @@ export function TierContainer(props) {
                 />
                 <Tier
                     tier="cRank"
-                    label="C"
+                    label={tierLabels[3]}
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.cRank
@@ -76,7 +78,7 @@ export function TierContainer(props) {
                 />
                 <Tier
                     tier="dRank"
-                    label="D"
+                    label={tierLabels[4]}
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.dRank
@@ -86,7 +88,7 @@ export function TierContainer(props) {
                 />
                 <Tier
                     tier="fRank"
-                    label="F"
+                    label={tierLabels[5]}
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.fRank
@@ -95,11 +97,11 @@ export function TierContainer(props) {
                     {...props}
                 />
             </div>
-            {appData.board.dugout && (
+            {board.dugout && (
                 <div>
                     <Tier
                         tier="dugout"
-                        label={appData.board.dugoutLabel}
+                        label={board.dugoutLabel}
                         entries={
                             showServerRanks && serverRanks.data
                                 ? serverRanks.data.dugout

@@ -62,6 +62,25 @@ const formSchema = z.object({
         .string()
         .min(3, { message: "Board name must be at least 3 characters" }),
     tierOptions: z.array(z.string()).optional(),
+    specialLabel: z
+        .string()
+        .min(1, { message: "Special tier label must be at least 1 character" }),
+    tier1Label: z
+        .string()
+        .min(1, { message: "Tier 1 label must be at least 1 character" }),
+    tier2Label: z
+        .string()
+        .min(1, { message: "Tier 2 label must be at least 1 character" }),
+    tier3Label: z
+        .string()
+        .min(1, { message: "Tier 3 label must be at least 1 character" }),
+    tier4Label: z
+        .string()
+        .min(1, { message: "Tier 4 label must be at least 1 character" }),
+    tier5Label: z
+        .string()
+        .min(1, { message: "Tier 5 label must be at least 1 character" }),
+
     bleachersLabel: z
         .string()
         .min(1, { message: "Bleachers label must be at least 1 character" }),
@@ -78,6 +97,7 @@ export default function EditBoardButton({
     isOwner = false,
 }) {
     const [isDialogOpen, setIsDialogOpen] = useState()
+    const tierLabels = JSON.parse(board.tierLabels)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
@@ -93,6 +113,12 @@ export default function EditBoardButton({
         resolver: zodResolver(formSchema),
         values: {
             boardName: board.boardName,
+            specialLabel: tierLabels[0],
+            tier1Label: tierLabels[1],
+            tier2Label: tierLabels[2],
+            tier3Label: tierLabels[3],
+            tier4Label: tierLabels[4],
+            tier5Label: tierLabels[5],
             bleachersLabel: board.bleachersLabel,
             dugoutLabel: board.dugoutLabel,
             tierOptions: boardRowOptions(),
@@ -103,6 +129,7 @@ export default function EditBoardButton({
     })
 
     const onSubmit = async (values) => {
+        console.log(values)
         await PRISMA_UPDATE_BOARD(board.id, values).finally(() => {
             toast(`${board.boardName} has been updated`)
             setIsDialogOpen(false)
@@ -242,7 +269,189 @@ export default function EditBoardButton({
                                             </FormItem>
                                         )}
                                     />
+                                    <div className="grid grid-cols-[auto,1fr] gap-x-2 space-y-2">
+                                        <FormLabel
+                                            className={`col-span-2 text-purple-800 dark:text-purple-400`}
+                                        >
+                                            Tier Labels
+                                        </FormLabel>
 
+                                        {form
+                                            .getValues("tierOptions")
+                                            .includes("Special") && (
+                                            <FormField
+                                                control={form.control}
+                                                name="specialLabel"
+                                                render={({ field }) => (
+                                                    <FormItem
+                                                        className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                    >
+                                                        <FormLabel
+                                                            className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                        >
+                                                            Special
+                                                        </FormLabel>
+                                                        <FormControl
+                                                            className={`col-start-2 col-end-3`}
+                                                        >
+                                                            <Input
+                                                                type="text"
+                                                                disabled={
+                                                                    !isOwner
+                                                                }
+                                                                {...field}
+                                                            />
+                                                        </FormControl>
+                                                        <FormDescription hidden>
+                                                            Change the special
+                                                            tier name.
+                                                        </FormDescription>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        )}
+                                        <FormField
+                                            control={form.control}
+                                            name="tier1Label"
+                                            render={({ field }) => (
+                                                <FormItem
+                                                    className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                >
+                                                    <FormLabel
+                                                        className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                    >
+                                                        Tier 1
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="text"
+                                                            disabled={!isOwner}
+                                                            className={`col-start-2 col-end-3`}
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription hidden>
+                                                        Change the first tier
+                                                        name.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="tier2Label"
+                                            render={({ field }) => (
+                                                <FormItem
+                                                    className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                >
+                                                    <FormLabel
+                                                        className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                    >
+                                                        Tier 2
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="text"
+                                                            disabled={!isOwner}
+                                                            className={`col-start-2 col-end-3`}
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription hidden>
+                                                        Change the second tier
+                                                        name.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="tier3Label"
+                                            render={({ field }) => (
+                                                <FormItem
+                                                    className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                >
+                                                    <FormLabel
+                                                        className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                    >
+                                                        Tier 3
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="text"
+                                                            disabled={!isOwner}
+                                                            className={`col-start-2 col-end-3`}
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription hidden>
+                                                        Change the third tier
+                                                        name.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="tier4Label"
+                                            render={({ field }) => (
+                                                <FormItem
+                                                    className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                >
+                                                    <FormLabel
+                                                        className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                    >
+                                                        Tier 4
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="text"
+                                                            disabled={!isOwner}
+                                                            className={`col-start-2 col-end-3`}
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription hidden>
+                                                        Change the fourth tier
+                                                        name.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="tier5Label"
+                                            render={({ field }) => (
+                                                <FormItem
+                                                    className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                >
+                                                    <FormLabel
+                                                        className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                    >
+                                                        Tier 5
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="text"
+                                                            disabled={!isOwner}
+                                                            className={`col-start-2 col-end-3`}
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription hidden>
+                                                        Change the fifth tier
+                                                        name.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
                                     {form
                                         .getValues("tierOptions")
                                         .includes("Bleachers") && (
@@ -508,6 +717,214 @@ export default function EditBoardButton({
                                                     </FormItem>
                                                 )}
                                             />
+                                            <div className="grid grid-cols-[auto,1fr] gap-x-2 space-y-2">
+                                                <FormLabel
+                                                    className={`col-span-2 text-purple-800 dark:text-purple-400`}
+                                                >
+                                                    Tier Labels
+                                                </FormLabel>
+
+                                                {form
+                                                    .getValues("tierOptions")
+                                                    .includes("Special") && (
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="specialLabel"
+                                                        render={({ field }) => (
+                                                            <FormItem
+                                                                className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                            >
+                                                                <FormLabel
+                                                                    className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                                >
+                                                                    Special
+                                                                </FormLabel>
+                                                                <FormControl
+                                                                    className={`col-start-2 col-end-3`}
+                                                                >
+                                                                    <Input
+                                                                        type="text"
+                                                                        disabled={
+                                                                            !isOwner
+                                                                        }
+                                                                        {...field}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormDescription
+                                                                    hidden
+                                                                >
+                                                                    Change the
+                                                                    special tier
+                                                                    name.
+                                                                </FormDescription>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                )}
+                                                <FormField
+                                                    control={form.control}
+                                                    name="tier1Label"
+                                                    render={({ field }) => (
+                                                        <FormItem
+                                                            className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                        >
+                                                            <FormLabel
+                                                                className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                            >
+                                                                Tier 1
+                                                            </FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    type="text"
+                                                                    disabled={
+                                                                        !isOwner
+                                                                    }
+                                                                    className={`col-start-2 col-end-3`}
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormDescription
+                                                                hidden
+                                                            >
+                                                                Change the first
+                                                                tier name.
+                                                            </FormDescription>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="tier2Label"
+                                                    render={({ field }) => (
+                                                        <FormItem
+                                                            className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                        >
+                                                            <FormLabel
+                                                                className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                            >
+                                                                Tier 2
+                                                            </FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    type="text"
+                                                                    disabled={
+                                                                        !isOwner
+                                                                    }
+                                                                    className={`col-start-2 col-end-3`}
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormDescription
+                                                                hidden
+                                                            >
+                                                                Change the
+                                                                second tier
+                                                                name.
+                                                            </FormDescription>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="tier3Label"
+                                                    render={({ field }) => (
+                                                        <FormItem
+                                                            className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                        >
+                                                            <FormLabel
+                                                                className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                            >
+                                                                Tier 3
+                                                            </FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    type="text"
+                                                                    disabled={
+                                                                        !isOwner
+                                                                    }
+                                                                    className={`col-start-2 col-end-3`}
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormDescription
+                                                                hidden
+                                                            >
+                                                                Change the third
+                                                                tier name.
+                                                            </FormDescription>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="tier4Label"
+                                                    render={({ field }) => (
+                                                        <FormItem
+                                                            className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                        >
+                                                            <FormLabel
+                                                                className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                            >
+                                                                Tier 4
+                                                            </FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    type="text"
+                                                                    disabled={
+                                                                        !isOwner
+                                                                    }
+                                                                    className={`col-start-2 col-end-3`}
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormDescription
+                                                                hidden
+                                                            >
+                                                                Change the
+                                                                fourth tier
+                                                                name.
+                                                            </FormDescription>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="tier5Label"
+                                                    render={({ field }) => (
+                                                        <FormItem
+                                                            className={`col-span-2 grid grid-cols-subgrid items-center space-y-0`}
+                                                        >
+                                                            <FormLabel
+                                                                className={`col-start-1 col-end-2 whitespace-nowrap`}
+                                                            >
+                                                                Tier 5
+                                                            </FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    type="text"
+                                                                    disabled={
+                                                                        !isOwner
+                                                                    }
+                                                                    className={`col-start-2 col-end-3`}
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormDescription
+                                                                hidden
+                                                            >
+                                                                Change the fifth
+                                                                tier name.
+                                                            </FormDescription>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </div>
 
                                             {form
                                                 .getValues("tierOptions")

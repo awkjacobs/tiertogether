@@ -1,5 +1,4 @@
 export default function DescriptionGroup({ content, section }) {
-    console.log(content, section)
     if (section === "Starring:")
         return (
             <div className={`col-start-1 col-end-3 grid grid-cols-subgrid`}>

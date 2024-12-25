@@ -27,11 +27,18 @@ export default function RankedCardClone(props) {
     userRank.id = userRank.userId
 
     const serverAverageIsHigherThanUserScore = () => {
+        if (userRank.rank.split(".")[0] >= 7 || userRank.rank === "") return "u"
         if (scoreToCompareAgainst.split(".")[0] < userRank.rank.split(".")[0])
             return 1
-        if (scoreToCompareAgainst.split(".")[0] == userRank.rank.split(".")[0])
+        else if (
+            scoreToCompareAgainst.split(".")[0] == userRank.rank.split(".")[0]
+        )
             return 0
-        else return -1
+        else if (
+            scoreToCompareAgainst.split(".")[0] > userRank.rank.split(".")[0]
+        )
+            return -1
+        else return "u"
     }
     const difference = scoreDif(serverAverageIsHigherThanUserScore())
 

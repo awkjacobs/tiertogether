@@ -14,7 +14,7 @@ export default function Overview({
             trigger={"Details"}
             triggerSize={"sm"}
             triggerClasses={`text-purple-200 ${isDesktop ? "" : "text-xs"}`}
-            component={<InfoDialogContent item={item} search={true} />}
+            component={<InfoDialogContent item={item} ignoreRankings={true} />}
             dialogClasses={`md:max-w-screen-sm`}
             footer={
                 <Button

@@ -28,6 +28,56 @@ export async function PRISMA_GET_BOARDS() {
         },
     })
 }
+export async function PRISMA_GET_BOARD_DATA(boardId, userId) {
+    const [board, userDB, notifications] = await prisma.$transaction([
+        prisma.board.findUnique({
+            where: { id: boardId },
+            include: {
+                items: {
+                    include: {
+                        rank: {
+                            where: {
+                                boardId: boardId,
+                            },
+                        },
+                        addedBy: true,
+                    },
+                },
+                users: true,
+                owner: true,
+                Rank: true,
+            },
+        }),
+        prisma.user.findFirst({
+            where: { id: userId },
+            include: {
+                boards: {
+                    include: {
+                        users: true,
+                        owner: true,
+                        items: true,
+                    },
+                },
+                ownedBoards: true,
+                Rank: true,
+            },
+        }),
+        prisma.notification.findMany({
+            where: {
+                boardId: boardId,
+                userId: userId,
+            },
+            include: {
+                User: true,
+                Board: true,
+                Invitation: {
+                    include: { accepted: true, declined: true },
+                },
+            },
+        }),
+    ])
+    return [board, userDB, notifications]
+}
 export async function PRISMA_GET_SPECIFIC_BOARD(boardId) {
     return await prisma.board.findUnique({
         where: { id: boardId },
@@ -48,12 +98,23 @@ export async function PRISMA_GET_SPECIFIC_BOARD(boardId) {
         },
     })
 }
+
 export async function PRISMA_UPDATE_BOARD(boardId, values) {
+    const tierLabels = [
+        values.specialLabel,
+        values.tier1Label,
+        values.tier2Label,
+        values.tier3Label,
+        values.tier4Label,
+        values.tier5Label,
+    ]
+
     const boardOptions = prisma.board.update({
         where: { id: boardId },
         data: {
             boardName: values.boardName,
             special: values.tierOptions.includes("Special"),
+            tierLabels: JSON.stringify(tierLabels),
             bleachers: values.tierOptions.includes("Bleachers"),
             bleachersLabel: values.bleachersLabel,
             dugout: values.tierOptions.includes("Dugout"),

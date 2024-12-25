@@ -1,11 +1,9 @@
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import Draggable from "../Cards/Draggable"
 import RankedCardClone from "../Cards/RankedCardClone"
-import { Star } from "lucide-react"
-import ResponsiveTooltip from "../../../../components/ui/ResponsiveTooltip"
-import { cn } from "@lib/utils"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { useContext } from "react"
+import { Textfit } from "react-textfit"
 
 // ? - reduce the number of renders by being more selective of the entries
 
@@ -39,7 +37,8 @@ export function Tier(props) {
         case "fRank":
             style = `bg-red-500/20`
             break
-        case "bleachers" || "dugout":
+        case "bleachers":
+        case "dugout":
             style = `bg-zinc-600/10`
             break
         default:
@@ -55,13 +54,15 @@ export function Tier(props) {
             }`}
         >
             <div
-                className={`flex w-[clamp(2rem,_10vw,_5rem)] min-w-11 items-center justify-center overflow-hidden p-1 text-center font-semibold ${
-                    props.tier === "bleachers" || props.tier === "dugout"
-                        ? "text-tierClampSmall"
-                        : "text-tierClamp"
-                } ${style}`}
+                className={`relative flex w-[clamp(2rem,_10vw,_5rem)] min-w-12 items-center justify-center p-1 text-center font-semibold md:p-2 ${style}`}
             >
-                {props.label}
+                <Textfit
+                    mode="multi"
+                    className={`flex h-[calc(100%-.5rem)] w-[calc(100%-.5rem)] items-center justify-center`}
+                    max={36}
+                >
+                    {props.label}
+                </Textfit>
             </div>
 
             {!appData.showDifference && (

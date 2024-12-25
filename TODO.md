@@ -19,7 +19,6 @@
 [X] NewBoard dialog invite users?
 [X] finish remove user from boards button
 [X] add card scale options
---- url params will become async await, also not super smooth, find better option
 [X] invites are broken
 [X] add created at to notifications
 [X] move items from any removed rows back to queue
@@ -32,8 +31,6 @@
 [X] replace user vs server ranks with all users and server ranks
 [X] try context providers for appData
 [X] redo info dialog to use info component for all instances
-[ ] redo the scoring system to go top down using length and better score data, allow for scalability
-[ ] set up local development database https://vercel.com/docs/storage/vercel-postgres/local-development#option-2:-local-postgres-instance-with-docker
 [X] get production OAuth keys
 --- [X] Google
 --- [ ] ~~Apple~~ Requires a paid apple developer account, $100/year
@@ -43,8 +40,10 @@
 [X] add favicon
 [X] add title on each page
 [ ] include # of unread notifications in title
-[ ] make board text into text fields
+[X] make board text into text fields
+[ ] redo the scoring system to go top down using length and better score data, allow for scalability
 [ ] add list view
+[ ] set up local development database https://vercel.com/docs/storage/vercel-postgres/local-development#option-2:-local-postgres-instance-with-docker
 [ ] deal with the multiple modals when opening collection cards
 
 [ ] create actual README file

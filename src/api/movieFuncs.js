@@ -13,7 +13,6 @@ export async function TMDB_SEARCH(query, page) {
         { cache: "force-cache" },
     )
         .then((response) => response.json())
-        // .then((data) => data.results)
         .catch((err) => {
             console.error("Search Movie Title Error: " + err)
             throw new Error(err)
@@ -35,7 +34,6 @@ export async function TMDB_SEARCH_TITLE(query, page = 1) {
         { cache: "force-cache" },
     )
         .then((response) => response.json())
-        .then((data) => data)
         .catch((err) => {
             console.error("Search Movie Title Error: " + err)
             throw new Error(err)
@@ -108,7 +106,6 @@ export async function TMDB_SEARCH_TV_SERIES(query, page = 1) {
         { cache: "force-cache" },
     )
         .then((response) => response.json())
-        .then((data) => data.results)
         .catch((err) => console.error("Search TV Series Error: " + err))
 
     return res
@@ -154,7 +151,6 @@ export async function TMDB_SEARCH_ANIME_SERIES(query, page = 1) {
         { cache: "force-cache" },
     )
         .then((response) => response.json())
-        .then((data) => data.results)
         .catch((err) => console.error("Search Anime Series Error: " + err))
 
     return res
@@ -173,7 +169,6 @@ export async function TMDB_SEARCH_ANIME_MOVIE(query, page = 1) {
         { cache: "force-cache" },
     )
         .then((response) => response.json())
-        .then((data) => data.results)
         .catch((err) => console.error("Search Anime Movie Error: " + err))
 
     return res

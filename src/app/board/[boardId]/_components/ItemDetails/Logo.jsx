@@ -16,7 +16,7 @@ export default function Logo({ itemId, title, type, swiper = false }) {
                     className={`max-w-full object-contain ${swiper ? "max-h-16 md:max-h-24" : "max-h-24 md:max-h-36 md:max-w-[70%]"}`}
                     width={700}
                     height={144}
-                    alt="Logo"
+                    alt={title}
                     src={`http://image.tmdb.org/t/p/original${logo}`}
                 />
             </div>

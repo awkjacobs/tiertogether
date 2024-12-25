@@ -39,6 +39,7 @@ model Board {
     users          User[]
     items          Items[]
     special        Boolean?
+    tierLabels     String?
     bleachers      Boolean?
     bleachersLabel String?
     dugout         Boolean?

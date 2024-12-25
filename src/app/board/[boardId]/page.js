@@ -1,7 +1,6 @@
 import {
     PRISMA_GET_SPECIFIC_BOARD,
-    PRISMA_GET_USER,
-    PRISMA_GET_BOARD_NOTIFICATIONS,
+    PRISMA_GET_BOARD_DATA,
 } from "@api/prismaFuncs"
 import { serverAverage } from "@lib/serverFuncs"
 import AppBar from "@components/AppBar/AppBar"
@@ -40,10 +39,10 @@ export default async function Board({ params }) {
         queryFn: () => serverAverage(boardId),
     })
 
-    // TODO - combine these three queries?
-    const board = await PRISMA_GET_SPECIFIC_BOARD(boardId)
-    const userDB = await PRISMA_GET_USER(userId)
-    const notifications = await PRISMA_GET_BOARD_NOTIFICATIONS(boardId, userDB)
+    const [board, userDB, notifications] = await PRISMA_GET_BOARD_DATA(
+        boardId,
+        userId,
+    )
 
     const appData = {
         board,
