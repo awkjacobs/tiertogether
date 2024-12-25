@@ -1,7 +1,7 @@
 import { GenreBadge, ReleaseBadge } from "@app/components/Utility/Badges"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { PRISMA_ADD_ITEM } from "@api/prismaFuncs"
-import { Check, LoaderCircle, Plus } from "lucide-react"
+import { Check, Info, LoaderCircle, Plus } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
 import { Button } from "../../../../components/ui/button"
@@ -23,6 +23,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import InfoCard from "../Cards/InfoCard"
 
 const formSchema = z.object({})
 
@@ -105,11 +106,11 @@ export default function SearchCard({ item, board, type, queryType, style }) {
                 </form>
             </Form>
 
-            <Poster
-                itemId={item.id}
-                boardType={board.type}
-                height={240}
-                width={120}
+            <InfoCard
+                item={item}
+                queryType={board.type}
+                size={{ height: 240, width: 120 }}
+                searchOrCollection={"search"}
             />
 
             <div

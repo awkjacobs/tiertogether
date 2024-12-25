@@ -98,6 +98,7 @@ export default function AddDialogContent() {
         mutate(values)
     }
 
+    console.log(queryResults)
     const parentRef = useRef()
     const rowVirtualizer = useVirtualizer({
         count: queryResults?.data?.results.length,
@@ -234,7 +235,9 @@ export default function AddDialogContent() {
                                 key={virtualItem.index}
                                 user={appData.user}
                                 item={
-                                    queryResults.data.results[virtualItem.index]
+                                    queryResults?.data?.results[
+                                        virtualItem.index
+                                    ]
                                 }
                                 board={board}
                                 virtualizedStyles={virtualItem.start}
