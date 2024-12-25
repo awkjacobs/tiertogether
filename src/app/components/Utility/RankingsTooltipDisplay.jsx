@@ -42,7 +42,7 @@ export default function RankingsTooltipDisplay({
                     than your rank
                 </>
             )}
-            {difference === "u" && <p>You haven't ranked this item yet</p>}
+            {difference === "u" && <p>You haven&apos;t ranked this item yet</p>}
 
             <div
                 className={`space-y-2 rounded border border-zinc-300 p-2 dark:border-zinc-800`}

@@ -35,6 +35,7 @@
 --- [X] Google
 --- [ ] ~~Apple~~ Requires a paid apple developer account, $100/year
 --- [X] Microsoft
+[ ] revist theo video about patterns
 [ ] add tooltips and maybe shorcuts to buttons
 [ ] clean up the landing page
 [X] add favicon
