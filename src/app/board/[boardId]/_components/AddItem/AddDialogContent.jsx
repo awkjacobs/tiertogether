@@ -247,7 +247,7 @@ export default function AddDialogContent() {
                             />
                         ))}
                     </div>
-                    {queryResults.data.total_pages > 1 && (
+                    {queryResults.data?.total_pages > 1 && (
                         <div className={`my-2 flex flex-row justify-between`}>
                             <Button
                                 variant="ghost"

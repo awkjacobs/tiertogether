@@ -63,6 +63,7 @@ export async function TMDB_SEARCH_DIRECTOR(query, page = 1) {
         })
         .then((response) => response.json())
         .then((result) => result.crew.filter((item) => item.job === "Director"))
+        .then((data) => ({ results: data }))
         .catch((err) => console.error("Search Movie Director Error: " + err))
     return res
 }
@@ -89,6 +90,7 @@ export async function TMDB_SEARCH_ACTOR_MOVIE(query, page = 1) {
         })
         .then((response) => response.json())
         .then((result) => result.cast)
+        .then((data) => ({ results: data }))
         .catch((err) => console.error("Search Movie Actor Error: " + err))
     return res
 }
@@ -133,6 +135,7 @@ export async function TMDB_SEARCH_ACTOR_TV(query, page = 1) {
         })
         .then((response) => response.json())
         .then((result) => result.cast)
+        .then((data) => ({ results: data }))
         .catch((err) => console.error("Search TV Actor Error: " + err))
     return res
 }
