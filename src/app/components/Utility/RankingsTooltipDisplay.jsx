@@ -14,35 +14,29 @@ export default function RankingsTooltipDisplay({
             : `${findUserName(userEntries, appData)}'s rank`
 
     return (
-        <div className={`space-y-2 whitespace-nowrap text-sm`}>
-            {difference === "higher" && (
+        <div className={`space-y-2 whitespace-nowrap text-center text-sm`}>
+            {difference !== "u" && (
                 <>
                     {comparedAgainst} is{" "}
-                    <b>
-                        <i>HIGHER</i>
-                    </b>{" "}
-                    than your rank
+                    {difference === "higher" && (
+                        <>
+                            <em>HIGHER</em> than
+                        </>
+                    )}
+                    {difference === "equals" && (
+                        <>
+                            <em>EQUAL</em> to{" "}
+                        </>
+                    )}
+                    {difference === "lower" && (
+                        <>
+                            <em>LOWER</em> than
+                        </>
+                    )}{" "}
+                    your rank
                 </>
             )}
-            {difference === "equals" && (
-                <>
-                    {comparedAgainst} is{" "}
-                    <b>
-                        <i>EQUAL</i>
-                    </b>{" "}
-                    to your rank
-                </>
-            )}
-            {difference === "lower" && (
-                <>
-                    {comparedAgainst} is{" "}
-                    <b>
-                        <i>LOWER</i>
-                    </b>{" "}
-                    than your rank
-                </>
-            )}
-            {difference === "u" && <p>You haven&apos;t ranked this item yet</p>}
+            {difference === "u" && <p>You haven't ranked this item yet</p>}
 
             <div
                 className={`space-y-2 rounded border border-zinc-300 p-2 dark:border-zinc-800`}

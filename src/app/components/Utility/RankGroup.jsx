@@ -8,7 +8,7 @@ export function RankGroup({ rank }) {
     const name = rank.id === appData.user.id ? <b>Your Ranking</b> : rank.name
 
     return (
-        <div className={`flex items-center justify-between text-xs`}>
+        <div className={`flex items-center justify-between gap-2 text-xs`}>
             <p>{name} </p>
 
             <Rank value={rank.rank} />
@@ -19,12 +19,12 @@ export function RankOverall({ averageRank, className }) {
     return (
         <div
             className={cn(
-                `flex items-center justify-between text-xs`,
+                `flex items-center justify-between gap-2 text-xs`,
                 className,
             )}
         >
             <p>
-                <b>OVERALL</b>
+                <b>AVERAGE</b>
             </p>
             <Rank value={averageRank} />
         </div>

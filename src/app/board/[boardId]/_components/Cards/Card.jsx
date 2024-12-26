@@ -165,7 +165,7 @@ export function Card({
                                 : details.data.title}
                         </TooltipContent>
                         {difference && (
-                            <TooltipContent>
+                            <TooltipContent side="bottom">
                                 <RankingsTooltipDisplay
                                     difference={difference}
                                     userEntries={userEntries}

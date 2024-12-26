@@ -18,7 +18,7 @@ export default function InfoDialogContent({ item, ignoreRankings = false }) {
 
     if (isDesktop) {
         return (
-            <div className="grid grid-cols-[auto_1fr] gap-4">
+            <div className="grid grid-cols-[1fr_auto] gap-4">
                 <div
                     className={`relative z-10 grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] gap-x-12 gap-y-8 p-6 pb-0`}
                 >
