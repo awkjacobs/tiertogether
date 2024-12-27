@@ -10,7 +10,7 @@ export default function BoardLinks({ board, thisUser, appData }) {
 
     return (
         <div
-            className={`flex items-center py-1 text-purple-700 md:py-2 dark:text-purple-200`}
+            className={`flex items-center py-1 text-purple-700 dark:text-purple-200`}
         >
             <Button asChild variant="ghost" className={`justify-start`}>
                 <Link
