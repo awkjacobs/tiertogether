@@ -5,7 +5,8 @@
             "@app/*": ["src/app/*"],
             "@components/*": ["src/app/components/*"],
             "@api/*": ["src/api/*"],
-            "@lib/*": ["lib/*"]
+            "@lib/*": ["lib/*"],
+            "@types/*": ["types/*"]
         },
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
