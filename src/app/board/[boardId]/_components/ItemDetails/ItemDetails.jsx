@@ -47,10 +47,18 @@ export default function ItemDetails({ item }) {
             <ItemBadges item={item} type={item.type} />
             <DetailsBlock itemId={item.id} type={item.type} />
 
-            <div className={`text-sm leading-7`}>{details.data.overview}</div>
+            <div className={`text-sm leading-7`}>
+                {details.data.overview
+                    ? details.data.overview
+                    : details.data.storyline}
+            </div>
             {details.data.belongs_to_collection && (
                 <Collection collection={details.data.belongs_to_collection} />
             )}
+            {details.data.franchises &&
+                details.data.franchises.map((franchise) => (
+                    <Franchise franchise={franchise} key={franchise.id} />
+                ))}
         </div>
     )
 }

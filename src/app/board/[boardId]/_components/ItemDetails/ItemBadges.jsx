@@ -37,6 +37,10 @@ export default function ItemBadges({ item, type }) {
                 item.platforms.map((platform) => (
                     <PlatformBadge platform={platform} key={platform.id} />
                 ))}
+            {details.data?.platforms &&
+                details.data.platforms.map((platform) => (
+                    <PlatformBadge platform={platform} key={platform.id} />
+                ))}
         </div>
     )
 }

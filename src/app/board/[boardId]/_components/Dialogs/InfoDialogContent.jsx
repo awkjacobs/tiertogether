@@ -53,11 +53,7 @@ export default function InfoDialogContent({ item, ignoreRankings = false }) {
                         height={112}
                         width={75}
                     />
-                    <Logo
-                        itemId={item.id}
-                        title={details.data.title}
-                        type={item.type}
-                    />
+                    <Logo itemId={item.id} title={name} type={item.type} />
                 </div>
                 {!ignoreRankings && (
                     <Tabs

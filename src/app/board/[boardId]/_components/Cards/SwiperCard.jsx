@@ -121,32 +121,8 @@ export default function SwiperCard(props) {
                                 <SwiperCardDetails
                                     item={item}
                                     type={item.type}
-                                    // date={get_release(item, details)}
-                                    // directors={
-                                    //     item.type === "movie"
-                                    //         ? findDirectors(credits.data)
-                                    //         : null
-                                    // }
-                                    // seasons={details.data.number_of_seasons}
-                                    // episodes={details.data.number_of_episodes}
-                                    // status={details.data.status}
                                 />
                             )}
-                            {/* {(details.isLoading || credits.isLoading) && (
-                                <div
-                                    className={`relative grid grid-cols-[auto_1fr] gap-1 rounded bg-surface-900/60 p-2 text-xs text-purple-50`}
-                                >
-                                    <Skeleton
-                                        className={`col-start-1 col-end-3 grid h-4 grid-cols-subgrid`}
-                                    />
-                                    <Skeleton
-                                        className={`col-start-1 col-end-3 grid h-4 grid-cols-subgrid`}
-                                    />
-                                    <Skeleton
-                                        className={`col-start-1 col-end-3 grid h-4 grid-cols-subgrid`}
-                                    />
-                                </div>
-                            )} */}
                         </>
                     )}
                 </div>

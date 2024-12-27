@@ -9,7 +9,7 @@ export default function Franchise({ franchise }) {
     if (items.isLoading) return <Skeleton className={`h-48 w-full`} />
     return (
         <div
-            className={`relative mt-4 flex min-h-48 w-full flex-col justify-center gap-2 overflow-auto rounded-md`}
+            className={`relative mt-4 flex min-h-48 w-full flex-col justify-center gap-2 overflow-auto rounded-md p-4`}
         >
             <Backdrop backdrop={null} fill={true} />
 

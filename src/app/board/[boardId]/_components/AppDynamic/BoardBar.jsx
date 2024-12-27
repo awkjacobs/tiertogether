@@ -14,6 +14,7 @@ import {
 } from "@components/ui/select"
 import { Separator } from "@components/ui/separator"
 import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
+import BoardTypeIcon from "@app/components/Utility/BoardTypeIcons"
 
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
@@ -61,11 +62,16 @@ export default function BoardBar({ setUserEntries }) {
         <div
             className={`my-2 grid w-full grid-cols-[1fr,auto] grid-rows-[auto,auto] items-center gap-2 md:grid-cols-[1fr,auto,auto] md:grid-rows-[auto]`}
         >
-            <h1
-                className={`col-start-1 row-start-1 flex-1 text-base font-bold text-purple-700 md:text-2xl dark:text-purple-200`}
+            <div
+                className={`col-start-1 row-start-1 flex flex-1 flex-row items-center gap-2 md:gap-4`}
             >
-                {appData.board.boardName}
-            </h1>
+                <BoardTypeIcon type={appData.board.type} />
+                <h1
+                    className={`text-base font-bold text-purple-700 md:text-2xl dark:text-purple-200`}
+                >
+                    {appData.board.boardName}
+                </h1>
+            </div>
             <div
                 className={`col-start-1 col-end-3 row-start-2 flex w-full flex-row items-center gap-2 md:col-start-2 md:col-end-3 md:row-start-1`}
             >
