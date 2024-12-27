@@ -9,7 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover"
 
 export function InfoTooltip({ side, component }) {
     return (
-        <TooltipProvider open={true}>
+        <TooltipProvider open={true} delayDuration={100}>
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Info className={`h-4 w-4`} />
@@ -37,28 +37,36 @@ export function InfoPopover({ side, component }) {
 export function ExtraRowTooltip() {
     return (
         <div className={`flex flex-col gap-3 text-sm`}>
-            <h6 className={`font-bold text-purple-800 dark:text-purple-400`}>
-                Special
-            </h6>
-            <p className={`font-normal`}>
-                The best of the best. A tier at the top of the rankings.
-            </p>
-            <h6
-                className={`mt-2 font-bold text-purple-800 dark:text-purple-400`}
-            >
-                Bleachers
-            </h6>
-            <p className={`font-normal`}>
-                An unranked tier that floats above the main rankings.
-            </p>
-            <h6
-                className={`mt-2 font-bold text-purple-800 dark:text-purple-400`}
-            >
-                Dugout
-            </h6>
-            <p className={`font-normal`}>
-                An unranked tier that floats below the main rankings.
-            </p>
+            <div className={`space-y-2`}>
+                <h6
+                    className={`font-bold text-purple-800 dark:text-purple-400`}
+                >
+                    Special
+                </h6>
+                <p className={`font-normal`}>
+                    The best of the best. A tier at the top of the rankings.
+                </p>
+            </div>
+            <div className={`space-y-2`}>
+                <h6
+                    className={`mt-2 font-bold text-purple-800 dark:text-purple-400`}
+                >
+                    Bleachers
+                </h6>
+                <p className={`font-normal`}>
+                    An unranked tier that floats above the main rankings.
+                </p>
+            </div>{" "}
+            <div className={`space-y-2`}>
+                <h6
+                    className={`mt-2 font-bold text-purple-800 dark:text-purple-400`}
+                >
+                    Dugout
+                </h6>
+                <p className={`font-normal`}>
+                    An unranked tier that floats below the main rankings.
+                </p>
+            </div>
         </div>
     )
 }
