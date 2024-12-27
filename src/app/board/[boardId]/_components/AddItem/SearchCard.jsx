@@ -30,6 +30,8 @@ export default function SearchCard({ item, board, type, queryType, style }) {
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
+    const details = useGetDetailsQuery(item.id, item.type)
+
     const form = useForm({
         resolver: zodResolver(formSchema),
     })
@@ -66,7 +68,6 @@ export default function SearchCard({ item, board, type, queryType, style }) {
                 })
             })
     }
-    const details = useGetDetailsQuery(item.id, item.type)
 
     return (
         <SearchCardContainer

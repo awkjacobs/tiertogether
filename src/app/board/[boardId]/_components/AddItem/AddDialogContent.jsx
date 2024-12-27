@@ -230,7 +230,6 @@ export default function AddDialogContent() {
                     >
                         {rowVirtualizer.getVirtualItems().map((virtualItem) => (
                             <SearchCard
-                                type={type}
                                 queryType={form.getValues("queryType")}
                                 key={virtualItem.index}
                                 user={appData.user}

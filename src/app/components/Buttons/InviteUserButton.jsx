@@ -132,148 +132,70 @@ export default function InviteUserButton({ boardId, boardName, size }) {
                         {`Invite someone to ${boardName ? boardName : "tiertogether"}?`}
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                        Send an email to someone you know to invite them to join{" "}
-                        {boardName ? "this board" : "tiertogether"}.
+                        Send this link to someone you know or share the QR code
+                        to invite them to join this board.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
-                <Tabs defaultValue="link">
-                    <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="link">Link</TabsTrigger>
-                        <TabsTrigger value="email">Send Email</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="link">
-                        <div
-                            className={`my-8 flex flex-col items-center gap-8`}
+                <div className={`my-4 flex flex-col items-center gap-8`}>
+                    <div className={`flex w-full flex-col gap-2`}>
+                        <p
+                            className={`text-sm text-zinc-800 dark:text-zinc-400`}
                         >
-                            <div className={`flex w-full flex-col gap-2`}>
-                                <p
-                                    className={`text-sm text-zinc-800 dark:text-zinc-400`}
-                                >
-                                    Select to copy link
-                                </p>
-                                <div
-                                    id="linkBox"
-                                    className={`flex items-center justify-between gap-2`}
-                                >
-                                    <Button
-                                        variant="outline"
-                                        className={`flex h-8 flex-1 items-center justify-between`}
-                                        onClick={handleCopyToClipboard}
-                                    >
-                                        <div
-                                            className={`text-sm text-zinc-900 dark:text-zinc-200`}
-                                        >
-                                            {isLoading &&
-                                                "Creating Invite Link..."}
-                                            {isError && `Link Error: ${error}`}
-                                            {isSuccess && (
-                                                <p ref={ref}>{data}</p>
-                                            )}
-                                        </div>
-                                        {copied && (
-                                            <Check
-                                                className={`h-4 w-4 text-purple-800 dark:text-purple-300`}
-                                            />
-                                        )}
-                                        {!copied && (
-                                            <ClipboardCopy
-                                                className={`h-4 w-4 text-purple-800 dark:text-purple-300`}
-                                            />
-                                        )}
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        className={`h-10 w-10 p-0 text-purple-800 dark:text-purple-300`}
-                                        onClick={handleShare}
-                                    >
-                                        <Share2 className={`h-4 w-4`} />
-                                    </Button>
-                                </div>
-                            </div>
-                            <div className={`h-auto w-48 bg-white p-2`}>
-                                <QRCode
-                                    style={{
-                                        height: "auto",
-                                        maxWidth: "100%",
-                                        width: "100%",
-                                    }}
-                                    value={data}
-                                />
-                            </div>
-                        </div>
-
-                        <AlertDialogFooter>
-                            <AlertDialogCancel className={`h-8`}>
-                                Cancel
-                            </AlertDialogCancel>
-                        </AlertDialogFooter>
-                    </TabsContent>
-
-                    <TabsContent value="email">
-                        <Form {...form}>
-                            <form
-                                onSubmit={form.handleSubmit(onSubmit)}
-                                className="space-y-8"
+                            Select to copy link or use the share button
+                        </p>
+                        <div
+                            id="linkBox"
+                            className={`flex items-center justify-between gap-2`}
+                        >
+                            <Button
+                                variant="outline"
+                                className={`flex h-8 flex-1 items-center justify-between`}
+                                onClick={handleCopyToClipboard}
                             >
-                                <FormField
-                                    control={form.control}
-                                    name="emailAddress"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Email</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder="example@tiertogether.com"
-                                                    type="email"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormDescription>
-                                                Enter an email address to invite
-                                                someone to use this board.
-                                            </FormDescription>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
                                 <div
-                                    className={`flex max-h-40 flex-col gap-2 overflow-y-scroll md:max-h-72`}
+                                    className={`text-sm text-zinc-900 dark:text-zinc-200`}
                                 >
-                                    {invitedEmail.map((obj, index) => (
-                                        <p
-                                            key={index}
-                                            className={`rounded border-s-4 border-s-emerald-500 p-2 pl-4 text-sm dark:bg-zinc-900`}
-                                        >
-                                            {obj.response === "NotificationSent"
-                                                ? "Notification sent to " +
-                                                  obj.address +
-                                                  "!"
-                                                : "Email sent to " +
-                                                  obj.address +
-                                                  "!"}
-                                        </p>
-                                    ))}
+                                    {isLoading && "Creating Invite Link..."}
+                                    {isError && `Link Error: ${error}`}
+                                    {isSuccess && <p ref={ref}>{data}</p>}
                                 </div>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel className={`h-8`}>
-                                        Cancel
-                                    </AlertDialogCancel>
-                                    <Button
-                                        type="submit"
-                                        className={`h-8`}
-                                        disabled={form.formState.isSubmitting}
-                                    >
-                                        <Send className={`mr-2 h-4 w-4`} />
-                                        {form.formState.isSubmitting &&
-                                            "Sending Invite..."}
-                                        {!form.formState.isSubmitting &&
-                                            "Send Invite"}
-                                    </Button>
-                                </AlertDialogFooter>
-                            </form>
-                        </Form>
-                    </TabsContent>
-                </Tabs>
+                                {copied && (
+                                    <Check
+                                        className={`h-4 w-4 text-purple-800 dark:text-purple-300`}
+                                    />
+                                )}
+                                {!copied && (
+                                    <ClipboardCopy
+                                        className={`h-4 w-4 text-purple-800 dark:text-purple-300`}
+                                    />
+                                )}
+                            </Button>
+                            <Button
+                                variant="outline"
+                                className={`h-10 w-10 p-0 text-purple-800 dark:text-purple-300`}
+                                onClick={handleShare}
+                            >
+                                <Share2 className={`h-4 w-4`} />
+                            </Button>
+                        </div>
+                    </div>
+                    <div className={`h-auto w-48 bg-white p-2`}>
+                        <QRCode
+                            style={{
+                                height: "auto",
+                                maxWidth: "100%",
+                                width: "100%",
+                            }}
+                            value={data}
+                        />
+                    </div>
+                </div>
+
+                <AlertDialogFooter>
+                    <AlertDialogCancel className={`h-8`}>
+                        Cancel
+                    </AlertDialogCancel>
+                </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
     )

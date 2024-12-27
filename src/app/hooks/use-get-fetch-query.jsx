@@ -4,8 +4,7 @@ import {
     TMDB_GET_CREDITS,
     TMDB_GET_DETAILS,
     TMDB_GET_IMAGES,
-} from "@api/movieFuncs"
-import { searchFunc } from "../board/[boardId]/_components/AddItem/searchSwitch"
+} from "@api/TMDB"
 
 export const useGetDetailsQuery = (itemId, itemType) => {
     return useQuery({

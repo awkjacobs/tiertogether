@@ -5,7 +5,6 @@ import { findLogo } from "@lib/const"
 import { useGetImagesQuery } from "@app/hooks/use-get-fetch-query"
 
 export function SearchLogo({ itemId, title, type }) {
-    console.log(type)
     const images = useGetImagesQuery(itemId, type)
     const logo = findLogo(images.data)
 

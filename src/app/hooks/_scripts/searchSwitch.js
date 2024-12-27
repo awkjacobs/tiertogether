@@ -6,9 +6,10 @@ import {
     TMDB_SEARCH_TITLE,
     TMDB_SEARCH_ACTOR_TV,
     TMDB_SEARCH_TV_SERIES,
-} from "@api/movieFuncs"
+} from "@api/TMDB"
+import { IGDB_GAME_SEARCH } from "@api/IGDB"
 
-export const searchFunc = (type, queryType, query, page) => {
+export const searchFunc = (type, queryType, query, page, includeEditions) => {
     if (type === "movie") {
         switch (queryType) {
             case "Director":
@@ -34,6 +35,14 @@ export const searchFunc = (type, queryType, query, page) => {
                 return TMDB_SEARCH_ACTOR_TV(query, page)
             default:
                 return TMDB_SEARCH_TV_SERIES(query, page)
+        }
+    }
+    if (type === "videoGame") {
+        switch (queryType) {
+            // case "Developer":
+            //     return IGDB_DEV_SEARCH(query, true)
+            default:
+                return IGDB_GAME_SEARCH(query, includeEditions)
         }
     }
     return res

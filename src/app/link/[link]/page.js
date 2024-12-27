@@ -23,4 +23,3 @@ export default async function LinkInvitePage({ params }) {
     })
     redirect("/home")
 }
-//link/uiQ39j4t
