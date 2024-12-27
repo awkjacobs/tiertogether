@@ -7,7 +7,7 @@ import {
     useGetDetailsQuery,
 } from "@app/hooks/use-get-fetch-query"
 
-export default function CastAndStatus({ itemId, type }) {
+export default function DetailsBlock({ itemId, type }) {
     const credits = useGetCreditsQuery(itemId, type)
     const details = useGetDetailsQuery(itemId, type)
 
@@ -80,6 +80,15 @@ export default function CastAndStatus({ itemId, type }) {
                 <DescriptionGroup
                     section={"Revenue:"}
                     content={`$${details.data.revenue.toLocaleString()}`}
+                />
+            )}
+            {!details.isLoading && details.data?.involved_companies && (
+                <DescriptionGroup
+                    section={"Developers:"}
+                    content={details.data.involved_companies
+                        .filter((company) => company.developer === true)
+                        .map((company) => company.company.name)
+                        .join(", ")}
                 />
             )}
         </div>
