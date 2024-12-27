@@ -27,9 +27,16 @@ export default function Poster({ itemId, itemType, width, height, className }) {
         !details.isLoading &&
         (!details.data?.poster_path || !details.data?.cover)
     )
-        return <MissingPoster className={`h-60 w-auto rounded`} />
+        return (
+            <MissingPoster className={cn(`h-auto w-auto rounded`, className)} />
+        )
     return (
-        <div style={{ width: width, height: height }}>
+        <div
+            className={cn(
+                `flex aspect-[2/3] h-auto w-auto items-center justify-center rounded`,
+                className,
+            )}
+        >
             <LoaderCircle className={`h-8 w-8 animate-spin text-purple-500`} />
         </div>
     )

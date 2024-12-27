@@ -14,6 +14,7 @@ import MissingPoster from "@components/Utility/MissingPoster"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { backdropSource, get_release } from "@lib/const"
 // TODO - change mobile formating, maybe just poster
 
 export default function SwiperCard(props) {
@@ -38,6 +39,7 @@ export default function SwiperCard(props) {
 
     const details = useGetDetailsQuery(item.id, item.type)
     const credits = useGetCreditsQuery(item.id, item.type)
+    const backdrop = backdropSource(item, item.type)
 
     const allowedToRemoveItemFromBoard =
         user.id === board.ownerId || user.id === item.addedBy.id
@@ -54,11 +56,7 @@ export default function SwiperCard(props) {
             <div
                 className={`relative flex h-[120px] flex-row rounded-md md:h-60`}
             >
-                <Backdrop
-                    backdrop={details.data.backdrop_path}
-                    fill={true}
-                    swiper={true}
-                />
+                <Backdrop backdrop={backdrop} fill={true} swiper={true} />
                 {isActive && queueIsOpen && (
                     <RemoveItemButton
                         infoItem={item}
@@ -79,9 +77,20 @@ export default function SwiperCard(props) {
                             className={`h-auto w-auto bg-white object-cover object-[0_25%] opacity-35 blur-sm transition-all md:opacity-100 md:blur-none md:group-hover:opacity-35 md:group-hover:blur`}
                         />
                     )}
-                    {!details.data.poster_path && (
-                        <MissingPoster className={`absolute`} />
+                    {details.data.cover?.image_id && (
+                        <Image
+                            fill={true}
+                            sizes="50vw, 33vw"
+                            priority={true}
+                            alt="Backdrop"
+                            src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${details.data.cover?.image_id}.jpg`}
+                            className={`h-auto w-auto bg-white object-cover object-[0_25%] opacity-35 blur-sm transition-all md:opacity-100 md:blur-none md:group-hover:opacity-35 md:group-hover:blur`}
+                        />
                     )}
+                    {!details.data.poster_path &&
+                        !details.data.cover?.image_id && (
+                            <MissingPoster className={`absolute`} />
+                        )}
                     <Draggable
                         id={item.id}
                         key={item.id}
@@ -110,26 +119,20 @@ export default function SwiperCard(props) {
                             <div className={`flex-1`} />
                             {!details.isLoading && !credits.isLoading && (
                                 <SwiperCardDetails
+                                    item={item}
                                     type={item.type}
-                                    date={
-                                        details.data.release_date
-                                            ? [details.data.release_date]
-                                            : [
-                                                  details.data.first_air_date,
-                                                  details.data?.last_air_date,
-                                              ]
-                                    }
-                                    directors={
-                                        item.type === "movie"
-                                            ? findDirectors(credits.data)
-                                            : null
-                                    }
-                                    seasons={details.data.number_of_seasons}
-                                    episodes={details.data.number_of_episodes}
-                                    status={details.data.status}
+                                    // date={get_release(item, details)}
+                                    // directors={
+                                    //     item.type === "movie"
+                                    //         ? findDirectors(credits.data)
+                                    //         : null
+                                    // }
+                                    // seasons={details.data.number_of_seasons}
+                                    // episodes={details.data.number_of_episodes}
+                                    // status={details.data.status}
                                 />
                             )}
-                            {(details.isLoading || credits.isLoading) && (
+                            {/* {(details.isLoading || credits.isLoading) && (
                                 <div
                                     className={`relative grid grid-cols-[auto_1fr] gap-1 rounded bg-surface-900/60 p-2 text-xs text-purple-50`}
                                 >
@@ -143,7 +146,7 @@ export default function SwiperCard(props) {
                                         className={`col-start-1 col-end-3 grid h-4 grid-cols-subgrid`}
                                     />
                                 </div>
-                            )}
+                            )} */}
                         </>
                     )}
                 </div>

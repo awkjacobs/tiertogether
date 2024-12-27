@@ -2,6 +2,7 @@ import { Button } from "@components/ui/button"
 import { ResponsiveDialog } from "@components/ui/ResponsiveDialog"
 import { Check, Plus } from "lucide-react"
 import InfoDialogContent from "../Dialogs/InfoDialogContent"
+import { backdropSource } from "@lib/const"
 
 export default function Overview({
     isDesktop,
@@ -9,13 +10,15 @@ export default function Overview({
     alreadyIncluded,
     handleAdd,
 }) {
+    const backdrop = backdropSource(item, item.type)
+
     return (
         <ResponsiveDialog
             trigger={"Details"}
             triggerSize={"sm"}
-            triggerClasses={`text-purple-200 ${isDesktop ? "" : "text-xs"}`}
+            triggerClasses={`text-purple-200 ${isDesktop ? "" : "text-xs"} self-end`}
             component={<InfoDialogContent item={item} ignoreRankings={true} />}
-            dialogClasses={`md:max-w-screen-sm`}
+            dialogClasses={`md:max-w-screen-md`}
             footer={
                 <Button
                     variant="outline"
@@ -39,7 +42,7 @@ export default function Overview({
                 </Button>
             }
             title={item.name}
-            backdrop={item.backdrop_path}
+            backdrop={backdrop}
             hideDescription={true}
             hideTitle={true}
         />

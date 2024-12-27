@@ -1,14 +1,9 @@
 import { PRISMA_ADD_ITEM } from "@api/prismaFuncs"
-import {
-    GenreBadge,
-    PlatformBadge,
-    ReleaseBadge,
-} from "@app/components/Utility/Badges"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Form } from "@components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { backdropSource, get_release, itemType } from "@lib/const"
+import { backdropSource, itemType } from "@lib/const"
 import { Check, LoaderCircle, Plus } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -16,6 +11,7 @@ import { toast } from "sonner"
 import { z } from "zod"
 import { Button } from "../../../../components/ui/button"
 import InfoCard from "../Cards/InfoCard"
+import ItemBadges from "../ItemDetails/ItemBadges"
 import Overview from "./Overview"
 import SearchCardContainer from "./SearchCardContainer"
 import { SearchLogo } from "./SearchLogo"
@@ -46,11 +42,14 @@ export default function SearchCard({ item, board, queryType, style }) {
         let content = `${name} added to ${board.boardName}`
 
         let runFinally = true
+        console.log(details.data?.artworks[0]?.image_id)
         await PRISMA_ADD_ITEM(
             board,
             {
                 id: item.id,
-                backdrop_path: item.backdrop_path,
+                backdrop_path: item?.backdrop_path
+                    ? item.backdrop_path
+                    : details.data?.artworks[0]?.image_id,
                 type: item.type,
             },
             content,
@@ -116,43 +115,9 @@ export default function SearchCard({ item, board, queryType, style }) {
             >
                 <SearchLogo itemId={item.id} title={name} type={item.type} />
                 {isDesktop && (
-                    <div className={`flex items-center justify-between`}>
-                        <div>
-                            {item?.platforms && (
-                                <div
-                                    className={`flex flex-wrap items-center gap-2`}
-                                >
-                                    {item.platforms.map((platform) => (
-                                        <PlatformBadge
-                                            platform={platform}
-                                            key={platform.id}
-                                        />
-                                    ))}
-                                </div>
-                            )}
-                            <div
-                                className={`flex flex-wrap items-center gap-2`}
-                            >
-                                <ReleaseBadge
-                                    release={get_release(item, details)}
-                                />
-                                {item.genre_ids &&
-                                    item.genre_ids.map((id) => (
-                                        <GenreBadge
-                                            genreId={id}
-                                            key={id}
-                                            className={`text-purple-50`}
-                                        />
-                                    ))}
-                                {item.genres &&
-                                    item.genres.map((id) => (
-                                        <GenreBadge
-                                            genreId={id}
-                                            key={id}
-                                            className={`text-purple-50`}
-                                        />
-                                    ))}
-                            </div>
+                    <div className={`flex items-end justify-between`}>
+                        <div className={`flex flex-wrap items-center gap-2`}>
+                            <ItemBadges item={item} type={item.type} />
                         </div>
                         <Overview
                             isDesktop={isDesktop}

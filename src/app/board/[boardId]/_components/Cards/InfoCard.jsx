@@ -3,7 +3,7 @@ import { Button } from "@components/ui/button"
 import { ResponsiveDialog } from "@components/ui/ResponsiveDialog"
 import { Check, Plus } from "lucide-react"
 import { PRISMA_ADD_ITEM } from "@api/prismaFuncs"
-import { itemType } from "@lib/const"
+import { backdropSource, itemType } from "@lib/const"
 import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { useState } from "react"
@@ -18,6 +18,8 @@ export default function InfoCard({ item, itemType, size, searchOrCollection }) {
 
     const name = item?.name ? item.name : item.title
 
+    const backdrop = backdropSource(item, item.type)
+
     const [alreadyIncluded, setAlreadyIncluded] = useState(
         board.items.some((boardItem) => boardItem.id === item.id),
     )
@@ -31,7 +33,7 @@ export default function InfoCard({ item, itemType, size, searchOrCollection }) {
             board,
             {
                 id: item.id,
-                backdrop_path: item.backdrop_path,
+                backdrop_path: backdrop,
                 type: item.type,
             },
             content,
@@ -68,7 +70,7 @@ export default function InfoCard({ item, itemType, size, searchOrCollection }) {
             triggerSize={"sm"}
             triggerClasses={`p-0 h-auto w-auto`}
             component={<InfoDialogContent item={item} ignoreRankings={true} />}
-            dialogClasses={`md:max-w-screen-sm`}
+            dialogClasses={`md:max-w-screen-md`}
             footer={
                 <Button
                     variant="outline"
@@ -92,7 +94,7 @@ export default function InfoCard({ item, itemType, size, searchOrCollection }) {
                 </Button>
             }
             title={item.name}
-            backdrop={item.backdrop_path}
+            backdrop={backdrop}
             hideDescription={true}
             hideTitle={true}
         />

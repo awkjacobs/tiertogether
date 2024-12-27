@@ -7,13 +7,13 @@ export default function Backdrop({ backdrop, fill, mobile }) {
                 fill ? "h-auto" : mobile ? "h-52" : "h-64"
             } absolute inset-0 -z-10 w-full bg-zinc-900`}
         >
-            {backdrop && (
+            {backdrop && !backdrop.includes("null") && (
                 <Image
                     fill={true}
                     sizes="50vw, 33vw"
                     priority={true}
                     alt="Backdrop"
-                    src={`http://image.tmdb.org/t/p/original${backdrop}`}
+                    src={backdrop}
                     className={`-z-20 object-cover object-[0_25%] ${
                         mobile ? "rounded-t-md" : ""
                     }`}
