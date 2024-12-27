@@ -42,7 +42,7 @@ export default function SearchCard({ item, board, queryType, style }) {
         let content = `${name} added to ${board.boardName}`
 
         let runFinally = true
-        console.log(details.data?.artworks[0]?.image_id)
+
         await PRISMA_ADD_ITEM(
             board,
             {

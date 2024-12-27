@@ -98,7 +98,6 @@ export default function AddDialogContent() {
         mutate(values)
     }
 
-    console.log(queryResults)
     const parentRef = useRef()
     const rowVirtualizer = useVirtualizer({
         count: queryResults?.data?.results.length,

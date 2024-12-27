@@ -109,7 +109,6 @@ export default function EditBoardButton({
     })
 
     const onSubmit = async (values) => {
-        console.log(values)
         await PRISMA_UPDATE_BOARD(board.id, values).finally(() => {
             toast(`${board.boardName} has been updated`)
             setIsDialogOpen(false)
