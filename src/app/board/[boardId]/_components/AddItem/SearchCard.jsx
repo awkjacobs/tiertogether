@@ -1,10 +1,9 @@
 import { PRISMA_ADD_ITEM } from "@api/prismaFuncs"
-import { GenreBadge, ReleaseBadge } from "@app/components/Utility/Badges"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Form } from "@components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { itemType } from "@lib/const"
+import { backdropSource, itemType } from "@lib/const"
 import { Check, LoaderCircle, Plus } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -12,13 +11,14 @@ import { toast } from "sonner"
 import { z } from "zod"
 import { Button } from "../../../../components/ui/button"
 import InfoCard from "../Cards/InfoCard"
+import ItemBadges from "../ItemDetails/ItemBadges"
 import Overview from "./Overview"
 import SearchCardContainer from "./SearchCardContainer"
 import { SearchLogo } from "./SearchLogo"
 
 const formSchema = z.object({})
 
-export default function SearchCard({ item, board, type, queryType, style }) {
+export default function SearchCard({ item, board, queryType, style }) {
     const [alreadyIncluded, setAlreadyIncluded] = useState(
         board.items.some((boardItem) => boardItem.id === item.id),
     )
@@ -26,7 +26,7 @@ export default function SearchCard({ item, board, type, queryType, style }) {
 
     item.type = itemType(board, queryType)
 
-    const backdropSource = `http://image.tmdb.org/t/p/original${item.backdrop_path}`
+    const backdrop = backdropSource(item, item.type)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
@@ -42,11 +42,14 @@ export default function SearchCard({ item, board, type, queryType, style }) {
         let content = `${name} added to ${board.boardName}`
 
         let runFinally = true
+        console.log(details.data?.artworks[0]?.image_id)
         await PRISMA_ADD_ITEM(
             board,
             {
                 id: item.id,
-                backdrop_path: item.backdrop_path,
+                backdrop_path: item?.backdrop_path
+                    ? item.backdrop_path
+                    : details.data?.artworks[0]?.image_id,
                 type: item.type,
             },
             content,
@@ -72,7 +75,7 @@ export default function SearchCard({ item, board, type, queryType, style }) {
     return (
         <SearchCardContainer
             style={style}
-            backdropSource={backdropSource}
+            backdropSource={backdrop}
             className={`overflow-hidden`}
         >
             <Form {...form}>
@@ -112,26 +115,9 @@ export default function SearchCard({ item, board, type, queryType, style }) {
             >
                 <SearchLogo itemId={item.id} title={name} type={item.type} />
                 {isDesktop && (
-                    <div className={`flex items-center justify-between`}>
+                    <div className={`flex items-end justify-between`}>
                         <div className={`flex flex-wrap items-center gap-2`}>
-                            <ReleaseBadge
-                                release={
-                                    item.release_date
-                                        ? [item.release_date]
-                                        : [
-                                              item.first_air_date,
-                                              details?.data?.last_air_date,
-                                          ]
-                                }
-                            />
-                            {item.genre_ids &&
-                                item.genre_ids.map((id) => (
-                                    <GenreBadge
-                                        genreId={id}
-                                        key={id}
-                                        className={`text-purple-50`}
-                                    />
-                                ))}
+                            <ItemBadges item={item} type={item.type} />
                         </div>
                         <Overview
                             isDesktop={isDesktop}

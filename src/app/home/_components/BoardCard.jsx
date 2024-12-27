@@ -1,4 +1,4 @@
-import { Suspense, use, useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import EditBoardButton from "@components/Buttons/EditBoardButton"
@@ -7,9 +7,9 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/effect-fade"
 import { Autoplay, EffectFade } from "swiper/modules"
-import { Clapperboard, Tv } from "lucide-react"
-import AnimeCross from "@components/Utility/animeCross"
 import Crown from "@app/components/Utility/Crown"
+import { backdropSource } from "@lib/const"
+import BoardTypeIcon from "@components/Utility/BoardTypeIcons"
 
 export default function BoardCard({ board, appData, index }) {
     const { user } = appData
@@ -18,7 +18,7 @@ export default function BoardCard({ board, appData, index }) {
     const [boardName, setNewBoardName] = useState(board.boardName)
 
     const boardItemsBackdrops = board.items
-        .flatMap((item) => item.backdrop_path)
+        .flatMap((item) => backdropSource(item, item.type))
         .filter((item) => item !== null && item !== undefined)
 
     return (
@@ -120,8 +120,7 @@ function CrossFade({ backgrounds, index }) {
                     >
                         {() => (
                             <Image
-                                // src={background}
-                                src={`http://image.tmdb.org/t/p/original${background}`}
+                                src={background}
                                 fill={true}
                                 sizes="33vw"
                                 priority={true}
@@ -135,16 +134,19 @@ function CrossFade({ backgrounds, index }) {
         </Swiper>
     )
 }
-function BoardTypeIcon({ type }) {
-    return (
-        <>
-            {type === "movie" && (
-                <Clapperboard className={`stroke-purple-200`} />
-            )}
-            {type === "tv" && <Tv className={`stroke-purple-200`} />}
-            {type === "anime" && (
-                <AnimeCross className={`h-6 w-6 text-purple-200`} />
-            )}
-        </>
-    )
-}
+// function BoardTypeIcon({ type }) {
+//     return (
+//         <>
+//             {type === "movie" && (
+//                 <Clapperboard className={`stroke-purple-200`} />
+//             )}
+//             {type === "tv" && <Tv className={`stroke-purple-200`} />}
+//             {type === "anime" && (
+//                 <AnimeCross className={`h-6 w-6 text-purple-200`} />
+//             )}
+//             {type === "videoGame" && (
+//                 <Gamepad2 className={`h-6 w-6 text-purple-200`} />
+//             )}
+//         </>
+//     )
+// }

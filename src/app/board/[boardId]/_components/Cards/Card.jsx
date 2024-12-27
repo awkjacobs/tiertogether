@@ -17,11 +17,11 @@ import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
-import { comparedRank } from "@lib/const"
+import { backdropSource, comparedRank } from "@lib/const"
 
 const size = {
-    null: "w-10 md:w-16",
-    1: "w-10 md:w-16",
+    null: "h-20 md:h-24",
+    1: "h-20 md:h-24",
     2: "w-16 md:w-20",
     3: "w-20 md:w-24",
 }
@@ -43,21 +43,22 @@ export function Card({
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
     const details = useGetDetailsQuery(item.id, item.type)
+    const backdrop = backdropSource(item, item.type)
 
-    if (details.isLoading)
-        return (
-            <li
-                className={`${size[urlCardSize]} relative mx-1 flex aspect-[2/3] items-center justify-center overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
-                    tier === "cardsQueue" ? "opacity-0" : "opacity-100"
-                }`}
-            >
-                <LoaderCircle
-                    className={`h-8 w-8 animate-spin text-purple-500`}
-                />
-            </li>
-        )
+    // if (details.isLoading)
+    //     return (
+    //         <li
+    //             className={`${size[urlCardSize]} relative mx-1 flex w-auto items-center justify-center overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
+    //                 tier === "cardsQueue" ? "opacity-0" : "opacity-100"
+    //             }`}
+    //         >
+    //             <LoaderCircle
+    //                 className={`h-8 w-8 animate-spin text-purple-500`}
+    //             />
+    //         </li>
+    //     )
 
-    const name = details.data.name ? details.data.name : details.data.title
+    const name = details.data?.name ? details.data?.name : details.data?.title
 
     // ? need to check into this with change in added by row
     const allowedToRemoveItemFromBoard =
@@ -77,7 +78,7 @@ export function Card({
         else if (isDesktop && urlCardSize === "3") return 96
         else if (!isDesktop && urlCardSize === "2") return 64
         else if (!isDesktop && urlCardSize === "3") return 80
-        else if (isDesktop) return 64
+        else if (isDesktop) return 76
         else if (!isDesktop) return 40
     }
     const height = () => {
@@ -92,7 +93,7 @@ export function Card({
     if (activeItem)
         return (
             <li
-                className={`${size[urlCardSize]} relative mx-1 block aspect-[2/3] overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
+                className={`${size[urlCardSize]} relative mx-1 block overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
                     isDragging
                         ? "opacity-50"
                         : tier === "cardsQueue"
@@ -101,6 +102,7 @@ export function Card({
                 }`}
             >
                 <Poster
+                    className={`${size[urlCardSize]}`}
                     itemId={item.id}
                     itemType={item.type}
                     width={width()}
@@ -122,12 +124,13 @@ export function Card({
                                     tier === "cardsQueue"
                                         ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
                                         : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
-                                } relative aspect-[2/3] overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
+                                } relative w-auto overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
                             >
                                 <ResponsiveDialog
                                     setIsOpen={setDialogIsOpen}
                                     trigger={
                                         <Poster
+                                            className={`${size[urlCardSize]}`}
                                             itemId={item.id}
                                             itemType={item.type}
                                             width={width()}
@@ -152,18 +155,14 @@ export function Card({
                                         />
                                     }
                                     title={name}
-                                    backdrop={details.data.backdrop_path}
+                                    backdrop={backdrop}
                                     hideDescription={true}
                                     hideTitle={true}
                                 />
                                 {children}
                             </li>
                         </TooltipTrigger>
-                        <TooltipContent>
-                            {details.data.name
-                                ? details.data.name
-                                : details.data.title}
-                        </TooltipContent>
+                        <TooltipContent>{name}</TooltipContent>
                         {difference && (
                             <TooltipContent side="bottom">
                                 <RankingsTooltipDisplay
@@ -209,6 +208,7 @@ export function Card({
                         setIsOpen={setDialogIsOpen}
                         trigger={
                             <Poster
+                                className={`${size[urlCardSize]}`}
                                 itemId={item.id}
                                 itemType={item.type}
                                 width={width()}
@@ -228,7 +228,7 @@ export function Card({
                             />
                         }
                         title={name}
-                        backdrop={details.data.backdrop_path}
+                        backdrop={backdrop}
                         hideDescription={true}
                         hideTitle={true}
                     />

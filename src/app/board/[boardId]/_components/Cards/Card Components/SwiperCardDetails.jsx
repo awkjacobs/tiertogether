@@ -1,50 +1,83 @@
-import { convertDate, releaseDate } from "@lib/const"
+import { Skeleton } from "@app/components/ui/skeleton"
+import { findDirectors } from "@app/components/Utility/findDirectors"
+import {
+    useGetCreditsQuery,
+    useGetDetailsQuery,
+} from "@app/hooks/use-get-fetch-query"
+import { get_release, releaseDate } from "@lib/const"
 
-export function SwiperCardDetails({
-    type,
-    date,
-    directors,
-    seasons,
-    episodes,
-    status,
-}) {
-    const directorPluralisation =
-        directors?.length > 1 ? "Directors:" : "Director:"
-    const directorsJoin =
-        directors?.length > 1 ? directors.join(", ") : directors
+export function SwiperCardDetails({ item, type }) {
+    const credits = useGetCreditsQuery(item.id, type)
+    const details = useGetDetailsQuery(item.id, type)
 
-    const release = releaseDate(date)
+    const date = get_release(item, details)
 
     return (
         <div
             className={`grid grid-cols-[auto_1fr] gap-1 rounded bg-surface-900/60 p-2 text-xs text-purple-50`}
         >
-            {release && (
+            {date && (
                 <SwiperCardDetailsGroup
-                    section={type === "movie" ? "Released:" : "Air Dates:"}
-                    content={release}
+                    section={
+                        type === "movie" || type === "videoGame"
+                            ? "Released:"
+                            : "Air Dates:"
+                    }
+                    content={releaseDate(date)}
                 />
             )}
-            {directors && (
-                <SwiperCardDetailsGroup
-                    section={directorPluralisation}
-                    content={directorsJoin}
-                />
+            {credits.isLoading && (
+                <>
+                    <Skeleton className={`h-4 w-full`} />
+                    <Skeleton className={`h-4 w-full`} />
+                </>
             )}
-            {seasons && (
+            {type === "movie" &&
+                !credits.isLoading &&
+                findDirectors(credits.data).length > 0 && (
+                    <SwiperCardDetailsGroup
+                        section={
+                            findDirectors(credits.data).length > 1
+                                ? "Directors:"
+                                : "Director:"
+                        }
+                        content={findDirectors(credits.data).join(", ")}
+                    />
+                )}
+            {details.isLoading && (
+                <>
+                    <Skeleton className={`h-4 w-full`} />
+                    <Skeleton className={`h-4 w-full`} />
+                </>
+            )}
+
+            {!details.isLoading && details.data?.number_of_seasons && (
                 <SwiperCardDetailsGroup
                     section={"Length:"}
                     content={`
-                        ${seasons.toString()} ${
-                            seasons > 1 ? "Seasons / " : "Season / "
-                        } ${episodes.toString()} Eps`}
+                        ${details.data.number_of_seasons.toString()} ${
+                            details.data.number_of_seasons > 1
+                                ? "Seasons / "
+                                : "Season / "
+                        } ${details.data.number_of_episodes.toString()} Eps`}
                 />
             )}
-            {(type === "tv" || type === "anime") && status && (
+            {!details.isLoading &&
+                details.data?.status &&
+                (type === "tv" || type === "anime") && (
+                    <SwiperCardDetailsGroup
+                        section={"Status:"}
+                        content={`
+                        ${details.data.status}`}
+                    />
+                )}
+            {!details.isLoading && details.data?.involved_companies && (
                 <SwiperCardDetailsGroup
-                    section={"Status:"}
-                    content={`
-                        ${status}`}
+                    section={"Developers:"}
+                    content={details.data.involved_companies
+                        .filter((company) => company.developer === true)
+                        .map((company) => company.company.name)
+                        .join(", ")}
                 />
             )}
         </div>

@@ -5,11 +5,15 @@ import {
     TMDB_GET_DETAILS,
     TMDB_GET_IMAGES,
 } from "@api/TMDB"
+import { searchFunc } from "./_scripts/searchSwitch"
+import { detailsFunc } from "./_scripts/detailSwitch"
+import { IGDB_GET_FRANCHISE } from "@api/IGDB"
 
 export const useGetDetailsQuery = (itemId, itemType) => {
     return useQuery({
         queryKey: ["details", itemId, itemType],
-        queryFn: () => TMDB_GET_DETAILS(itemId, itemType),
+        // queryFn: () => TMDB_GET_DETAILS(itemId, itemType),
+        queryFn: () => detailsFunc(itemId, itemType),
         staleTime: Infinity,
     })
 }
@@ -31,6 +35,13 @@ export const useGetCollectionQuery = (collectionId) => {
     return useQuery({
         queryKey: ["collection", collectionId],
         queryFn: () => TMDB_GET_COLLECTION(collectionId),
+        staleTime: Infinity,
+    })
+}
+export const useGetFranchiseQuery = (franchiseId) => {
+    return useQuery({
+        queryKey: ["franchise", franchiseId],
+        queryFn: () => IGDB_GET_FRANCHISE(franchiseId),
         staleTime: Infinity,
     })
 }

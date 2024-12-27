@@ -1,15 +1,15 @@
 import { Badge } from "@components/ui/badge"
 import { cn } from "@lib/utils"
-import { convertDate, releaseDate } from "@lib/const"
-import { TMDB_genres } from "@lib/tmdbGenres"
+import { releaseDate } from "@lib/const"
 
 export function ReleaseBadge({ release }) {
+    if (!release) return null
     const date = releaseDate(release)
 
     return <Badge className={`h-min min-w-max`}>{date}</Badge>
 }
 
-export function GenreBadge({ genreId, className }) {
+export function GenreBadge({ genre, className }) {
     return (
         <Badge
             className={cn(
@@ -18,7 +18,20 @@ export function GenreBadge({ genreId, className }) {
             )}
             variant={"outline"}
         >
-            {TMDB_genres[genreId]}
+            {genre.name}
+        </Badge>
+    )
+}
+export function PlatformBadge({ platform, className }) {
+    return (
+        <Badge
+            className={cn(
+                `h-min min-w-max border-emerald-500 dark:border-emerald-500`,
+                className,
+            )}
+            variant={"outline"}
+        >
+            {platform.name}
         </Badge>
     )
 }
