@@ -5,11 +5,14 @@ import {
     TMDB_GET_DETAILS,
     TMDB_GET_IMAGES,
 } from "@api/TMDB"
+import { searchFunc } from "./_scripts/searchSwitch"
+import { detailsFunc } from "./_scripts/detailSwitch"
 
 export const useGetDetailsQuery = (itemId, itemType) => {
     return useQuery({
         queryKey: ["details", itemId, itemType],
-        queryFn: () => TMDB_GET_DETAILS(itemId, itemType),
+        // queryFn: () => TMDB_GET_DETAILS(itemId, itemType),
+        queryFn: () => detailsFunc(itemId, itemType),
         staleTime: Infinity,
     })
 }

@@ -1,10 +1,14 @@
 import { PRISMA_ADD_ITEM } from "@api/prismaFuncs"
-import { GenreBadge, ReleaseBadge } from "@app/components/Utility/Badges"
+import {
+    GenreBadge,
+    PlatformBadge,
+    ReleaseBadge,
+} from "@app/components/Utility/Badges"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Form } from "@components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { itemType } from "@lib/const"
+import { backdropSource, get_release, itemType } from "@lib/const"
 import { Check, LoaderCircle, Plus } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -18,7 +22,7 @@ import { SearchLogo } from "./SearchLogo"
 
 const formSchema = z.object({})
 
-export default function SearchCard({ item, board, type, queryType, style }) {
+export default function SearchCard({ item, board, queryType, style }) {
     const [alreadyIncluded, setAlreadyIncluded] = useState(
         board.items.some((boardItem) => boardItem.id === item.id),
     )
@@ -26,7 +30,7 @@ export default function SearchCard({ item, board, type, queryType, style }) {
 
     item.type = itemType(board, queryType)
 
-    const backdropSource = `http://image.tmdb.org/t/p/original${item.backdrop_path}`
+    const backdrop = backdropSource(item, item.type)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
@@ -72,7 +76,7 @@ export default function SearchCard({ item, board, type, queryType, style }) {
     return (
         <SearchCardContainer
             style={style}
-            backdropSource={backdropSource}
+            backdropSource={backdrop}
             className={`overflow-hidden`}
         >
             <Form {...form}>
@@ -113,25 +117,42 @@ export default function SearchCard({ item, board, type, queryType, style }) {
                 <SearchLogo itemId={item.id} title={name} type={item.type} />
                 {isDesktop && (
                     <div className={`flex items-center justify-between`}>
-                        <div className={`flex flex-wrap items-center gap-2`}>
-                            <ReleaseBadge
-                                release={
-                                    item.release_date
-                                        ? [item.release_date]
-                                        : [
-                                              item.first_air_date,
-                                              details?.data?.last_air_date,
-                                          ]
-                                }
-                            />
-                            {item.genre_ids &&
-                                item.genre_ids.map((id) => (
-                                    <GenreBadge
-                                        genreId={id}
-                                        key={id}
-                                        className={`text-purple-50`}
-                                    />
-                                ))}
+                        <div>
+                            {item?.platforms && (
+                                <div
+                                    className={`flex flex-wrap items-center gap-2`}
+                                >
+                                    {item.platforms.map((platform) => (
+                                        <PlatformBadge
+                                            platform={platform}
+                                            key={platform.id}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                            <div
+                                className={`flex flex-wrap items-center gap-2`}
+                            >
+                                <ReleaseBadge
+                                    release={get_release(item, details)}
+                                />
+                                {item.genre_ids &&
+                                    item.genre_ids.map((id) => (
+                                        <GenreBadge
+                                            genreId={id}
+                                            key={id}
+                                            className={`text-purple-50`}
+                                        />
+                                    ))}
+                                {item.genres &&
+                                    item.genres.map((id) => (
+                                        <GenreBadge
+                                            genreId={id}
+                                            key={id}
+                                            className={`text-purple-50`}
+                                        />
+                                    ))}
+                            </div>
                         </div>
                         <Overview
                             isDesktop={isDesktop}

@@ -3,14 +3,18 @@ import { LoaderCircle } from "lucide-react"
 import Image from "next/image"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import MissingPoster from "../Utility/MissingPoster"
+import { posterSource } from "@lib/const"
 
 export default function Poster({ itemId, itemType, width, height, className }) {
     const details = useGetDetailsQuery(itemId, itemType)
 
-    if (!details.isLoading && details.data.poster_path)
+    if (
+        !details.isLoading &&
+        (details.data?.poster_path || details.data?.cover)
+    )
         return (
             <Image
-                src={`http://image.tmdb.org/t/p/w300${details.data.poster_path}`}
+                src={posterSource(details.data, itemType)}
                 width={width}
                 height={height}
                 alt={`${
@@ -19,7 +23,14 @@ export default function Poster({ itemId, itemType, width, height, className }) {
                 className={cn(`h-auto w-auto rounded`, className)}
             />
         )
-    if (!details.isLoading && !details.data.poster_path)
-        return <MissingPoster />
-    return <LoaderCircle className={`h-8 w-8 animate-spin text-purple-500`} />
+    if (
+        !details.isLoading &&
+        (!details.data?.poster_path || !details.data?.cover)
+    )
+        return <MissingPoster className={`h-60 w-auto rounded`} />
+    return (
+        <div style={{ width: width, height: height }}>
+            <LoaderCircle className={`h-8 w-8 animate-spin text-purple-500`} />
+        </div>
+    )
 }

@@ -20,7 +20,7 @@ import {
 } from "@components/ui/drawer"
 import { PRISMA_CREATE_NEW_BOARD } from "@api/prismaFuncs"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
-import { LoaderCircle } from "lucide-react"
+import { Gamepad2, LoaderCircle } from "lucide-react"
 import { useState } from "react"
 
 import { ToggleGroup, ToggleGroupItem } from "@components//ui/toggle-group"
@@ -217,6 +217,15 @@ export default function AddBoardButton({ appData }) {
                                                             className={`mr-4 h-6 w-6`}
                                                         />
                                                         Anime
+                                                    </ToggleGroupItem>
+                                                    <ToggleGroupItem
+                                                        value="videoGame"
+                                                        className={`flex-1 hover:bg-purple-600/50 dark:hover:bg-purple-600/50`}
+                                                    >
+                                                        <Gamepad2
+                                                            className={`mr-4 h-6 w-6`}
+                                                        />
+                                                        Video Games
                                                     </ToggleGroupItem>
                                                 </ToggleGroup>
                                             </FormControl>

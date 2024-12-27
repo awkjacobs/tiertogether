@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/effect-fade"
 import { Autoplay, EffectFade } from "swiper/modules"
-import { Clapperboard, Tv } from "lucide-react"
+import { Clapperboard, Gamepad2, Tv } from "lucide-react"
 import AnimeCross from "@components/Utility/animeCross"
 import Crown from "@app/components/Utility/Crown"
 
@@ -120,7 +120,6 @@ function CrossFade({ backgrounds, index }) {
                     >
                         {() => (
                             <Image
-                                // src={background}
                                 src={`http://image.tmdb.org/t/p/original${background}`}
                                 fill={true}
                                 sizes="33vw"
@@ -144,6 +143,9 @@ function BoardTypeIcon({ type }) {
             {type === "tv" && <Tv className={`stroke-purple-200`} />}
             {type === "anime" && (
                 <AnimeCross className={`h-6 w-6 text-purple-200`} />
+            )}
+            {type === "videoGame" && (
+                <Gamepad2 className={`h-6 w-6 text-purple-200`} />
             )}
         </>
     )
