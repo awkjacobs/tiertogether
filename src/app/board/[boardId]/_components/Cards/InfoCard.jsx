@@ -58,7 +58,7 @@ export default function InfoCard({ item, itemType, size, searchOrCollection }) {
         <ResponsiveDialog
             trigger={
                 <Poster
-                    className={`row-start-1 row-end-3 ${searchOrCollection == "search" && "h-60"} ${searchOrCollection == "collection" && "h-28 transition-all md:hover:scale-105 md:hover:shadow-purple-200/50"} w-40 justify-self-center shadow-lg`}
+                    className={`row-start-1 row-end-3 ${searchOrCollection == "search" && "h-60"} ${searchOrCollection == "collection" && "h-28 transition-all md:hover:scale-105 md:hover:shadow-purple-200/50"} w-auto justify-self-center shadow-lg`}
                     itemId={item.id}
                     itemType={itemType}
                     height={size.height}
