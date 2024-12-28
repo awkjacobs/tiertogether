@@ -81,10 +81,10 @@ export function Card({
 
     const handleSelect = () => {
         setDialogIsOpen(true)
-        setSelectedItem(`${item.id}|${item.type}`)
+        setSelectedItem(`${item.id}xx${item.type}`)
     }
     const handleHover = () => {
-        setSelectedItem(`${item.id}|${item.type}`)
+        setSelectedItem(`${item.id}xx${item.type}`)
     }
     if (activeItem)
         return (
