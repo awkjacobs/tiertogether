@@ -1,7 +1,5 @@
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
-import { useContext } from "react"
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import ItemBadges from "./ItemBadges"
 import DetailsBlock from "./DetailsBlock"
 import { ScrollArea } from "@app/components/ui/scroll-area"
@@ -23,17 +21,17 @@ export default function ItemDetails({ item }) {
                     <DetailsBlock itemId={item.id} type={item.type} />
 
                     <ScrollArea className={`max-h-64 p-1 pr-4 leading-7`}>
-                        {details.data.overview
-                            ? details.data.overview
-                            : details.data.storyline}
+                        {details.data?.overview
+                            ? details.data?.overview
+                            : details.data?.storyline}
                     </ScrollArea>
-                    {details.data.belongs_to_collection && (
+                    {details.data?.belongs_to_collection && (
                         <Collection
-                            collection={details.data.belongs_to_collection}
+                            collection={details.data?.belongs_to_collection}
                         />
                     )}
-                    {details.data.franchises &&
-                        details.data.franchises.map((franchise) => (
+                    {details.data?.franchises &&
+                        details.data?.franchises.map((franchise) => (
                             <Franchise
                                 franchise={franchise}
                                 key={franchise.id}
@@ -48,15 +46,15 @@ export default function ItemDetails({ item }) {
             <DetailsBlock itemId={item.id} type={item.type} />
 
             <div className={`text-sm leading-7`}>
-                {details.data.overview
-                    ? details.data.overview
-                    : details.data.storyline}
+                {details.data?.overview
+                    ? details.data?.overview
+                    : details.data?.storyline}
             </div>
-            {details.data.belongs_to_collection && (
-                <Collection collection={details.data.belongs_to_collection} />
+            {details.data?.belongs_to_collection && (
+                <Collection collection={details.data?.belongs_to_collection} />
             )}
-            {details.data.franchises &&
-                details.data.franchises.map((franchise) => (
+            {details.data?.franchises &&
+                details.data?.franchises.map((franchise) => (
                     <Franchise franchise={franchise} key={franchise.id} />
                 ))}
         </div>

@@ -23,6 +23,11 @@ import {
 } from "@dnd-kit/core"
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
 import { AppDataContext } from "@components/_providers/appDataProvider"
+import { ResponsiveDialog } from "@app/components/ui/ResponsiveDialog"
+import InfoDialogContent from "../Dialogs/InfoDialogContent"
+import { RemoveItemButton } from "../Buttons/RemoveItemButton"
+import { useQueryState } from "nuqs"
+import InfoDialog from "../Dialogs/InfoDialog"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
@@ -198,9 +203,19 @@ export default function DraggingContent({ appData }) {
     })
     const sensors = useSensors(mouseSensor, touchSensor)
 
+    const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    const [selectedItem, setSelectedItem] = useQueryState("sel")
+
     return (
         <AppDataContext.Provider
-            value={{ appData, userEntries, showDifference }}
+            value={{
+                appData,
+                userEntries,
+                showDifference,
+                dialogIsOpen,
+                setDialogIsOpen,
+                setSelectedItem,
+            }}
         >
             <DndContext
                 sensors={sensors}
@@ -230,6 +245,29 @@ export default function DraggingContent({ appData }) {
                 <DragOverlay modifiers={[restrictToWindowEdges]}>
                     <CardOverlay item={activeItem} />
                 </DragOverlay>
+                {/* <ResponsiveDialog
+                    setIsOpen={setDialogIsOpen}
+                    isOpen={dialogIsOpen}
+                    component={
+                        <InfoDialogContent
+                        // item={item}
+                        />
+                    }
+                    footer={
+                        <RemoveItemButton
+                            // infoItem={item}
+                            // disabled={
+                            //     !allowedToRemoveItemFromBoard
+                            // }
+                            isDialog={true}
+                        />
+                    }
+                    // title={name}
+                    // backdrop={backdrop}
+                    hideDescription={true}
+                    hideTitle={true}
+                /> */}
+                <InfoDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} />
             </DndContext>
         </AppDataContext.Provider>
     )

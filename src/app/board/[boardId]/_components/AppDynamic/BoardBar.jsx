@@ -15,43 +15,36 @@ import {
 import { Separator } from "@components/ui/separator"
 import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 import BoardTypeIcon from "@app/components/Utility/BoardTypeIcons"
+import { useQueryState } from "nuqs"
 
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
     const isOwner = appData.user.id === appData.board.owner.id
+    const [cardSize, setCardSize] = useQueryState("cardSize", {
+        defaultValue: "1",
+    })
 
-    const router = useRouter()
-    const pathname = usePathname()
     const searchParams = useSearchParams()
     const currentCardSize = searchParams.get("cardSize")
-    const createQueryString = useCallback(
-        (name, value) => {
-            const params = new URLSearchParams(searchParams.toString())
-            params.set(name, value)
-
-            return params.toString()
-        },
-        [searchParams],
-    )
 
     const handleZoomIn = () => {
         switch (currentCardSize) {
             case "2":
-                router.push(pathname + "?" + createQueryString("cardSize", "3"))
+                setCardSize("3")
                 break
             default:
-                router.push(pathname + "?" + createQueryString("cardSize", "2"))
+                setCardSize("2")
                 break
         }
     }
     const handleZoomOut = () => {
         switch (currentCardSize) {
             case "2":
-                router.push(pathname + "?" + createQueryString("cardSize", "1"))
+                setCardSize("1")
                 break
             case "3":
-                router.push(pathname + "?" + createQueryString("cardSize", "2"))
+                setCardSize("2")
                 break
             default:
                 break

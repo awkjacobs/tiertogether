@@ -7,14 +7,23 @@ import RankingsContainer from "../Rankings/RankingsContainer"
 import { useContext } from "react"
 import ItemDetails from "../ItemDetails/ItemDetails"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { useSearchParams } from "next/navigation"
 
-export default function InfoDialogContent({ item, ignoreRankings = false }) {
+export default function InfoDialogContent({ ignoreRankings = false }) {
     const { appData } = useContext(AppDataContext)
     const { board } = appData
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
-    const details = useGetDetailsQuery(item.id, item.type)
-    const name = details.data.name ? details.data.name : details.data.title
+    const searchParams = useSearchParams()
+    const urlItem = searchParams.get("sel")
+
+    const itemId = Number(urlItem?.split("|")[0])
+    const itemType = urlItem?.split("|")[1]
+
+    const item = board.items.find((item) => item.id === itemId)
+
+    const details = useGetDetailsQuery(itemId, itemType)
+    const name = details.data?.name ? details.data?.name : details.data?.title
 
     if (isDesktop) {
         return (
@@ -24,15 +33,15 @@ export default function InfoDialogContent({ item, ignoreRankings = false }) {
                 >
                     <Poster
                         className={`row-start-1 row-end-3 h-64 w-auto justify-self-center shadow-lg`}
-                        itemId={item.id}
-                        itemType={item.type}
+                        itemId={itemId}
+                        itemType={itemType}
                         height={256}
                         width={170}
                     />
                     <div
                         className={`flex items-center md:col-start-2 md:col-end-3 md:h-44`}
                     >
-                        <Logo itemId={item.id} title={name} type={item.type} />
+                        <Logo itemId={itemId} title={name} type={itemType} />
                     </div>
                     <ItemDetails item={item} />
                 </div>
@@ -48,12 +57,12 @@ export default function InfoDialogContent({ item, ignoreRankings = false }) {
                 <div className={`flex h-28 flex-row items-center gap-4`}>
                     <Poster
                         className={`justify-self-left row-start-1 row-end-3 h-28 w-auto shadow-lg`}
-                        itemId={item.id}
-                        itemType={board.type}
+                        itemId={itemId}
+                        itemType={itemType}
                         height={112}
                         width={75}
                     />
-                    <Logo itemId={item.id} title={name} type={item.type} />
+                    <Logo itemId={itemId} title={name} type={itemType} />
                 </div>
                 {!ignoreRankings && (
                     <Tabs

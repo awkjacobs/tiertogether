@@ -10,7 +10,14 @@ import { userRanksArray } from "./userRanksArray"
 
 export default function RankingsContainer({ item }) {
     const { appData } = useContext(AppDataContext)
-    const userRank = useContext(ItemRankContext)
+    const userRank = {
+        boardId: appData.board.id,
+        id: appData.user.id,
+        itemsId: item.id,
+        name: appData.user.name,
+        rank: item.rank.find((rank) => rank.userId === appData.user.id).rank,
+        userId: appData.user.id,
+    }
 
     const { board } = appData
 

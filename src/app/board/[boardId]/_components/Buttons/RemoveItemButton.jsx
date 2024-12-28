@@ -1,5 +1,3 @@
-import * as React from "react"
-
 import { PRISMA_DELETE_ITEM } from "@api/prismaFuncs"
 import { LoaderCircle, Minus, X } from "lucide-react"
 import {
@@ -16,19 +14,23 @@ import {
 import { Button } from "@app/components/ui/button"
 import { toast } from "sonner"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
+import { useSearchParams } from "next/navigation"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { useContext } from "react"
 
 export function RemoveItemButton({
-    infoItem,
-    appData,
+    item,
+    details,
     disabled,
     isDialog = false,
 }) {
-    const details = useGetDetailsQuery(infoItem.id, infoItem.type)
+    const { appData } = useContext(AppDataContext)
+
     async function handleRemove() {
-        let content = `${details.data.name ? details.data.name : details.data.title} removed from ${appData.board.boardName}`
+        let content = `${details?.data?.name ? details?.data?.name : details?.data?.title} removed from ${appData.board.boardName}`
         await PRISMA_DELETE_ITEM(
             appData.board,
-            infoItem,
+            item,
             content,
             "itemRemoved",
         ).finally(() => {
@@ -44,7 +46,7 @@ export function RemoveItemButton({
         true: `col-start-1 mx-auto flex flex-row items-center place-self-end transition-colors hover:bg-rose-600 md:col-end-4 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-rose-600`,
         false: `absolute right-1 top-1 z-50 h-8 w-8 rounded border border-solid border-zinc-700 bg-zinc-900/70 transition-colors hover:bg-rose-600 md:left-2 md:top-2 md:h-10 md:w-10 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100 dark:hover:bg-rose-600`,
     }
-    if (details.isLoading)
+    if (details?.isLoading)
         return (
             <Button disabled={true} className={dialogButtonStyles[isDialog]}>
                 <LoaderCircle className={`h-4 w-4 animate-spin`} />
@@ -68,9 +70,9 @@ export function RemoveItemButton({
                     <AlertDialogTitle>
                         Remove{" "}
                         <i>
-                            {details.data.name
-                                ? details.data.name
-                                : details.data.title}
+                            {details?.data?.name
+                                ? details?.data?.name
+                                : details?.data?.title}
                         </i>{" "}
                         ?
                     </AlertDialogTitle>
