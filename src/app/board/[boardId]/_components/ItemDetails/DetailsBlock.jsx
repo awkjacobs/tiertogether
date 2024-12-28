@@ -10,7 +10,7 @@ import {
 export default function DetailsBlock({ itemId, type }) {
     const credits = useGetCreditsQuery(itemId, type)
     const details = useGetDetailsQuery(itemId, type)
-
+    console.log(credits)
     return (
         <div
             className={

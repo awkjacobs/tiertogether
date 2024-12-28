@@ -21,7 +21,10 @@ import {
 import InfoDialogContent from "./InfoDialogContent"
 import { useContext } from "react"
 import { useSearchParams } from "next/navigation"
-import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
+import {
+    useGetCreditsQuery,
+    useGetDetailsQuery,
+} from "@app/hooks/use-get-fetch-query"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { RemoveItemButton } from "../Buttons/RemoveItemButton"
 import { backdropSource } from "@lib/const"
@@ -36,12 +39,13 @@ export default function InfoDialog({ isOpen, setIsOpen }) {
     const searchParams = useSearchParams()
     const urlItem = searchParams.get("sel")
 
-    const itemId = Number(urlItem?.split("|")[0])
-    const itemType = urlItem?.split("|")[1]
+    const itemId = Number(urlItem?.split("xx")[0])
+    const itemType = urlItem?.split("xx")[1]
 
     const item = board.items.find((item) => item.id === itemId)
 
     const details = useGetDetailsQuery(itemId, itemType)
+    const credits = useGetCreditsQuery(itemId, itemType)
     const name = details.data?.name ? details.data?.name : details.data?.title
 
     const backdrop = backdropSource(item, itemType)
