@@ -82,7 +82,7 @@
 
     - [x] Google
     - [x] Microsoft
-    - [~] ~~Apple~~ Requires a paid apple developer account, $100/year
+    - [x] ~~Apple~~ Requires a paid apple developer account, $100/year
 
 - [x] add favicon
 - [x] add title on each page
