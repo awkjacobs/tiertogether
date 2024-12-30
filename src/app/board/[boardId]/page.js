@@ -9,10 +9,6 @@ import DraggingContent from "./_components/AppDynamic/DraggingContent"
 import { auth } from "@clerk/nextjs/server"
 import { QueryClient } from "@tanstack/react-query"
 
-// TODO - revist card scale options
-
-// TODO - ensure the display when a lot of items are present on a board
-
 // * Extra features
 // * - add a board description area
 // * - add rotten tomatoes score

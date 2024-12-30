@@ -2,9 +2,7 @@ import { PRISMA_GET_USER } from "@api/prismaFuncs"
 import { auth } from "@clerk/nextjs/server"
 import AppBar from "@components/AppBar/AppBar"
 import PageContainer from "@components/Utility/PageContainer"
-import DotsBackground from "@components/Utility/dotsBackground"
 import LandingPageContent from "./landing_page/landingPageContent"
-// TODO - clean up the landing page
 
 export default async function LandingPage() {
     const { userId } = await auth()

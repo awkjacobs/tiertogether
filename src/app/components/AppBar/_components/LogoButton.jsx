@@ -48,7 +48,11 @@ export default function LogoButton() {
                                 Landing Page
                             </NavigationMenuLink>
                         </Link>
-                        <Link href={`/`} legacyBehavior passHref>
+                        <Link
+                            href={`/changeLog_Roadmap`}
+                            legacyBehavior
+                            passHref
+                        >
                             <NavigationMenuLink
                                 className={navigationMenuTriggerStyle()}
                             >
@@ -65,7 +69,7 @@ export default function LogoButton() {
                                 target="_blank"
                             >
                                 <GithubIcon className={`mr-2 h-5 w-5`} />
-                                github
+                                GitHub
                             </a>
                         </NavigationMenuLink>
                     </NavigationMenuContent>

@@ -1,6 +1,8 @@
 import LogoTriangles from "@app/components/Utility/LogoTriangles"
 import DotsBackground from "@components/Utility/dotsBackground"
 import TextLink from "@components/Utility/textLink"
+import H2 from "@components/Utility/H2"
+import TextBlock from "@components/Utility/TextBlock"
 
 export default async function LandingPageContent() {
     return (
@@ -54,12 +56,8 @@ export default async function LandingPageContent() {
                 <div
                     className={`relative col-span-full row-start-2 row-end-3 grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-32`}
                 >
-                    <div
-                        className={`relative z-50 col-start-3 col-end-4 items-center justify-center gap-4 space-y-8 text-lg leading-9`}
-                    >
-                        <h2 className={`font-bold text-purple-300 md:text-4xl`}>
-                            About tiertogether
-                        </h2>
+                    <TextBlock>
+                        <H2>About tiertogether</H2>
                         <p>
                             tiertogether is a personal project that I started
                             with the intention of tracking and rating movies
@@ -92,13 +90,13 @@ export default async function LandingPageContent() {
                         <p>
                             More features are planned for the future, check out
                             the{" "}
-                            <TextLink newTab={false}>
+                            <TextLink newTab={false} href="/changeLog_Roadmap">
                                 Changelog/Roadmap
                             </TextLink>{" "}
                             for details.
                         </p>
                         <p>Have fun!</p>
-                    </div>
+                    </TextBlock>
                 </div>
             </section>
         </main>
