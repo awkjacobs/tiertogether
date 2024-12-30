@@ -6,13 +6,16 @@ import InfoCard from "../Cards/InfoCard"
 export default function Collection({ collection }) {
     const items = useGetCollectionQuery(collection.id)
 
-    // if (items.isLoading) return <Skeleton className={`h-48 w-full`} />
+    if (items.isLoading) return <Skeleton className={`h-48 w-full`} />
+    if (items.error) return <div className={`h-48 w-full`}>error.message</div>
     return (
         <div
-            className={`relative mt-4 flex min-h-48 w-full flex-col justify-center gap-2 overflow-auto rounded-md p-4`}
+            className={`relative mt-4 flex min-h-48 w-full flex-col justify-center gap-2 rounded-md p-4`}
         >
             <Backdrop
-                backdrop={`http://image.tmdb.org/t/p/original${collection.backdrop_path}`}
+                backdrop={{
+                    fullPath: `http://image.tmdb.org/t/p/original${collection.backdrop_path}`,
+                }}
                 fill={true}
             />
             <h3 className="text-center text-lg font-bold">{collection.name}</h3>

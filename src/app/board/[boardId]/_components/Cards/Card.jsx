@@ -1,12 +1,8 @@
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
-import { LoaderCircle } from "lucide-react"
 import { useSearchParams } from "next/navigation"
-import { RemoveItemButton } from "../Buttons/RemoveItemButton"
-import InfoDialogContent from "../Dialogs/InfoDialogContent"
 import Poster from "@components/ui/Poster"
-import { ResponsiveDialog } from "@components/ui/ResponsiveDialog"
 import {
     Tooltip,
     TooltipContent,
@@ -17,9 +13,6 @@ import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
-import { backdropSource, comparedRank } from "@lib/const"
-import { type } from "os"
-
 const size = {
     null: "h-20 md:h-24",
     1: "h-20 md:h-24",
@@ -34,7 +27,6 @@ export function Card({
     isDragging,
     tier,
     activeItem,
-    // setDialogIsOpen,
     difference = false,
     scoreToCompareAgainst,
 }) {
@@ -45,7 +37,6 @@ export function Card({
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
     const details = useGetDetailsQuery(item.id, item.type)
-    const backdrop = backdropSource(item, item.type)
 
     const name = details.data?.name ? details.data?.name : details.data?.title
 

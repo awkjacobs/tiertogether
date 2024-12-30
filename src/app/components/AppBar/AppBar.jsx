@@ -27,11 +27,9 @@ export default async function AppBar({ appData }) {
 
     return (
         <header
-            className={`sticky top-0 z-10 col-span-1 col-start-2 col-end-3 row-start-1 row-end-2 mt-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
+            className={`sticky z-10 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
         >
-            <div
-                className={`col-start-2 col-end-3 flex items-center justify-between`}
-            >
+            <div className={`col-span-full flex items-center justify-between`}>
                 <Button variant="ghost" asChild>
                     <Link
                         className={`flex h-full cursor-pointer flex-row content-center items-center gap-1 px-2`}

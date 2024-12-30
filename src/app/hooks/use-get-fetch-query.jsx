@@ -12,7 +12,6 @@ import { IGDB_GET_FRANCHISE } from "@api/IGDB"
 export const useGetDetailsQuery = (itemId, itemType) => {
     return useQuery({
         queryKey: ["details", itemId, itemType],
-        // queryFn: () => TMDB_GET_DETAILS(itemId, itemType),
         queryFn: () => detailsFunc(itemId, itemType),
         staleTime: Infinity,
     })
@@ -38,8 +37,7 @@ export const useGetCollectionQuery = (collectionId) => {
         queryKey: ["collection", collectionId],
         queryFn: () => TMDB_GET_COLLECTION(collectionId),
         refetchOnMount: true,
-        throwOnError: true,
-        staleTime: Infinity,
+        staleTime: 0,
     })
 }
 export const useGetFranchiseQuery = (franchiseId) => {

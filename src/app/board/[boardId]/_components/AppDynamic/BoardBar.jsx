@@ -1,10 +1,7 @@
+import BoardTypeIcon from "@app/components/Utility/BoardTypeIcons"
+import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 import EditBoardButton from "@components/Buttons/EditBoardButton"
 import { Button } from "@components/ui/button"
-import { ZoomIn, ZoomOut } from "lucide-react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useContext } from "react"
-import RankingsToggle from "./RankingsToggle"
-import { AppDataContext } from "../../../../components/_providers/appDataProvider"
 import {
     Select,
     SelectContent,
@@ -13,14 +10,17 @@ import {
     SelectValue,
 } from "@components/ui/select"
 import { Separator } from "@components/ui/separator"
-import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
-import BoardTypeIcon from "@app/components/Utility/BoardTypeIcons"
+import { ZoomIn, ZoomOut } from "lucide-react"
+import { useSearchParams } from "next/navigation"
 import { useQueryState } from "nuqs"
+import { useContext } from "react"
+import { AppDataContext } from "../../../../components/_providers/appDataProvider"
 
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
     const isOwner = appData.user.id === appData.board.owner.id
+
     const [cardSize, setCardSize] = useQueryState("cardSize", {
         defaultValue: "1",
     })

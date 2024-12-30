@@ -8,6 +8,7 @@ import AppBar from "@components/AppBar/AppBar"
 import HomeContainer from "./_components/HomeContainer"
 import HomeContent from "./_components/HomeContent"
 import { auth, currentUser } from "@clerk/nextjs/server"
+import PageContainer from "@app/components/Utility/PageContainer"
 
 async function makeBoardWait() {
     await new Promise((resolve) => setTimeout(resolve, 100000))
@@ -58,9 +59,9 @@ export default async function Home() {
     }
 
     return (
-        <HomeContainer>
+        <PageContainer>
             <AppBar appData={appData} />
             <HomeContent appData={appData} />
-        </HomeContainer>
+        </PageContainer>
     )
 }

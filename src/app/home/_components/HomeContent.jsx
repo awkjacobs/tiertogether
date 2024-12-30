@@ -18,7 +18,7 @@ import {
     FormMessage,
 } from "@components/ui/form"
 import { PRISMA_UPDATE_DISPLAY_NAME } from "@api/prismaFuncs"
-import { sortedBoards } from "@lib/const"
+import { SORTED_BOARDS } from "@lib/const"
 import { useEffect, useState } from "react"
 import BoardCard from "./BoardCard"
 import EmptyBoardsDisplay from "./EmptyBoardDisplay"
@@ -63,13 +63,13 @@ export default function HomeContent({ appData }) {
     return (
         <AppDataContext.Provider value={{ appData }}>
             <section
-                className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
+                className={`no-scrollbar col-start-3 col-end-4 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
             >
                 <HomeBoardsBar appData={appData} />
                 <UserBoardsContainer>
                     {userBoards.length === 0 && <EmptyBoardsDisplay />}
                     {userBoards.length > 0 &&
-                        sortedBoards(userBoards).map((board, index) => {
+                        SORTED_BOARDS(userBoards).map((board, index) => {
                             return (
                                 <BoardCard
                                     board={board}

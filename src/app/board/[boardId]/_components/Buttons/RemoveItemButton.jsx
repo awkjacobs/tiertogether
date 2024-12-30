@@ -1,5 +1,6 @@
 import { PRISMA_DELETE_ITEM } from "@api/prismaFuncs"
-import { LoaderCircle, Minus, X } from "lucide-react"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { Button } from "@app/components/ui/button"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -11,23 +12,26 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@components/ui/alert-dialog"
-import { Button } from "@app/components/ui/button"
-import { toast } from "sonner"
-import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
-import { useSearchParams } from "next/navigation"
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { Form } from "@components/ui/form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { DIALOG_BUTTON_STYLE } from "@lib/const"
+import { LoaderCircle, Minus } from "lucide-react"
 import { useContext } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
 
-export function RemoveItemButton({
-    item,
-    details,
-    disabled,
-    isDialog = false,
-}) {
+const formSchema = z.object({})
+
+export default function RemoveItemButton({ item, name, disabled, isDialog }) {
     const { appData } = useContext(AppDataContext)
 
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+    })
+
     async function handleRemove() {
-        let content = `${details?.data?.name ? details?.data?.name : details?.data?.title} removed from ${appData.board.boardName}`
+        let content = `${name} removed from ${appData.board.boardName}`
         await PRISMA_DELETE_ITEM(
             appData.board,
             item,
@@ -42,23 +46,13 @@ export function RemoveItemButton({
             })
         })
     }
-    const dialogButtonStyles = {
-        true: `col-start-1 mx-auto flex flex-row items-center place-self-end transition-colors hover:bg-rose-600 md:col-end-4 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-rose-600`,
-        false: `absolute right-1 top-1 z-50 h-8 w-8 rounded border border-solid border-zinc-700 bg-zinc-900/70 transition-colors hover:bg-rose-600 md:left-2 md:top-2 md:h-10 md:w-10 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100 dark:hover:bg-rose-600`,
-    }
-    if (details?.isLoading)
-        return (
-            <Button disabled={true} className={dialogButtonStyles[isDialog]}>
-                <LoaderCircle className={`h-4 w-4 animate-spin`} />
-                {isDialog && <p>Loading...</p>}
-            </Button>
-        )
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button
                     disabled={disabled}
-                    className={dialogButtonStyles[isDialog]}
+                    className={DIALOG_BUTTON_STYLE[isDialog]}
                     size={isDialog ? "default" : "icon"}
                 >
                     <Minus className={isDialog ? `mr-2` : `h-4 w-4`} />
@@ -68,13 +62,7 @@ export function RemoveItemButton({
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>
-                        Remove{" "}
-                        <i>
-                            {details?.data?.name
-                                ? details?.data?.name
-                                : details?.data?.title}
-                        </i>{" "}
-                        ?
+                        Remove <i>{name}</i> ?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                         This action cannot be undone. This will remove the item
@@ -86,9 +74,22 @@ export function RemoveItemButton({
                     <AlertDialogCancel className={`h-8`}>
                         Cancel
                     </AlertDialogCancel>
-                    <AlertDialogAction className={`h-8`} onClick={handleRemove}>
-                        Remove
-                    </AlertDialogAction>
+                    <Form {...form}>
+                        <form
+                            onSubmit={form.handleSubmit(handleRemove)}
+                            className={`inline-flex flex-col`}
+                        >
+                            <AlertDialogAction
+                                className={`h-8 flex-1`}
+                                type="submit"
+                            >
+                                {form.formState.isSubmitting && (
+                                    <LoaderCircle className="animate-spin" />
+                                )}
+                                {!form.formState.isSubmitting && "Remove"}
+                            </AlertDialogAction>
+                        </form>
+                    </Form>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

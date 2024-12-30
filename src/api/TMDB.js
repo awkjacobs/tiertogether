@@ -239,7 +239,6 @@ export async function TMDB_GET_DETAILS(id, type) {
     return res
 }
 export async function TMDB_GET_COLLECTION(id) {
-    console.log("collection")
     const options = {
         method: "GET",
         headers: {
@@ -256,6 +255,6 @@ export async function TMDB_GET_COLLECTION(id) {
     )
         .then((response) => response.json())
         .catch((err) => console.error("Get Collection Error: " + err))
-    console.log(res)
+
     return res
 }

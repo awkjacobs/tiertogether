@@ -3,7 +3,7 @@ import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Form } from "@components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { backdropSource, itemType } from "@lib/const"
+import { BACKDROP_SOURCE, ITEM_TYPE } from "@lib/const"
 import { Check, LoaderCircle, Plus } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -24,9 +24,9 @@ export default function SearchCard({ item, board, queryType, style }) {
     )
     const name = item?.name ? item.name : item.title
 
-    item.type = itemType(board, queryType)
+    item.type = ITEM_TYPE(board, queryType)
 
-    const backdrop = backdropSource(item, item.type)
+    const backdrop = BACKDROP_SOURCE(item, item.type)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
@@ -47,9 +47,9 @@ export default function SearchCard({ item, board, queryType, style }) {
             board,
             {
                 id: item.id,
-                backdrop_path: item?.backdrop_path
-                    ? item.backdrop_path
-                    : details.data?.artworks[0]?.image_id,
+                backdrop_path: backdrop?.partialPath
+                    ? backdrop.partialPath
+                    : null,
                 type: item.type,
             },
             content,
@@ -77,6 +77,7 @@ export default function SearchCard({ item, board, queryType, style }) {
             style={style}
             backdropSource={backdrop}
             className={`overflow-hidden`}
+            contextValue={{ itemId: item.id, itemType: ITEM_TYPE, details }}
         >
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleAdd)}>
@@ -114,27 +115,16 @@ export default function SearchCard({ item, board, queryType, style }) {
                 className={`flex min-w-[50%] flex-1 flex-col justify-between p-4 pb-0 md:p-6 md:pb-4`}
             >
                 <SearchLogo itemId={item.id} title={name} type={item.type} />
-                {isDesktop && (
-                    <div className={`flex items-end justify-between`}>
+                <div
+                    className={`flex ${isDesktop ? "justify-between" : "justify-end"}`}
+                >
+                    {isDesktop && (
                         <div className={`flex flex-wrap items-center gap-2`}>
                             <ItemBadges item={item} type={item.type} />
                         </div>
-                        <Overview
-                            isDesktop={isDesktop}
-                            item={item}
-                            alreadyIncluded={alreadyIncluded}
-                            handleAdd={handleAdd}
-                        />
-                    </div>
-                )}
-                {!isDesktop && (
-                    <Overview
-                        isDesktop={isDesktop}
-                        item={item}
-                        alreadyIncluded={alreadyIncluded}
-                        handleAdd={handleAdd}
-                    />
-                )}
+                    )}
+                    <Overview item={item} />
+                </div>
             </div>
         </SearchCardContainer>
     )

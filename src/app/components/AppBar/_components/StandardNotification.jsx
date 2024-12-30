@@ -4,7 +4,7 @@ import { Form } from "@components/ui/form"
 import { PRISMA_VIEW_NOTIFICATION } from "@api/prismaFuncs"
 import {
     NOTIFICATION_ICONS as NOTIFICATION_ICON,
-    simplifiedDate,
+    SIMPLIFIED_DATE,
 } from "@lib/const"
 import { LoaderCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -36,7 +36,7 @@ export default function StandardNotification({ notification, userViewed }) {
                             {content}
                         </h5>
                         <p className="self-start text-xs opacity-50">
-                            {simplifiedDate(createdAt)}
+                            {SIMPLIFIED_DATE(createdAt)}
                         </p>
                     </div>
                     {form.formState.isSubmitting && (

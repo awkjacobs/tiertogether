@@ -1,16 +1,19 @@
 import DescriptionGroup from "./DescriptionGroup"
-import { creditCasting } from "@components/Utility/creditCasting"
-import { findDirectors } from "@components/Utility/findDirectors"
+import { creditCasting } from "@app/board/[boardId]/_components/ItemDetails/creditCasting"
+import { findDirectors } from "@app/board/[boardId]/_components/ItemDetails/findDirectors"
 import { Skeleton } from "@app/components/ui/skeleton"
 import {
     useGetCreditsQuery,
     useGetDetailsQuery,
 } from "@app/hooks/use-get-fetch-query"
+import { ItemDataContext } from "@app/components/_providers/itemDataProvider"
+import { useContext } from "react"
 
-export default function DetailsBlock({ itemId, type }) {
-    const credits = useGetCreditsQuery(itemId, type)
-    const details = useGetDetailsQuery(itemId, type)
-    console.log(credits)
+export default function DetailsBlock() {
+    const { itemId, itemType, details } = useContext(ItemDataContext)
+    const credits = useGetCreditsQuery(itemId, itemType)
+    // const details = useGetDetailsQuery(itemId, type)
+
     return (
         <div
             className={
@@ -23,7 +26,7 @@ export default function DetailsBlock({ itemId, type }) {
                     <Skeleton className={`h-4 w-full`} />
                 </>
             )}
-            {type === "movie" &&
+            {itemType === "movie" &&
                 !credits.isLoading &&
                 findDirectors(credits.data).length > 0 && (
                     <DescriptionGroup
@@ -35,7 +38,7 @@ export default function DetailsBlock({ itemId, type }) {
                         content={findDirectors(credits.data).join(", ")}
                     />
                 )}
-            {type === "movie" &&
+            {itemType === "movie" &&
                 !credits.isLoading &&
                 creditCasting(credits.data).length > 0 && (
                     <DescriptionGroup
@@ -63,7 +66,7 @@ export default function DetailsBlock({ itemId, type }) {
             )}
             {!details.isLoading &&
                 details.data?.status &&
-                (type === "tv" || type === "anime") && (
+                (itemType === "tv" || itemType === "anime") && (
                     <DescriptionGroup
                         section={"Status:"}
                         content={`
@@ -88,6 +91,14 @@ export default function DetailsBlock({ itemId, type }) {
                     content={details.data.involved_companies
                         .filter((company) => company.developer === true)
                         .map((company) => company.company.name)
+                        .join(", ")}
+                />
+            )}
+            {details.data?.platforms && (
+                <DescriptionGroup
+                    section={"Platforms:"}
+                    content={details.data?.platforms
+                        .map((platform) => platform.name)
                         .join(", ")}
                 />
             )}

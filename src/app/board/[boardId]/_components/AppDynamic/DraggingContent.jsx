@@ -2,32 +2,28 @@
 
 import { useEffect, useState } from "react"
 
-import { TierContainer } from "../Tierlist/TierContainer"
-import CardQueue from "../Card Queue/CardQueue"
-import BoardBar from "./BoardBar"
-import { CardOverlay } from "../Cards/CardOverlay"
-import { move } from "./functions/react-dndFuncs"
-import sortItems from "./functions/sortItems"
+import { AppDataContext } from "@components/_providers/appDataProvider"
 import {
     DndContext,
     DragOverlay,
     MouseSensor,
     TouchSensor,
-    closestCenter,
-    closestCorners,
-    getFirstCollision,
-    pointerWithin,
-    rectIntersection,
     useSensor,
     useSensors,
 } from "@dnd-kit/core"
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
-import { AppDataContext } from "@components/_providers/appDataProvider"
-import { ResponsiveDialog } from "@app/components/ui/ResponsiveDialog"
-import InfoDialogContent from "../Dialogs/InfoDialogContent"
-import { RemoveItemButton } from "../Buttons/RemoveItemButton"
-import { useQueryState } from "nuqs"
+import CardQueue from "../Card Queue/CardQueue"
+import { CardOverlay } from "../Cards/CardOverlay"
 import InfoDialog from "../Dialogs/InfoDialog"
+import { TierContainer } from "../Tierlist/TierContainer"
+import BoardBar from "./BoardBar"
+import { move } from "./functions/react-dndFuncs"
+import sortItems from "./functions/sortItems"
+import {
+    ResizableHandle,
+    ResizablePanel,
+    ResizablePanelGroup,
+} from "@components/ui/resizable"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
@@ -204,7 +200,8 @@ export default function DraggingContent({ appData }) {
     const sensors = useSensors(mouseSensor, touchSensor)
 
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
-    const [selectedItem, setSelectedItem] = useQueryState("sel")
+    // const [selectedItem, setSelectedItem] = useQueryState("sel")
+    const [selectedItem, setSelectedItem] = useState("")
 
     return (
         <AppDataContext.Provider
@@ -214,6 +211,7 @@ export default function DraggingContent({ appData }) {
                 showDifference,
                 dialogIsOpen,
                 setDialogIsOpen,
+                selectedItem,
                 setSelectedItem,
             }}
         >
@@ -225,7 +223,7 @@ export default function DraggingContent({ appData }) {
                 onDragEnd={handleDragEnd}
             >
                 <div
-                    className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll pb-8`}
+                    className={`no-scrollbar col-start-2 col-end-5 row-start-2 row-end-3 flex h-full w-full flex-1 flex-col place-self-center overflow-x-visible overflow-y-scroll pb-8`}
                 >
                     <BoardBar setUserEntries={setUserEntries} />
                     <TierContainer
@@ -245,28 +243,6 @@ export default function DraggingContent({ appData }) {
                 <DragOverlay modifiers={[restrictToWindowEdges]}>
                     <CardOverlay item={activeItem} />
                 </DragOverlay>
-                {/* <ResponsiveDialog
-                    setIsOpen={setDialogIsOpen}
-                    isOpen={dialogIsOpen}
-                    component={
-                        <InfoDialogContent
-                        // item={item}
-                        />
-                    }
-                    footer={
-                        <RemoveItemButton
-                            // infoItem={item}
-                            // disabled={
-                            //     !allowedToRemoveItemFromBoard
-                            // }
-                            isDialog={true}
-                        />
-                    }
-                    // title={name}
-                    // backdrop={backdrop}
-                    hideDescription={true}
-                    hideTitle={true}
-                /> */}
                 <InfoDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} />
             </DndContext>
         </AppDataContext.Provider>

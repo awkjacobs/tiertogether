@@ -1,12 +1,12 @@
 import Image from "next/image"
 import { motion } from "motion/react"
 import CardTitle from "../ItemDetails/CardTitle"
-import { findLogo } from "@lib/const"
+import { FIND_LOGO } from "@lib/const"
 import { useGetImagesQuery } from "@app/hooks/use-get-fetch-query"
 
 export function SearchLogo({ itemId, title, type }) {
     const images = useGetImagesQuery(itemId, type)
-    const logo = findLogo(images.data)
+    const logo = FIND_LOGO(images.data)
 
     if (logo)
         return (
