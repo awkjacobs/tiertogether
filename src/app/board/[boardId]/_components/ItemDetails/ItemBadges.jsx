@@ -1,14 +1,11 @@
-import {
-    GenreBadge,
-    PlatformBadge,
-    ReleaseBadge,
-} from "@app/components/Utility/Badges"
-import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
+import { GenreBadge, ReleaseBadge } from "@app/components/Utility/Badges"
 import { Skeleton } from "@app/components/ui/skeleton"
-import { get_release } from "@lib/const"
+import { GET_RELEASE } from "@lib/const"
+import { ItemDataContext } from "@app/components/_providers/itemDataProvider"
+import { useContext } from "react"
 
-export default function ItemBadges({ item, type }) {
-    const details = useGetDetailsQuery(item.id, type)
+export default function ItemBadges({ item }) {
+    const { details } = useContext(ItemDataContext)
 
     if (details.isLoading)
         return (
@@ -24,7 +21,7 @@ export default function ItemBadges({ item, type }) {
         <div
             className={`relative row-start-2 row-end-3 flex h-min flex-wrap gap-2 md:col-start-2`}
         >
-            <ReleaseBadge release={get_release(item, details)} />
+            <ReleaseBadge release={GET_RELEASE(item, details)} />
             {details.data?.genre_ids &&
                 details.data.genre_ids.map((id) => (
                     <GenreBadge genreId={id} key={id} />
@@ -32,14 +29,6 @@ export default function ItemBadges({ item, type }) {
             {details.data?.genres &&
                 details.data.genres.map((genre) => (
                     <GenreBadge genre={genre} key={genre.id} />
-                ))}
-            {item?.platforms &&
-                item.platforms.map((platform) => (
-                    <PlatformBadge platform={platform} key={platform.id} />
-                ))}
-            {details.data?.platforms &&
-                details.data.platforms.map((platform) => (
-                    <PlatformBadge platform={platform} key={platform.id} />
                 ))}
         </div>
     )

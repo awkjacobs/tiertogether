@@ -3,33 +3,24 @@ import { Button } from "@components/ui/button"
 import { Skeleton } from "@components/ui/skeleton"
 import LogoTriangles from "@components/Utility/LogoTriangles"
 import Link from "next/link"
+import LogoButton from "../components/AppBar/_components/LogoButton"
 
 export default function HomeLoading() {
     return (
         <PageContainer>
             {/* app bar */}
             <header
-                className={`sticky top-0 z-10 col-span-1 col-start-2 col-end-3 row-start-1 row-end-2 mt-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
+                className={`sticky top-0 z-10 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
             >
                 <div
-                    className={`col-start-2 col-end-3 flex items-center justify-between`}
+                    className={`col-span-full flex items-center justify-between`}
                 >
                     <Button variant="ghost" asChild>
                         <Link
                             className={`flex h-full cursor-pointer flex-row content-center items-center gap-1 px-2`}
                             href={`/home`}
                         >
-                            <LogoTriangles className={`h-full w-auto`} />
-                            <h1
-                                className={`text-base font-medium text-purple-500 dark:text-purple-200`}
-                            >
-                                tier
-                                <span
-                                    className={`text-purple-800 dark:text-purple-500`}
-                                >
-                                    together
-                                </span>
-                            </h1>
+                            <LogoButton />
                         </Link>
                     </Button>
                     <div className={`flex items-center justify-center`}>
@@ -42,7 +33,7 @@ export default function HomeLoading() {
             </header>
             {/* content */}
             <section
-                className={`no-scrollbar col-start-2 col-end-3 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
+                className={`no-scrollbar col-start-3 col-end-4 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
             >
                 <div
                     className={`my-2 flex items-center justify-between md:py-6`}

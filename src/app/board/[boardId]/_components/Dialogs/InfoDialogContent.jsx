@@ -1,42 +1,35 @@
-import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
 import Poster from "@components/ui/Poster"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
+import ItemDetails from "../ItemDetails/ItemDetails"
 import Logo from "../ItemDetails/Logo"
 import RankingsContainer from "../Rankings/RankingsContainer"
 import { useContext } from "react"
-import ItemDetails from "../ItemDetails/ItemDetails"
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { ItemDataContext } from "@app/components/_providers/itemDataProvider"
 
-export default function InfoDialogContent({ item, ignoreRankings = false }) {
-    const { appData } = useContext(AppDataContext)
-    const { board } = appData
+export default function InfoDialogContent({ item }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
-    const details = useGetDetailsQuery(item.id, item.type)
-    const name = details.data.name ? details.data.name : details.data.title
+    const { itemId, itemType, details } = useContext(ItemDataContext)
+    const name = details.data?.name ? details.data?.name : details.data?.title
 
     if (isDesktop) {
         return (
-            <div className="grid grid-cols-[1fr_auto] gap-4">
+            <div className="relative grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] gap-8 overflow-clip">
+                <Poster
+                    className={`row-start-1 row-end-3 h-64 w-auto justify-self-center shadow-lg`}
+                    itemId={itemId}
+                    itemType={itemType}
+                    height={256}
+                    width={170}
+                />
                 <div
-                    className={`relative z-10 grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] gap-x-12 gap-y-8 p-6 pb-0`}
+                    className={`flex items-center md:col-start-2 md:col-end-3 md:h-44`}
                 >
-                    <Poster
-                        className={`row-start-1 row-end-3 h-64 w-auto justify-self-center shadow-lg`}
-                        itemId={item.id}
-                        itemType={item.type}
-                        height={256}
-                        width={170}
-                    />
-                    <div
-                        className={`flex items-center md:col-start-2 md:col-end-3 md:h-44`}
-                    >
-                        <Logo itemId={item.id} title={name} type={item.type} />
-                    </div>
-                    <ItemDetails item={item} />
+                    <Logo itemId={itemId} title={name} type={itemType} />
                 </div>
-                {!ignoreRankings && <RankingsContainer item={item} />}
+                <ItemDetails item={item} />
+                {item?.rank && <RankingsContainer item={item} />}
             </div>
         )
     }
@@ -48,49 +41,49 @@ export default function InfoDialogContent({ item, ignoreRankings = false }) {
                 <div className={`flex h-28 flex-row items-center gap-4`}>
                     <Poster
                         className={`justify-self-left row-start-1 row-end-3 h-28 w-auto shadow-lg`}
-                        itemId={item.id}
-                        itemType={board.type}
+                        itemId={itemId}
+                        itemType={itemType}
                         height={112}
                         width={75}
                     />
-                    <Logo itemId={item.id} title={name} type={item.type} />
+                    <Logo itemId={itemId} title={name} type={itemType} />
                 </div>
-                {!ignoreRankings && (
-                    <Tabs
-                        defaultValue="info"
-                        className={`row-span-2 row-start-2 row-end-4 grid h-full grid-rows-subgrid gap-4`}
+                <Tabs
+                    defaultValue="info"
+                    className={`row-span-2 row-start-2 row-end-4 grid h-full grid-rows-subgrid gap-4`}
+                >
+                    <TabsList
+                        className={`row-start-1 row-end-2 w-full bg-zinc-200 dark:bg-zinc-900`}
                     >
-                        <TabsList
-                            className={`row-start-1 row-end-2 w-full bg-zinc-200 dark:bg-zinc-900`}
-                        >
-                            <TabsTrigger
-                                value="info"
-                                className={`w-full rounded data-[state=active]:bg-purple-600 data-[state=active]:text-purple-100 dark:data-[state=active]:bg-purple-800`}
-                            >
-                                Info
-                            </TabsTrigger>
-                            <TabsTrigger
-                                value="ranks"
-                                className={`w-full rounded data-[state=active]:bg-purple-600 data-[state=active]:text-purple-100 dark:data-[state=active]:bg-purple-800`}
-                            >
-                                Rankings
-                            </TabsTrigger>
-                        </TabsList>
-                        <TabsContent
+                        <TabsTrigger
                             value="info"
-                            className={`row-start-2 row-end-3 overflow-y-scroll`}
+                            className={`w-full rounded data-[state=active]:bg-purple-600 data-[state=active]:text-purple-100 dark:data-[state=active]:bg-purple-800`}
                         >
-                            <ItemDetails item={item} />
-                        </TabsContent>
+                            Info
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="ranks"
+                            disabled={!item?.rank}
+                            className={`w-full rounded data-[state=active]:bg-purple-600 data-[state=active]:text-purple-100 dark:data-[state=active]:bg-purple-800`}
+                        >
+                            Rankings
+                        </TabsTrigger>
+                    </TabsList>
+                    <TabsContent
+                        value="info"
+                        className={`row-start-2 row-end-3 overflow-y-scroll`}
+                    >
+                        <ItemDetails item={item} />
+                    </TabsContent>
+                    {item?.rank && (
                         <TabsContent
                             value="ranks"
                             className={`row-start-2 row-end-3 overflow-hidden`}
                         >
                             <RankingsContainer item={item} />
                         </TabsContent>
-                    </Tabs>
-                )}
-                {ignoreRankings && <ItemDetails item={item} />}
+                    )}
+                </Tabs>
             </div>
         )
     }

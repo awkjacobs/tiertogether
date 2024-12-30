@@ -6,15 +6,15 @@ import { Skeleton } from "@components/ui/skeleton"
 import { useDroppable } from "@dnd-kit/core"
 import Image from "next/image"
 import { useContext, useEffect } from "react"
-import { RemoveItemButton } from "../Buttons/RemoveItemButton"
+import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import Logo from "@app/board/[boardId]/_components/ItemDetails/Logo"
 import Backdrop from "@components/ui/backdrop"
-import { findDirectors } from "@components/Utility/findDirectors"
+import { findDirectors } from "@app/board/[boardId]/_components/ItemDetails/findDirectors"
 import MissingPoster from "@components/Utility/MissingPoster"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
-import { backdropSource, get_release } from "@lib/const"
+import { BACKDROP_SOURCE, GET_RELEASE } from "@lib/const"
 // TODO - change mobile formating, maybe just poster
 
 export default function SwiperCard(props) {
@@ -39,7 +39,7 @@ export default function SwiperCard(props) {
 
     const details = useGetDetailsQuery(item.id, item.type)
     const credits = useGetCreditsQuery(item.id, item.type)
-    const backdrop = backdropSource(item, item.type)
+    const backdrop = BACKDROP_SOURCE(item, item.type)
 
     const allowedToRemoveItemFromBoard =
         user.id === board.ownerId || user.id === item.addedBy.id
@@ -58,14 +58,13 @@ export default function SwiperCard(props) {
             >
                 <Backdrop backdrop={backdrop} fill={true} swiper={true} />
                 {isActive && queueIsOpen && (
-                    <RemoveItemButton
-                        infoItem={item}
-                        appData={appData}
+                    <ItemAddRemoveButton
+                        item={item}
                         disabled={!allowedToRemoveItemFromBoard}
                     />
                 )}
                 <div
-                    className={`group relative box-border flex h-[120px] min-w-20 items-center justify-center bg-black text-center md:h-auto md:min-w-40`}
+                    className={`group relative box-border flex h-[120px] min-w-20 items-center justify-center bg-black text-center md:h-auto ${item.type == "videoGame" ? "md:min-w-48" : "md:min-w-40"}`}
                 >
                     {details.data.poster_path && (
                         <Image
@@ -84,7 +83,7 @@ export default function SwiperCard(props) {
                             priority={true}
                             alt="Backdrop"
                             src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${details.data.cover?.image_id}.jpg`}
-                            className={`h-auto w-auto bg-white object-cover object-[0_25%] opacity-35 blur-sm transition-all md:opacity-100 md:blur-none md:group-hover:opacity-35 md:group-hover:blur`}
+                            className={`h-auto w-auto bg-white object-cover opacity-35 blur-sm transition-all md:opacity-100 md:blur-none md:group-hover:opacity-35 md:group-hover:blur`}
                         />
                     )}
                     {!details.data.poster_path &&

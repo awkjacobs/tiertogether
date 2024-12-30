@@ -29,7 +29,7 @@ import { z } from "zod"
 
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { useGetSearchQuery } from "@app/hooks/use-get-fetch-query"
-import { queryTypesList } from "@lib/const"
+import { QUERY_TYPES_LIST } from "@lib/const"
 import { useMutation } from "@tanstack/react-query"
 import { LoadingSpinner } from "../../../../components/ui/LoadingSpinner"
 
@@ -47,19 +47,19 @@ export default function AddDialogContent() {
     const type = board.type
     const [queryValues, setQueryValues] = useState({
         type: type,
-        queryType: queryTypesList(type)[0],
+        queryType: QUERY_TYPES_LIST(type)[0],
         query: "",
     })
     const [currentPage, setCurrentPage] = useState(1)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const [selectValue, setSelectValue] = useState(queryTypesList(type)[0])
+    const [selectValue, setSelectValue] = useState(QUERY_TYPES_LIST(type)[0])
 
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             query: "",
-            queryType: queryTypesList(type)[0],
+            queryType: QUERY_TYPES_LIST(type)[0],
             page: 1,
         },
     })
@@ -68,7 +68,7 @@ export default function AddDialogContent() {
         if (form.getValues("query") === "")
             mutate({
                 type: type,
-                queryType: queryTypesList(type)[0],
+                queryType: QUERY_TYPES_LIST(type)[0],
                 query: "",
             })
     }, [form.getValues("query")])
@@ -98,7 +98,6 @@ export default function AddDialogContent() {
         mutate(values)
     }
 
-    console.log(queryResults)
     const parentRef = useRef()
     const rowVirtualizer = useVirtualizer({
         count: queryResults?.data?.results.length,
@@ -151,7 +150,7 @@ export default function AddDialogContent() {
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                        {queryTypesList(type).map(
+                                        {QUERY_TYPES_LIST(type).map(
                                             (queryType) => (
                                                 <SelectItem
                                                     key={queryType}

@@ -451,6 +451,7 @@ export async function PRISMA_UPDATE_DISPLAY_NAME(user, input) {
     revalidatePath("/*", "page")
 }
 export async function PRISMA_ADD_ITEM(board, item, content, type) {
+    // console.log(board, item, content, type)
     const { userId } = await auth()
     const userIds = board.users.map((user) => user.id)
 

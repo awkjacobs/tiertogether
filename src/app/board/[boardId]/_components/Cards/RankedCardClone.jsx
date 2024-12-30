@@ -4,7 +4,7 @@ import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover"
 import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
 import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
-import { comparedRank, scoreDif } from "@lib/const"
+import { COMPARED_RANK, SCORE_DIF } from "@lib/const"
 import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 
@@ -40,7 +40,7 @@ export default function RankedCardClone(props) {
             return -1
         else return "u"
     }
-    const difference = scoreDif(serverAverageIsHigherThanUserScore())
+    const difference = SCORE_DIF(serverAverageIsHigherThanUserScore())
 
     if (!isDesktop)
         return (
@@ -61,7 +61,7 @@ export default function RankedCardClone(props) {
                             )}
                             {userEntries !== "overall" && (
                                 <RankGroup
-                                    rank={comparedRank(
+                                    rank={COMPARED_RANK(
                                         item,
                                         appData,
                                         userEntries,

@@ -4,7 +4,7 @@ import { LucideMenu } from "lucide-react"
 import BoardLinks from "./BoardLinks"
 import AddBoardButton from "@app/components/Buttons/AddBoardButton"
 import ProfileButton from "./ProfileButton"
-import { sortedBoards } from "@lib/const"
+import { SORTED_BOARDS } from "@lib/const"
 import {
     Sheet,
     SheetContent,
@@ -49,7 +49,7 @@ export default function SideDrawer({ appData }) {
                         <div
                             className={`rounded bg-surface-200/50 p-2 md:p-4 dark:bg-surface-900/50`}
                         >
-                            {sortedBoards(userBoards).map((board) => {
+                            {SORTED_BOARDS(userBoards).map((board) => {
                                 return (
                                     <BoardLinks
                                         appData={appData}

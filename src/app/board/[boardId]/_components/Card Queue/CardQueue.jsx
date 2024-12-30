@@ -39,7 +39,7 @@ export default function CardQueue(props) {
             animate={{ height }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
             ref={setNodeRef}
-            className={`col-start-2 col-end-3 ${
+            className={`z-50 col-start-3 col-end-4 row-start-2 row-end-3 self-end ${
                 isOver
                     ? "bg-purple-400/25"
                     : "bg-surface-200 dark:bg-surface-900"

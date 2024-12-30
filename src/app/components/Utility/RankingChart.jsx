@@ -1,5 +1,5 @@
 import ResponsiveTooltip from "@app/components/ui/ResponsiveTooltip"
-import { scoreBar, scoreFlex } from "@lib/const"
+import { SCORE_BAR, SCORE_FLEX } from "@lib/const"
 
 export default function RankChart({ ranks }) {
     const scores = ranks
@@ -24,9 +24,9 @@ export default function RankChart({ ranks }) {
                         trigger={
                             <div
                                 key={index}
-                                className={`h-full text-center font-bold ${scoreFlex(scoreGroup)} ${scoreBar[index].style}`}
+                                className={`h-full text-center font-bold ${SCORE_FLEX(scoreGroup)} ${SCORE_BAR[index].style}`}
                             >
-                                {scoreBar[index].rank}
+                                {SCORE_BAR[index].rank}
                             </div>
                         }
                         content={

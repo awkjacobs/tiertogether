@@ -1,12 +1,8 @@
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
-import { LoaderCircle } from "lucide-react"
 import { useSearchParams } from "next/navigation"
-import { RemoveItemButton } from "../Buttons/RemoveItemButton"
-import InfoDialogContent from "../Dialogs/InfoDialogContent"
 import Poster from "@components/ui/Poster"
-import { ResponsiveDialog } from "@components/ui/ResponsiveDialog"
 import {
     Tooltip,
     TooltipContent,
@@ -17,8 +13,6 @@ import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
-import { backdropSource, comparedRank } from "@lib/const"
-
 const size = {
     null: "h-20 md:h-24",
     1: "h-20 md:h-24",
@@ -33,30 +27,16 @@ export function Card({
     isDragging,
     tier,
     activeItem,
-    setDialogIsOpen,
     difference = false,
     scoreToCompareAgainst,
 }) {
-    const { appData, userEntries } = useContext(AppDataContext)
+    const { appData, userEntries, setDialogIsOpen, setSelectedItem } =
+        useContext(AppDataContext)
     const { user, board } = appData
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
     const details = useGetDetailsQuery(item.id, item.type)
-    const backdrop = backdropSource(item, item.type)
-
-    // if (details.isLoading)
-    //     return (
-    //         <li
-    //             className={`${size[urlCardSize]} relative mx-1 flex w-auto items-center justify-center overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
-    //                 tier === "cardsQueue" ? "opacity-0" : "opacity-100"
-    //             }`}
-    //         >
-    //             <LoaderCircle
-    //                 className={`h-8 w-8 animate-spin text-purple-500`}
-    //             />
-    //         </li>
-    //     )
 
     const name = details.data?.name ? details.data?.name : details.data?.title
 
@@ -90,6 +70,13 @@ export function Card({
         else if (!isDesktop) return 60
     }
 
+    const handleSelect = () => {
+        setDialogIsOpen(true)
+        setSelectedItem(`${item.id}xx${item.type}`)
+    }
+    const handleHover = () => {
+        setSelectedItem(`${item.id}xx${item.type}`)
+    }
     if (activeItem)
         return (
             <li
@@ -120,44 +107,20 @@ export function Card({
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <li
+                                onClick={handleSelect}
+                                onMouseEnter={handleHover}
                                 className={`block ${size[urlCardSize]} ${
                                     tier === "cardsQueue"
                                         ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
                                         : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
                                 } relative w-auto overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
                             >
-                                <ResponsiveDialog
-                                    setIsOpen={setDialogIsOpen}
-                                    trigger={
-                                        <Poster
-                                            className={`${size[urlCardSize]}`}
-                                            itemId={item.id}
-                                            itemType={item.type}
-                                            width={width()}
-                                            height={height()}
-                                        />
-                                    }
-                                    triggerClasses={`p-0 h-auto w-auto`}
-                                    component={
-                                        <InfoDialogContent
-                                            item={item}
-                                            appData={appData}
-                                        />
-                                    }
-                                    footer={
-                                        <RemoveItemButton
-                                            infoItem={item}
-                                            appData={appData}
-                                            disabled={
-                                                !allowedToRemoveItemFromBoard
-                                            }
-                                            isDialog={true}
-                                        />
-                                    }
-                                    title={name}
-                                    backdrop={backdrop}
-                                    hideDescription={true}
-                                    hideTitle={true}
+                                <Poster
+                                    className={`${size[urlCardSize]}`}
+                                    itemId={item.id}
+                                    itemType={item.type}
+                                    width={width()}
+                                    height={height()}
                                 />
                                 {children}
                             </li>
@@ -196,6 +159,8 @@ export function Card({
         return (
             <ItemRankContext.Provider value={userRank}>
                 <li
+                    onClick={handleSelect}
+                    onPointerDown={handleHover}
                     className={`${size[urlCardSize]} block ${
                         tier === "cardsQueue"
                             ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
@@ -204,33 +169,12 @@ export function Card({
                 >
                     {children}
 
-                    <ResponsiveDialog
-                        setIsOpen={setDialogIsOpen}
-                        trigger={
-                            <Poster
-                                className={`${size[urlCardSize]}`}
-                                itemId={item.id}
-                                itemType={item.type}
-                                width={width()}
-                                height={height()}
-                            />
-                        }
-                        triggerClasses={`p-0 h-auto w-auto`}
-                        component={
-                            <InfoDialogContent item={item} appData={appData} />
-                        }
-                        footer={
-                            <RemoveItemButton
-                                infoItem={item}
-                                appData={appData}
-                                disabled={!allowedToRemoveItemFromBoard}
-                                isDialog={true}
-                            />
-                        }
-                        title={name}
-                        backdrop={backdrop}
-                        hideDescription={true}
-                        hideTitle={true}
+                    <Poster
+                        className={`${size[urlCardSize]}`}
+                        itemId={item.id}
+                        itemType={item.type}
+                        width={width()}
+                        height={height()}
                     />
                 </li>
             </ItemRankContext.Provider>

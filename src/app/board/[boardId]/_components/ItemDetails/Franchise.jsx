@@ -9,7 +9,7 @@ export default function Franchise({ franchise }) {
     if (items.isLoading) return <Skeleton className={`h-48 w-full`} />
     return (
         <div
-            className={`relative mt-4 flex min-h-48 w-full flex-col justify-center gap-2 overflow-auto rounded-md p-4`}
+            className={`relative flex h-auto min-h-48 w-full flex-1 flex-col justify-center gap-2 rounded-md p-4`}
         >
             <Backdrop backdrop={null} fill={true} />
 
@@ -17,7 +17,7 @@ export default function Franchise({ franchise }) {
                 {franchise.name} Franchise Games
             </h3>
 
-            <div className="flex flex-row flex-wrap justify-center gap-2">
+            <div className="flex h-auto flex-row flex-wrap justify-center gap-2">
                 {items.data.games.map((game) => (
                     <InfoCard
                         key={game.id}

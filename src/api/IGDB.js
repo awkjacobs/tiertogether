@@ -53,7 +53,7 @@ export async function IGDB_GET_DETAILS(id) {
             Authorization: `${process.env.IGBD_ACCESS_TOKEN}`,
         },
         body: `
-            fields name, artworks.image_id, cover.image_id, genres.*, expansions.*, franchises.*, platforms.name, release_dates.*, storyline, summary, involved_companies.company.*, involved_companies.developer;
+            fields name, artworks.image_id, cover.image_id, cover.height, cover.width, genres.*, expansions.*, franchises.*, platforms.name, release_dates.*, storyline, summary, involved_companies.company.*, involved_companies.developer;
             where id = ${id};
         `,
     }

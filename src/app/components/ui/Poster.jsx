@@ -3,7 +3,7 @@ import { LoaderCircle } from "lucide-react"
 import Image from "next/image"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import MissingPoster from "../Utility/MissingPoster"
-import { posterSource } from "@lib/const"
+import { POSTER_SOURCE } from "@lib/const"
 
 export default function Poster({ itemId, itemType, width, height, className }) {
     const details = useGetDetailsQuery(itemId, itemType)
@@ -14,7 +14,7 @@ export default function Poster({ itemId, itemType, width, height, className }) {
     )
         return (
             <Image
-                src={posterSource(details.data, itemType)}
+                src={POSTER_SOURCE(details.data, itemType)}
                 width={width}
                 height={height}
                 alt={`${

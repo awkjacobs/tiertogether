@@ -3,7 +3,7 @@ import { Card } from "./Card"
 import { useState } from "react"
 
 export default function Draggable(props) {
-    const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    // const [dialogIsOpen, setDialogIsOpen] = useState(false)
     const {
         attributes,
         listeners,
@@ -19,7 +19,7 @@ export default function Draggable(props) {
             tier: props.tier,
             item: props.item,
         },
-        disabled: dialogIsOpen,
+        // disabled: dialogIsOpen,
     })
     const style = transform
         ? {
@@ -33,7 +33,7 @@ export default function Draggable(props) {
             <Card
                 {...props}
                 isDragging={isDragging}
-                setDialogIsOpen={setDialogIsOpen}
+                // setDialogIsOpen={setDialogIsOpen}
             />
         </div>
     )
