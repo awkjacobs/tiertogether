@@ -1,6 +1,4 @@
-import Link from "next/link"
 import PageContainer from "@components/Utility/PageContainer"
-import { Button } from "@components/ui/button"
 import { Skeleton } from "@components/ui/skeleton"
 import LogoButton from "../../components/AppBar/_components/LogoButton"
 
@@ -14,14 +12,7 @@ export default function BoardLoading() {
                 <div
                     className={`col-span-full flex items-center justify-between`}
                 >
-                    <Button variant="ghost" asChild>
-                        <Link
-                            className={`flex h-full cursor-pointer flex-row content-center items-center gap-2 px-2`}
-                            href={`/home`}
-                        >
-                            <LogoButton />
-                        </Link>
-                    </Button>
+                    <LogoButton />
                     <div className={`flex items-center justify-center`}>
                         <Skeleton className={`m-1 h-8 w-8`} />
                         <Skeleton className={`m-1 h-8 w-8`} />

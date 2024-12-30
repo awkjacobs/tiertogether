@@ -1,8 +1,9 @@
+import { cn } from "@lib/utils"
 import "./dotsBackground.css"
 
-export default function DotsBackground() {
+export default function DotsBackground({ className }) {
     return (
-        <div className="absolute z-0 h-svh w-svw">
+        <div className={cn("relative z-0 h-full w-full", className)}>
             <div className="box op90 color2 sm anim1 pos1"></div>
             <div className="box op60 xl anim2 pos2"></div>
             <div className="box op30 md anim3 pos3"></div>

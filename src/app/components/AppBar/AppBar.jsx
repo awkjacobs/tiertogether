@@ -1,4 +1,5 @@
-import { ClerkProvider } from "@clerk/nextjs"
+import { ClerkProvider, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
+import { checkRole } from "@lib/roles"
 import {
     dehydrate,
     HydrationBoundary,
@@ -12,10 +13,33 @@ import LogoButton from "./_components/LogoButton"
 import getNotifications from "./getNotifications"
 import NotificationsDropdown from "./NotificationsDropdown"
 import ThemeToggle from "./ThemeToggle"
-import { checkRole } from "@lib/roles"
+import { cn } from "@lib/utils"
 
-export default async function AppBar({ appData }) {
-    const boardIdArray = appData.user.boards.map((board) => board.id)
+export default async function AppBar({ appData, className }) {
+    return (
+        <header
+            className={cn(
+                `sticky z-50 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`,
+                className,
+            )}
+        >
+            <div className={`col-span-full flex items-center justify-between`}>
+                <LogoButton />
+                <SignedIn>
+                    <SignedInContent appData={appData} />
+                </SignedIn>
+                <SignedOut>
+                    <SignInButton mode="modal">
+                        <Button variant="ghost">login</Button>
+                    </SignInButton>
+                </SignedOut>
+            </div>
+        </header>
+    )
+}
+
+async function SignedInContent({ appData }) {
+    const boardIdArray = appData?.user.boards.map((board) => board.id)
     const queryClient = new QueryClient()
 
     await queryClient.prefetchQuery({
@@ -26,42 +50,26 @@ export default async function AppBar({ appData }) {
     const isAdmin = await checkRole("admin")
 
     return (
-        <header
-            className={`sticky z-10 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
-        >
-            <div className={`col-span-full flex items-center justify-between`}>
-                <Button variant="ghost" asChild>
-                    <Link
-                        className={`flex h-full cursor-pointer flex-row content-center items-center gap-1 px-2`}
-                        href={`/`}
-                    >
-                        <LogoButton />
+        <div className={`flex items-center justify-center`}>
+            <ThemeToggle />
+            <HydrationBoundary state={dehydrate(queryClient)}>
+                <ClerkProvider dynamic>
+                    <NotificationsDropdown boardIdArray={boardIdArray} />
+                </ClerkProvider>
+            </HydrationBoundary>
+            <Button variant="ghost" size="icon" asChild>
+                <Link href={`/home`}>
+                    <House className={`h-5 w-5`} />
+                </Link>
+            </Button>
+            {isAdmin && (
+                <Button variant="ghost" size="icon" asChild>
+                    <Link href={`/home`}>
+                        <SquareCode className={`h-5 w-5`} />
                     </Link>
                 </Button>
-                <div className={`flex items-center justify-center`}>
-                    <ThemeToggle />
-                    <HydrationBoundary state={dehydrate(queryClient)}>
-                        <ClerkProvider dynamic>
-                            <NotificationsDropdown
-                                boardIdArray={boardIdArray}
-                            />
-                        </ClerkProvider>
-                    </HydrationBoundary>
-                    <Button variant="ghost" size="icon" asChild>
-                        <Link href={`/home`}>
-                            <House className={`h-5 w-5`} />
-                        </Link>
-                    </Button>
-                    {isAdmin && (
-                        <Button variant="ghost" size="icon" asChild>
-                            <Link href={`/home`}>
-                                <SquareCode className={`h-5 w-5`} />
-                            </Link>
-                        </Button>
-                    )}
-                    <SideDrawer appData={appData} />
-                </div>
-            </div>
-        </header>
+            )}
+            <SideDrawer appData={appData} />
+        </div>
     )
 }

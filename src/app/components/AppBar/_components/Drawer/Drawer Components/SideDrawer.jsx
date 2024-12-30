@@ -47,7 +47,7 @@ export default function SideDrawer({ appData }) {
                 >
                     <div className={`overflow-y-scroll`}>
                         <div
-                            className={`rounded bg-surface-200/50 p-2 md:p-4 dark:bg-surface-900/50`}
+                        // className={`rounded bg-surface-200/50 p-2 md:p-4 dark:bg-surface-900/50`}
                         >
                             {SORTED_BOARDS(userBoards).map((board) => {
                                 return (

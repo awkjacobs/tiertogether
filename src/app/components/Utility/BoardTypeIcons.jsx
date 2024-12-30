@@ -1,12 +1,16 @@
 import AnimeCross from "@components/Utility/animeCross"
+import { cn } from "@lib/utils"
 import { Clapperboard, Gamepad2, Tv } from "lucide-react"
 
-export default function BoardTypeIcon({ type }) {
+export default function BoardTypeIcon({ type, className }) {
     if (type === "movie")
-        return <Clapperboard className={`stroke-purple-200`} />
-    if (type === "tv") return <Tv className={`stroke-purple-200`} />
+        return <Clapperboard className={cn(`stroke-purple-200`, className)} />
+    if (type === "tv")
+        return <Tv className={cn(`stroke-purple-200`, className)} />
     if (type === "anime")
-        return <AnimeCross className={`h-6 w-6 text-purple-200`} />
+        return (
+            <AnimeCross className={cn(`h-6 w-6 text-purple-200`, className)} />
+        )
     if (type === "videoGame")
-        return <Gamepad2 className={`h-6 w-6 text-purple-200`} />
+        return <Gamepad2 className={cn(`h-6 w-6 text-purple-200`, className)} />
 }
