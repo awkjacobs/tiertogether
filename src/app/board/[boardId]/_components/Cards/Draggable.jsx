@@ -19,7 +19,6 @@ export default function Draggable(props) {
             tier: props.tier,
             item: props.item,
         },
-        // disabled: dialogIsOpen,
     })
     const style = transform
         ? {
@@ -30,11 +29,7 @@ export default function Draggable(props) {
 
     return (
         <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-            <Card
-                {...props}
-                isDragging={isDragging}
-                // setDialogIsOpen={setDialogIsOpen}
-            />
+            <Card {...props} isDragging={isDragging} />
         </div>
     )
 }

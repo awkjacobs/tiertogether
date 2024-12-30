@@ -1,20 +1,19 @@
+import Logo from "@app/board/[boardId]/_components/ItemDetails/Logo"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import {
     useGetCreditsQuery,
     useGetDetailsQuery,
 } from "@app/hooks/use-get-fetch-query"
+import Backdrop from "@components/ui/backdrop"
 import { Skeleton } from "@components/ui/skeleton"
+import MissingPoster from "@components/Utility/MissingPoster"
 import { useDroppable } from "@dnd-kit/core"
+import { BACKDROP_SOURCE } from "@lib/const"
 import Image from "next/image"
 import { useContext, useEffect } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
-import Logo from "@app/board/[boardId]/_components/ItemDetails/Logo"
-import Backdrop from "@components/ui/backdrop"
-import { findDirectors } from "@app/board/[boardId]/_components/ItemDetails/findDirectors"
-import MissingPoster from "@components/Utility/MissingPoster"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
-import { BACKDROP_SOURCE, GET_RELEASE } from "@lib/const"
 // TODO - change mobile formating, maybe just poster
 
 export default function SwiperCard(props) {
