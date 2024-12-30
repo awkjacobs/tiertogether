@@ -27,7 +27,7 @@ export default async function LandingPageContent() {
                 }}
             >
                 <div
-                    className={`relative col-span-full row-start-1 row-end-2 grid h-[calc(100svh-4rem)] grid-cols-subgrid grid-rows-subgrid items-center justify-center overflow-clip`}
+                    className={`relative col-span-full row-start-1 row-end-2 grid h-[50svh] grid-cols-subgrid grid-rows-subgrid items-center justify-center overflow-clip md:h-[calc(100svh-4rem)]`}
                 >
                     <DotsBackground className={`col-span-full row-start-1`} />
 
@@ -35,9 +35,9 @@ export default async function LandingPageContent() {
                         className={`relative z-50 col-start-3 col-end-4 flex h-[calc(100svh-4rem)] flex-col items-center justify-center gap-4`}
                     >
                         <div
-                            className={`flex h-min flex-row items-center gap-4 text-8xl`}
+                            className={`flex h-min flex-row items-center gap-4 text-4xl shadow-2xl md:text-8xl`}
                         >
-                            <LogoTriangles className={`h-36 w-auto`} />
+                            <LogoTriangles className={`h-16 w-auto md:h-36`} />
                             <h1 className={`relative flex-1 text-purple-200`}>
                                 tier
                                 <span className={`font-bold text-purple-500`}>
@@ -45,7 +45,7 @@ export default async function LandingPageContent() {
                                 </span>
                             </h1>
                         </div>
-                        <p className="text-2xl dark:text-purple-300">
+                        <p className="text-balance text-center md:text-2xl dark:text-purple-300">
                             Create a board, add media, and start ranking them
                             with your friends.
                         </p>

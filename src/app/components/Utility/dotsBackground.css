@@ -1,11 +1,16 @@
 .box {
-    background-color: fuchsia;
+    background-color: #a855f7;
+    overflow: visible;
+    mask-image: radial-gradient(rgba(9, 9, 11, 100) 00%, rgba(9, 9, 11, 0) 70%);
+    position: absolute;
+}
+.gap {
     overflow: visible;
     mask-image: radial-gradient(rgba(9, 9, 11, 100) 00%, rgba(9, 9, 11, 0) 70%);
     position: absolute;
 }
 .color2 {
-    background-color: rgb(244, 143, 244);
+    background-color: #d8b4fe;
 }
 .op30 {
     opacity: 0.3;
@@ -130,8 +135,10 @@
         transparent 1px,
         rgb(9 9 11 / var(--tw-bg-opacity, 1)) 1px
     );
-    background-size: 20px 20px;
-
+    background-size: 0.75rem 0.75rem;
+    /* @media (max-width: 768px) {
+        background-size: 0.5rem 0.5rem;
+    } */
     opacity: 1;
     align-content: flex-start;
     align-items: flex-start;
@@ -141,7 +148,7 @@
     flex-wrap: nowrap;
     gap: 10px;
     justify-content: center;
-    inset: -20px;
+    inset: -1rem;
     overflow: visible;
     padding: 50px 0 0;
     pointer-events: none;
