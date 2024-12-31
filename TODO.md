@@ -2,9 +2,7 @@
 
 ### TODO
 
-- [ ] clean up email invite artifacts
 - [ ] fix the Items table id field since it probably isn't unique
-- [ ] revist theo video about patterns
 - [ ] add tooltips and maybe shorcuts to buttons
 - [ ] finish notifications
 
@@ -89,6 +87,7 @@
 - [x] make board text ~~into text fields~~ editable in edit menu
 - [x] deal with the multiple modals when opening collection cards
 - [x] clean up the landing page
+- [x] clean up email invite artifacts
 
 ## Roadmap
 

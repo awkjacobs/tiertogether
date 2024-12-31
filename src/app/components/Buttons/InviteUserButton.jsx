@@ -1,18 +1,8 @@
 "use client"
 
-import {
-    Check,
-    ClipboardCopy,
-    MailPlus,
-    Plus,
-    Send,
-    Share2,
-} from "lucide-react"
-import { Button } from "../ui/button"
-import INVITE_USER from "@lib/invite"
+import { PRISMA_CREATE_LINK_INVITATION } from "@api/prismaFuncs"
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
@@ -21,51 +11,21 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@components/ui/alert-dialog"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@components/ui/form"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
-
-import { Input } from "@components/ui/input"
-
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { useState, useRef, useContext } from "react"
-import { PRISMA_CREATE_LINK_INVITATION } from "@api/prismaFuncs"
-
 import { useQuery } from "@tanstack/react-query"
-import { toast } from "sonner"
+import { Check, ClipboardCopy, Send, Share2 } from "lucide-react"
+import { useRef, useState } from "react"
 import QRCode from "react-qr-code"
-
-const formSchema = z.object({
-    emailAddress: z.string().email({
-        message: "Invalid email address",
-    }),
-})
+import { toast } from "sonner"
+import { Button } from "../ui/button"
 
 export default function InviteUserButton({ boardId, boardName, size }) {
-    const [invitedEmail, setInvitedEmail] = useState([])
     const [copied, setCopied] = useState(false)
 
     const ref = useRef()
 
-    const form = useForm({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            emailAddress: "",
-        },
-    })
-
     async function createInviteLink() {
         const invitation = await PRISMA_CREATE_LINK_INVITATION(boardId)
-        const inviteLink = `tiertogether.com/link/${invitation.id}`
+        const inviteLink = `tiertogether.com/invite/${invitation.id}`
 
         return inviteLink
     }
@@ -76,21 +36,6 @@ export default function InviteUserButton({ boardId, boardName, size }) {
         staleTime: 60 * 1000,
         refetchOnMount: true,
     })
-
-    async function onSubmit(values) {
-        form.resetField("emailAddress")
-        let response = await INVITE_USER(values.emailAddress, boardId)
-
-        setInvitedEmail((prev) => {
-            let obj = { address: values.emailAddress, response: response }
-            return [obj, ...prev]
-        })
-    }
-
-    const handleOpenChange = () => {
-        setInvitedEmail([])
-        form.reset()
-    }
 
     const handleCopyToClipboard = () => {
         toast("Copied to clipboard")
@@ -114,7 +59,7 @@ export default function InviteUserButton({ boardId, boardName, size }) {
     }
 
     return (
-        <AlertDialog onOpenChange={handleOpenChange}>
+        <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button
                     size="sm"

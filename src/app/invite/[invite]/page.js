@@ -2,9 +2,10 @@ import { SignUp } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 import { auth, clerkClient } from "@clerk/nextjs/server"
 
-export default async function LinkInvitePage({ params }) {
-    const linkParams = await params
-    const invite = linkParams.link
+export default async function InvitePage({ params }) {
+    console.log(params)
+    const inviteParams = await params
+    const invite = inviteParams.invite
 
     const { userId } = await auth()
 
