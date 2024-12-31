@@ -41,5 +41,3 @@ const nextConfig = {
 }
 
 export default nextConfig
-
-//TODO - revist theo video about patterns
