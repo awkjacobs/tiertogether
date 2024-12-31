@@ -88,6 +88,7 @@
 - [x] deal with the multiple modals when opening collection cards
 - [x] clean up the landing page
 - [x] clean up email invite artifacts
+- [x] revist theo video about patterns
 
 ## Roadmap
 
