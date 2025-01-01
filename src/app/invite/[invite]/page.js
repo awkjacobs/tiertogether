@@ -3,7 +3,6 @@ import { redirect } from "next/navigation"
 import { auth, clerkClient } from "@clerk/nextjs/server"
 
 export default async function InvitePage({ params }) {
-    console.log(params)
     const inviteParams = await params
     const invite = inviteParams.invite
 

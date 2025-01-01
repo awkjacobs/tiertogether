@@ -7,6 +7,12 @@ import { useMediaQuery } from "@app/hooks/use-media-query"
 import { useDroppable } from "@dnd-kit/core"
 import { motion } from "motion/react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@components/ui/tooltip"
 
 export default function CardQueue(props) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -73,24 +79,34 @@ function OpenCloseQueueButton({
     disabled,
 }) {
     return (
-        <Button
-            onPointerDown={handleClose}
-            size={isDesktop ? "" : "icon"}
-            disabled={disabled}
-            className={`z-10 shadow-md transition-all md:h-12 ${
-                queueIsOpen
-                    ? "bg-transparent outline outline-1 outline-purple-800/10 hover:bg-purple-600/30 dark:bg-transparent dark:outline-purple-100/10 dark:hover:bg-purple-600/20"
-                    : "bg-purple-700 hover:bg-purple-600 dark:bg-purple-700 dark:hover:bg-purple-600"
-            }`}
-        >
-            {queueIsOpen ? (
-                <ChevronDown
-                    className={`h-4 w-4 text-purple-800 dark:text-purple-100`}
-                />
-            ) : (
-                <ChevronUp className={`h-4 w-4 text-purple-100`} />
-            )}
-        </Button>
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button
+                        onPointerDown={handleClose}
+                        size={isDesktop ? "" : "icon"}
+                        disabled={disabled}
+                        className={`z-10 shadow-md transition-all md:h-12 ${
+                            queueIsOpen
+                                ? "bg-transparent outline outline-1 outline-purple-800/10 hover:bg-purple-600/30 dark:bg-transparent dark:outline-purple-100/10 dark:hover:bg-purple-600/20"
+                                : "bg-purple-700 hover:bg-purple-600 dark:bg-purple-700 dark:hover:bg-purple-600"
+                        }`}
+                    >
+                        {queueIsOpen ? (
+                            <ChevronDown
+                                className={`h-4 w-4 text-purple-800 dark:text-purple-100`}
+                            />
+                        ) : (
+                            <ChevronUp className={`h-4 w-4 text-purple-100`} />
+                        )}
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                    {!queueIsOpen && "Open Queue"}
+                    {queueIsOpen && "Close Queue"}
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     )
 }
 function EmptyStatement() {

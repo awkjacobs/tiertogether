@@ -15,6 +15,12 @@ import { useSearchParams } from "next/navigation"
 import { useQueryState } from "nuqs"
 import { useContext } from "react"
 import { AppDataContext } from "../../../../components/_providers/appDataProvider"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@components/ui/tooltip"
 
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
@@ -68,26 +74,45 @@ export default function BoardBar({ setUserEntries }) {
             <div
                 className={`col-start-1 col-end-3 row-start-2 flex w-full flex-row items-center gap-2 md:col-start-2 md:col-end-3 md:row-start-1`}
             >
-                <div className={`flex flex-row`}>
-                    <Button
-                        variant="outline"
-                        className={`h-8 w-8 rounded-e-none px-2 md:h-10 md:w-10`}
-                        onClick={handleZoomIn}
-                        disabled={currentCardSize === "3"}
+                <TooltipProvider>
+                    <div
+                        className={`flex flex-row divide-x divide-zinc-800 rounded-md border border-zinc-800`}
                     >
-                        <ZoomIn className={`h-4 w-4`} />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className={`h-8 w-8 rounded-s-none px-2 md:h-10 md:w-10`}
-                        onClick={handleZoomOut}
-                        disabled={
-                            currentCardSize === "1" || currentCardSize === null
-                        }
-                    >
-                        <ZoomOut className={`h-4 w-4`} />
-                    </Button>
-                </div>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    variant="ghost"
+                                    className={`h-8 w-8 rounded-e-none px-2 md:h-10 md:w-10`}
+                                    onClick={handleZoomIn}
+                                    disabled={currentCardSize === "3"}
+                                >
+                                    <ZoomIn className={`h-4 w-4`} />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Increase Card Size</p>
+                            </TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    variant="ghost"
+                                    className={`h-8 w-8 rounded-s-none px-2 md:h-10 md:w-10`}
+                                    onClick={handleZoomOut}
+                                    disabled={
+                                        currentCardSize === "1" ||
+                                        currentCardSize === null
+                                    }
+                                >
+                                    <ZoomOut className={`h-4 w-4`} />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Decrease Card Size</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </div>
+                </TooltipProvider>
                 <Select
                     defaultValue={appData.user.id}
                     onValueChange={(value) => setUserEntries(value)}

@@ -36,6 +36,12 @@ import {
 } from "../Dialogs/Dialog Actions/EditDialogActionComponents"
 import BoardUsersArea from "../Dialogs/Dialog Modules/Dialog Components/BoardUsersArea"
 import EditBoardForm from "../Forms/EditBoardForm"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@components/ui/tooltip"
 
 const formSchema = z.object({
     boardName: z
@@ -118,20 +124,33 @@ export default function EditBoardButton({
     if (isDesktop) {
         return (
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogTrigger asChild>
-                    <Button
-                        size="icon"
-                        variant="ghost"
-                        className={triggerClasses ? `${triggerClasses}` : ""}
-                    >
-                        <EllipsisVertical
-                            className={cn(
-                                `text-purple-700 dark:text-purple-200`,
-                                iconClasses,
-                            )}
-                        />
-                    </Button>
-                </DialogTrigger>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <DialogTrigger asChild>
+                                <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className={
+                                        triggerClasses
+                                            ? `${triggerClasses}`
+                                            : ""
+                                    }
+                                >
+                                    <EllipsisVertical
+                                        className={cn(
+                                            `text-purple-700 dark:text-purple-200`,
+                                            iconClasses,
+                                        )}
+                                    />
+                                </Button>
+                            </DialogTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>Edit Board</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
                 <DialogContent
                     onOpenAutoFocus={(event) => {
                         event.preventDefault()

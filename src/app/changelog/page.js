@@ -23,14 +23,6 @@ const changelog = [
         changed: [],
         fixed: [],
     },
-    {
-        version: "[1.0.0]",
-        date: "2025-01-01",
-        description: "Full 1.0.0 tiertogether release.",
-        added: ["New board types", "New search types"],
-        changed: ["New board types", "New search types"],
-        fixed: ["New board types", "New search types"],
-    },
 ]
 
 export default async function ChangelogPage() {
@@ -50,50 +42,43 @@ export default async function ChangelogPage() {
         >
             <AppBar appData={appData} className={`m-2`} />
             <main
-                className={`col-span-full row-start-2 row-end-3 grid max-h-[calc(100svh-3.5rem)] grid-cols-subgrid overflow-x-clip overflow-y-scroll`}
+                className={`z-10 col-span-full row-start-2 row-end-3 grid max-h-[calc(100svh-3.5rem)] grid-cols-subgrid overflow-x-clip overflow-y-scroll`}
+                style={{
+                    display: `grid`,
+                    gridTemplateColumns: GRID_TEMP_COLUMNS,
+                    gridAutoRows: `auto`,
+                }}
             >
-                <section
-                    className={`relative col-span-full items-center justify-center`}
-                    style={{
-                        display: `grid`,
-                        gridTemplateColumns: GRID_TEMP_COLUMNS,
-                        gridAutoRows: `auto`,
-                    }}
+                <div
+                    className={`relative col-span-full grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-8 md:py-32`}
                 >
-                    <div
-                        className={`relative col-span-full grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-8 md:py-32`}
-                    >
-                        <TextBlock>
-                            <H2>Changlog</H2>
-                            <p>
-                                All notable changes to this project will be
-                                documented in this file. The format is based on{" "}
-                                <TextLink
-                                    href="http://keepachangelog.com/"
-                                    newTab="true"
-                                >
-                                    Keep a Changelog
-                                </TextLink>{" "}
-                                and this project adheres to{" "}
-                                <TextLink
-                                    href="http://semver.org/"
-                                    newTab="true"
-                                >
-                                    Semantic Versioning
-                                </TextLink>
-                                .
-                            </p>
-                            <div className="divide-y divide-purple-500 pt-4">
-                                {changelog.map((changelogItem, index) => (
-                                    <ChangelogItem
-                                        key={index}
-                                        changelogItem={changelogItem}
-                                    />
-                                ))}
-                            </div>
-                        </TextBlock>
-                    </div>
-                </section>
+                    <TextBlock>
+                        <H2>Changlog</H2>
+                        <p>
+                            All notable changes to this project will be
+                            documented in this file. The format is based on{" "}
+                            <TextLink
+                                href="http://keepachangelog.com/"
+                                newTab="true"
+                            >
+                                Keep a Changelog
+                            </TextLink>{" "}
+                            and this project adheres to{" "}
+                            <TextLink href="http://semver.org/" newTab="true">
+                                Semantic Versioning
+                            </TextLink>
+                            .
+                        </p>
+                        <div className="divide-y divide-purple-500 pt-4">
+                            {changelog.map((changelogItem, index) => (
+                                <ChangelogItem
+                                    key={index}
+                                    changelogItem={changelogItem}
+                                />
+                            ))}
+                        </div>
+                    </TextBlock>
+                </div>
             </main>
         </PageContainer>
     )

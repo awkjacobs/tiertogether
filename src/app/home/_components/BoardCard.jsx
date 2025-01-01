@@ -76,7 +76,7 @@ export default function BoardCard({ board, appData, index }) {
 }
 function CrossFade({ backgrounds, index }) {
     const swiperIndex = index
-    console.log(backgrounds)
+
     return (
         <Swiper
             effect={"fade"}

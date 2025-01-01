@@ -6,7 +6,6 @@ import MissingPoster from "@components/Utility/MissingPoster"
 import { ITEM_ID_TYPE, POSTER_SOURCE } from "@lib/const"
 
 export default function Poster({ itemId, width, height, className }) {
-    console.log(itemId)
     const { id, type } = ITEM_ID_TYPE(itemId)
     const details = useGetDetailsQuery(id, type)
 

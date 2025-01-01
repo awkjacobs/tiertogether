@@ -223,7 +223,7 @@ export default function DraggingContent({ appData }) {
                 onDragEnd={handleDragEnd}
             >
                 <div
-                    className={`no-scrollbar col-start-2 col-end-5 row-start-2 row-end-3 flex h-full w-full flex-1 flex-col place-self-center overflow-x-visible overflow-y-scroll pb-8`}
+                    className={`no-scrollbar col-start-2 col-end-5 row-start-2 row-end-3 flex h-full w-full flex-1 flex-col place-self-center overflow-x-visible overflow-y-scroll pb-36 md:pb-72`}
                 >
                     <BoardBar setUserEntries={setUserEntries} />
                     <TierContainer

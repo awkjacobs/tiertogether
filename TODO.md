@@ -2,8 +2,6 @@
 
 ### TODO
 
-- [ ] add tooltips and maybe shorcuts to buttons
-
 - [ ] create actual README file
 - [ ] figure out the branch protection stuff on GitHub
 - [ ] figure out open source stuff
@@ -91,6 +89,8 @@
 - [x] clean up email invite artifacts
 - [x] revist theo video about patterns
 - [x] fix the Items table id field since it probably isn't unique
+- [x] add tooltips to buttons
+- [x] fix rank chart names
 
 ## Roadmap
 

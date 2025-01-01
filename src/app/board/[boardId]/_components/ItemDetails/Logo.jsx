@@ -4,7 +4,6 @@ import Image from "next/image"
 import CardTitle from "./CardTitle"
 
 export default function Logo({ itemId, itemType, title, swiper = false }) {
-    console.log(itemId, itemType)
     const images = useGetImagesQuery(itemId, itemType)
     const logo = FIND_LOGO(images?.data)
 

@@ -1,15 +1,11 @@
-import RankChart from "@app/components/Utility/RankingChart"
+import RankChart from "./RankingChart"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
-import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
+import { LoadingSpinner } from "@app/components/ui/LoadingSpinner"
 import { ScrollArea } from "@app/components/ui/scroll-area"
+import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
-import { serverAverage } from "@lib/serverFuncs"
-import { useQuery } from "@tanstack/react-query"
 import { useContext } from "react"
 import { userRanksArray } from "./userRanksArray"
-import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
-import { LoaderCircle } from "lucide-react"
-import { LoadingSpinner } from "@app/components/ui/LoadingSpinner"
 
 export default function RankingsContainer({ item }) {
     const { appData } = useContext(AppDataContext)
@@ -39,10 +35,10 @@ export default function RankingsContainer({ item }) {
 
     return (
         <div
-            className={`row-span-full flex h-full flex-col overflow-hidden rounded p-4 md:h-full md:min-w-72 md:border md:dark:border-zinc-800 md:dark:bg-surface-900/90`}
+            className={`row-span-full flex h-full flex-col overflow-clip rounded p-4 md:h-full md:min-w-72 md:border md:dark:border-zinc-800 md:dark:bg-surface-900/90`}
         >
             <h4
-                className={`pb-3 font-bold text-purple-800 dark:text-purple-400`}
+                className={`pb-3 text-center font-bold text-purple-800 dark:text-purple-400`}
             >
                 BOARD RANKINGS
             </h4>

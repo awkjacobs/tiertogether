@@ -29,35 +29,31 @@ export default async function RoadmapPage() {
         >
             <AppBar appData={appData} className={`m-2`} />
             <main
-                className={`col-span-full row-start-2 row-end-3 grid max-h-[calc(100svh-3.5rem)] grid-cols-subgrid overflow-x-clip overflow-y-scroll`}
+                className={`z-0 col-span-full row-start-2 row-end-3 grid max-h-[calc(100svh-3.5rem)] grid-cols-subgrid overflow-x-clip overflow-y-scroll`}
+                style={{
+                    display: `grid`,
+                    gridTemplateColumns: GRID_TEMP_COLUMNS,
+                    gridAutoRows: `auto`,
+                }}
             >
-                <section
-                    className={`relative col-span-full items-center justify-center`}
-                    style={{
-                        display: `grid`,
-                        gridTemplateColumns: GRID_TEMP_COLUMNS,
-                        gridAutoRows: `auto`,
-                    }}
+                <div
+                    className={`relative col-span-full grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-8 md:py-32`}
                 >
-                    <div
-                        className={`relative col-span-full grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-8 md:py-32`}
-                    >
-                        <TextBlock>
-                            <H2>Roadmap</H2>
-                            <p>
-                                tiertogether is a work in progress. Some
-                                features planned for the future are:
-                            </p>
-                            <ul className={`list-inside list-disc pl-8`}>
-                                <li>Add list view</li>
-                                <li>Add more types of boards</li>
-                                <li>Add more search options</li>
-                                <li>Add board description</li>
-                                <li>Add comments</li>
-                            </ul>
-                        </TextBlock>
-                    </div>
-                </section>
+                    <TextBlock>
+                        <H2>Roadmap</H2>
+                        <p>
+                            tiertogether is a work in progress. Some features
+                            planned for the future are:
+                        </p>
+                        <ul className={`list-inside list-disc pl-8`}>
+                            <li>Add list view</li>
+                            <li>Add more types of boards</li>
+                            <li>Add more search options</li>
+                            <li>Add board description</li>
+                            <li>Add comments</li>
+                        </ul>
+                    </TextBlock>
+                </div>
             </main>
         </PageContainer>
     )

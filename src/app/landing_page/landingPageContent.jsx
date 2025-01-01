@@ -10,7 +10,7 @@ import Image from "next/image"
 export default async function LandingPageContent() {
     return (
         <main
-            className={`col-span-full row-start-2 row-end-3 grid max-h-[calc(100svh-3.5rem)] grid-cols-subgrid overflow-x-clip overflow-y-scroll`}
+            className={`z-0 col-span-full row-start-2 row-end-3 grid max-h-[calc(100svh-3.5rem)] grid-cols-subgrid overflow-x-clip overflow-y-scroll`}
         >
             <section
                 className={`relative col-span-full items-center justify-center`}

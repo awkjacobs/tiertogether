@@ -14,12 +14,18 @@ import getNotifications from "./getNotifications"
 import NotificationsDropdown from "./NotificationsDropdown"
 import ThemeToggle from "./ThemeToggle"
 import { cn } from "@lib/utils"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+    TooltipProvider,
+} from "@components/ui/tooltip"
 
 export default async function AppBar({ appData, className }) {
     return (
         <header
             className={cn(
-                `sticky z-[999] col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`,
+                `sticky z-50 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`,
                 className,
             )}
         >
@@ -51,25 +57,35 @@ async function SignedInContent({ appData }) {
 
     return (
         <div className={`flex items-center justify-center`}>
-            <ThemeToggle />
-            <HydrationBoundary state={dehydrate(queryClient)}>
-                <ClerkProvider dynamic>
-                    <NotificationsDropdown boardIdArray={boardIdArray} />
-                </ClerkProvider>
-            </HydrationBoundary>
-            <Button variant="ghost" size="icon" asChild>
-                <Link href={`/home`}>
-                    <House className={`h-5 w-5`} />
-                </Link>
-            </Button>
-            {isAdmin && (
-                <Button variant="ghost" size="icon" asChild>
-                    <Link href={`/home`}>
-                        <SquareCode className={`h-5 w-5`} />
-                    </Link>
-                </Button>
-            )}
-            <SideDrawer appData={appData} />
+            <TooltipProvider>
+                <ThemeToggle />
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                    <ClerkProvider dynamic>
+                        <NotificationsDropdown boardIdArray={boardIdArray} />
+                    </ClerkProvider>
+                </HydrationBoundary>
+
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" asChild>
+                            <Link href={`/home`}>
+                                <House className={`h-5 w-5`} />
+                            </Link>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Your Home</p>
+                    </TooltipContent>
+                </Tooltip>
+                {isAdmin && (
+                    <Button variant="ghost" size="icon" asChild>
+                        <Link href={`/home`}>
+                            <SquareCode className={`h-5 w-5`} />
+                        </Link>
+                    </Button>
+                )}
+                <SideDrawer appData={appData} />
+            </TooltipProvider>
         </div>
     )
 }
