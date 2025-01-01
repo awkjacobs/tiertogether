@@ -23,6 +23,7 @@
 - [ ] create actual README file
 - [ ] figure out the branch protection stuff on GitHub
 - [ ] figure out open source stuff
+
 - [ ] Add Dialog
 
     - [x] add pagination

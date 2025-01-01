@@ -16,7 +16,6 @@ export function RankGroup({ rank }) {
     )
 }
 export function RankOverall({ averageRank, className }) {
-    console.log(averageRank)
     return (
         <div
             className={cn(

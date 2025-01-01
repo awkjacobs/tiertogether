@@ -4,11 +4,12 @@ import {
     useGetCreditsQuery,
     useGetDetailsQuery,
 } from "@app/hooks/use-get-fetch-query"
-import { GET_RELEASE, RELEASE_DATE } from "@lib/const"
+import { GET_RELEASE, ITEM_ID_TYPE, RELEASE_DATE } from "@lib/const"
 
-export function SwiperCardDetails({ item, type }) {
-    const credits = useGetCreditsQuery(item.id, type)
-    const details = useGetDetailsQuery(item.id, type)
+export function SwiperCardDetails({ item }) {
+    const { id: itemId, type } = ITEM_ID_TYPE(item.id)
+    const credits = useGetCreditsQuery(itemId, type)
+    const details = useGetDetailsQuery(itemId, type)
 
     const date = GET_RELEASE(item, details)
 

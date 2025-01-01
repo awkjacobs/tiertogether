@@ -2,11 +2,13 @@ import { cn } from "@lib/utils"
 import { LoaderCircle } from "lucide-react"
 import Image from "next/image"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
-import MissingPoster from "../Utility/MissingPoster"
-import { POSTER_SOURCE } from "@lib/const"
+import MissingPoster from "@components/Utility/MissingPoster"
+import { ITEM_ID_TYPE, POSTER_SOURCE } from "@lib/const"
 
-export default function Poster({ itemId, itemType, width, height, className }) {
-    const details = useGetDetailsQuery(itemId, itemType)
+export default function Poster({ itemId, width, height, className }) {
+    console.log(itemId)
+    const { id, type } = ITEM_ID_TYPE(itemId)
+    const details = useGetDetailsQuery(id, type)
 
     if (
         !details.isLoading &&
@@ -14,7 +16,7 @@ export default function Poster({ itemId, itemType, width, height, className }) {
     )
         return (
             <Image
-                src={POSTER_SOURCE(details.data, itemType)}
+                src={POSTER_SOURCE(details.data, type)}
                 width={width}
                 height={height}
                 alt={`${

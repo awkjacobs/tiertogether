@@ -4,6 +4,7 @@ import { Button } from "@app/components/ui/button"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { Form } from "@components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { BACKDROP_SOURCE, ITEM_ID_TYPE } from "@lib/const"
 import { LoaderCircle, Plus } from "lucide-react"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
@@ -15,7 +16,9 @@ const formSchema = z.object({})
 export default function AddItemButton({ item, disabled }) {
     const { appData } = useContext(AppDataContext)
     const { board } = appData
-    const details = useGetDetailsQuery(item.id, item.type)
+    const { id: itemId, type: itemType } = ITEM_ID_TYPE(item.id)
+    const details = useGetDetailsQuery(itemId, itemType)
+    const backdrop = BACKDROP_SOURCE(item, itemType)
 
     const name = details?.data?.name
         ? details?.data?.name
@@ -34,10 +37,7 @@ export default function AddItemButton({ item, disabled }) {
             board,
             {
                 id: item.id,
-                backdrop_path: item?.backdrop_path
-                    ? item.backdrop_path
-                    : details.data?.artworks[0]?.image_id,
-                type: item.type,
+                backdrop_path: backdrop.partialPath,
             },
             content,
             "itemAdded",

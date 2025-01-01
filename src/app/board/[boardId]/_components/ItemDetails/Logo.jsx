@@ -1,11 +1,12 @@
 import { useGetImagesQuery } from "@app/hooks/use-get-fetch-query"
-import { FIND_LOGO } from "@lib/const"
+import { FIND_LOGO, ITEM_ID_TYPE } from "@lib/const"
 import Image from "next/image"
 import CardTitle from "./CardTitle"
 
-export default function Logo({ itemId, title, type, swiper = false }) {
-    const images = useGetImagesQuery(itemId, type)
-    const logo = FIND_LOGO(images.data)
+export default function Logo({ itemId, itemType, title, swiper = false }) {
+    console.log(itemId, itemType)
+    const images = useGetImagesQuery(itemId, itemType)
+    const logo = FIND_LOGO(images?.data)
 
     if (!images.isLoading && logo)
         return (

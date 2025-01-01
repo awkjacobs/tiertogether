@@ -51,8 +51,7 @@ model Board {
 }
 
 model Items {
-    id            Int     @id @unique
-    type          String?
+    id            String  @id @unique
     backdrop_path String?
     rank          Rank[]
     Board         Board[]
@@ -64,7 +63,7 @@ model Rank {
     userId  String
     rank    String
     Items   Items? @relation(fields: [itemsId], references: [id])
-    itemsId Int
+    itemsId String
     Board   Board  @relation(fields: [boardId], references: [id])
     boardId String
 

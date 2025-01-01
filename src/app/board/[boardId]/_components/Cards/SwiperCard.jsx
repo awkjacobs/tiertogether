@@ -8,7 +8,7 @@ import Backdrop from "@components/ui/backdrop"
 import { Skeleton } from "@components/ui/skeleton"
 import MissingPoster from "@components/Utility/MissingPoster"
 import { useDroppable } from "@dnd-kit/core"
-import { BACKDROP_SOURCE } from "@lib/const"
+import { BACKDROP_SOURCE, ITEM_ID_TYPE } from "@lib/const"
 import Image from "next/image"
 import { useContext, useEffect } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
@@ -35,10 +35,10 @@ export default function SwiperCard(props) {
         id: tier + item.id,
         data: { type: "tier" },
     })
-
-    const details = useGetDetailsQuery(item.id, item.type)
-    const credits = useGetCreditsQuery(item.id, item.type)
-    const backdrop = BACKDROP_SOURCE(item, item.type)
+    const { id: itemId, type: itemType } = ITEM_ID_TYPE(item.id)
+    const details = useGetDetailsQuery(itemId, itemType)
+    const credits = useGetCreditsQuery(itemId, itemType)
+    const backdrop = BACKDROP_SOURCE(item, itemType)
 
     const allowedToRemoveItemFromBoard =
         user.id === board.ownerId || user.id === item.addedBy.id
@@ -63,7 +63,7 @@ export default function SwiperCard(props) {
                     />
                 )}
                 <div
-                    className={`group relative box-border flex h-[120px] min-w-20 items-center justify-center bg-black text-center md:h-auto ${item.type == "videoGame" ? "md:min-w-48" : "md:min-w-40"}`}
+                    className={`group relative box-border flex h-[120px] min-w-20 items-center justify-center bg-black text-center md:h-auto ${itemType == "videoGame" ? "md:min-w-48" : "md:min-w-40"}`}
                 >
                     {details.data.poster_path && (
                         <Image
@@ -103,23 +103,20 @@ export default function SwiperCard(props) {
                     className={`flex w-full flex-col items-center gap-1 p-4 pt-10 transition-all md:items-stretch md:pt-6`}
                 >
                     <Logo
-                        itemId={item.id}
+                        itemId={itemId}
                         title={
                             details.data.name
                                 ? details.data.name
                                 : details.data.title
                         }
-                        type={item.type}
+                        itemType={itemType}
                         swiper={true}
                     />
                     {isDesktop && (
                         <>
                             <div className={`flex-1`} />
                             {!details.isLoading && !credits.isLoading && (
-                                <SwiperCardDetails
-                                    item={item}
-                                    type={item.type}
-                                />
+                                <SwiperCardDetails item={item} />
                             )}
                         </>
                     )}

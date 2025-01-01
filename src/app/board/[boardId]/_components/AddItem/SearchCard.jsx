@@ -26,6 +26,11 @@ export default function SearchCard({ item, board, queryType, style }) {
 
     item.type = ITEM_TYPE(board, queryType)
 
+    if (typeof item?.id === "number") {
+        let numId = item.id
+        item.id = `${numId}-${item.type}`
+    }
+
     const backdrop = BACKDROP_SOURCE(item, item.type)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -47,10 +52,7 @@ export default function SearchCard({ item, board, queryType, style }) {
             board,
             {
                 id: item.id,
-                backdrop_path: backdrop?.partialPath
-                    ? backdrop.partialPath
-                    : null,
-                type: item.type,
+                backdrop_path: backdrop.partialPath,
             },
             content,
             "itemAdded",

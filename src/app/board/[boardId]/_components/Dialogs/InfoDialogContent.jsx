@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@app/hooks/use-media-query"
-import Poster from "@components/ui/Poster"
+import Poster from "../Cards/Card Components/Poster"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
 import ItemDetails from "../ItemDetails/ItemDetails"
 import Logo from "../ItemDetails/Logo"
@@ -15,18 +15,17 @@ export default function InfoDialogContent({ item }) {
 
     if (isDesktop) {
         return (
-            <div className="relative grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] gap-8 overflow-clip">
+            <div className="relative grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto_1fr] gap-8 overflow-clip">
                 <Poster
-                    className={`row-start-1 row-end-3 h-64 w-auto justify-self-center shadow-lg`}
-                    itemId={itemId}
-                    itemType={itemType}
+                    className={`row-start-1 row-end-3 max-h-64 w-max justify-self-center object-contain shadow-lg`}
+                    itemId={`${itemId}-${itemType}`}
                     height={256}
                     width={170}
                 />
                 <div
                     className={`flex items-center md:col-start-2 md:col-end-3 md:h-44`}
                 >
-                    <Logo itemId={itemId} title={name} type={itemType} />
+                    <Logo itemId={itemId} title={name} itemType={itemType} />
                 </div>
                 <ItemDetails item={item} />
                 {item?.rank && <RankingsContainer item={item} />}

@@ -8,7 +8,6 @@ import {
     DialogContent,
     DialogDescription,
     DialogFooter,
-    DialogHeader,
     DialogTitle,
 } from "@components/ui/dialog"
 import {
@@ -19,9 +18,9 @@ import {
     DrawerHeader,
     DrawerTitle,
 } from "@components/ui/drawer"
-import { BACKDROP_SOURCE } from "@lib/const"
+import { BACKDROP_SOURCE, ITEM_ID_TYPE } from "@lib/const"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import InfoDialogContent from "./InfoDialogContent"
 
@@ -31,20 +30,22 @@ export default function InfoDialog({ isOpen, setIsOpen }) {
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
-    const itemId = Number(selectedItem?.split("xx")[0])
-    const itemType = selectedItem?.split("xx")[1]
+    const { id: itemId, type: itemType } = ITEM_ID_TYPE(selectedItem)
 
     const details = useGetDetailsQuery(itemId, itemType)
 
-    const item = board.items.find((item) => item.id === itemId)
-        ? board.items.find((item) => item.id === itemId)
+    const item = board.items.find((boardItem) => boardItem.id === selectedItem)
+        ? board.items.find((boardItem) => boardItem.id === selectedItem)
         : details.data
-
-    if (item) item.type = itemType
 
     const name = details.data?.name ? details.data?.name : details.data?.title
 
     const backdrop = BACKDROP_SOURCE(item, itemType)
+
+    if (typeof item?.id === "number") {
+        let numId = item.id
+        item.id = `${numId}-${itemType}`
+    }
 
     if (isDesktop) {
         return (
@@ -69,7 +70,11 @@ export default function InfoDialog({ isOpen, setIsOpen }) {
                         {backdrop && <Backdrop backdrop={backdrop} />}
                         <InfoDialogContent item={item} />
                         <DialogFooter className={`md:justify-center`}>
-                            <ItemAddRemoveButton item={item} isDialog={true} />
+                            <ItemAddRemoveButton
+                                item={item}
+                                itemType={itemType}
+                                isDialog={true}
+                            />
                         </DialogFooter>
                     </DialogContent>
                 </ItemDataContext.Provider>

@@ -18,7 +18,7 @@ export default function BoardCard({ board, appData, index }) {
     const [boardName, setNewBoardName] = useState(board.boardName)
 
     const boardItemsBackdrops = board.items
-        .flatMap((item) => BACKDROP_SOURCE(item, item.type))
+        .flatMap((item) => BACKDROP_SOURCE(item, item.id.split("-")[1]))
         .filter((item) => item !== null && item !== undefined)
 
     return (
@@ -76,7 +76,7 @@ export default function BoardCard({ board, appData, index }) {
 }
 function CrossFade({ backgrounds, index }) {
     const swiperIndex = index
-
+    console.log(backgrounds)
     return (
         <Swiper
             effect={"fade"}
@@ -121,19 +121,3 @@ function CrossFade({ backgrounds, index }) {
         </Swiper>
     )
 }
-// function BoardTypeIcon({ type }) {
-//     return (
-//         <>
-//             {type === "movie" && (
-//                 <Clapperboard className={`stroke-purple-200`} />
-//             )}
-//             {type === "tv" && <Tv className={`stroke-purple-200`} />}
-//             {type === "anime" && (
-//                 <AnimeCross className={`h-6 w-6 text-purple-200`} />
-//             )}
-//             {type === "videoGame" && (
-//                 <Gamepad2 className={`h-6 w-6 text-purple-200`} />
-//             )}
-//         </>
-//     )
-// }

@@ -2,7 +2,7 @@ import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
 import { useSearchParams } from "next/navigation"
-import Poster from "@components/ui/Poster"
+import Poster from "./Card Components/Poster"
 import {
     Tooltip,
     TooltipContent,
@@ -13,6 +13,7 @@ import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
+import { ITEM_ID_TYPE } from "@lib/const"
 const size = {
     null: "h-20 md:h-24",
     1: "h-20 md:h-24",
@@ -36,7 +37,8 @@ export function Card({
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
-    const details = useGetDetailsQuery(item.id, item.type)
+    const { id: itemId, type: itemType } = ITEM_ID_TYPE(item.id)
+    const details = useGetDetailsQuery(itemId, itemType)
 
     const name = details.data?.name ? details.data?.name : details.data?.title
 
@@ -72,10 +74,10 @@ export function Card({
 
     const handleSelect = () => {
         setDialogIsOpen(true)
-        setSelectedItem(`${item.id}xx${item.type}`)
+        setSelectedItem(item.id)
     }
     const handleHover = () => {
-        setSelectedItem(`${item.id}xx${item.type}`)
+        setSelectedItem(item.id)
     }
     if (activeItem)
         return (
@@ -91,7 +93,6 @@ export function Card({
                 <Poster
                     className={`${size[urlCardSize]}`}
                     itemId={item.id}
-                    itemType={item.type}
                     width={width()}
                     height={height()}
                 />
@@ -118,7 +119,6 @@ export function Card({
                                 <Poster
                                     className={`${size[urlCardSize]}`}
                                     itemId={item.id}
-                                    itemType={item.type}
                                     width={width()}
                                     height={height()}
                                 />
@@ -172,7 +172,6 @@ export function Card({
                     <Poster
                         className={`${size[urlCardSize]}`}
                         itemId={item.id}
-                        itemType={item.type}
                         width={width()}
                         height={height()}
                     />

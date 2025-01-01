@@ -16,7 +16,7 @@ export default function ItemDetails({ item }) {
             <>
                 <ItemBadges item={item} />
                 <ScrollArea
-                    className={`max-w-3xl pr-3 md:col-start-1 md:col-end-3`}
+                    className={`col-start-1 col-end-3 grid w-[clamp(20rem,50vw,48rem)] grid-cols-1 pr-3`}
                 >
                     <div className={`space-y-4`}>
                         <DetailsBlock />

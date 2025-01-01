@@ -1,5 +1,5 @@
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
-import Poster from "@components/ui/Poster"
+import Poster from "./Card Components/Poster"
 import {
     Tooltip,
     TooltipContent,
@@ -15,7 +15,7 @@ export default function InfoCard({ item, itemType, size, searchOrCollection }) {
     const name = item?.name ? item?.name : item?.title
     const handleSelect = () => {
         setDialogIsOpen(true)
-        setSelectedItem(`${item.id}xx${item.type}`)
+        setSelectedItem(`${item.id}-${item.type}`)
     }
 
     return (
@@ -28,8 +28,7 @@ export default function InfoCard({ item, itemType, size, searchOrCollection }) {
                     >
                         <Poster
                             className={`${searchOrCollection == "search" && "h-24 md:h-60"} ${searchOrCollection == "collection" && "h-28 transition-all md:hover:scale-105 md:hover:shadow-purple-200/50"} w-auto justify-self-center shadow-lg`}
-                            itemId={item.id}
-                            itemType={itemType}
+                            itemId={`${item.id}-${itemType}`}
                             height={size.height}
                             width={size.width}
                         />

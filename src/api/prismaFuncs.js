@@ -451,7 +451,6 @@ export async function PRISMA_UPDATE_DISPLAY_NAME(user, input) {
     revalidatePath("/*", "page")
 }
 export async function PRISMA_ADD_ITEM(board, item, content, type) {
-    // console.log(board, item, content, type)
     const { userId } = await auth()
     const userIds = board.users.map((user) => user.id)
 
@@ -471,7 +470,6 @@ export async function PRISMA_ADD_ITEM(board, item, content, type) {
         },
         create: {
             id: item.id,
-            type: item.type,
             backdrop_path: item.backdrop_path,
             addedBy: {
                 connect: {
@@ -997,4 +995,16 @@ export async function PRISMA_DECLINE_INVITATION(invitationId, notificationId) {
     await prisma.$transaction([invitation, viewedNotifications])
 
     revalidatePath("/home", "page")
+}
+export async function PRISMA_COMBINE_ID_TYPE() {
+    const items = await prisma.items.findMany()
+
+    items.map(async (item) => {
+        await prisma.items.update({
+            where: { id: item.id },
+            data: {
+                type: null,
+            },
+        })
+    })
 }
