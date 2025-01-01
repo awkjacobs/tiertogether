@@ -20,7 +20,6 @@ export default async function LandingPage() {
             className={`h-[100svh] max-h-[100svh] items-start overflow-clip p-0`}
         >
             <AppBar appData={appData} className={`m-2`} />
-            {/* <DotsBackground /> */}
             <LandingPageContent />
         </PageContainer>
     )

@@ -63,7 +63,7 @@ export default function HomeContent({ appData }) {
     return (
         <AppDataContext.Provider value={{ appData }}>
             <section
-                className={`no-scrollbar col-start-3 col-end-4 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
+                className={`no-scrollbar col-start-2 col-end-5 flex h-full flex-1 flex-col overflow-x-visible overflow-y-scroll`}
             >
                 <HomeBoardsBar appData={appData} />
                 <UserBoardsContainer>

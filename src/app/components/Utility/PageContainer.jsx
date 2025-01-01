@@ -1,3 +1,4 @@
+import { GRID_TEMP_COLUMNS } from "@lib/const"
 import { cn } from "@lib/utils"
 
 export default function PageContainer({ children, className }) {
@@ -9,18 +10,7 @@ export default function PageContainer({ children, className }) {
             )}
             style={{
                 display: `grid`,
-                gridTemplateColumns: `
-                [left-side-start] 
-                1fr
-                [left-side-end main-content-start] 
-                2fr
-                [query-start] 
-                min(calc(100vw - 2rem), 75rem) 
-                [query-end] 
-                2fr
-                [main-content-end right-side-start] 
-                1fr 
-                [right-side-end]`,
+                gridTemplateColumns: GRID_TEMP_COLUMNS,
                 gridTemplateRows: `min-content 1fr`,
             }}
         >

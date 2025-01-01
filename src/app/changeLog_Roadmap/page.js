@@ -4,6 +4,7 @@ import AppBar from "@components/AppBar/AppBar"
 import PageContainer from "@components/Utility/PageContainer"
 import Roadmap from "./roadmap"
 import Changelog from "./changeLog"
+import { GRID_TEMP_COLUMNS } from "@lib/const"
 
 export async function generateMetadata() {
     return {
@@ -34,18 +35,7 @@ export default async function ChangeLogRoadmapPage() {
                     className={`relative col-span-full items-center justify-center`}
                     style={{
                         display: `grid`,
-                        gridTemplateColumns: `
-                [left-side-start] 
-                1fr
-                [left-side-end main-content-start] 
-                2fr
-                [query-start] 
-                min(calc(100vw - 2rem), 75rem) 
-                [query-end] 
-                2fr
-                [main-content-end right-side-start] 
-                1fr 
-                [right-side-end]`,
+                        gridTemplateColumns: GRID_TEMP_COLUMNS,
                         gridAutoRows: `auto`,
                     }}
                 >

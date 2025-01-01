@@ -3,6 +3,7 @@ import DotsBackground from "@components/Utility/dotsBackground"
 import TextLink from "@components/Utility/textLink"
 import H2 from "@components/Utility/H2"
 import TextBlock from "@components/Utility/TextBlock"
+import { GRID_TEMP_COLUMNS } from "@lib/const"
 
 export default async function LandingPageContent() {
     return (
@@ -13,18 +14,7 @@ export default async function LandingPageContent() {
                 className={`relative col-span-full items-center justify-center`}
                 style={{
                     display: `grid`,
-                    gridTemplateColumns: `
-                    [left-side-start] 
-                    1fr
-                    [left-side-end main-content-start] 
-                    2fr
-                    [query-start] 
-                    min(calc(100vw - 2rem), 75rem) 
-                    [query-end] 
-                    2fr
-                    [main-content-end right-side-start] 
-                    1fr 
-                    [right-side-end]`,
+                    gridTemplateColumns: GRID_TEMP_COLUMNS,
                     gridAutoRows: `auto`,
                 }}
             >
