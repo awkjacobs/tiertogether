@@ -2,23 +2,7 @@
 
 ### TODO
 
-- [ ] fix the Items table id field since it probably isn't unique
 - [ ] add tooltips and maybe shorcuts to buttons
-- [ ] finish notifications
-
-    - [x] optimize notifications to cut down on db calls and storage
-    - [x] setup mark all as read button
-    - [x] setup click notification to mark as read
-    - [x] add notifications for all applicable actions
-        - [x] someone joining a board
-        - [x] someone leaving a board
-        - [x] someone being kicked from a board
-        - [x] new board owner
-    - [x] add date to notifications
-    - [x] add filters to notifications
-    - [ ] serve only a limited number, and use an add button / figure out infinite scroll
-    - [ ] <-OPTIONAL-> simplify the content of the notifications if db space is an issue
-    - [ ] <-OPTIONAL-> include # of unread notifications in title
 
 - [ ] create actual README file
 - [ ] figure out the branch protection stuff on GitHub
@@ -33,6 +17,22 @@
 
     - [ ] add admin page
     - [ ] add admin role
+
+- [ ] finish notifications
+
+    - [x] optimize notifications to cut down on db calls and storage
+    - [x] setup mark all as read button
+    - [x] setup click notification to mark as read
+    - [x] add notifications for all applicable actions
+        - [x] someone joining a board
+        - [x] someone leaving a board
+        - [x] someone being kicked from a board
+        - [x] new board owner
+    - [x] add date to notifications
+    - [x] add filters to notifications
+    - [ ] <-OPTIONAL-> serve only a limited number, and use an add button / figure out infinite scroll
+    - [ ] <-OPTIONAL-> simplify the content of the notifications if db space is an issue
+    - [ ] <-OPTIONAL-> include # of unread notifications in title
 
 - [ ] <-OPTIONAL-> redo the scoring system to go top down using length and better score data, allow for scalability
 - [ ] <-OPTIONAL-> set up local development database https://vercel.com/docs/storage/vercel-postgres/local-development#option-2:-local-postgres-instance-with-docker
@@ -90,6 +90,7 @@
 - [x] clean up the landing page
 - [x] clean up email invite artifacts
 - [x] revist theo video about patterns
+- [x] fix the Items table id field since it probably isn't unique
 
 ## Roadmap
 

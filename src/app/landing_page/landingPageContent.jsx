@@ -2,8 +2,10 @@ import LogoTriangles from "@app/components/Utility/LogoTriangles"
 import DotsBackground from "@components/Utility/dotsBackground"
 import TextLink from "@components/Utility/textLink"
 import H2 from "@components/Utility/H2"
+import H3 from "@components/Utility/H3"
 import TextBlock from "@components/Utility/TextBlock"
 import { GRID_TEMP_COLUMNS } from "@lib/const"
+import Image from "next/image"
 
 export default async function LandingPageContent() {
     return (
@@ -44,7 +46,7 @@ export default async function LandingPageContent() {
                     </div>
                 </div>
                 <div
-                    className={`relative col-span-full row-start-2 row-end-3 grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-32`}
+                    className={`relative col-span-full row-auto row-start-2 row-end-3 grid grid-cols-subgrid items-start justify-start gap-y-16 py-32`}
                 >
                     <TextBlock>
                         <H2>About tiertogether</H2>
@@ -80,12 +82,51 @@ export default async function LandingPageContent() {
                         <p>
                             More features are planned for the future, check out
                             the{" "}
-                            <TextLink newTab={false} href="/changeLog_Roadmap">
-                                Changelog/Roadmap
+                            <TextLink newTab={false} href="/roadmap">
+                                Roadmap
                             </TextLink>{" "}
                             for details.
                         </p>
                         <p>Have fun!</p>
+                    </TextBlock>
+                    <TextBlock>
+                        <H3>Attributions</H3>
+                        <div className={`flex flex-col gap-4 py-8 md:flex-row`}>
+                            <Image
+                                src={"/TMDB_logo.svg"}
+                                alt="TMDB logo"
+                                width="200"
+                                height="200"
+                            />
+                            <p>
+                                This product uses the{" "}
+                                <TextLink
+                                    href={`https://developer.themoviedb.org/docs/getting-started`}
+                                    newTab={true}
+                                >
+                                    TMDB API
+                                </TextLink>{" "}
+                                but is not endorsed or certified by TMDB.
+                            </p>
+                        </div>
+                        <div className={`flex flex-col gap-4 md:flex-row`}>
+                            <Image
+                                src={"/IGDB_logo.svg"}
+                                alt="IGDB logo"
+                                width="200"
+                                height="200"
+                            />
+                            <p>
+                                This product uses the{" "}
+                                <TextLink
+                                    href={`https://api-docs.igdb.com/#getting-started`}
+                                    newTab={true}
+                                >
+                                    IGDB API
+                                </TextLink>{" "}
+                                but is not endorsed or certified by IGDB.
+                            </p>
+                        </div>
                     </TextBlock>
                 </div>
             </section>

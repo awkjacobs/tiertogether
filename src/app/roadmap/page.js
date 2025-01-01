@@ -2,17 +2,17 @@ import { PRISMA_GET_USER } from "@api/prismaFuncs"
 import { auth } from "@clerk/nextjs/server"
 import AppBar from "@components/AppBar/AppBar"
 import PageContainer from "@components/Utility/PageContainer"
-import Roadmap from "./roadmap"
-import Changelog from "./changeLog"
+import H2 from "@components/Utility/H2"
+import TextBlock from "@components/Utility/TextBlock"
 import { GRID_TEMP_COLUMNS } from "@lib/const"
 
 export async function generateMetadata() {
     return {
-        title: `Change Log/Roadmap | tiertogether`,
+        title: `Roadmap | tiertogether`,
     }
 }
 
-export default async function ChangeLogRoadmapPage() {
+export default async function RoadmapPage() {
     const { userId } = await auth()
     let userDB
     if (userId) {
@@ -39,8 +39,24 @@ export default async function ChangeLogRoadmapPage() {
                         gridAutoRows: `auto`,
                     }}
                 >
-                    <Roadmap />
-                    <Changelog />
+                    <div
+                        className={`relative col-span-full grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-8 md:py-32`}
+                    >
+                        <TextBlock>
+                            <H2>Roadmap</H2>
+                            <p>
+                                tiertogether is a work in progress. Some
+                                features planned for the future are:
+                            </p>
+                            <ul className={`list-inside list-disc pl-8`}>
+                                <li>Add list view</li>
+                                <li>Add more types of boards</li>
+                                <li>Add more search options</li>
+                                <li>Add board description</li>
+                                <li>Add comments</li>
+                            </ul>
+                        </TextBlock>
+                    </div>
                 </section>
             </main>
         </PageContainer>

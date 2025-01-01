@@ -12,14 +12,14 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@components/ui/navigation-menu"
-import { SquareChartGantt } from "lucide-react"
+import { Map, SquareChartGantt } from "lucide-react"
 import Link from "next/link"
 
 export default function LogoButton() {
     return (
         <NavigationMenu>
-            <NavigationMenuList>
-                <NavigationMenuItem>
+            <NavigationMenuList className={`z-50`}>
+                <NavigationMenuItem className={`z-50`}>
                     <NavigationMenuTrigger
                         className={`bg-transparent dark:bg-transparent`}
                     >
@@ -48,16 +48,20 @@ export default function LogoButton() {
                                 Landing Page
                             </NavigationMenuLink>
                         </Link>
-                        <Link
-                            href={`/changeLog_Roadmap`}
-                            legacyBehavior
-                            passHref
-                        >
+                        <Link href={`/roadmap`} legacyBehavior passHref>
+                            <NavigationMenuLink
+                                className={navigationMenuTriggerStyle()}
+                            >
+                                <Map className={`mr-2 h-5 w-5`} />
+                                Roadmap
+                            </NavigationMenuLink>
+                        </Link>
+                        <Link href={`/changelog`} legacyBehavior passHref>
                             <NavigationMenuLink
                                 className={navigationMenuTriggerStyle()}
                             >
                                 <SquareChartGantt className={`mr-2 h-5 w-5`} />
-                                Changelog/Roadmap
+                                Changelog
                             </NavigationMenuLink>
                         </Link>
                         <NavigationMenuLink

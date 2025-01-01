@@ -6,7 +6,8 @@
             "@components/*": ["src/app/components/*"],
             "@api/*": ["src/api/*"],
             "@lib/*": ["lib/*"],
-            "@types/*": ["types/*"]
+            "@types/*": ["types/*"],
+            "@changelog": ["CHANGELOG.md"]
         },
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
