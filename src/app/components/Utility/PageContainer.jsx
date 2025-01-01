@@ -4,7 +4,7 @@ export default function PageContainer({ children, className }) {
     return (
         <section
             className={cn(
-                `mx-auto my-0 h-[calc(100svh-1rem)] max-h-[calc(100svh-1rem)] w-full items-center justify-start bg-surface-200 p-2 pb-0 dark:bg-surface-950`,
+                `mx-auto my-0 h-[100svh] max-h-[100svh] w-full items-center justify-start bg-surface-200 p-2 pb-0 dark:bg-surface-950`,
                 className,
             )}
             style={{
