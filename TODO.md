@@ -6,15 +6,15 @@
 - [ ] figure out the branch protection stuff on GitHub
 - [ ] figure out open source stuff
 
-- [ ] Add Dialog
-
-    - [x] add pagination
-    - [ ] <-OPTIONAL-> add more search options
-
 - [ ] Create Admin Page
 
     - [ ] add admin page
     - [ ] add admin role
+
+- [ ] Add Dialog
+
+    - [x] add pagination
+    - [ ] <-OPTIONAL-> add more search options
 
 - [ ] finish notifications
 
