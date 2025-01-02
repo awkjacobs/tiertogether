@@ -2,6 +2,7 @@
 
 ### TODO
 
+- [ ] add prisma sorting and filtering and remove from app comps
 - [ ] create actual README file
 - [ ] figure out the branch protection stuff on GitHub
 - [ ] figure out open source stuff

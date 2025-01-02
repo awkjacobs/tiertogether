@@ -92,3 +92,13 @@ model Invitation {
     Notification   Notification? @relation(fields: [notificationId], references: [id])
     notificationId String?       @unique
 }
+
+model Alert {
+    id        Int      @id @default(autoincrement())
+    type      String
+    title     String
+    content   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    active    Boolean  @default(true)
+}

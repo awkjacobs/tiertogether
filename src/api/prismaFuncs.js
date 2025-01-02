@@ -999,15 +999,11 @@ export async function PRISMA_DECLINE_INVITATION(invitationId, notificationId) {
 
     revalidatePath("/home", "page")
 }
-export async function PRISMA_COMBINE_ID_TYPE() {
-    const items = await prisma.items.findMany()
-
-    items.map(async (item) => {
-        await prisma.items.update({
-            where: { id: item.id },
-            data: {
-                type: null,
-            },
-        })
+export async function PRISMA_GET_ALERTS() {
+    return await prisma.alert.findMany({
+        orderBy: {
+            updatedAt: "desc",
+        },
+        take: 1,
     })
 }
