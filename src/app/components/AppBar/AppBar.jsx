@@ -79,7 +79,7 @@ async function SignedInContent({ appData }) {
                 </Tooltip>
                 {isAdmin && (
                     <Button variant="ghost" size="icon" asChild>
-                        <Link href={`/home`}>
+                        <Link href={`/admin`}>
                             <SquareCode className={`h-5 w-5`} />
                         </Link>
                     </Button>

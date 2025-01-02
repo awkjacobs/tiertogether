@@ -35,54 +35,53 @@ const formSchema = z.object({
     active: z.boolean(),
 })
 
-export default function MyForm() {
+export default function AlertListItem({ alert }) {
     const form = useForm({
         resolver: zodResolver(formSchema),
         values: {
-            type: "warn",
-            active: true,
-        },
-        defaultValues: {
-            title: "",
-            content: "",
-            type: "warn",
-            active: true,
+            title: alert.title,
+            content: alert.content,
+            type: alert.type,
+            active: alert.active,
         },
     })
-
-    function onSubmit(values) {
-        try {
-            console.log(values)
-            toast(
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">
-                        {JSON.stringify(values, null, 2)}
-                    </code>
-                </pre>,
-            )
-        } catch (error) {
-            console.error("Form submission error", error)
-            toast.error("Failed to submit the form. Please try again.")
-        }
+    const onSubmit = async (values) => {
+        console.log(
+            "Dirty Fields:",
+            form.formState.dirtyFields,
+            "type" in form.formState.dirtyFields,
+        )
     }
-
     return (
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="grid w-full grid-cols-[auto_1fr] gap-x-4 gap-y-2 rounded bg-zinc-950 p-4"
+                className="grid w-full grid-cols-[auto_1fr] gap-x-4 rounded bg-zinc-950 p-4"
             >
+                <div className="col-span-full grid grid-cols-subgrid items-center justify-start space-y-0">
+                    <p className="col-start-1 col-end-2 text-sm font-bold opacity-50">
+                        Id
+                    </p>
+                    <p className="col-start-2 col-end-3 border-none px-3 py-2">
+                        {alert.id}
+                    </p>
+                </div>
                 <FormField
                     control={form.control}
                     name="title"
                     render={({ field }) => (
                         <FormItem className="col-span-full grid grid-cols-subgrid items-center justify-start space-y-0">
-                            <FormLabel className={`col-start-1 col-end-2`}>
+                            <FormLabel
+                                className={`col-start-1 col-end-2 opacity-50`}
+                            >
                                 Title
                             </FormLabel>
                             <FormControl
-                                placeholder="Alert Title"
-                                className={`col-start-2 col-end-3`}
+                                className={`col-start-2 col-end-3 ${
+                                    "title" in form.formState.dirtyFields
+                                        ? "border-rose-500/50 dark:border-rose-500/50"
+                                        : "border-none"
+                                }`}
                             >
                                 <Input {...field} />
                             </FormControl>
@@ -99,12 +98,17 @@ export default function MyForm() {
                     name="content"
                     render={({ field }) => (
                         <FormItem className="col-span-full grid grid-cols-subgrid items-center justify-start space-y-0">
-                            <FormLabel className={`col-start-1 col-end-2`}>
+                            <FormLabel
+                                className={`col-start-1 col-end-2 opacity-50`}
+                            >
                                 Content
                             </FormLabel>
                             <FormControl
-                                placeholder="Alert Content"
-                                className={`col-start-2 col-end-3`}
+                                className={`col-start-2 col-end-3 ${
+                                    "content" in form.formState.dirtyFields
+                                        ? "border-rose-500/50 dark:border-rose-500/50"
+                                        : "border-none"
+                                }`}
                             >
                                 <Input {...field} />
                             </FormControl>
@@ -120,16 +124,26 @@ export default function MyForm() {
                     name="type"
                     render={({ field }) => (
                         <FormItem className="col-span-full grid grid-cols-subgrid items-center justify-start space-y-0">
-                            <FormLabel className={`col-start-1 col-end-2`}>
+                            <FormLabel
+                                className={`col-start-1 col-end-2 opacity-50`}
+                            >
                                 Type
                             </FormLabel>
-                            <FormControl className={`col-start-2 col-end-3`}>
+                            <FormControl
+                                className={`col-start-2 col-end-3 border-none`}
+                            >
                                 <Select
                                     {...field}
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}
                                 >
-                                    <SelectTrigger className="">
+                                    <SelectTrigger
+                                        className={
+                                            "type" in form.formState.dirtyFields
+                                                ? "border-rose-500/50 dark:border-rose-500/50"
+                                                : "border-none"
+                                        }
+                                    >
                                         <SelectValue value={field.value}>
                                             {field.value === "warn"
                                                 ? "Warning"
@@ -166,14 +180,22 @@ export default function MyForm() {
                     name="active"
                     render={({ field }) => (
                         <FormItem className="col-span-full grid min-h-10 grid-cols-subgrid items-center justify-start space-y-0">
-                            <FormLabel className={`col-start-1 col-end-2`}>
+                            <FormLabel
+                                className={`col-start-1 col-end-2 opacity-50`}
+                            >
                                 Active
                             </FormLabel>
-                            <FormControl className={`col-start-2 col-end-3`}>
+                            <FormControl
+                                className={`col-start-2 col-end-3 ${
+                                    "active" in form.formState.dirtyFields
+                                        ? "border-rose-500/50 dark:border-rose-500/50"
+                                        : "border-none"
+                                }`}
+                            >
                                 <Switch
                                     checked={field.value}
                                     onCheckedChange={field.onChange}
-                                    className={`dark:data-[state=checked]:bg-emerald-500`}
+                                    className={`mx-3 dark:data-[state=checked]:bg-emerald-500`}
                                 />
                             </FormControl>
                             <FormDescription hidden>
@@ -183,14 +205,18 @@ export default function MyForm() {
                         </FormItem>
                     )}
                 />
-                <div className="col-span-full flex items-center justify-end">
-                    <Button type="submit" size="sm">
-                        {form.formState.isSubmitting && (
-                            <LoaderCircle className={`h-4 w-4 animate-spin`} />
-                        )}
-                        {!form.formState.isSubmitting && "Create New Alert"}
-                    </Button>
-                </div>
+                {form.formState.isDirty && (
+                    <div className="col-span-full flex items-center justify-end">
+                        <Button type="submit" size="sm">
+                            {form.formState.isSubmitting && (
+                                <LoaderCircle
+                                    className={`h-4 w-4 animate-spin`}
+                                />
+                            )}
+                            {!form.formState.isSubmitting && "Update"}
+                        </Button>
+                    </div>
+                )}
             </form>
         </Form>
     )

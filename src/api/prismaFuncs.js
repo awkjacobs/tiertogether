@@ -934,7 +934,15 @@ export async function PRISMA_GET_ALERTS() {
         take: 1,
     })
 }
-export async function PRISMA_CREATE_ALERT(alert) {
+export async function PRISMA_ADMIN_GET_ALERTS() {
+    return await prisma.alert.findMany({
+        orderBy: {
+            updatedAt: "desc",
+        },
+    })
+}
+
+export async function PRISMA_ADMIN_CREATE_ALERT(alert) {
     return await prisma.alert.create({
         data: {
             type: alert.type,
@@ -944,7 +952,7 @@ export async function PRISMA_CREATE_ALERT(alert) {
         },
     })
 }
-export async function PRISMA_UPDATE_ALERT(alert) {
+export async function PRISMA_ADMIN_UPDATE_ALERT(alert) {
     return await prisma.alert.update({
         where: {
             id: alert.id,
