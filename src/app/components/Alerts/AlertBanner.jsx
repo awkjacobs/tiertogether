@@ -11,12 +11,17 @@ import { useGetAlert } from "@app/hooks/use-get-alerts"
 import { useEffect, useState } from "react"
 
 const saveAlertLocalStorage = (viewedIdArray) => {
-    localStorage.setItem("alertsViewed", JSON.stringify(viewedIdArray))
+    if (typeof window !== "undefined") {
+        localStorage.setItem("alertsViewed", JSON.stringify(viewedIdArray))
+    }
 }
 // Alert types: warn, info
 export default function AlertBanner() {
     const alert = useGetAlert()
-    const viewedAlerts = JSON.parse(localStorage.getItem("alertsViewed"))
+    let viewedAlerts = null
+    if (typeof window !== "undefined") {
+        viewedAlerts = JSON.parse(localStorage.getItem("alertsViewed"))
+    }
     const [hidden, setHidden] = useState(false)
 
     useEffect(() => {
