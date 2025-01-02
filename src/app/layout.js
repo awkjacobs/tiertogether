@@ -6,6 +6,8 @@ import { dark } from "@clerk/themes"
 import QueryProvider from "./providers/QueryProvider"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import Head from "next/head"
+import { NuqsAdapter } from "nuqs/adapters/next/app"
+import AlertBanner from "@components/Alerts/AlertBanner"
 
 export const metadata = {
     title: "tiertogether",
@@ -42,7 +44,8 @@ export default function RootLayout({ children }) {
                             enableSystem
                             disableTransitionOnChange
                         >
-                            {children}
+                            <AlertBanner />
+                            <NuqsAdapter>{children}</NuqsAdapter>
                             <Toaster />
                         </ThemeProvider>
                     </QueryProvider>

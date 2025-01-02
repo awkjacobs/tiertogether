@@ -1,4 +1,5 @@
 "use server"
+
 import { PrismaClient } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs/server"
@@ -11,23 +12,9 @@ const queryClient = new QueryClient()
 
 const prisma = new PrismaClient()
 
-export async function PRISMA_GET_BOARDS() {
-    return await prisma.board.findMany({
-        include: {
-            items: {
-                include: {
-                    rank: {
-                        where: {
-                            boardId: boardId,
-                        },
-                    },
-                },
-            },
-            users: true,
-            owner: true,
-        },
-    })
-}
+// * ================================
+// * ============ BOARDS ============
+// * ================================
 export async function PRISMA_GET_BOARD_DATA(boardId, userId) {
     const [board, userDB, notifications] = await prisma.$transaction([
         prisma.board.findUnique({
@@ -78,6 +65,7 @@ export async function PRISMA_GET_BOARD_DATA(boardId, userId) {
     ])
     return [board, userDB, notifications]
 }
+
 export async function PRISMA_GET_SPECIFIC_BOARD(boardId) {
     return await prisma.board.findUnique({
         where: { id: boardId },
@@ -350,15 +338,10 @@ export async function PRISMA_MAKE_NEW_OWNER(
 
     revalidatePath("/*", "page")
 }
-export async function PRISMA_ADD_BOARD_TYPE(boardId) {
-    return await prisma.board.update({
-        where: { id: boardId },
-        data: {
-            type: "movie",
-        },
-    })
-}
 
+// * ================================
+// * ============ USERS =============
+// * ================================
 export async function PRISMA_GET_USERS(boardId) {
     return await prisma.user.findMany({
         where: {
@@ -424,7 +407,6 @@ export async function PRISMA_CREATE_USER(id, name) {
         },
     })
 }
-// TODO - scrub sensitive data
 export async function PRISMA_GET_USER(id) {
     return await prisma.user.findFirst({
         where: { id: id },
@@ -450,6 +432,10 @@ export async function PRISMA_UPDATE_DISPLAY_NAME(user, input) {
     })
     revalidatePath("/*", "page")
 }
+
+// * ================================
+// * ============ ITEMS =============
+// * ================================
 export async function PRISMA_ADD_ITEM(board, item, content, type) {
     const { userId } = await auth()
     const userIds = board.users.map((user) => user.id)
@@ -470,7 +456,6 @@ export async function PRISMA_ADD_ITEM(board, item, content, type) {
         },
         create: {
             id: item.id,
-            type: item.type,
             backdrop_path: item.backdrop_path,
             addedBy: {
                 connect: {
@@ -601,15 +586,10 @@ export async function PRISMA_DELETE_ITEM(board, item, content, type) {
 
     revalidatePath("/board/[boardId]", "page")
 }
-export async function PRISMA_ADD_PATHS_TO_ITEMS(itemId, backdrop_path) {
-    await prisma.items.update({
-        where: { id: itemId },
-        data: {
-            backdrop_path: backdrop_path,
-        },
-    })
-}
 
+// * ================================
+// * ============ RANKS =============
+// * ================================
 export async function PRISMA_UPDATE_RANK(itemsIds, user, boardId, scoreObj) {
     await prisma.$transaction(
         itemsIds.map((itemId) => {
@@ -662,6 +642,10 @@ export async function PRISMA_UPDATE_RANK(itemsIds, user, boardId, scoreObj) {
 
     revalidatePath("/board/[boardId]", "page")
 }
+
+// * ================================
+// * ======== NOTIFICATIONS =========
+// * ================================
 export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
     const { userId } = await auth()
 
@@ -698,6 +682,7 @@ export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
     })
     return await prisma.$transaction([invites, boardNotifications])
 }
+
 export async function PRISMA_GET_USER_INVITES(userID) {
     return await prisma.notification.findMany({
         where: {
@@ -712,44 +697,7 @@ export async function PRISMA_GET_USER_INVITES(userID) {
         },
     })
 }
-export async function PRISMA_GET_BOARD_NOTIFICATIONS(boardId, userDB) {
-    return await prisma.notification.findMany({
-        where: {
-            boardId: boardId,
-            userId: userDB.id,
-        },
-        include: {
-            User: true,
-            Board: true,
-            Invitation: {
-                include: { accepted: true, declined: true },
-            },
-        },
-    })
-}
-export async function PRISMA_SET_BOARD_NOTIFICATIONS(
-    boardId,
-    user,
-    notification,
-) {
-    await prisma.board.update({
-        where: { id: boardId },
-        data: {
-            Notification: {
-                create: {
-                    content: notification.content,
-                    type: notification.type,
-                    viewed: {
-                        connect: {
-                            id: user.id,
-                        },
-                    },
-                },
-            },
-        },
-    })
-    revalidatePath("/board/[boardId]", "page")
-}
+
 export async function PRISMA_VIEW_NOTIFICATION(id) {
     const { userId } = await auth()
 
@@ -765,6 +713,7 @@ export async function PRISMA_VIEW_NOTIFICATION(id) {
     })
     revalidatePath("/*", "page")
 }
+
 export async function PRISMA_VIEW_NOTIFICATIONS(idArr) {
     const { userId } = await auth()
 
@@ -788,6 +737,10 @@ export async function PRISMA_DELETE_OLD_NOTIFICATIONS(idArr) {
         where: { id: { in: idArr } },
     })
 }
+
+// * ================================
+// * ========= INVITATIONS ==========
+// * ================================
 export async function PRISMA_CREATE_NEWUSER_INVITE_NOTIFICATION(
     invitationId,
     userId,
@@ -816,49 +769,18 @@ export async function PRISMA_CREATE_NEWUSER_INVITE_NOTIFICATION(
         },
     })
 }
-export async function PRISMA_CREATE_INVITATION(boardId, userId) {
-    return await prisma.invitation.create({
-        data: {
-            id: MAKE_ID(8),
-            boardId: boardId,
-            userId: userId,
-            Notification: {
-                create: {
-                    type: "Invitation",
-                    content: "You've been invited to a board!",
-                    userId: userId,
-                    boardId: boardId,
-                    viewed: false,
-                },
-            },
-        },
-    })
-}
-export async function PRISMA_CREATE_NO_USER_INVITATION(boardId) {
-    return await prisma.invitation.create({
-        data: {
-            id: MAKE_ID(8),
-            boardId: boardId,
-        },
-    })
-}
-export async function PRISMA_CHECK_FOR_INVITATION(boardId) {
-    return await prisma.invitation.findUnique({
-        where: { boardId: boardId },
-    })
-}
 
 export async function PRISMA_CREATE_LINK_INVITATION(boardId) {
     let invitation
 
     const existingInvitation = await prisma.invitation.findFirst({
-        where: { boardId: boardId, userId: null },
+        where: { boardId: boardId },
     })
-    let invitationIsStale
 
+    let invitationIsStale = false
     if (existingInvitation) {
         invitationIsStale =
-            existingInvitation.updatedAt.getTime() + 1000 * 60 * 60 * 24 * 7 <
+            existingInvitation.createdAt.getTime() + 1000 * 60 * 60 * 24 * 7 <
             Date.now()
     }
 
@@ -870,6 +792,9 @@ export async function PRISMA_CREATE_LINK_INVITATION(boardId) {
                 id: MAKE_ID(8),
                 boardId: boardId,
             },
+        })
+        await prisma.invitation.delete({
+            where: { id: existingInvitation.id },
         })
     }
 
@@ -980,7 +905,7 @@ export async function PRISMA_DECLINE_INVITATION(invitationId, notificationId) {
     })
     let meta = (await clerkClient()).users.updateUserMetadata(userId, {
         publicMetadata: { inviteId: null },
-        undafeMetadata: { inviteId: null },
+        unsafeMetadata: { inviteId: null },
     })
 
     const viewedNotifications = prisma.notification.update({
@@ -996,4 +921,39 @@ export async function PRISMA_DECLINE_INVITATION(invitationId, notificationId) {
     await prisma.$transaction([invitation, viewedNotifications])
 
     revalidatePath("/home", "page")
+}
+
+// * ================================
+// * ============ ALERTS ============
+// * ================================
+export async function PRISMA_GET_ALERTS() {
+    return await prisma.alert.findMany({
+        orderBy: {
+            updatedAt: "desc",
+        },
+        take: 1,
+    })
+}
+export async function PRISMA_CREATE_ALERT(alert) {
+    return await prisma.alert.create({
+        data: {
+            type: alert.type,
+            title: alert.title,
+            content: alert.content,
+            active: alert.active,
+        },
+    })
+}
+export async function PRISMA_UPDATE_ALERT(alert) {
+    return await prisma.alert.update({
+        where: {
+            id: alert.id,
+        },
+        data: {
+            type: alert.type,
+            title: alert.title,
+            content: alert.content,
+            active: alert.active,
+        },
+    })
 }

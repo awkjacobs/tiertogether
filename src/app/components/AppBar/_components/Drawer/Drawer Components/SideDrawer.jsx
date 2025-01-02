@@ -4,7 +4,7 @@ import { LucideMenu } from "lucide-react"
 import BoardLinks from "./BoardLinks"
 import AddBoardButton from "@app/components/Buttons/AddBoardButton"
 import ProfileButton from "./ProfileButton"
-import { sortedBoards } from "@lib/const"
+import { SORTED_BOARDS } from "@lib/const"
 import {
     Sheet,
     SheetContent,
@@ -16,19 +16,31 @@ import {
 } from "@components/ui/sheet"
 import { Button } from "@components/ui/button"
 import { UserButton, UserProfile } from "@clerk/nextjs"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@app/components/ui/tooltip"
 
 export default function SideDrawer({ appData }) {
     const userBoards = appData.user.boards
 
     return (
         <Sheet>
-            <SheetTrigger asChild>
-                <Button size="icon" variant="ghost">
-                    <LucideMenu
-                        className={`h-[1.2rem] w-[1.2rem] text-purple-800 dark:text-purple-300`}
-                    />
-                </Button>
-            </SheetTrigger>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <SheetTrigger asChild>
+                        <Button size="icon" variant="ghost">
+                            <LucideMenu
+                                className={`h-[1.2rem] w-[1.2rem] text-purple-800 dark:text-purple-300`}
+                            />
+                        </Button>
+                    </SheetTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <p>Menu</p>
+                </TooltipContent>
+            </Tooltip>
             <SheetContent side={"right"}>
                 <SheetHeader>
                     <SheetTitle
@@ -47,9 +59,9 @@ export default function SideDrawer({ appData }) {
                 >
                     <div className={`overflow-y-scroll`}>
                         <div
-                            className={`rounded bg-surface-200/50 p-2 md:p-4 dark:bg-surface-900/50`}
+                        // className={`rounded bg-surface-200/50 p-2 md:p-4 dark:bg-surface-900/50`}
                         >
-                            {sortedBoards(userBoards).map((board) => {
+                            {SORTED_BOARDS(userBoards).map((board) => {
                                 return (
                                     <BoardLinks
                                         appData={appData}

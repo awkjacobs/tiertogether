@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { motion } from "motion/react"
-import Poster from "@components/ui/Poster"
+import Poster from "./Card Components/Poster"
 import { useSearchParams } from "next/navigation"
 
 const size = {

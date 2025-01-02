@@ -1,4 +1,4 @@
-import { findUserName } from "@lib/const"
+import { FIND_USER_NAME } from "@lib/const"
 import { AppDataContext } from "../_providers/appDataProvider"
 import { useContext } from "react"
 
@@ -11,7 +11,7 @@ export default function RankingsTooltipDisplay({
     const comparedAgainst =
         userEntries === "overall"
             ? "Board average"
-            : `${findUserName(userEntries, appData)}'s rank`
+            : `${FIND_USER_NAME(userEntries, appData)}'s rank`
 
     return (
         <div className={`space-y-2 whitespace-nowrap text-center text-sm`}>

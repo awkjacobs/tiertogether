@@ -3,6 +3,7 @@ import Link from "next/link"
 import { useState } from "react"
 import EditBoardButton from "@components/Buttons/EditBoardButton"
 import { Button } from "@components/ui/button"
+import BoardTypeIcon from "@app/components/Utility/BoardTypeIcons"
 
 export default function BoardLinks({ board, thisUser, appData }) {
     const [boardName, setNewBoardName] = useState(board.boardName)
@@ -17,6 +18,7 @@ export default function BoardLinks({ board, thisUser, appData }) {
                     href={`/board/${board.id}`}
                     className={`flex flex-1 items-center gap-4 rounded px-4 text-sm transition-all hover:bg-purple-500/10 active:bg-purple-400/20 md:py-2 md:text-base dark:hover:bg-purple-400/10`}
                 >
+                    <BoardTypeIcon type={board.type} className={`h-5 w-5`} />
                     <p>{board.boardName}</p>
                     {thisUser.id === board.ownerId && <Crown />}
                 </Link>

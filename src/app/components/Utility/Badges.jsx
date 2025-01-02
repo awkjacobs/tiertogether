@@ -1,10 +1,10 @@
 import { Badge } from "@components/ui/badge"
 import { cn } from "@lib/utils"
-import { releaseDate } from "@lib/const"
+import { RELEASE_DATE } from "@lib/const"
 
 export function ReleaseBadge({ release }) {
     if (!release) return null
-    const date = releaseDate(release)
+    const date = RELEASE_DATE(release)
 
     return <Badge className={`h-min min-w-max`}>{date}</Badge>
 }

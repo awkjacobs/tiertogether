@@ -2,7 +2,7 @@ import { NOTIFICATION_ICONS } from "@lib/const"
 import { useGetInvitationData } from "@app/hooks/use-get-notification"
 import InviteOptions from "./InviteOptions"
 import { Skeleton } from "../../ui/skeleton"
-import { simplifiedDate } from "@lib/const"
+import { SIMPLIFIED_DATE } from "@lib/const"
 
 export default function InviteNotification({ notification, userViewed }) {
     const { type, content, createdAt } = notification
@@ -25,7 +25,7 @@ export default function InviteNotification({ notification, userViewed }) {
                         {content}
                     </h5>
                     <p className="self-start text-xs opacity-50">
-                        {simplifiedDate(createdAt)}
+                        {SIMPLIFIED_DATE(createdAt)}
                     </p>
                 </div>
                 <p

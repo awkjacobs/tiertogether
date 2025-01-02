@@ -1,10 +1,7 @@
+import BoardTypeIcon from "@app/components/Utility/BoardTypeIcons"
+import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 import EditBoardButton from "@components/Buttons/EditBoardButton"
 import { Button } from "@components/ui/button"
-import { ZoomIn, ZoomOut } from "lucide-react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useContext } from "react"
-import RankingsToggle from "./RankingsToggle"
-import { AppDataContext } from "../../../../components/_providers/appDataProvider"
 import {
     Select,
     SelectContent,
@@ -13,45 +10,47 @@ import {
     SelectValue,
 } from "@components/ui/select"
 import { Separator } from "@components/ui/separator"
-import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
-import BoardTypeIcon from "@app/components/Utility/BoardTypeIcons"
+import { ZoomIn, ZoomOut } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import { useQueryState } from "nuqs"
+import { useContext } from "react"
+import { AppDataContext } from "../../../../components/_providers/appDataProvider"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@components/ui/tooltip"
 
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
     const isOwner = appData.user.id === appData.board.owner.id
 
-    const router = useRouter()
-    const pathname = usePathname()
+    const [cardSize, setCardSize] = useQueryState("cardSize", {
+        defaultValue: "1",
+    })
+
     const searchParams = useSearchParams()
     const currentCardSize = searchParams.get("cardSize")
-    const createQueryString = useCallback(
-        (name, value) => {
-            const params = new URLSearchParams(searchParams.toString())
-            params.set(name, value)
-
-            return params.toString()
-        },
-        [searchParams],
-    )
 
     const handleZoomIn = () => {
         switch (currentCardSize) {
             case "2":
-                router.push(pathname + "?" + createQueryString("cardSize", "3"))
+                setCardSize("3")
                 break
             default:
-                router.push(pathname + "?" + createQueryString("cardSize", "2"))
+                setCardSize("2")
                 break
         }
     }
     const handleZoomOut = () => {
         switch (currentCardSize) {
             case "2":
-                router.push(pathname + "?" + createQueryString("cardSize", "1"))
+                setCardSize("1")
                 break
             case "3":
-                router.push(pathname + "?" + createQueryString("cardSize", "2"))
+                setCardSize("2")
                 break
             default:
                 break
@@ -75,26 +74,45 @@ export default function BoardBar({ setUserEntries }) {
             <div
                 className={`col-start-1 col-end-3 row-start-2 flex w-full flex-row items-center gap-2 md:col-start-2 md:col-end-3 md:row-start-1`}
             >
-                <div className={`flex flex-row`}>
-                    <Button
-                        variant="outline"
-                        className={`h-8 w-8 rounded-e-none px-2 md:h-10 md:w-10`}
-                        onClick={handleZoomIn}
-                        disabled={currentCardSize === "3"}
+                <TooltipProvider>
+                    <div
+                        className={`flex flex-row divide-x divide-zinc-800 rounded-md border border-zinc-800`}
                     >
-                        <ZoomIn className={`h-4 w-4`} />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className={`h-8 w-8 rounded-s-none px-2 md:h-10 md:w-10`}
-                        onClick={handleZoomOut}
-                        disabled={
-                            currentCardSize === "1" || currentCardSize === null
-                        }
-                    >
-                        <ZoomOut className={`h-4 w-4`} />
-                    </Button>
-                </div>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    variant="ghost"
+                                    className={`h-8 w-8 rounded-e-none px-2 md:h-10 md:w-10`}
+                                    onClick={handleZoomIn}
+                                    disabled={currentCardSize === "3"}
+                                >
+                                    <ZoomIn className={`h-4 w-4`} />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Increase Card Size</p>
+                            </TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    variant="ghost"
+                                    className={`h-8 w-8 rounded-s-none px-2 md:h-10 md:w-10`}
+                                    onClick={handleZoomOut}
+                                    disabled={
+                                        currentCardSize === "1" ||
+                                        currentCardSize === null
+                                    }
+                                >
+                                    <ZoomOut className={`h-4 w-4`} />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Decrease Card Size</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </div>
+                </TooltipProvider>
                 <Select
                     defaultValue={appData.user.id}
                     onValueChange={(value) => setUserEntries(value)}

@@ -1,53 +1,26 @@
-import Link from "next/link"
-import Spacing from "@components/Utility/Spacing"
-import { Button } from "@components/ui/button"
-import {
-    SignInButton,
-    SignOutButton,
-    SignedIn,
-    SignedOut,
-    UserButton,
-} from "@clerk/nextjs"
-import DotsBackground from "@components/Utility/dotsBackground"
-// TODO - clean up the landing page
+import { PRISMA_GET_USER } from "@api/prismaFuncs"
+import { auth } from "@clerk/nextjs/server"
+import AppBar from "@components/AppBar/AppBar"
+import PageContainer from "@components/Utility/PageContainer"
+import LandingPageContent from "./landing_page/landingPageContent"
 
-export default function LandingPage() {
+export default async function LandingPage() {
+    const { userId } = await auth()
+    let userDB
+    if (userId) {
+        userDB = await PRISMA_GET_USER(userId)
+    } else {
+        userDB = null
+    }
+    const appData = {
+        user: userDB,
+    }
     return (
-        <>
-            <DotsBackground />
-            <section
-                className={`relative z-10 flex h-svh flex-col items-center justify-center`}
-            >
-                <h1 className={`p-8 text-[min(10vw,_4rem)] text-purple-200`}>
-                    tier
-                    <span className={`font-bold text-purple-500`}>
-                        together
-                    </span>
-                </h1>
-                <SignedOut>
-                    <SignInButton mode="modal">
-                        <Button
-                            className={`bg-purple-500 text-purple-50 hover:bg-purple-600 dark:bg-purple-500 dark:text-purple-50 dark:hover:bg-purple-600`}
-                        >
-                            login
-                        </Button>
-                    </SignInButton>
-                </SignedOut>
-                <SignedIn>
-                    <Button
-                        className={`bg-purple-500 text-purple-50 hover:bg-purple-600 dark:bg-purple-500 dark:text-purple-50 dark:hover:bg-purple-600`}
-                    >
-                        <Link href={`/home`}>Home</Link>
-                    </Button>
-                    <Spacing size={30} vertical />
-                    <Button
-                        asChild
-                        className={`bg-purple-500 text-purple-50 hover:bg-purple-600 dark:bg-purple-500 dark:text-purple-50 dark:hover:bg-purple-600`}
-                    >
-                        <SignOutButton>Logout</SignOutButton>
-                    </Button>
-                </SignedIn>
-            </section>
-        </>
+        <PageContainer
+            className={`h-[100svh] max-h-[100svh] items-start overflow-clip p-0`}
+        >
+            <AppBar appData={appData} className={`m-2`} />
+            <LandingPageContent />
+        </PageContainer>
     )
 }

@@ -4,14 +4,11 @@ import {
     PRISMA_GET_INVITATION,
     PRISMA_GET_USER,
 } from "@api/prismaFuncs"
-import AppBar from "@components/AppBar/AppBar"
-import HomeContainer from "./_components/HomeContainer"
-import HomeContent from "./_components/HomeContent"
+import PageContainer from "@app/components/Utility/PageContainer"
 import { auth, currentUser } from "@clerk/nextjs/server"
+import AppBar from "@components/AppBar/AppBar"
+import HomeContent from "./_components/HomeContent"
 
-async function makeBoardWait() {
-    await new Promise((resolve) => setTimeout(resolve, 100000))
-}
 export const metadata = {
     title: "Home | tiertogether",
     description: "The home for all your boards.",
@@ -58,9 +55,9 @@ export default async function Home() {
     }
 
     return (
-        <HomeContainer>
+        <PageContainer>
             <AppBar appData={appData} />
             <HomeContent appData={appData} />
-        </HomeContainer>
+        </PageContainer>
     )
 }

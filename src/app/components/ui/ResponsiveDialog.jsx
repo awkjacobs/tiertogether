@@ -1,6 +1,11 @@
 import { useMediaQuery } from "@app/hooks/use-media-query"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@components/ui/tooltip"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
-import Backdrop from "./backdrop"
 import { Button } from "./button"
 import {
     Dialog,
@@ -22,36 +27,49 @@ import {
 } from "./drawer"
 
 export function ResponsiveDialog({
-    isOpen,
-    setIsOpen,
     title,
     trigger,
-    triggerClasses,
-    component,
-    hideTitle,
-    hideDescription,
-    backdrop,
-    triggerVariant,
     triggerSize,
+    triggerVariant,
+    triggerClasses,
     dialogFit,
     dialogClasses,
-    footer,
+    component,
     description,
+    hideDescription,
+    footer,
+    tooltip,
 }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
     if (isDesktop) {
         return (
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTrigger asChild>
-                    <Button
-                        size={triggerSize}
-                        variant={triggerVariant ? triggerVariant : "ghost"}
-                        className={triggerClasses ? `${triggerClasses}` : ""}
-                    >
-                        {trigger}
-                    </Button>
-                </DialogTrigger>
+            <Dialog>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <DialogTrigger asChild>
+                                <Button
+                                    size={triggerSize}
+                                    variant={
+                                        triggerVariant
+                                            ? triggerVariant
+                                            : "ghost"
+                                    }
+                                    className={
+                                        triggerClasses
+                                            ? `${triggerClasses}`
+                                            : ""
+                                    }
+                                >
+                                    {trigger}
+                                </Button>
+                            </DialogTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent>{tooltip}</TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+
                 <DialogContent
                     onOpenAutoFocus={(event) => {
                         event.preventDefault()
@@ -62,16 +80,8 @@ export function ResponsiveDialog({
                             : "flex max-w-screen-lg flex-col overflow-hidden"
                     } ${dialogClasses}`}
                 >
-                    <DialogHeader
-                        className={backdrop && `min-h-0 overflow-hidden`}
-                    >
-                        {backdrop && <Backdrop backdrop={backdrop} />}
-                        {hideTitle && (
-                            <VisuallyHidden.Root>
-                                <DialogTitle>{title}</DialogTitle>
-                            </VisuallyHidden.Root>
-                        )}
-                        {!hideTitle && <DialogTitle>{title}</DialogTitle>}
+                    <DialogHeader>
+                        <DialogTitle>{title}</DialogTitle>
                         {hideDescription && (
                             <VisuallyHidden.Root>
                                 <DialogDescription>{`${title} Information`}</DialogDescription>
@@ -89,7 +99,7 @@ export function ResponsiveDialog({
     }
     if (!isDesktop) {
         return (
-            <Drawer open={isOpen} onOpenChange={setIsOpen}>
+            <Drawer>
                 <DrawerTrigger asChild>
                     <Button
                         size={triggerSize}
@@ -103,16 +113,7 @@ export function ResponsiveDialog({
                     className={`fixed bottom-0 h-[100svh] max-h-[100svh]`}
                 >
                     <DrawerHeader className="text-left">
-                        {backdrop && (
-                            <Backdrop backdrop={backdrop} mobile={true} />
-                        )}
-
-                        {hideTitle && (
-                            <VisuallyHidden.Root>
-                                <DrawerTitle>{title}</DrawerTitle>
-                            </VisuallyHidden.Root>
-                        )}
-                        {!hideTitle && <DrawerTitle>{title}</DrawerTitle>}
+                        <DrawerTitle>{title}</DrawerTitle>
                         {hideDescription && (
                             <VisuallyHidden.Root>
                                 <DrawerDescription>{`${title} Information`}</DrawerDescription>

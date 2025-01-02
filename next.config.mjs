@@ -1,17 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    // webpack(config) {
-    //     config.resolve.fallback = {
-    //         // if you miss it, all the other options in fallback, specified
-    //         // by next.js will be dropped.
-    //         ...config.resolve.fallback,
-
-    //         fs: false, // the solution
-    //     }
-
-    //     return config
-    // },
     experimental: {
         reactCompiler: true,
     },
@@ -28,18 +17,16 @@ const nextConfig = {
                 protocol: "http",
                 hostname: "image.tmdb.org",
                 port: "",
-                pathname: "**",
+                pathname: "/t/p/**",
             },
             {
                 protocol: "https",
                 hostname: "images.igdb.com",
                 port: "",
-                pathname: "/igdb/image/**",
+                pathname: "/igdb/image/upload/**",
             },
         ],
     },
 }
 
 export default nextConfig
-
-//TODO - revist theo video about patterns

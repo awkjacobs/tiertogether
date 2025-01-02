@@ -1,96 +1,37 @@
 "use client"
 
-import {
-    Check,
-    ClipboardCopy,
-    MailPlus,
-    Plus,
-    Send,
-    Share2,
-} from "lucide-react"
-import { Button } from "../ui/button"
-import INVITE_USER from "@lib/invite"
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@components/ui/alert-dialog"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@components/ui/form"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs"
-
-import { Input } from "@components/ui/input"
-
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { useState, useRef, useContext } from "react"
 import { PRISMA_CREATE_LINK_INVITATION } from "@api/prismaFuncs"
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@components/ui/dialog"
 import { useQuery } from "@tanstack/react-query"
-import { toast } from "sonner"
+import { Check, ClipboardCopy, Send, Share2 } from "lucide-react"
+import { useRef, useState } from "react"
 import QRCode from "react-qr-code"
-
-const formSchema = z.object({
-    emailAddress: z.string().email({
-        message: "Invalid email address",
-    }),
-})
+import { toast } from "sonner"
+import { Button } from "../ui/button"
 
 export default function InviteUserButton({ boardId, boardName, size }) {
-    const [invitedEmail, setInvitedEmail] = useState([])
     const [copied, setCopied] = useState(false)
 
     const ref = useRef()
 
-    const form = useForm({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            emailAddress: "",
-        },
-    })
-
     async function createInviteLink() {
         const invitation = await PRISMA_CREATE_LINK_INVITATION(boardId)
-        const inviteLink = `tiertogether.com/link/${invitation.id}`
+        const inviteLink = `tiertogether.com/invite/${invitation.id}`
 
         return inviteLink
     }
 
     const { data, isLoading, isError, error, isSuccess } = useQuery({
-        queryKey: ["inviteLink"],
+        queryKey: ["inviteLink", boardId],
         queryFn: createInviteLink,
-        staleTime: 60 * 1000,
-        refetchOnMount: true,
     })
-
-    async function onSubmit(values) {
-        form.resetField("emailAddress")
-        let response = await INVITE_USER(values.emailAddress, boardId)
-
-        setInvitedEmail((prev) => {
-            let obj = { address: values.emailAddress, response: response }
-            return [obj, ...prev]
-        })
-    }
-
-    const handleOpenChange = () => {
-        setInvitedEmail([])
-        form.reset()
-    }
 
     const handleCopyToClipboard = () => {
         toast("Copied to clipboard")
@@ -114,8 +55,8 @@ export default function InviteUserButton({ boardId, boardName, size }) {
     }
 
     return (
-        <AlertDialog onOpenChange={handleOpenChange}>
-            <AlertDialogTrigger asChild>
+        <Dialog>
+            <DialogTrigger asChild>
                 <Button
                     size="sm"
                     variant="outline"
@@ -124,18 +65,24 @@ export default function InviteUserButton({ boardId, boardName, size }) {
                     <Send className={`${size !== "icon" && "mr-2"} h-4 w-4`} />
                     {size !== "icon" && "Invite User"}
                 </Button>
-            </AlertDialogTrigger>
+            </DialogTrigger>
 
-            <AlertDialogContent>
-                <AlertDialogHeader className={`text-left`}>
-                    <AlertDialogTitle>
+            <DialogContent>
+                <DialogHeader className={`text-left`}>
+                    <DialogTitle>
                         {`Invite someone to ${boardName ? boardName : "tiertogether"}?`}
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
+                    </DialogTitle>
+                    <DialogDescription>
                         Send this link to someone you know or share the QR code
                         to invite them to join this board.
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
+                        <br />
+                        <br />{" "}
+                        <strong>
+                            This link will expire in 7 days, and will be
+                            regenerated when opening this dialog again.
+                        </strong>
+                    </DialogDescription>
+                </DialogHeader>
                 <div className={`my-4 flex flex-col items-center gap-8`}>
                     <div className={`flex w-full flex-col gap-2`}>
                         <p
@@ -180,23 +127,19 @@ export default function InviteUserButton({ boardId, boardName, size }) {
                         </div>
                     </div>
                     <div className={`h-auto w-48 bg-white p-2`}>
-                        <QRCode
-                            style={{
-                                height: "auto",
-                                maxWidth: "100%",
-                                width: "100%",
-                            }}
-                            value={data}
-                        />
+                        {data && (
+                            <QRCode
+                                style={{
+                                    height: "auto",
+                                    maxWidth: "100%",
+                                    width: "100%",
+                                }}
+                                value={data}
+                            />
+                        )}
                     </div>
                 </div>
-
-                <AlertDialogFooter>
-                    <AlertDialogCancel className={`h-8`}>
-                        Cancel
-                    </AlertDialogCancel>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+            </DialogContent>
+        </Dialog>
     )
 }

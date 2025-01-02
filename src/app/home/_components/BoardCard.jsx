@@ -8,7 +8,7 @@ import "swiper/css"
 import "swiper/css/effect-fade"
 import { Autoplay, EffectFade } from "swiper/modules"
 import Crown from "@app/components/Utility/Crown"
-import { backdropSource } from "@lib/const"
+import { BACKDROP_SOURCE } from "@lib/const"
 import BoardTypeIcon from "@components/Utility/BoardTypeIcons"
 
 export default function BoardCard({ board, appData, index }) {
@@ -18,7 +18,7 @@ export default function BoardCard({ board, appData, index }) {
     const [boardName, setNewBoardName] = useState(board.boardName)
 
     const boardItemsBackdrops = board.items
-        .flatMap((item) => backdropSource(item, item.type))
+        .flatMap((item) => BACKDROP_SOURCE(item, item.id.split("-")[1]))
         .filter((item) => item !== null && item !== undefined)
 
     return (
@@ -74,19 +74,6 @@ export default function BoardCard({ board, appData, index }) {
         </motion.div>
     )
 }
-function randomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min) + min)
-}
-
-function BackgroundColor({ background }) {
-    return (
-        <div
-            className={`${
-                background ? "bg-purple-300" : "bg-purple-500"
-            } absolute z-10 h-full w-full bg-cover bg-blend-luminosity mix-blend-multiply transition-all duration-300`}
-        ></div>
-    )
-}
 function CrossFade({ backgrounds, index }) {
     const swiperIndex = index
 
@@ -120,7 +107,7 @@ function CrossFade({ backgrounds, index }) {
                     >
                         {() => (
                             <Image
-                                src={background}
+                                src={background.fullPath}
                                 fill={true}
                                 sizes="33vw"
                                 priority={true}
@@ -134,19 +121,3 @@ function CrossFade({ backgrounds, index }) {
         </Swiper>
     )
 }
-// function BoardTypeIcon({ type }) {
-//     return (
-//         <>
-//             {type === "movie" && (
-//                 <Clapperboard className={`stroke-purple-200`} />
-//             )}
-//             {type === "tv" && <Tv className={`stroke-purple-200`} />}
-//             {type === "anime" && (
-//                 <AnimeCross className={`h-6 w-6 text-purple-200`} />
-//             )}
-//             {type === "videoGame" && (
-//                 <Gamepad2 className={`h-6 w-6 text-purple-200`} />
-//             )}
-//         </>
-//     )
-// }
