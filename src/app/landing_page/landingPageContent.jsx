@@ -6,6 +6,8 @@ import H3 from "@components/Utility/H3"
 import TextBlock from "@components/Utility/TextBlock"
 import { GRID_TEMP_COLUMNS } from "@lib/const"
 import Image from "next/image"
+import { SignedOut, SignUpButton } from "@clerk/nextjs"
+import { Button } from "@app/components/ui/button"
 
 export default async function LandingPageContent() {
     return (
@@ -43,6 +45,11 @@ export default async function LandingPageContent() {
                             Create a board, add media, and start ranking them
                             with your friends.
                         </p>
+                        <SignedOut>
+                            <Button asChild className={`my-8`}>
+                                <SignUpButton mode="modal" />
+                            </Button>
+                        </SignedOut>
                     </div>
                 </div>
                 <div

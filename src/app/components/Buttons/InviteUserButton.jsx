@@ -2,15 +2,13 @@
 
 import { PRISMA_CREATE_LINK_INVITATION } from "@api/prismaFuncs"
 import {
-    AlertDialog,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@components/ui/alert-dialog"
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@components/ui/dialog"
 import { useQuery } from "@tanstack/react-query"
 import { Check, ClipboardCopy, Send, Share2 } from "lucide-react"
 import { useRef, useState } from "react"
@@ -31,10 +29,8 @@ export default function InviteUserButton({ boardId, boardName, size }) {
     }
 
     const { data, isLoading, isError, error, isSuccess } = useQuery({
-        queryKey: ["inviteLink"],
+        queryKey: ["inviteLink", boardId],
         queryFn: createInviteLink,
-        staleTime: 60 * 1000,
-        refetchOnMount: true,
     })
 
     const handleCopyToClipboard = () => {
@@ -59,8 +55,8 @@ export default function InviteUserButton({ boardId, boardName, size }) {
     }
 
     return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
+        <Dialog>
+            <DialogTrigger asChild>
                 <Button
                     size="sm"
                     variant="outline"
@@ -69,18 +65,24 @@ export default function InviteUserButton({ boardId, boardName, size }) {
                     <Send className={`${size !== "icon" && "mr-2"} h-4 w-4`} />
                     {size !== "icon" && "Invite User"}
                 </Button>
-            </AlertDialogTrigger>
+            </DialogTrigger>
 
-            <AlertDialogContent>
-                <AlertDialogHeader className={`text-left`}>
-                    <AlertDialogTitle>
+            <DialogContent>
+                <DialogHeader className={`text-left`}>
+                    <DialogTitle>
                         {`Invite someone to ${boardName ? boardName : "tiertogether"}?`}
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
+                    </DialogTitle>
+                    <DialogDescription>
                         Send this link to someone you know or share the QR code
                         to invite them to join this board.
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
+                        <br />
+                        <br />{" "}
+                        <strong>
+                            This link will expire in 7 days, and will be
+                            regenerated when opening this dialog again.
+                        </strong>
+                    </DialogDescription>
+                </DialogHeader>
                 <div className={`my-4 flex flex-col items-center gap-8`}>
                     <div className={`flex w-full flex-col gap-2`}>
                         <p
@@ -125,23 +127,19 @@ export default function InviteUserButton({ boardId, boardName, size }) {
                         </div>
                     </div>
                     <div className={`h-auto w-48 bg-white p-2`}>
-                        <QRCode
-                            style={{
-                                height: "auto",
-                                maxWidth: "100%",
-                                width: "100%",
-                            }}
-                            value={data}
-                        />
+                        {data && (
+                            <QRCode
+                                style={{
+                                    height: "auto",
+                                    maxWidth: "100%",
+                                    width: "100%",
+                                }}
+                                value={data}
+                            />
+                        )}
                     </div>
                 </div>
-
-                <AlertDialogFooter>
-                    <AlertDialogCancel className={`h-8`}>
-                        Cancel
-                    </AlertDialogCancel>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+            </DialogContent>
+        </Dialog>
     )
 }

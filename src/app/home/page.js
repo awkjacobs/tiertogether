@@ -1,5 +1,4 @@
 import {
-    PRISMA_COMBINE_ID_TYPE,
     PRISMA_CREATE_NEWUSER_INVITE_NOTIFICATION,
     PRISMA_CREATE_USER,
     PRISMA_GET_INVITATION,
@@ -10,10 +9,6 @@ import { auth, currentUser } from "@clerk/nextjs/server"
 import AppBar from "@components/AppBar/AppBar"
 import HomeContent from "./_components/HomeContent"
 
-import { PrismaClient } from "@prisma/client"
-async function makeBoardWait() {
-    await new Promise((resolve) => setTimeout(resolve, 100000))
-}
 export const metadata = {
     title: "Home | tiertogether",
     description: "The home for all your boards.",

@@ -851,13 +851,13 @@ export async function PRISMA_CREATE_LINK_INVITATION(boardId) {
     let invitation
 
     const existingInvitation = await prisma.invitation.findFirst({
-        where: { boardId: boardId, userId: null },
+        where: { boardId: boardId },
     })
-    let invitationIsStale
 
+    let invitationIsStale = false
     if (existingInvitation) {
         invitationIsStale =
-            existingInvitation.updatedAt.getTime() + 1000 * 60 * 60 * 24 * 7 <
+            existingInvitation.createdAt.getTime() + 1000 * 60 * 60 * 24 * 7 <
             Date.now()
     }
 
@@ -869,6 +869,9 @@ export async function PRISMA_CREATE_LINK_INVITATION(boardId) {
                 id: MAKE_ID(8),
                 boardId: boardId,
             },
+        })
+        await prisma.invitation.delete({
+            where: { id: existingInvitation.id },
         })
     }
 

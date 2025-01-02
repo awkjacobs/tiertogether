@@ -16,7 +16,6 @@ datasource db {
 
 model User {
     id             String         @id @unique
-    email          String?        @unique
     name           String
     boards         Board[]
     ownedBoards    Board[]        @relation("BoardOwner")
@@ -85,7 +84,6 @@ model Notification {
 
 model Invitation {
     id             String        @id
-    userId         String?
     boardId        String
     createdAt      DateTime      @default(now())
     accepted       User[]        @relation("InvitationAccepted")
