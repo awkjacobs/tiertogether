@@ -42,10 +42,11 @@ export default function AlertBanner() {
             saveAlertLocalStorage([alert.data[0].id])
         }
     }
-    if (alert.isLoading) return null
+    // console.log(alert.data[0])
+    if (alert.isLoading || !alert.data[0]) return null
 
     return (
-        <div className={`p-2`} hidden={hidden}>
+        <div className={`col-span-full mb-2`} hidden={hidden}>
             <Alert
                 variant={
                     alert.data[0].type == "warn" ? "destructive" : "default"

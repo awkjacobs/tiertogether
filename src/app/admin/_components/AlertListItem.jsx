@@ -27,8 +27,13 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
+import {
+    PRISMA_ADMIN_UPDATE_ALERT,
+    PRISMA_ADMIN_DELETE_ALERT,
+} from "@api/prismaFuncs"
 
 const formSchema = z.object({
+    id: z.number(),
     title: z.string().min(1, { message: "Alert title is required" }),
     content: z.string().min(1, { message: "Alert content is required" }),
     type: z.string(),
@@ -39,24 +44,33 @@ export default function AlertListItem({ alert }) {
     const form = useForm({
         resolver: zodResolver(formSchema),
         values: {
+            id: alert.id,
             title: alert.title,
             content: alert.content,
             type: alert.type,
             active: alert.active,
         },
     })
-    const onSubmit = async (values) => {
-        console.log(
-            "Dirty Fields:",
-            form.formState.dirtyFields,
-            "type" in form.formState.dirtyFields,
-        )
+    const onSubmit = async (values, event) => {
+        // values.id = alert.id
+        event.preventDefault()
+        await PRISMA_ADMIN_UPDATE_ALERT(values).finally(() => {
+            toast.success("Alert updated successfully")
+        })
+        console.log(values)
+    }
+    const deleteAlert = async (event) => {
+        event.preventDefault()
+
+        await PRISMA_ADMIN_DELETE_ALERT(alert).finally(() => {
+            toast.success("Alert deleted successfully")
+        })
     }
     return (
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="grid w-full grid-cols-[auto_1fr] gap-x-4 rounded bg-zinc-950 p-4"
+                className="relative grid w-full grid-cols-[auto_1fr] gap-x-4 rounded bg-zinc-950 p-4"
             >
                 <div className="col-span-full grid grid-cols-subgrid items-center justify-start space-y-0">
                     <p className="col-start-1 col-end-2 text-sm font-bold opacity-50">
@@ -217,6 +231,15 @@ export default function AlertListItem({ alert }) {
                         </Button>
                     </div>
                 )}
+                <Button
+                    size="sm"
+                    variant="ghost"
+                    type=""
+                    className={`absolute right-2 top-2`}
+                    onClick={deleteAlert}
+                >
+                    Delete
+                </Button>
             </form>
         </Form>
     )
