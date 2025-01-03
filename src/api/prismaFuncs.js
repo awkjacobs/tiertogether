@@ -1,16 +1,14 @@
 "use server"
 
-import { PrismaClient } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs/server"
 import { clerkClient } from "@clerk/nextjs/server"
 import { MAKE_ID } from "@lib/utils"
 import { QueryClient } from "@tanstack/react-query"
 import { serverAverage } from "@lib/serverFuncs"
+import prisma from "../db"
 
 const queryClient = new QueryClient()
-
-const prisma = new PrismaClient()
 
 // * ================================
 // * ============ BOARDS ============

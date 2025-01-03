@@ -5,6 +5,5 @@ export const useGetServerAverages = (boardId) => {
     return useQuery({
         queryKey: ["averages", boardId],
         queryFn: () => serverAverage(boardId),
-        refetchInterval: 5 * 1000,
     })
 }
