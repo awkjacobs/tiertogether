@@ -5,7 +5,7 @@ import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import MissingPoster from "@components/Utility/MissingPoster"
 import { ITEM_ID_TYPE, POSTER_SOURCE } from "@lib/const"
 
-export default function Poster({ itemId, width, height, className }) {
+export default function Poster({ itemId, className }) {
     const { id, type } = ITEM_ID_TYPE(itemId)
     const details = useGetDetailsQuery(id, type)
 
@@ -16,12 +16,12 @@ export default function Poster({ itemId, width, height, className }) {
         return (
             <Image
                 src={POSTER_SOURCE(details.data, type)}
-                width={width}
-                height={height}
+                width={170}
+                height={256}
                 alt={`${
                     details.data.name ? details.data.name : details.data.title
                 } Poster`}
-                className={cn(`h-auto w-auto rounded`, className)}
+                className={cn(`relative h-auto w-auto rounded`, className)}
             />
         )
     if (

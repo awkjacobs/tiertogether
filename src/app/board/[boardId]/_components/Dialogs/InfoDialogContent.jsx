@@ -17,10 +17,8 @@ export default function InfoDialogContent({ item }) {
         return (
             <div className="relative grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto_1fr] gap-8 overflow-clip">
                 <Poster
-                    className={`row-start-1 row-end-3 max-h-64 w-max justify-self-center object-contain shadow-lg`}
+                    className={`row-start-1 row-end-3 h-[256px] max-h-64 w-max justify-self-center object-contain shadow-lg`}
                     itemId={`${itemId}-${itemType}`}
-                    height={256}
-                    width={170}
                 />
                 <div
                     className={`flex items-center md:col-start-2 md:col-end-3 md:h-44`}

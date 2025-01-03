@@ -19,11 +19,6 @@ import { TierContainer } from "../Tierlist/TierContainer"
 import BoardBar from "./BoardBar"
 import { move } from "./functions/react-dndFuncs"
 import sortItems from "./functions/sortItems"
-import {
-    ResizableHandle,
-    ResizablePanel,
-    ResizablePanelGroup,
-} from "@components/ui/resizable"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData

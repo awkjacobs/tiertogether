@@ -14,6 +14,7 @@ import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
 import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
+
 const size = {
     null: "h-20 md:h-24",
     1: "h-20 md:h-24",
@@ -55,23 +56,6 @@ export function Card({
         userId: appData.user.id,
     }
 
-    const width = () => {
-        if (isDesktop && urlCardSize === "2") return 80
-        else if (isDesktop && urlCardSize === "3") return 96
-        else if (!isDesktop && urlCardSize === "2") return 64
-        else if (!isDesktop && urlCardSize === "3") return 80
-        else if (isDesktop) return 76
-        else if (!isDesktop) return 40
-    }
-    const height = () => {
-        if (isDesktop && urlCardSize === "2") return 112
-        else if (isDesktop && urlCardSize === "3") return 128
-        else if (!isDesktop && urlCardSize === "2") return 96
-        else if (!isDesktop && urlCardSize === "3") return 112
-        else if (isDesktop) return 96
-        else if (!isDesktop) return 60
-    }
-
     const handleSelect = () => {
         setDialogIsOpen(true)
         setSelectedItem(item.id)
@@ -90,12 +74,7 @@ export function Card({
                           : "opacity-100"
                 }`}
             >
-                <Poster
-                    className={`${size[urlCardSize]}`}
-                    itemId={item.id}
-                    width={width()}
-                    height={height()}
-                />
+                <Poster className={`${size[urlCardSize]}`} itemId={item.id} />
             </li>
         )
 
@@ -119,8 +98,6 @@ export function Card({
                                 <Poster
                                     className={`${size[urlCardSize]}`}
                                     itemId={item.id}
-                                    width={width()}
-                                    height={height()}
                                 />
                                 {children}
                             </li>
@@ -172,8 +149,6 @@ export function Card({
                     <Poster
                         className={`${size[urlCardSize]}`}
                         itemId={item.id}
-                        width={width()}
-                        height={height()}
                     />
                 </li>
             </ItemRankContext.Provider>

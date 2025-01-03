@@ -29,8 +29,6 @@ export default function InfoCard({ item, itemType, size, searchOrCollection }) {
                         <Poster
                             className={`${searchOrCollection == "search" && "h-24 md:h-60"} ${searchOrCollection == "collection" && "h-28 transition-all md:hover:scale-105 md:hover:shadow-purple-200/50"} w-auto justify-self-center shadow-lg`}
                             itemId={`${item.id}-${itemType}`}
-                            height={size.height}
-                            width={size.width}
                         />
                     </li>
                 </TooltipTrigger>

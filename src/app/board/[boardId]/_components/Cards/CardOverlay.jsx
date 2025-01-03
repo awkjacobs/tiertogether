@@ -1,5 +1,4 @@
 import { useMediaQuery } from "@app/hooks/use-media-query"
-import { motion } from "motion/react"
 import Poster from "./Card Components/Poster"
 import { useSearchParams } from "next/navigation"
 
@@ -11,40 +10,14 @@ const size = {
 }
 
 export function CardOverlay({ item }) {
-    const isDesktop = useMediaQuery("(min-width: 768px)")
-
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
 
-    const width = () => {
-        if (isDesktop && urlCardSize === "2") return 80
-        else if (isDesktop && urlCardSize === "3") return 96
-        else if (!isDesktop && urlCardSize === "2") return 64
-        else if (!isDesktop && urlCardSize === "3") return 80
-        else if (isDesktop) return 64
-        else if (!isDesktop) return 40
-    }
-    const height = () => {
-        if (isDesktop && urlCardSize === "2") return 112
-        else if (isDesktop && urlCardSize === "3") return 128
-        else if (!isDesktop && urlCardSize === "2") return 96
-        else if (!isDesktop && urlCardSize === "3") return 112
-        else if (isDesktop) return 96
-        else if (!isDesktop) return 60
-    }
-
     return (
-        <motion.div
+        <div
             className={`${size[urlCardSize]} relative block aspect-[2/3] rounded shadow-[4px_8px_30px_-10px_rgba(0,0,0,1)]`}
-            initial={{ scale: 1, rotate: 0 }}
-            animate={{ scale: 1.25, rotate: 10 }}
         >
-            <Poster
-                itemId={item.id}
-                itemType={item.type}
-                width={width()}
-                height={height()}
-            />
-        </motion.div>
+            <Poster itemId={item.id} itemType={item.type} />
+        </div>
     )
 }
