@@ -928,14 +928,25 @@ export async function PRISMA_DECLINE_INVITATION(invitationId, notificationId) {
 // * ================================
 export async function PRISMA_GET_ALERTS() {
     return await prisma.alert.findMany({
+        where: {
+            active: true,
+        },
         orderBy: {
             updatedAt: "desc",
         },
         take: 1,
     })
 }
-export async function PRISMA_CREATE_ALERT(alert) {
-    return await prisma.alert.create({
+export async function PRISMA_ADMIN_GET_ALERTS() {
+    return await prisma.alert.findMany({
+        orderBy: {
+            updatedAt: "desc",
+        },
+    })
+}
+
+export async function PRISMA_ADMIN_CREATE_ALERT(alert) {
+    const newAlert = await prisma.alert.create({
         data: {
             type: alert.type,
             title: alert.title,
@@ -943,9 +954,17 @@ export async function PRISMA_CREATE_ALERT(alert) {
             active: alert.active,
         },
     })
+    if (alert.active) {
+        await prisma.alert.updateMany({
+            where: { active: true, id: { not: newAlert.id } },
+            data: { active: false },
+        })
+    }
+
+    revalidatePath("/*", "page")
 }
-export async function PRISMA_UPDATE_ALERT(alert) {
-    return await prisma.alert.update({
+export async function PRISMA_ADMIN_UPDATE_ALERT(alert) {
+    await prisma.alert.update({
         where: {
             id: alert.id,
         },
@@ -956,4 +975,19 @@ export async function PRISMA_UPDATE_ALERT(alert) {
             active: alert.active,
         },
     })
+    if (alert.active) {
+        await prisma.alert.updateMany({
+            where: { active: true, id: { not: alert.id } },
+            data: { active: false },
+        })
+    }
+    revalidatePath("/*", "page")
+}
+export async function PRISMA_ADMIN_DELETE_ALERT(alert) {
+    await prisma.alert.delete({
+        where: {
+            id: alert.id,
+        },
+    })
+    revalidatePath("/*", "page")
 }

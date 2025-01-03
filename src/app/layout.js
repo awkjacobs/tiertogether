@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
                             enableSystem
                             disableTransitionOnChange
                         >
-                            <AlertBanner />
+                            {/* <AlertBanner /> */}
                             <NuqsAdapter>{children}</NuqsAdapter>
                             <Toaster />
                         </ThemeProvider>

@@ -7,11 +7,6 @@
 - [ ] figure out the branch protection stuff on GitHub
 - [ ] figure out open source stuff
 
-- [ ] Create Admin Page
-
-    - [ ] add admin page
-    - [ ] add admin role
-
 - [ ] Add Dialog
 
     - [x] add pagination
@@ -94,6 +89,11 @@
 - [x] fix rank chart names
 - [x] double check the new user dialog
 - [x] check invite expiration
+
+- [x] Create Admin Page
+
+    - [x] add admin page
+    - [x] add admin role
 
 ## Roadmap
 
