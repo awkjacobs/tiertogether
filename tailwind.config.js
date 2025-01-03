@@ -37,6 +37,8 @@ module.exports = {
             colors: {
                 surface: colors.zinc,
                 backdrop: {
+                    100: "#f1e3ff",
+                    200: "#dfcef0",
                     800: "#11081e",
                     900: "#0a0014",
                 },
@@ -44,6 +46,12 @@ module.exports = {
             fontSize: {
                 tierClamp: "clamp(1rem, 1vw + 1rem, 2rem)",
                 tierClampSmall: "clamp(0.5rem, 1.5vw, 0.8rem)",
+            },
+            backgroundImage: {
+                "light-texture":
+                    "radial-gradient(transparent 1px,rgb(228 228 231) 1px)",
+                "dark-texture":
+                    "radial-gradient(transparent 1px, rgb(9 9 11) 1px)",
             },
         },
     },

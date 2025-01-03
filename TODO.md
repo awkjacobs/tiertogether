@@ -2,8 +2,7 @@
 
 ### TODO
 
-- [ ] add prisma sorting and filtering and remove from app comps
-- [ ] create actual README file
+- [ ] elaborate on README file
 - [ ] figure out the branch protection stuff on GitHub
 - [ ] figure out open source stuff
 
@@ -94,6 +93,8 @@
 
     - [x] add admin page
     - [x] add admin role
+
+- [x] add prisma sorting and filtering and remove from app comps
 
 ## Roadmap
 

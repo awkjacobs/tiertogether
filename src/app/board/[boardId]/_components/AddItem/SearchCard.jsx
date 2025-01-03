@@ -12,7 +12,7 @@ import { z } from "zod"
 import { Button } from "../../../../components/ui/button"
 import InfoCard from "../Cards/InfoCard"
 import ItemBadges from "../ItemDetails/ItemBadges"
-import Overview from "./Overview"
+import Details from "./Overview"
 import SearchCardContainer from "./SearchCardContainer"
 import { SearchLogo } from "./SearchLogo"
 
@@ -125,7 +125,7 @@ export default function SearchCard({ item, board, queryType, style }) {
                             <ItemBadges item={item} type={item.type} />
                         </div>
                     )}
-                    <Overview item={item} />
+                    <Details item={item} />
                 </div>
             </div>
         </SearchCardContainer>

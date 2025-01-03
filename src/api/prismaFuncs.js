@@ -656,6 +656,9 @@ export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
                 isNot: null,
             },
         },
+        orderBy: {
+            createdAt: "desc",
+        },
         include: {
             User: true,
             Board: true,
@@ -674,6 +677,9 @@ export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
                 is: null,
             },
         },
+        orderBy: {
+            createdAt: "desc",
+        },
         include: {
             User: true,
             viewed: true,
@@ -681,21 +687,6 @@ export async function PRISMA_GET_ALL_NOTIFICATIONS(boardIdArray) {
         },
     })
     return await prisma.$transaction([invites, boardNotifications])
-}
-
-export async function PRISMA_GET_USER_INVITES(userID) {
-    return await prisma.notification.findMany({
-        where: {
-            userId: userID,
-        },
-        include: {
-            User: true,
-            Board: true,
-            Invitation: {
-                include: { accepted: true, declined: true },
-            },
-        },
-    })
 }
 
 export async function PRISMA_VIEW_NOTIFICATION(id) {

@@ -14,7 +14,6 @@ import {
 } from "@components/ui/alert-dialog"
 import { Form } from "@components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { DIALOG_BUTTON_STYLE } from "@lib/const"
 import { LoaderCircle, Minus } from "lucide-react"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
@@ -45,6 +44,10 @@ export default function RemoveItemButton({ item, name, disabled, isDialog }) {
                 },
             })
         })
+    }
+    const DIALOG_BUTTON_STYLE = {
+        true: `col-start-1 mx-auto flex flex-row items-center place-self-end transition-colors hover:bg-rose-600 md:col-end-4 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-rose-600`,
+        false: `absolute right-1 top-1 z-50 h-8 w-8 rounded border border-solid border-zinc-700 bg-zinc-200/50 transition-colors hover:text-zinc-100 hover:bg-rose-600 md:left-2 md:top-2 md:h-10 md:w-10 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-100 text-zinc-700 dark:hover:bg-rose-600`,
     }
 
     return (

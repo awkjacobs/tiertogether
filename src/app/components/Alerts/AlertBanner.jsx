@@ -42,7 +42,7 @@ export default function AlertBanner() {
             saveAlertLocalStorage([alert.data[0].id])
         }
     }
-    // console.log(alert.data[0])
+
     if (alert.isLoading || !alert.data[0]) return null
 
     return (

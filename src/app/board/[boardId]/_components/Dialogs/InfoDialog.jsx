@@ -67,7 +67,8 @@ export default function InfoDialog({ isOpen, setIsOpen }) {
                             <DialogTitle>{name}</DialogTitle>
                             <DialogDescription>{`${name} Information`}</DialogDescription>
                         </VisuallyHidden.Root>
-                        {backdrop && <Backdrop backdrop={backdrop} />}
+                        {/* {backdrop && <Backdrop backdrop={backdrop} />} */}
+                        <Backdrop backdrop={backdrop} />
                         <InfoDialogContent item={item} />
                         <DialogFooter className={`md:justify-center`}>
                             <ItemAddRemoveButton

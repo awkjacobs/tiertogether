@@ -52,12 +52,11 @@ export default function AlertListItem({ alert }) {
         },
     })
     const onSubmit = async (values, event) => {
-        // values.id = alert.id
         event.preventDefault()
+
         await PRISMA_ADMIN_UPDATE_ALERT(values).finally(() => {
             toast.success("Alert updated successfully")
         })
-        console.log(values)
     }
     const deleteAlert = async (event) => {
         event.preventDefault()

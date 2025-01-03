@@ -17,7 +17,6 @@ export function Tier(props) {
     const entries = props.entries ? props.entries : []
 
     let style
-    let tooltip
     switch (props.tier) {
         case "sRank":
             style = "sRank rounded-tl-lg"
@@ -50,7 +49,7 @@ export function Tier(props) {
             className={`flex min-h-[4.75rem] overflow-hidden shadow-inner first:rounded-t-lg last:rounded-b-lg md:min-h-[7rem] ${
                 isOver
                     ? "bg-purple-400/25"
-                    : "bg-surface-200 dark:bg-surface-900"
+                    : "bg-surface-300 dark:bg-surface-900"
             }`}
         >
             <div
@@ -75,7 +74,6 @@ export function Tier(props) {
                     >
                         {entries &&
                             entries.map((item, index) => {
-                                // if (!item) return
                                 return (
                                     <Draggable
                                         id={item.id}

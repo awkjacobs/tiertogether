@@ -21,8 +21,8 @@ export default function DotsBackground({ className }) {
             <div className="box op30 xl anim1 pos15"></div>
             <div className="box op90 lg anim5 pos16"></div>
 
-            <div className="gap left-1/2 top-1/2 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/2 bg-black md:h-[60rem] md:w-[60rem]"></div>
-            <div className="texture"></div>
+            <div className="gap left-1/2 top-1/2 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/2 bg-zinc-100 md:h-[60rem] md:w-[60rem] dark:bg-black"></div>
+            <div className="texture bg-light-texture dark:bg-dark-texture"></div>
         </div>
     )
 }

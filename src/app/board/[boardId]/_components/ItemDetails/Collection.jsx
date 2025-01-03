@@ -10,7 +10,7 @@ export default function Collection({ collection }) {
     if (items.error) return <div className={`h-48 w-full`}>error.message</div>
     return (
         <div
-            className={`relative mt-4 flex min-h-48 w-full flex-col justify-center gap-2 rounded-md p-4`}
+            className={`relative mt-4 flex min-h-48 w-full flex-col justify-center gap-2 overflow-hidden rounded-md p-4`}
         >
             <Backdrop
                 backdrop={{
@@ -18,7 +18,9 @@ export default function Collection({ collection }) {
                 }}
                 fill={true}
             />
-            <h3 className="text-center text-lg font-bold">{collection.name}</h3>
+            <h3 className="text-center text-lg font-bold text-zinc-100">
+                {collection.name}
+            </h3>
 
             <div className="flex flex-row flex-wrap justify-center gap-2">
                 {items.data?.parts.map((part) => (

@@ -14,7 +14,6 @@ import { useContext, useEffect } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
-// TODO - change mobile formating, maybe just poster
 
 export default function SwiperCard(props) {
     const {
@@ -55,7 +54,7 @@ export default function SwiperCard(props) {
             <div
                 className={`relative flex h-[120px] flex-row rounded-md md:h-60`}
             >
-                <Backdrop backdrop={backdrop} fill={true} swiper={true} />
+                <Backdrop backdrop={backdrop} fill={true} />
                 {isActive && queueIsOpen && (
                     <ItemAddRemoveButton
                         item={item}

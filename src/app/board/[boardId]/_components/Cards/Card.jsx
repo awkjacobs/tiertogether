@@ -13,7 +13,7 @@ import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
 import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
-import { ITEM_ID_TYPE } from "@lib/const"
+import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
 const size = {
     null: "h-20 md:h-24",
     1: "h-20 md:h-24",
@@ -139,7 +139,7 @@ export function Card({
                                     )}
                                     {userEntries !== "overall" && (
                                         <RankGroup
-                                            rank={comparedRank(
+                                            rank={COMPARED_RANK(
                                                 item,
                                                 appData,
                                                 userEntries,

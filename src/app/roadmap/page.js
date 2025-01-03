@@ -51,6 +51,7 @@ export default async function RoadmapPage() {
                             <li>Add more search options</li>
                             <li>Add board description</li>
                             <li>Add comments</li>
+                            <li>Add user pages and profiles</li>
                         </ul>
                     </TextBlock>
                 </div>

@@ -9,10 +9,8 @@ export default function Franchise({ franchise }) {
     if (items.isLoading) return <Skeleton className={`h-48 w-full`} />
     return (
         <div
-            className={`relative flex h-auto min-h-48 w-full flex-1 flex-col justify-center gap-2 rounded-md p-4`}
+            className={`relative flex h-auto min-h-48 w-full flex-1 flex-col justify-center gap-2 rounded-md bg-zinc-200 p-4 dark:bg-zinc-900`}
         >
-            <Backdrop backdrop={null} fill={true} />
-
             <h3 className="text-center text-lg font-bold">
                 {franchise.name} Franchise Games
             </h3>

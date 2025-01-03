@@ -52,7 +52,6 @@ export default function MyForm() {
     })
 
     const onSubmit = async (values) => {
-        console.log(values)
         await PRISMA_ADMIN_CREATE_ALERT(values).finally(() => {
             toast.success("Alert created successfully")
         })

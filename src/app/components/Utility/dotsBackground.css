@@ -131,14 +131,7 @@
 }
 .texture {
     background-color: transparent;
-    background-image: radial-gradient(
-        transparent 1px,
-        rgb(9 9 11 / var(--tw-bg-opacity, 1)) 1px
-    );
     background-size: 0.75rem 0.75rem;
-    /* @media (max-width: 768px) {
-        background-size: 0.5rem 0.5rem;
-    } */
     opacity: 1;
     align-content: flex-start;
     align-items: flex-start;

@@ -12,13 +12,7 @@ export function TierContainer(props) {
     const showServerRanks = userEntries === "overall"
 
     return (
-        <section
-            className={`flex w-full flex-col gap-2 self-start md:gap-4 ${
-                showServerRanks
-                    ? "rounded-lg border-2 border-emerald-500"
-                    : "border-2 border-transparent"
-            }`}
-        >
+        <section className={`flex w-full flex-col gap-2 self-start md:gap-4`}>
             {board.bleachers && (
                 <div>
                     <Tier

@@ -64,7 +64,10 @@ export default function BoardBar({ setUserEntries }) {
             <div
                 className={`col-start-1 row-start-1 flex flex-1 flex-row items-center gap-2 md:gap-4`}
             >
-                <BoardTypeIcon type={appData.board.type} />
+                <BoardTypeIcon
+                    type={appData.board.type}
+                    className={`text-purple-700 dark:text-purple-200`}
+                />
                 <h1
                     className={`text-base font-bold text-purple-700 md:text-2xl dark:text-purple-200`}
                 >
@@ -76,7 +79,7 @@ export default function BoardBar({ setUserEntries }) {
             >
                 <TooltipProvider>
                     <div
-                        className={`flex flex-row divide-x divide-zinc-800 rounded-md border border-zinc-800`}
+                        className={`flex flex-row divide-x divide-zinc-300 rounded-md border border-zinc-300 dark:divide-zinc-800 dark:border-zinc-800`}
                     >
                         <Tooltip>
                             <TooltipTrigger asChild>

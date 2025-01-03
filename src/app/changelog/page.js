@@ -56,18 +56,7 @@ export default async function ChangelogPage() {
                         <H2>Changlog</H2>
                         <p>
                             All notable changes to this project will be
-                            documented in this file. The format is based on{" "}
-                            <TextLink
-                                href="http://keepachangelog.com/"
-                                newTab="true"
-                            >
-                                Keep a Changelog
-                            </TextLink>{" "}
-                            and this project adheres to{" "}
-                            <TextLink href="http://semver.org/" newTab="true">
-                                Semantic Versioning
-                            </TextLink>
-                            .
+                            documented on this page.
                         </p>
                         <div className="divide-y divide-purple-500 pt-4">
                             {changelog.map((changelogItem, index) => (
