@@ -141,7 +141,7 @@ export default function SwiperCard(props) {
                     <>
                         <div className={`flex-1`} />
                         <div
-                            className={`relative grid grid-cols-[auto_1fr] gap-1 rounded bg-surface-900/60 p-2 text-xs text-purple-50`}
+                            className={`relative grid grid-cols-[auto_1fr] gap-1 rounded bg-zinc-900/60 p-2 text-xs text-purple-50`}
                         >
                             <Skeleton
                                 className={`col-start-1 col-end-3 grid h-4 grid-cols-subgrid`}

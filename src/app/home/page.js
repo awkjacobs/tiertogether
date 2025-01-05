@@ -55,7 +55,7 @@ export default async function Home() {
     }
 
     return (
-        <PageContainer>
+        <PageContainer appData={appData}>
             <AppBar appData={appData} />
             <HomeContent appData={appData} />
         </PageContainer>

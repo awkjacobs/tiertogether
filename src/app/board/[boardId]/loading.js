@@ -7,7 +7,7 @@ export default function BoardLoading() {
         <PageContainer>
             {/* app bar */}
             <header
-                className={`sticky z-10 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
+                className={`sticky z-10 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-zinc-400 bg-zinc-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-zinc-900 dark:bg-zinc-900`}
             >
                 <div
                     className={`col-span-full flex items-center justify-between`}

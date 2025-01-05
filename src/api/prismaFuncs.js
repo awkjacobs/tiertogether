@@ -406,8 +406,10 @@ export async function PRISMA_CREATE_USER(id, name) {
     })
 }
 export async function PRISMA_GET_USER(id) {
+    const { userId } = await auth()
+
     return await prisma.user.findFirst({
-        where: { id: id },
+        where: { id: userId },
         include: {
             boards: {
                 include: {

@@ -35,7 +35,7 @@ function Rank({ value }) {
 
     return (
         <div
-            className={`flex h-6 min-w-6 items-center justify-center whitespace-nowrap rounded bg-surface-100 px-2 dark:bg-surface-800`}
+            className={`flex h-6 min-w-6 items-center justify-center whitespace-nowrap rounded bg-zinc-100 px-2 dark:bg-zinc-800`}
         >
             <p>{convertRank(value, appData)}</p>
         </div>

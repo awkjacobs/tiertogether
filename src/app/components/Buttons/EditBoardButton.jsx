@@ -1,3 +1,4 @@
+"use client"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Button } from "@components/ui/button"
 import {

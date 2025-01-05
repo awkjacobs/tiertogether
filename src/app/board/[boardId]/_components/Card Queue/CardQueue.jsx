@@ -46,9 +46,7 @@ export default function CardQueue(props) {
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
             ref={setNodeRef}
             className={`z-50 col-start-3 col-end-4 row-start-2 row-end-3 self-end ${
-                isOver
-                    ? "bg-purple-400/25"
-                    : "bg-surface-200 dark:bg-surface-900"
+                isOver ? "bg-purple-400/25" : "bg-zinc-200 dark:bg-zinc-900"
             } bottom-0 flex flex-row justify-center rounded-t-md p-2 shadow-[0px_-14px_34px_-20px_rgba(0,0,0,0.8)] md:p-4`}
         >
             <OpenCloseQueueButton

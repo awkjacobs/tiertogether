@@ -25,7 +25,7 @@ export default function SearchBox({
             <Input
                 autoFocus
                 type="search"
-                className={`my-2 h-14 w-full border-2 border-surface-300 bg-surface-100 p-2 pl-28 text-black focus-within:border-surface-200 focus-visible:border-surface-200 focus-visible:outline-offset-0 md:h-14 md:p-4 md:pl-28 dark:border-surface-800 dark:bg-surface-900 dark:text-white`}
+                className={`my-2 h-14 w-full border-2 border-zinc-300 bg-zinc-100 p-2 pl-28 text-black focus-within:border-zinc-200 focus-visible:border-zinc-200 focus-visible:outline-offset-0 md:h-14 md:p-4 md:pl-28 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white`}
                 placeholder={"Search by " + queryType}
                 onChange={onChangeSearch}
                 value={debouncedTerm}

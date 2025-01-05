@@ -5,7 +5,7 @@ import {
     HydrationBoundary,
     QueryClient,
 } from "@tanstack/react-query"
-import { House, SquareCode } from "lucide-react"
+import { House, LucideMenu, SquareCode } from "lucide-react"
 import Link from "next/link"
 import { Button } from "../ui/button"
 import SideDrawer from "./_components/Drawer/Drawer Components/SideDrawer"
@@ -21,6 +21,7 @@ import {
     TooltipProvider,
 } from "@components/ui/tooltip"
 import AlertBanner from "../Alerts/AlertBanner"
+import { SidebarTrigger } from "../ui/sidebar"
 
 export default async function AppBar({ appData, className }) {
     return (
@@ -32,7 +33,7 @@ export default async function AppBar({ appData, className }) {
         >
             <AlertBanner />
             <div
-                className={`col-span-full flex h-10 items-center justify-between rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
+                className={`col-span-full flex h-10 items-center justify-between rounded border-b border-zinc-400 bg-zinc-200 shadow-xl drop-shadow-xl dark:border-zinc-900 dark:bg-zinc-900`}
             >
                 <LogoButton />
                 <SignedIn>
@@ -88,7 +89,7 @@ async function SignedInContent({ appData }) {
                         </Link>
                     </Button>
                 )}
-                <SideDrawer appData={appData} />
+                <SidebarTrigger className={`h-10 w-10`} />
             </TooltipProvider>
         </div>
     )

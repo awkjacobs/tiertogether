@@ -47,9 +47,7 @@ export function Tier(props) {
     return (
         <section
             className={`flex min-h-[4.75rem] overflow-hidden shadow-inner first:rounded-t-lg last:rounded-b-lg md:min-h-[7rem] ${
-                isOver
-                    ? "bg-purple-400/25"
-                    : "bg-surface-300 dark:bg-surface-900"
+                isOver ? "bg-purple-400/25" : "bg-zinc-300 dark:bg-zinc-900"
             }`}
         >
             <div

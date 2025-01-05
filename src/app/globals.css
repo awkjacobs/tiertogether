@@ -31,15 +31,15 @@
     --purple800: 88 28 135;
     --purple900: 59 7 100;
 
-    --surface100: 156 148 161;
-    --surface200: 132 122 139;
-    --surface300: 110 98 118;
-    --surface400: 88 75 97;
-    --surface500: 66 53 76;
-    --surface600: 46 32 57;
-    --surface700: 32 25 47;
-    --surface800: 17 8 30;
-    --surface900: 10 0 20;
+    --zinc100: 156 148 161;
+    --zinc200: 132 122 139;
+    --zinc300: 110 98 118;
+    --zinc400: 88 75 97;
+    --zinc500: 66 53 76;
+    --zinc600: 46 32 57;
+    --zinc700: 32 25 47;
+    --zinc800: 17 8 30;
+    --zinc900: 10 0 20;
 
     --purple900rgba: 10, 0, 20;
 
@@ -213,7 +213,7 @@ p > a {
     border-radius: 18px;
     font-size: 22px;
     font-weight: bold;
-    border: 1px solid rgb(var(--surface500));
+    border: 1px solid rgb(var(--zinc500));
     border-radius: 5px;
 }
 ::-webkit-scrollbar {
@@ -240,5 +240,28 @@ p > a {
 @media (max-width: 700px) {
     ::-webkit-scrollbar {
         width: 0px;
+    }
+}
+
+@layer base {
+    :root {
+        --sidebar-background: 0 0% 98%;
+        --sidebar-foreground: 240 5.3% 26.1%;
+        --sidebar-primary: 240 5.9% 10%;
+        --sidebar-primary-foreground: 0 0% 98%;
+        --sidebar-accent: 240 4.8% 95.9%;
+        --sidebar-accent-foreground: 240 5.9% 10%;
+        --sidebar-border: 220 13% 91%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
+    }
+    .dark {
+        --sidebar-background: 240 5.9% 10%;
+        --sidebar-foreground: 240 4.8% 95.9%;
+        --sidebar-primary: 224.3 76.3% 48%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 240 3.7% 15.9%;
+        --sidebar-accent-foreground: 240 4.8% 95.9%;
+        --sidebar-border: 240 3.7% 15.9%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
     }
 }

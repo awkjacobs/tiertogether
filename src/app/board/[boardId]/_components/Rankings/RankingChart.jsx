@@ -23,7 +23,7 @@ export default function RankChart({ ranks }) {
     if (scores.length > 0)
         return (
             <div
-                className={`flex h-6 min-w-6 items-center justify-center overflow-clip rounded bg-surface-300 dark:bg-surface-800`}
+                className={`flex h-6 min-w-6 items-center justify-center overflow-clip rounded bg-zinc-300 dark:bg-zinc-800`}
             >
                 {scores.map((scoreGroup, index) => (
                     <ResponsiveTooltip

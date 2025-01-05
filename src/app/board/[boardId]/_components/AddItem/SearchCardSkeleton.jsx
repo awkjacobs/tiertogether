@@ -5,7 +5,7 @@ export default function SearchCardSkeleton() {
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
     return (
-        <div className={`relative w-full rounded-md bg-surface-900 shadow-md`}>
+        <div className={`relative w-full rounded-md bg-zinc-900 shadow-md`}>
             <div className={`flex h-24 flex-row rounded-md md:h-60`}>
                 <Skeleton
                     className={

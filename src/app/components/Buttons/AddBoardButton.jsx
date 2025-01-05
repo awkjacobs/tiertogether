@@ -1,3 +1,5 @@
+"use client"
+
 import { PRISMA_CREATE_NEW_BOARD } from "@api/prismaFuncs"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Button } from "@components/ui/button"
@@ -85,7 +87,7 @@ export default function AddBoardButton({ appData }) {
     })
 
     const onSubmit = async (values) => {
-        values.ownerId = appData.user.id
+        values.ownerId = appData?.user.id
 
         await PRISMA_CREATE_NEW_BOARD(values).finally(() => {
             toast(`${values.boardName} has been created`)

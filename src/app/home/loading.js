@@ -7,7 +7,7 @@ export default function HomeLoading() {
         <PageContainer>
             {/* app bar */}
             <header
-                className={`sticky top-0 z-10 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
+                className={`sticky top-0 z-10 col-span-full row-start-1 row-end-2 grid h-10 w-svw grid-cols-subgrid grid-rows-subgrid justify-center rounded border-b border-zinc-400 bg-zinc-200 shadow-xl drop-shadow-2xl md:h-12 dark:border-zinc-900 dark:bg-zinc-900`}
             >
                 <div
                     className={`col-span-full flex items-center justify-between`}
@@ -38,7 +38,7 @@ export default function HomeLoading() {
                     </div>
                 </div>
                 <div
-                    className={`mb-4 flex flex-wrap gap-4 overflow-visible rounded bg-surface-300 p-4 md:p-8 dark:bg-surface-900`}
+                    className={`mb-4 flex flex-wrap gap-4 overflow-visible rounded bg-zinc-300 p-4 md:p-8 dark:bg-zinc-900`}
                 >
                     <Skeleton
                         className={`relative flex h-48 min-w-60 flex-1 overflow-hidden rounded-md shadow-lg drop-shadow-lg`}

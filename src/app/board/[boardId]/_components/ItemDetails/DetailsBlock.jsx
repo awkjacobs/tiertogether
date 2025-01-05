@@ -17,7 +17,7 @@ export default function DetailsBlock() {
     return (
         <div
             className={
-                "grid grid-cols-[auto_1fr] gap-2 rounded-md bg-surface-300/60 p-2 text-xs dark:bg-surface-800/60"
+                "grid grid-cols-[auto_1fr] gap-2 rounded-md bg-zinc-300/60 p-2 text-xs dark:bg-zinc-800/60"
             }
         >
             {credits.isLoading && (

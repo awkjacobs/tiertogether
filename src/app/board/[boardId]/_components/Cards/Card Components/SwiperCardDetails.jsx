@@ -15,7 +15,7 @@ export function SwiperCardDetails({ item }) {
 
     return (
         <div
-            className={`grid grid-cols-[auto_1fr] gap-1 rounded bg-surface-900/60 p-2 text-xs text-purple-50`}
+            className={`grid grid-cols-[auto_1fr] gap-1 rounded bg-zinc-900/60 p-2 text-xs text-purple-50`}
         >
             {date && (
                 <SwiperCardDetailsGroup

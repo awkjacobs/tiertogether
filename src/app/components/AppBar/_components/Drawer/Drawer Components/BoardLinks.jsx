@@ -1,3 +1,5 @@
+"use client"
+
 import Crown from "@components/Utility/Crown"
 import Link from "next/link"
 import { useState } from "react"

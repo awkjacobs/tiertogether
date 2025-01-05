@@ -10,8 +10,8 @@ export default function SearchCardContainer({
     const appTheme = useTheme()
     const bgImage =
         appTheme.theme === "dark"
-            ? `linear-gradient(to bottom, rgb(var(--surface800) / 40%), rgb(var(--surface900)/ 80%)), url(${backdropSource?.fullPath})`
-            : `linear-gradient(to bottom, rgb(228 228 231 / 40%), rgb(var(--surface100)/ 80%)), url(${backdropSource?.fullPath})`
+            ? `linear-gradient(to bottom, rgb(var(--zinc800) / 40%), rgb(var(--zinc900)/ 80%)), url(${backdropSource?.fullPath})`
+            : `linear-gradient(to bottom, rgb(228 228 231 / 40%), rgb(var(--zinc100)/ 80%)), url(${backdropSource?.fullPath})`
 
     return (
         <ItemDataContext.Provider value={contextValue}>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+"use client"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 
 import {
@@ -39,8 +39,14 @@ import {
 
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Button } from "@components/ui/button"
-import { Bird, LogOut, Settings, UserCog, UserPen } from "lucide-react"
-import { SignOutButton, UserProfile } from "@clerk/nextjs"
+import {
+    ChevronsUpDown,
+    LogOut,
+    Settings,
+    UserCog,
+    UserPen,
+} from "lucide-react"
+import { SignOutButton, UserButton, UserProfile } from "@clerk/nextjs"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -53,21 +59,23 @@ const formSchema = z.object({
     displayName: z.string().min(4, { message: "Minimum 4 characters" }),
 })
 
-export default function ProfileButton({ appData }) {
+export default function ProfileButton({ user }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const [isOpen, setIsOpen] = useState()
 
     if (isDesktop) {
         return (
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <Dialog>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost">
-                            {appData.user.name}
-                            <Settings className={`ml-4`} />
+                        <Button variant="ghost" className={`justify-between`}>
+                            <div className={`flex items-center gap-4`}>
+                                <UserButton />
+                                {user.name}
+                            </div>
+                            <ChevronsUpDown className={`h-4 w-4`} />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
+                    <DropdownMenuContent className="w-[--radix-popper-anchor-width]">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DialogTrigger asChild>
@@ -101,7 +109,7 @@ export default function ProfileButton({ appData }) {
                             <DialogDescription>Edit Profile</DialogDescription>
                         </VisuallyHidden.Root>
                     </DialogHeader>
-                    <Profile appData={appData} />
+                    {/* <Profile appData={appData} /> */}
                 </DialogContent>
             </Dialog>
         )
@@ -109,16 +117,19 @@ export default function ProfileButton({ appData }) {
 
     if (!isDesktop) {
         return (
-            <Drawer open={isOpen} onOpenChange={setIsOpen}>
+            <Drawer>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button
                             variant="ghost"
                             size="sm"
-                            className={`h-10 self-start text-purple-200`}
+                            className={`justify-between`}
                         >
-                            {appData.user.name}
-                            <Settings className={`ml-4`} />
+                            <div className={`flex items-center gap-4`}>
+                                <UserButton />
+                                {user.name}
+                            </div>
+                            <ChevronsUpDown className={`h-4 w-4`} />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -154,7 +165,7 @@ export default function ProfileButton({ appData }) {
                             <DialogDescription>Edit Profile</DialogDescription>
                         </VisuallyHidden.Root>
                     </DrawerHeader>
-                    <Profile appData={appData} />
+                    {/* <Profile appData={appData} /> */}
                 </DrawerContent>
             </Drawer>
         )
@@ -165,12 +176,12 @@ function Profile({ appData }) {
     const form = useForm({
         resolver: zodResolver(formSchema),
         values: {
-            displayName: appData.user.name,
+            displayName: appData?.user.name,
         },
     })
 
     async function onSubmit(values) {
-        await PRISMA_UPDATE_DISPLAY_NAME(appData.user, values.displayName)
+        await PRISMA_UPDATE_DISPLAY_NAME(appData?.user, values.displayName)
         toast("Display Name Updated")
     }
 

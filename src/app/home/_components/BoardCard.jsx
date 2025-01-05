@@ -28,7 +28,7 @@ export default function BoardCard({ board, appData, index }) {
                 zIndex: 99,
             }}
             layout
-            className={`relative flex h-48 min-w-60 max-w-xl flex-1 cursor-pointer flex-col overflow-hidden rounded-md bg-surface-100 shadow-lg drop-shadow-lg transition-[shadow] hover:shadow-purple-900/70`}
+            className={`relative flex h-48 min-w-60 max-w-xl flex-1 cursor-pointer flex-col overflow-hidden rounded-md bg-zinc-100 shadow-lg drop-shadow-lg transition-[shadow] hover:shadow-purple-900/70`}
         >
             <div
                 className={`absolute z-30 flex flex-col items-center gap-2 p-2`}
@@ -39,7 +39,7 @@ export default function BoardCard({ board, appData, index }) {
             <Link
                 href={`board/${board.id}`}
                 prefetch={true}
-                className={`group relative flex h-48 flex-1 cursor-pointer flex-col items-center justify-center bg-surface-950 object-cover`}
+                className={`group relative flex h-48 flex-1 cursor-pointer flex-col items-center justify-center bg-zinc-950 object-cover`}
                 passHref
             >
                 {boardItemsBackdrops.length > 0 && (
