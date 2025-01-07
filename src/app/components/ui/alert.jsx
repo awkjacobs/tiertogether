@@ -60,7 +60,7 @@ const AlertClose = React.forwardRef(({ className, onClick, ...props }, ref) => (
         className={cn("absolute right-4 top-4 px-7", className)}
         {...props}
     >
-        Close
+        <X className="h-4 w-4" />
     </Button>
 ))
 AlertClose.displayName = "AlertClose"
