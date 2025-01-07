@@ -61,7 +61,7 @@ export default async function ChangelogPage() {
                     className={`relative col-span-full grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-8 md:py-32`}
                 >
                     <TextBlock>
-                        <H2>Changlog</H2>
+                        <H2>Changelog</H2>
                         <p>
                             All notable changes to this project will be
                             documented on this page.
