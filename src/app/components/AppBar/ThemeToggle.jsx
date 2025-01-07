@@ -28,7 +28,7 @@ export default function ModeToggle() {
                     </DropdownMenuTrigger>
                 </TooltipTrigger>
                 <TooltipContent>
-                    <p>Toggel Theme</p>
+                    <p>Toggle Theme</p>
                 </TooltipContent>
             </Tooltip>
             <DropdownMenuContent align="end">
