@@ -4,7 +4,6 @@ import AppBar from "@components/AppBar/AppBar"
 import H2 from "@components/Utility/H2"
 import PageContainer from "@components/Utility/PageContainer"
 import TextBlock from "@components/Utility/TextBlock"
-import TextLink from "@components/Utility/textLink"
 import { GRID_TEMP_COLUMNS } from "@lib/const"
 import ChangelogItem from "./ChangelogItem"
 
@@ -16,12 +15,20 @@ export async function generateMetadata() {
 
 const changelog = [
     {
-        version: "[1.0.0]",
-        date: "2025-01-01",
-        description: "Full 1.0.0 tiertogether release.",
+        version: "[0.9.0-beta]",
+        date: "2025-01-07",
+        description:
+            "Reverting back to beta. Several breaking bugs have been found.",
         added: [],
-        changed: [],
-        fixed: [],
+        changed: [
+            "Changed the Add Item drawer to a dialog as the drawer was causing issues on mobile",
+        ],
+        fixed: [
+            "Fixed typo in the Toggle Theme tooltip",
+            "Corrected alert text being hidden by the alert close button",
+            "Correct share invite link url",
+            "Correct bug where deleting a board would not throw an error due to existing notifications tied to the board",
+        ],
     },
 ]
 
