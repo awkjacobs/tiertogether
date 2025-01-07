@@ -8,7 +8,7 @@ export default function SearchCardContainer({
     contextValue,
 }) {
     const appTheme = useTheme()
-    console.log(appTheme)
+
     const bgImage =
         appTheme.resolvedTheme === "dark"
             ? `linear-gradient(to bottom, rgb(var(--surface800) / 40%), rgb(var(--surface900)/ 80%)), url(${backdropSource?.fullPath})`
