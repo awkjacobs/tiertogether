@@ -191,11 +191,19 @@ export async function PRISMA_CREATE_NEW_BOARD(values) {
     revalidatePath("/*", "page")
 }
 export async function PRISMA_DELETE_BOARD(boardId) {
-    await prisma.board.delete({
+    const notifications = prisma.notification.deleteMany({
+        where: {
+            Board: {
+                id: boardId,
+            },
+        },
+    })
+    const board = prisma.board.delete({
         where: {
             id: boardId,
         },
     })
+    await prisma.$transaction([notifications, board])
     revalidatePath("/*", "page")
 }
 export async function PRISMA_LEAVE_BOARD(boardId, itemsIdArray, content, type) {
