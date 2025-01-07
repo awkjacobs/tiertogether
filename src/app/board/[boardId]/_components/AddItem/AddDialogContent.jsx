@@ -119,7 +119,7 @@ export default function AddDialogContent() {
 
     return (
         <section
-            className={`flex h-full flex-1 flex-col items-start overflow-y-hidden p-4 md:overflow-x-visible md:p-0`}
+            className={`flex h-full flex-1 flex-col items-start overflow-y-hidden p-1 md:overflow-x-visible`}
         >
             <Form {...form}>
                 <form

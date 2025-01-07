@@ -38,10 +38,7 @@ export default function InfoDialogContent({ item }) {
                 <div className={`flex h-28 flex-row items-center gap-4`}>
                     <Poster
                         className={`justify-self-left row-start-1 row-end-3 h-28 w-auto shadow-lg`}
-                        itemId={itemId}
-                        itemType={itemType}
-                        height={112}
-                        width={75}
+                        itemId={`${itemId}-${itemType}`}
                     />
                     <Logo itemId={itemId} title={name} type={itemType} />
                 </div>
