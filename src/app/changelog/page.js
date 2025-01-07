@@ -28,6 +28,7 @@ const changelog = [
             "Corrected alert text being hidden by the alert close button",
             "Correct share invite link url",
             "Correct bug where deleting a board would not throw an error due to existing notifications tied to the board",
+            "Correct bug where the search card would not change color based on theme",
         ],
     },
 ]
