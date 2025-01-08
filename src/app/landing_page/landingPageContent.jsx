@@ -70,6 +70,12 @@ export default async function LandingPageContent() {
                             an extended exercise to learn React and Next.js as
                             well as continue learning Javascript.
                         </p>
+                        <p>
+                            This project was never intended to earn any money,
+                            nor was it ever intended to be a commercial project.
+                            It is not monetized, and is not intended to be
+                            monetized.
+                        </p>
 
                         <p>
                             I am not a developer or engineer. I&apos;ve only
