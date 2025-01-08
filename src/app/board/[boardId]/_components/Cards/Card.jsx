@@ -16,6 +16,15 @@ import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
 import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
 import { CARD_SIZE } from "./_const/const"
 
+const getCardClassName = (urlCardSize, tier, isDragging) => {
+    const baseClasses = CARD_SIZE[urlCardSize] ?? CARD_SIZE["null"]
+    const tierClasses =
+        tier === "cardsQueue"
+            ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
+            : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
+    return `${baseClasses} relative block overflow-hidden ${tierClasses} ${isDragging ? "opacity-50" : ""}`
+}
+
 export function Card({
     index,
     item,
@@ -55,15 +64,7 @@ export function Card({
     }
     if (activeItem)
         return (
-            <li
-                className={`${CARD_SIZE[urlCardSize]} relative mx-1 block overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
-                    isDragging
-                        ? "opacity-50"
-                        : tier === "cardsQueue"
-                          ? "opacity-0"
-                          : "opacity-100"
-                }`}
-            >
+            <li className={getCardClassName(urlCardSize, tier, isDragging)}>
                 <Poster
                     className={`${CARD_SIZE[urlCardSize]}`}
                     itemId={item.id}
@@ -82,11 +83,11 @@ export function Card({
                             <li
                                 onClick={handleSelect}
                                 onMouseEnter={handleHover}
-                                className={`block ${CARD_SIZE[urlCardSize]} ${
-                                    tier === "cardsQueue"
-                                        ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
-                                        : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
-                                } relative w-auto overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
+                                className={getCardClassName(
+                                    urlCardSize,
+                                    tier,
+                                    isDragging,
+                                )}
                             >
                                 <Poster
                                     className={`${CARD_SIZE[urlCardSize]}`}
@@ -131,11 +132,7 @@ export function Card({
                 <li
                     onClick={handleSelect}
                     onPointerDown={handleHover}
-                    className={`${CARD_SIZE[urlCardSize]} block ${
-                        tier === "cardsQueue"
-                            ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
-                            : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
-                    } relative aspect-[2/3] overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
+                    className={getCardClassName(urlCardSize, tier, isDragging)}
                 >
                     {children}
 
