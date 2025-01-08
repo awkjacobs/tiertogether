@@ -14,13 +14,7 @@ import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
 import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
-
-const size = {
-    null: "h-20 md:h-24",
-    1: "h-20 md:h-24",
-    2: "w-16 md:w-20",
-    3: "w-20 md:w-24",
-}
+import { CARD_SIZE } from "./_const/const"
 
 export function Card({
     index,
@@ -43,10 +37,6 @@ export function Card({
 
     const name = details.data?.name ? details.data?.name : details.data?.title
 
-    // ? need to check into this with change in added by row
-    const allowedToRemoveItemFromBoard =
-        user.id === board.ownerId || user.id === item.addedBy.id
-
     const userRank = {
         boardId: appData.board.id,
         id: appData.user.id,
@@ -66,7 +56,7 @@ export function Card({
     if (activeItem)
         return (
             <li
-                className={`${size[urlCardSize]} relative mx-1 block overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
+                className={`${CARD_SIZE[urlCardSize]} relative mx-1 block overflow-hidden shadow-[4px_8px_16px_-4px_rgba(0,0,0,1)] ${
                     isDragging
                         ? "opacity-50"
                         : tier === "cardsQueue"
@@ -74,11 +64,14 @@ export function Card({
                           : "opacity-100"
                 }`}
             >
-                <Poster className={`${size[urlCardSize]}`} itemId={item.id} />
+                <Poster
+                    className={`${CARD_SIZE[urlCardSize]}`}
+                    itemId={item.id}
+                />
             </li>
         )
 
-    if (!activeItem && isDesktop)
+    if (isDesktop)
         return (
             <ItemRankContext.Provider value={userRank}>
                 <TooltipProvider
@@ -89,14 +82,14 @@ export function Card({
                             <li
                                 onClick={handleSelect}
                                 onMouseEnter={handleHover}
-                                className={`block ${size[urlCardSize]} ${
+                                className={`block ${CARD_SIZE[urlCardSize]} ${
                                     tier === "cardsQueue"
                                         ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
                                         : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
                                 } relative w-auto overflow-hidden rounded transition-all md:hover:scale-105 md:hover:shadow-purple-200`}
                             >
                                 <Poster
-                                    className={`${size[urlCardSize]}`}
+                                    className={`${CARD_SIZE[urlCardSize]}`}
                                     itemId={item.id}
                                 />
                                 {children}
@@ -138,7 +131,7 @@ export function Card({
                 <li
                     onClick={handleSelect}
                     onPointerDown={handleHover}
-                    className={`${size[urlCardSize]} block ${
+                    className={`${CARD_SIZE[urlCardSize]} block ${
                         tier === "cardsQueue"
                             ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
                             : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
@@ -147,7 +140,7 @@ export function Card({
                     {children}
 
                     <Poster
-                        className={`${size[urlCardSize]}`}
+                        className={`${CARD_SIZE[urlCardSize]}`}
                         itemId={item.id}
                     />
                 </li>

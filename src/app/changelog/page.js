@@ -17,7 +17,8 @@ const changelog = [
     {
         added: ["Added more to README"],
         changed: ["Changed the favicon for better visibility"],
-        fixed: [],
+            "Corrected Card Overlay showing incorrect size on mobile",
+            "Corrected bug where deleting a board would not throw an error due to existing ranks and items tied to the board",
         date: "2025-01-07",
         description:
             "Reverting back to beta. Several breaking bugs have been found.",
