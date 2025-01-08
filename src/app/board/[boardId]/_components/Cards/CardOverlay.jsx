@@ -8,7 +8,7 @@ export function CardOverlay({ item }) {
 
     return (
         <div
-            className={`${CARD_SIZE[urlCardSize]} relative block aspect-[2/3] rounded shadow-[4px_8px_30px_-10px_rgba(0,0,0,1)]`}
+            className={`${CARD_SIZE[urlCardSize] ?? CARD_SIZE["null"]} relative block aspect-[2/3] rounded shadow-[4px_8px_30px_-10px_rgba(0,0,0,1)]`}
         >
             <Poster itemId={item.id} itemType={item.type} />
         </div>
