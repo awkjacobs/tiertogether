@@ -85,8 +85,8 @@ export default async function LandingPageContent() {
                             most likely present bugs. I will continue to attempt
                             to improve the site and add new features, but I
                             don&apos;t intend to spend as much time working on
-                            it in the future as I did in the first year. Feel
-                            free to view the source code on{" "}
+                            it in the future as I did in the first year. You're
+                            welcome to view the source code on{" "}
                             <TextLink
                                 href={`https://github.com/awkjacobs/tiertogether`}
                                 newTab={true}
