@@ -15,7 +15,8 @@ export async function generateMetadata() {
 
 const changelog = [
     {
-        version: "[0.9.0-beta]",
+        changed: ["Changed the favicon for better visibility"],
+        fixed: [],
         date: "2025-01-07",
         description:
             "Reverting back to beta. Several breaking bugs have been found.",
