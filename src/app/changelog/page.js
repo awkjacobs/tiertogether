@@ -15,6 +15,7 @@ export async function generateMetadata() {
 
 const changelog = [
     {
+        added: ["Added more to README"],
         changed: ["Changed the favicon for better visibility"],
         fixed: [],
         date: "2025-01-07",
