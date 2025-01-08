@@ -2,7 +2,7 @@
 
 # tiertogether
 
-tiertogether is a personal project that I started with the intention of tracking and rating movies that some friends and I viewed during a regular-ish movie night, but after a year of spending weekends and PTO days on development, this project has become an extended exercise to learn React and Next.js, in addition to continuing to learn Javascript.
+tiertogether is a personal project that I started to track and rate movies that some friends and I viewed during a regular-ish movie night, but after a year of spending weekends and PTO days on development, this project has become an extended exercise to learn React and Next.js, in addition to continuing to learn Javascript.
 
 > This project was never intended to earn any money, nor was it ever intended to be a commercial project. It is not monetized, and is not intended to be monetized.
 
