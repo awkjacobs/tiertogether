@@ -15,10 +15,21 @@ export async function generateMetadata() {
 
 const changelog = [
     {
-        version: "[0.9.0-beta]",
+        version: "[1.0.2]",
+        date: "2025-01-08",
+        description: "Additional bug fixes and improvements.",
+        added: ["Added more to README"],
+        changed: ["Changed the favicon for better visibility"],
+        fixed: [
+            "Corrected Card Overlay showing incorrect size on mobile",
+            "Corrected bug where deleting a board would not throw an error due to existing ranks and items tied to the board",
+            "Corrected bug where removing a board on the would then show the wrong title on the following board cards",
+        ],
+    },
+    {
+        version: "[1.0.1]",
         date: "2025-01-07",
-        description:
-            "Reverting back to beta. Several breaking bugs have been found.",
+        description: "Several breaking bugs have been found and addressed.",
         added: [],
         changed: [
             "Changed the Add Item drawer to a dialog as the drawer was causing issues on mobile",
@@ -30,6 +41,14 @@ const changelog = [
             "Correct bug where deleting a board would not throw an error due to existing notifications tied to the board",
             "Correct bug where the search card would not change color based on theme",
         ],
+    },
+    {
+        version: "[1.0.0]",
+        date: "2024-12-31",
+        description: "Initial release of the app.",
+        added: [],
+        changed: [],
+        fixed: [],
     },
 ]
 

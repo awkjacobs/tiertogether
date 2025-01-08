@@ -70,6 +70,12 @@ export default async function LandingPageContent() {
                             an extended exercise to learn React and Next.js as
                             well as continue learning Javascript.
                         </p>
+                        <p>
+                            This project was never intended to earn any money,
+                            nor was it ever intended to be a commercial project.
+                            It is not monetized, and is not intended to be
+                            monetized.
+                        </p>
 
                         <p>
                             I am not a developer or engineer. I&apos;ve only
@@ -79,8 +85,8 @@ export default async function LandingPageContent() {
                             most likely present bugs. I will continue to attempt
                             to improve the site and add new features, but I
                             don&apos;t intend to spend as much time working on
-                            it in the future as I did in the first year. Feel
-                            free to view the source code on{" "}
+                            it in the future as I did in the first year. You're
+                            welcome to view the source code on{" "}
                             <TextLink
                                 href={`https://github.com/awkjacobs/tiertogether`}
                                 newTab={true}
