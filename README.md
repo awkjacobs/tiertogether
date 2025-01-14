@@ -1,6 +1,6 @@
 ![tiertogether](/readme/banner.png "tiertogether")
 
-![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Awkjacobs/tiertogether)
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/awkjacobs/tiertogether)
 
 # tiertogether
 
