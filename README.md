@@ -1,5 +1,7 @@
 ![tiertogether](/readme/banner.png "tiertogether")
 
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Awkjacobs/tiertogether)
+
 # tiertogether
 
 tiertogether is a personal project that I started to track and rate movies that some friends and I viewed during a regular-ish movie night, but after a year of spending weekends and PTO days on development, this project has become an extended exercise to learn React and Next.js, in addition to continuing to learn Javascript.
