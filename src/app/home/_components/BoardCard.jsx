@@ -1,21 +1,18 @@
-import { useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
+import Crown from "@app/components/Utility/Crown"
 import EditBoardButton from "@components/Buttons/EditBoardButton"
+import BoardTypeIcon from "@components/Utility/BoardTypeIcons"
+import { BACKDROP_SOURCE } from "@lib/const"
 import { motion } from "motion/react"
-import { Swiper, SwiperSlide } from "swiper/react"
+import Image from "next/image"
+import Link from "next/link"
 import "swiper/css"
 import "swiper/css/effect-fade"
 import { Autoplay, EffectFade } from "swiper/modules"
-import Crown from "@app/components/Utility/Crown"
-import { BACKDROP_SOURCE } from "@lib/const"
-import BoardTypeIcon from "@components/Utility/BoardTypeIcons"
+import { Swiper, SwiperSlide } from "swiper/react"
 
 export default function BoardCard({ board, appData, index }) {
     const { user } = appData
     const isOwner = user.id === board.owner.id
-
-    const [boardName, setNewBoardName] = useState(board.boardName)
 
     const boardItemsBackdrops = board.items
         .flatMap((item) => BACKDROP_SOURCE(item, item.id.split("-")[1]))
@@ -59,13 +56,12 @@ export default function BoardCard({ board, appData, index }) {
                 <h2
                     className={`z-20 text-center text-2xl font-semibold text-purple-500 mix-blend-plus-lighter transition-colors group-hover:text-purple-100`}
                 >
-                    {boardName.toUpperCase()}
+                    {board.boardName.toUpperCase()}
                 </h2>
             </Link>
             <EditBoardButton
                 board={board}
-                boardName={boardName}
-                setNewBoardName={setNewBoardName}
+                boardName={board.boardName}
                 triggerClasses={`absolute right-0 hover:bg-purple-500/30 active:bg-purple-400/20 dark:hover:bg-purple-400/10 z-30`}
                 iconClasses={`text-purple-200`}
                 appData={appData}

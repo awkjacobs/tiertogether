@@ -36,7 +36,7 @@ const AlertTitle = React.forwardRef(({ className, ...props }, ref) => (
     <h5
         ref={ref}
         className={cn(
-            "mb-1 font-medium leading-none tracking-tight",
+            "mb-1 pr-24 font-medium leading-none tracking-tight",
             className,
         )}
         {...props}
@@ -47,7 +47,7 @@ AlertTitle.displayName = "AlertTitle"
 const AlertDescription = React.forwardRef(({ className, ...props }, ref) => (
     <div
         ref={ref}
-        className={cn("text-sm [&_p]:leading-relaxed", className)}
+        className={cn("pr-24 text-sm [&_p]:leading-relaxed", className)}
         {...props}
     />
 ))
@@ -60,7 +60,7 @@ const AlertClose = React.forwardRef(({ className, onClick, ...props }, ref) => (
         className={cn("absolute right-4 top-4 px-7", className)}
         {...props}
     >
-        Close
+        <X className="h-4 w-4" />
     </Button>
 ))
 AlertClose.displayName = "AlertClose"

@@ -191,11 +191,36 @@ export async function PRISMA_CREATE_NEW_BOARD(values) {
     revalidatePath("/*", "page")
 }
 export async function PRISMA_DELETE_BOARD(boardId) {
-    await prisma.board.delete({
+    const { userId } = await auth()
+    const notifications = prisma.notification.deleteMany({
+        where: { boardId: boardId },
+    })
+    const disconnect = prisma.board.update({
+        where: {
+            id: boardId,
+        },
+        data: {
+            users: {
+                set: [],
+            },
+            items: {
+                set: [],
+            },
+        },
+    })
+    const ranks = prisma.rank.deleteMany({
+        where: {
+            Board: {
+                id: boardId,
+            },
+        },
+    })
+    const board = prisma.board.delete({
         where: {
             id: boardId,
         },
     })
+    await prisma.$transaction([notifications, disconnect, ranks, board])
     revalidatePath("/*", "page")
 }
 export async function PRISMA_LEAVE_BOARD(boardId, itemsIdArray, content, type) {

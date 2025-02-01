@@ -23,7 +23,7 @@ export default function InviteUserButton({ boardId, boardName, size }) {
 
     async function createInviteLink() {
         const invitation = await PRISMA_CREATE_LINK_INVITATION(boardId)
-        const inviteLink = `tiertogether.com/invite/${invitation.id}`
+        const inviteLink = invitation.id
 
         return inviteLink
     }
@@ -48,7 +48,7 @@ export default function InviteUserButton({ boardId, boardName, size }) {
 
     const handleShare = async () => {
         navigator.share({
-            url: ref.current.innerText,
+            url: `invite/${data}`,
             title: "tiertogether Invite",
             text: `You\'ve been invited to ${boardName}!`,
         })
@@ -104,7 +104,11 @@ export default function InviteUserButton({ boardId, boardName, size }) {
                                 >
                                     {isLoading && "Creating Invite Link..."}
                                     {isError && `Link Error: ${error}`}
-                                    {isSuccess && <p ref={ref}>{data}</p>}
+                                    {isSuccess && (
+                                        <p
+                                            ref={ref}
+                                        >{`tiertogether.com/invite/${data}`}</p>
+                                    )}
                                 </div>
                                 {copied && (
                                     <Check
