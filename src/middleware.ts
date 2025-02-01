@@ -20,7 +20,7 @@ export default clerkMiddleware(
             return NextResponse.redirect(url)
         }
     },
-    { debug: true },
+    { debug: process.env.NODE_ENV === 'development' },
 )
 
 export const config = {
