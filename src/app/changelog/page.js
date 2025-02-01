@@ -15,6 +15,15 @@ export async function generateMetadata() {
 
 const changelog = [
     {
+        version: "[1.0.3]",
+        date: "2025-01-20",
+        description:
+            "Correct Middleware route matcher for the board dynamic route",
+        added: [],
+        changed: [],
+        fixed: ["Correct Middleware route matcher for the board dynamic route"],
+    },
+    {
         version: "[1.0.2]",
         date: "2025-01-08",
         description: "Additional bug fixes and improvements.",
