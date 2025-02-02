@@ -48,7 +48,7 @@ export default function InviteUserButton({ boardId, boardName, size }) {
 
     const handleShare = async () => {
         navigator.share({
-            url: `invite/${data}`,
+            url: `https://tiertogether.com/invite/${data}`,
             title: "tiertogether Invite",
             text: `You\'ve been invited to ${boardName}!`,
         })
