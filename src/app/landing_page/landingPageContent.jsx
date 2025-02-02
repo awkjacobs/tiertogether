@@ -62,20 +62,20 @@ export default async function LandingPageContent() {
                     <TextBlock>
                         <H2>About tiertogether</H2>
                         <p>
-                            tiertogether is a personal project that I started
-                            with the intention of tracking and rating movies
-                            that some friends and I viewed during a regular-ish
-                            movie night, but after a year of spending weekends
-                            and PTO days on development, this project has become
-                            an extended exercise to learn React and Next.js as
-                            well as continue learning Javascript.
+                            tiertogether is a personal project that I started to
+                            track and rate movies that some friends and I viewed
+                            during a regular-ish movie night, but after a year
+                            of spending weekends and PTO days on development,
+                            this project has become an extended exercise to
+                            learn React and Next.js, in addition to continuing
+                            to learn Javascript.
                         </p>
-                        <p>
+                        <em className={`text-purple-800 dark:text-purple-300`}>
                             This project was never intended to earn any money,
                             nor was it ever intended to be a commercial project.
                             It is not monetized, and is not intended to be
                             monetized.
-                        </p>
+                        </em>
 
                         <p>
                             I am not a developer or engineer. I&apos;ve only

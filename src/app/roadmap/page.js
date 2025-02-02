@@ -2,9 +2,9 @@ import { PRISMA_GET_USER } from "@api/prismaFuncs"
 import { auth } from "@clerk/nextjs/server"
 import AppBar from "@components/AppBar/AppBar"
 import PageContainer from "@components/Utility/PageContainer"
-import H2 from "@components/Utility/H2"
 import TextBlock from "@components/Utility/TextBlock"
 import { GRID_TEMP_COLUMNS } from "@lib/const"
+import ROADMAP from "../../../ROADMAP.mdx"
 
 export async function generateMetadata() {
     return {
@@ -40,19 +40,7 @@ export default async function RoadmapPage() {
                     className={`relative col-span-full grid grid-cols-subgrid grid-rows-subgrid items-start justify-start py-8 md:py-32`}
                 >
                     <TextBlock>
-                        <H2>Roadmap</H2>
-                        <p>
-                            tiertogether is a work in progress. Some features
-                            planned for the future are:
-                        </p>
-                        <ul className={`list-inside list-disc pl-8`}>
-                            <li>Add list view</li>
-                            <li>Add more types of boards</li>
-                            <li>Add more search options</li>
-                            <li>Add board description</li>
-                            <li>Add comments</li>
-                            <li>Add user pages and profiles</li>
-                        </ul>
+                        <ROADMAP />
                     </TextBlock>
                 </div>
             </main>
