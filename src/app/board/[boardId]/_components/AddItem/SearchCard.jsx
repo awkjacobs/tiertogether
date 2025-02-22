@@ -84,7 +84,7 @@ export default function SearchCard({ item, board, queryType, style }) {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleAdd)}>
                     <Button
-                        className={`absolute right-1 top-1 h-8 w-8 p-1 text-zinc-100/70 hover:text-zinc-100 md:left-1 dark:text-zinc-100/70 dark:hover:text-zinc-100 ${
+                        className={`absolute right-1 top-1 z-50 h-8 w-8 p-1 text-zinc-100/70 hover:text-zinc-100 md:left-1 dark:text-zinc-100/70 dark:hover:text-zinc-100 ${
                             !alreadyIncluded
                                 ? "bg-zinc-950/70 hover:bg-zinc-950 dark:bg-zinc-950/70 dark:hover:bg-zinc-950"
                                 : "bg-emerald-500 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-500"
