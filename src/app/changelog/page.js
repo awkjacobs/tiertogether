@@ -4,7 +4,7 @@ import AppBar from "@components/AppBar/AppBar"
 import PageContainer from "@components/Utility/PageContainer"
 import TextBlock from "@components/Utility/TextBlock"
 import { GRID_TEMP_COLUMNS } from "@lib/const"
-import CHANGELOG from "../../../CHANGELOG.mdx"
+import CHANGELOG from "@content/CHANGELOG.mdx"
 
 export async function generateMetadata() {
     return {
