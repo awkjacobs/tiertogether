@@ -40,7 +40,7 @@ const withMDX = createMDX({
 // Merge MDX config with Next.js config
 const configWithMDX = withMDX(nextConfig)
 
-export default withSentryConfig(configWithMDX, {
+export default withSentryConfig(nextConfig, {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
 

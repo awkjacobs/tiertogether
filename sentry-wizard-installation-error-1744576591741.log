@@ -1,0 +1,59 @@
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @radix-ui/react-use-size@1.1.1
+npm warn Found: @opentelemetry/instrumentation@0.57.2
+npm warn node_modules/@opentelemetry/instrumentation
+npm warn   @opentelemetry/instrumentation@"^0.57.1" from @opentelemetry/instrumentation-amqplib@0.46.1
+npm warn   node_modules/@opentelemetry/instrumentation-amqplib
+npm warn     @opentelemetry/instrumentation-amqplib@"^0.46.1" from @sentry/node@9.12.0
+npm warn     node_modules/@sentry/node
+npm warn   25 more (@opentelemetry/instrumentation-connect, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @opentelemetry/instrumentation@"^0.56.0" from @radix-ui/react-use-size@1.1.1
+npm warn node_modules/@radix-ui/react-use-size
+npm warn   @radix-ui/react-use-size@"1.1.1" from @radix-ui/react-checkbox@1.1.5
+npm warn   node_modules/@radix-ui/react-checkbox
+npm warn   4 more (@radix-ui/react-popper, @radix-ui/react-radio-group, ...)
+npm warn
+npm warn Conflicting peer dependency: @opentelemetry/instrumentation@0.56.0
+npm warn node_modules/@opentelemetry/instrumentation
+npm warn   peer @opentelemetry/instrumentation@"^0.56.0" from @radix-ui/react-use-size@1.1.1
+npm warn   node_modules/@radix-ui/react-use-size
+npm warn     @radix-ui/react-use-size@"1.1.1" from @radix-ui/react-checkbox@1.1.5
+npm warn     node_modules/@radix-ui/react-checkbox
+npm warn     4 more (@radix-ui/react-popper, @radix-ui/react-radio-group, ...)
+npm error code ERESOLVE
+npm error ERESOLVE could not resolve
+npm error
+npm error While resolving: react-textfit@1.1.1
+npm error Found: react@19.0.0
+npm error node_modules/react
+npm error   peer react@"^18.0.0 || ^19.0.0 || ^19.0.0-0" from @clerk/clerk-react@5.27.0
+npm error   node_modules/@clerk/clerk-react
+npm error     @clerk/clerk-react@"^5.27.0" from @clerk/nextjs@6.14.3
+npm error     node_modules/@clerk/nextjs
+npm error       @clerk/nextjs@"^6.14.3" from the root project
+npm error   peer react@"^18.0.0 || ^19.0.0 || ^19.0.0-0" from @clerk/nextjs@6.14.3
+npm error   node_modules/@clerk/nextjs
+npm error     @clerk/nextjs@"^6.14.3" from the root project
+npm error   72 more (@clerk/shared, @dnd-kit/accessibility, @dnd-kit/core, ...)
+npm error
+npm error Could not resolve dependency:
+npm error peer react@"^15.0.0 || ^16.0.0" from react-textfit@1.1.1
+npm error node_modules/react-textfit
+npm error   react-textfit@"^1.1.1" from the root project
+npm error
+npm error Conflicting peer dependency: react@16.14.0
+npm error node_modules/react
+npm error   peer react@"^15.0.0 || ^16.0.0" from react-textfit@1.1.1
+npm error   node_modules/react-textfit
+npm error     react-textfit@"^1.1.1" from the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error C:\Users\awkja\AppData\Local\npm-cache\_logs\2025-04-13T20_36_26_945Z-eresolve-report.txt
+npm error A complete log of this run can be found in: C:\Users\awkja\AppData\Local\npm-cache\_logs\2025-04-13T20_36_26_945Z-debug-0.log
