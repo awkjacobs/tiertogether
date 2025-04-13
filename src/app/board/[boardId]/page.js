@@ -42,15 +42,16 @@ export default async function Board({ params }) {
         board,
         user: userDB,
     }
+    // Prefetch board averages once
+    await queryClient.prefetchQuery({
+        queryKey: ["averages", boardId],
+        queryFn: () => serverAverage(boardId),
+    });
+
     await Promise.all(
         board.items.map(async (item) => {
             const { id: itemId, type: itemType } = ITEM_ID_TYPE(item.id)
             return Promise.all([
-                // Prefetch averages
-                queryClient.prefetchQuery({
-                    queryKey: ["averages", boardId],
-                    queryFn: () => serverAverage(boardId),
-                }),
                 // Prefetch details
                 queryClient.prefetchQuery({
                     queryKey: ["details", itemId, itemType],
