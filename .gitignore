@@ -41,3 +41,5 @@ dev.db*
 .vercel
 
 example.CHANGELOG.md
+# clerk configuration (can include secrets)
+/.clerk/
