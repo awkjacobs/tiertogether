@@ -20,6 +20,7 @@ import BoardBar from "./BoardBar"
 import { move } from "./functions/react-dndFuncs"
 import sortItems from "./functions/sortItems"
 import { ErrorBoundary } from "next/dist/client/components/error-boundary"
+import BoardErrorBoundary from "../../error"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
@@ -211,7 +212,7 @@ export default function DraggingContent({ appData }) {
                 setSelectedItem,
             }}
         >
-            <ErrorBoundary errorComponent={"ErrorBoundary"}>
+            <ErrorBoundary errorComponent={BoardErrorBoundary}>
                 <DndContext
                     sensors={sensors}
                     // collisionDetection={closestCorners}
