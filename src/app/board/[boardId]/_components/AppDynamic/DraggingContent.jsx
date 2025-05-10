@@ -226,7 +226,7 @@ export default function DraggingContent({ appData }) {
                         <BoardBar setUserEntries={setUserEntries} />
                         <TierContainer
                             ranks={ranks}
-                            activeItem={activeItem ? true : false}
+                            activeItem={!!activeItem}
                         />
                     </div>
                     <CardQueue
@@ -236,7 +236,7 @@ export default function DraggingContent({ appData }) {
                         setActiveCardIndex={setActiveCardIndex}
                         queueIsOpen={queueIsOpen}
                         setQueueIsOpen={setQueueIsOpen}
-                        activeItem={activeItem ? true : false}
+                        activeItem={!!activeItem}
                     />
                     <DragOverlay modifiers={[restrictToWindowEdges]}>
                         <CardOverlay item={activeItem} />
