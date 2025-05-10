@@ -19,6 +19,8 @@ import { TierContainer } from "../Tierlist/TierContainer"
 import BoardBar from "./BoardBar"
 import { move } from "./functions/react-dndFuncs"
 import sortItems from "./functions/sortItems"
+import { ErrorBoundary } from "next/dist/client/components/error-boundary"
+import BoardErrorBoundary from "../../error"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
@@ -210,36 +212,41 @@ export default function DraggingContent({ appData }) {
                 setSelectedItem,
             }}
         >
-            <DndContext
-                sensors={sensors}
-                // collisionDetection={closestCorners}
-                onDragStart={handleDragStart}
-                onDragOver={handleDragOver}
-                onDragEnd={handleDragEnd}
-            >
-                <div
-                    className={`no-scrollbar col-start-2 col-end-5 row-start-2 row-end-3 flex h-full w-full flex-1 flex-col place-self-center overflow-x-visible overflow-y-scroll pb-36 md:pb-72`}
+            <ErrorBoundary errorComponent={BoardErrorBoundary}>
+                <DndContext
+                    sensors={sensors}
+                    // collisionDetection={closestCorners}
+                    onDragStart={handleDragStart}
+                    onDragOver={handleDragOver}
+                    onDragEnd={handleDragEnd}
                 >
-                    <BoardBar setUserEntries={setUserEntries} />
-                    <TierContainer
-                        ranks={ranks}
-                        activeItem={activeItem ? true : false}
+                    <div
+                        className={`no-scrollbar col-start-2 col-end-5 row-start-2 row-end-3 flex h-full w-full flex-1 flex-col place-self-center overflow-x-visible overflow-y-scroll pb-36 md:pb-72`}
+                    >
+                        <BoardBar setUserEntries={setUserEntries} />
+                        <TierContainer
+                            ranks={ranks}
+                            activeItem={!!activeItem}
+                        />
+                    </div>
+                    <CardQueue
+                        board={board}
+                        queue={ranks.cardsQueue}
+                        activeCardIndex={activeCardIndex}
+                        setActiveCardIndex={setActiveCardIndex}
+                        queueIsOpen={queueIsOpen}
+                        setQueueIsOpen={setQueueIsOpen}
+                        activeItem={!!activeItem}
                     />
-                </div>
-                <CardQueue
-                    board={board}
-                    queue={ranks.cardsQueue}
-                    activeCardIndex={activeCardIndex}
-                    setActiveCardIndex={setActiveCardIndex}
-                    queueIsOpen={queueIsOpen}
-                    setQueueIsOpen={setQueueIsOpen}
-                    activeItem={activeItem ? true : false}
-                />
-                <DragOverlay modifiers={[restrictToWindowEdges]}>
-                    <CardOverlay item={activeItem} />
-                </DragOverlay>
-                <InfoDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} />
-            </DndContext>
+                    <DragOverlay modifiers={[restrictToWindowEdges]}>
+                        <CardOverlay item={activeItem} />
+                    </DragOverlay>
+                    <InfoDialog
+                        isOpen={dialogIsOpen}
+                        setIsOpen={setDialogIsOpen}
+                    />
+                </DndContext>
+            </ErrorBoundary>
         </AppDataContext.Provider>
     )
 }
