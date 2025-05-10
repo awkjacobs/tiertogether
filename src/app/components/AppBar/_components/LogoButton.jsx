@@ -40,41 +40,44 @@ export default function LogoButton() {
                         </div>
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className={`p-2`}>
-                        <Link href={`/`} legacyBehavior passHref>
-                            <NavigationMenuLink
-                                className={navigationMenuTriggerStyle()}
-                            >
-                                <LogoTrianglesBW className={`mr-2 h-6 w-6`} />
-                                Landing Page
-                            </NavigationMenuLink>
-                        </Link>
-                        <Link href={`/roadmap`} legacyBehavior passHref>
-                            <NavigationMenuLink
-                                className={navigationMenuTriggerStyle()}
-                            >
-                                <Map className={`mr-2 h-5 w-5`} />
-                                Roadmap
-                            </NavigationMenuLink>
-                        </Link>
-                        <Link href={`/changelog`} legacyBehavior passHref>
-                            <NavigationMenuLink
-                                className={navigationMenuTriggerStyle()}
-                            >
-                                <SquareChartGantt className={`mr-2 h-5 w-5`} />
-                                Changelog
-                            </NavigationMenuLink>
-                        </Link>
                         <NavigationMenuLink
                             className={navigationMenuTriggerStyle()}
                             asChild
                         >
-                            <a
+                            <Link href={`/`}>
+                                <LogoTrianglesBW className={`mr-2 h-6 w-6`} />
+                                Landing Page
+                            </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                            asChild
+                        >
+                            <Link href={`/roadmap`}>
+                                <Map className={`mr-2 h-5 w-5`} />
+                                Roadmap
+                            </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                            asChild
+                        >
+                            <Link href={`/changelog`}>
+                                <SquareChartGantt className={`mr-2 h-5 w-5`} />
+                                Changelog
+                            </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                            asChild
+                        >
+                            <Link
                                 href={`https://github.com/awkjacobs/tiertogether`}
                                 target="_blank"
                             >
                                 <GithubIcon className={`mr-2 h-5 w-5`} />
                                 GitHub
-                            </a>
+                            </Link>
                         </NavigationMenuLink>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
