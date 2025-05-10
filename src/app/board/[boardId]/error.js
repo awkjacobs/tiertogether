@@ -9,9 +9,15 @@ export default function BoardErrorBoundary({ error, reset }) {
     }, [error])
 
     return (
-        <div>
-            <h2 className={`dark:text-white`}>Something went wrong!</h2>
+        <div className="flex flex-col items-center justify-center p-4">
+            <h2 className="mb-4 text-xl font-bold dark:text-white">
+                Something went wrong!
+            </h2>
+            <p className="mb-4 dark:text-gray-300">
+                We encountered an error while displaying this content.
+            </p>
             <button
+                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
                 onClick={
                     // Attempt to recover by trying to re-render the segment
                     () => reset()
