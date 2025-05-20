@@ -30,7 +30,7 @@ export default async function AppBar({ appData, className }) {
                 className,
             )}
         >
-            <AlertBanner />
+            {/* <AlertBanner /> */}
             <div
                 className={`col-span-full flex h-10 items-center justify-between rounded border-b border-surface-400 bg-surface-200 shadow-xl drop-shadow-xl md:h-12 dark:border-surface-900 dark:bg-surface-900`}
             >
