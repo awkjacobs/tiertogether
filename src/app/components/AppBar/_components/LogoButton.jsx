@@ -49,7 +49,7 @@ export default function LogoButton() {
                                 Landing Page
                             </Link>
                         </NavigationMenuLink>
-                        <NavigationMenuLink
+                        {/* <NavigationMenuLink
                             className={navigationMenuTriggerStyle()}
                             asChild
                         >
@@ -57,7 +57,7 @@ export default function LogoButton() {
                                 <Map className={`mr-2 h-5 w-5`} />
                                 Roadmap
                             </Link>
-                        </NavigationMenuLink>
+                        </NavigationMenuLink> */}
                         <NavigationMenuLink
                             className={navigationMenuTriggerStyle()}
                             asChild
