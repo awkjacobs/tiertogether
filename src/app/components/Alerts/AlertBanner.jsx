@@ -45,7 +45,7 @@ export default function AlertBanner() {
         }
     }
 
-    if (alert.isLoading || !alert.data[0]) return null
+    if (alert.isLoading || !alert.data || !alert.data[0]) return null
 
     return (
         <div className={`col-span-full mb-2`} hidden={hidden}>
