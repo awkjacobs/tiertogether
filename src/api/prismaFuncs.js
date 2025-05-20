@@ -941,7 +941,7 @@ export async function PRISMA_DECLINE_INVITATION(invitationId, notificationId) {
 // * ============ ALERTS ============
 // * ================================
 export async function PRISMA_GET_ALERTS() {
-    return prisma.alert.findMany({
+    return await prisma.alert.findMany({
         where: {
             active: true,
         },
