@@ -2,7 +2,7 @@ import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import ResponsiveTooltip from "@app/components/ui/ResponsiveTooltip"
 import { SCORE_BAR, SCORE_FLEX } from "@lib/const"
 import { useContext } from "react"
-import { Textfit } from "react-textfit"
+import ResizableText from "@app/components/Utility/ResizableText"
 
 export default function RankChart({ ranks }) {
     const { appData } = useContext(AppDataContext)
@@ -36,13 +36,14 @@ export default function RankChart({ ranks }) {
                                     width: `${(scoreGroup.length / scores.filter((item) => item.length > 0).length) * 100}%`,
                                 }}
                             >
-                                <Textfit
-                                    mode="multi"
-                                    max={16}
-                                    className={`flex h-full items-center justify-center px-1 text-center font-bold ${SCORE_FLEX(scoreGroup)} ${SCORE_BAR[index].style}`}
-                                >
-                                    {tierLabels[index - 1]}
-                                </Textfit>
+                                <ResizableText
+                                    text={tierLabels[index - 1]}
+                                    minFontSize={8}
+                                    maxFontSize={16}
+                                    className={`flex h-full items-center justify-center px-1 text-center font-bold ${SCORE_FLEX(
+                                        scoreGroup,
+                                    )} ${SCORE_BAR[index].style}`}
+                                />
                             </div>
                         }
                         content={

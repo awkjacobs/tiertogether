@@ -3,7 +3,7 @@ import Draggable from "../Cards/Draggable"
 import RankedCardClone from "../Cards/RankedCardClone"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { useContext } from "react"
-import { Textfit } from "react-textfit"
+import ResizableText from "@app/components/Utility/ResizableText"
 
 // ? - reduce the number of renders by being more selective of the entries
 
@@ -55,13 +55,12 @@ export function Tier(props) {
             <div
                 className={`relative flex w-[clamp(2rem,_10vw,_5rem)] min-w-12 items-center justify-center p-1 text-center font-semibold md:p-2 ${style}`}
             >
-                <Textfit
-                    mode="multi"
+                <ResizableText
+                    text={props.label}
+                    minFontSize={12}
+                    maxFontSize={36}
                     className={`flex h-[calc(100%-.5rem)] w-[calc(100%-.5rem)] items-center justify-center`}
-                    max={36}
-                >
-                    {props.label}
-                </Textfit>
+                />
             </div>
 
             {!appData.showDifference && (
