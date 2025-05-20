@@ -18,7 +18,9 @@ const saveAlertLocalStorage = (viewedIdArray) => {
 // Alert types: warn, info
 export default function AlertBanner() {
     const alert = useGetAlert()
+
     let viewedAlerts = null
+
     if (typeof window !== "undefined") {
         viewedAlerts = JSON.parse(localStorage.getItem("alertsViewed"))
     }
