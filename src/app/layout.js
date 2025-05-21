@@ -7,6 +7,7 @@ import QueryProvider from "./providers/QueryProvider"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import Head from "next/head"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
+import { ReactScan } from "./components/scan/ReactScan"
 
 export const metadata = {
     title: "tiertogether",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
                         key="title"
                     />
                 </Head>
+                <ReactScan />
                 <body>
                     <QueryProvider>
                         <ReactQueryDevtools />
