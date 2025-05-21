@@ -19,33 +19,32 @@ const saveAlertLocalStorage = (viewedIdArray) => {
 export default function AlertBanner() {
     const alert = useGetAlert()
 
+    if (alert.isError || alert.isLoading || !alert.data) return null
+
+    return <AlertContent alert={alert} />
+}
+
+function AlertContent({ alert }) {
     let viewedAlerts = null
+
+    const [hidden, setHidden] = useState(false)
 
     if (typeof window !== "undefined") {
         viewedAlerts = JSON.parse(localStorage.getItem("alertsViewed"))
     }
-    const [hidden, setHidden] = useState(false)
-
-    useEffect(() => {
-        if (alert.isLoading) return
-        else if (
-            viewedAlerts !== null &&
-            viewedAlerts.includes(alert.data[0]?.id)
-        )
-            setHidden(true)
-    }, [alert.isLoading])
 
     const handleClick = () => {
-        setHidden(!hidden)
         if (Array.isArray(viewedAlerts)) {
-            viewedAlerts.push(alert.data[0].id)
+            viewedAlerts.push(alert?.data[0].id)
             saveAlertLocalStorage(viewedAlerts)
         } else {
-            saveAlertLocalStorage([alert.data[0].id])
+            saveAlertLocalStorage([alert?.data[0].id])
         }
+        setHidden(true)
     }
 
-    if (alert.isLoading || !alert.data || !alert.data[0]) return null
+    if (viewedAlerts !== null && viewedAlerts.includes(alert?.data[0]?.id))
+        return null
 
     return (
         <div className={`col-span-full mb-2`} hidden={hidden}>
