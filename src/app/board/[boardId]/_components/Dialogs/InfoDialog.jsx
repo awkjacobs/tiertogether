@@ -23,10 +23,14 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { useContext } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import InfoDialogContent from "./InfoDialogContent"
+import { useAtom } from "jotai"
+import { selectedItemAtom } from "../../../../atoms"
 
 export default function InfoDialog({ isOpen, setIsOpen }) {
-    const { appData, selectedItem } = useContext(AppDataContext)
+    const { appData } = useContext(AppDataContext)
     const { board } = appData
+
+    const [selectedItem, setSelectedItem] = useAtom(selectedItemAtom)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
 

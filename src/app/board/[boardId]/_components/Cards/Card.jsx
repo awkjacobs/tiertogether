@@ -15,6 +15,8 @@ import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
 import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
 import { CARD_SIZE } from "./_const/const"
+import { useAtom } from "jotai"
+import { selectedItemAtom } from "@app/atoms"
 
 const getCardClassName = (urlCardSize, tier, isDragging) => {
     const baseClasses = CARD_SIZE[urlCardSize] ?? CARD_SIZE["null"]
@@ -35,9 +37,8 @@ export function Card({
     difference = false,
     scoreToCompareAgainst,
 }) {
-    const { appData, userEntries, setDialogIsOpen, setSelectedItem } =
-        useContext(AppDataContext)
-    const { user, board } = appData
+    const { appData, userEntries, setDialogIsOpen } = useContext(AppDataContext)
+    const [selectedItem, setSelectedItem] = useAtom(selectedItemAtom)
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")

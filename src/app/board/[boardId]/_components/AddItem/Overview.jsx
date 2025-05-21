@@ -1,9 +1,13 @@
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { Button } from "@components/ui/button"
 import { useContext } from "react"
+import { useAtom } from "jotai"
+import { selectedItemAtom } from "../../../../atoms"
 
 export default function Details({ item }) {
-    const { setDialogIsOpen, setSelectedItem } = useContext(AppDataContext)
+    const { setDialogIsOpen } = useContext(AppDataContext)
+
+    const [selectedItem, setSelectedItem] = useAtom(selectedItemAtom)
 
     const handleSelect = () => {
         setDialogIsOpen(true)

@@ -197,8 +197,7 @@ export default function DraggingContent({ appData }) {
     const sensors = useSensors(mouseSensor, touchSensor)
 
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
-    // const [selectedItem, setSelectedItem] = useQueryState("sel")
-    const [selectedItem, setSelectedItem] = useState("")
+    // const [selectedItem, setSelectedItem] = useState("")
 
     return (
         <AppDataContext.Provider
@@ -208,8 +207,8 @@ export default function DraggingContent({ appData }) {
                 showDifference,
                 dialogIsOpen,
                 setDialogIsOpen,
-                selectedItem,
-                setSelectedItem,
+                // selectedItem,
+                // setSelectedItem,
             }}
         >
             <ErrorBoundary errorComponent={BoardErrorBoundary}>

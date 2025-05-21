@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import Head from "next/head"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ReactScan } from "./components/scan/ReactScan"
+import { JotiaProvider } from "./providers/jotai-provider"
 
 export const metadata = {
     title: "tiertogether",
@@ -37,18 +38,20 @@ export default function RootLayout({ children }) {
                 </Head>
                 <ReactScan />
                 <body>
-                    <QueryProvider>
-                        <ReactQueryDevtools />
-                        <ThemeProvider
-                            attribute="class"
-                            defaultTheme="system"
-                            enableSystem
-                            disableTransitionOnChange
-                        >
-                            <NuqsAdapter>{children}</NuqsAdapter>
-                            <Toaster />
-                        </ThemeProvider>
-                    </QueryProvider>
+                    <JotiaProvider>
+                        <QueryProvider>
+                            <ReactQueryDevtools />
+                            <ThemeProvider
+                                attribute="class"
+                                defaultTheme="system"
+                                enableSystem
+                                disableTransitionOnChange
+                            >
+                                <NuqsAdapter>{children}</NuqsAdapter>
+                                <Toaster />
+                            </ThemeProvider>
+                        </QueryProvider>
+                    </JotiaProvider>
                 </body>
             </html>
         </ClerkProvider>
