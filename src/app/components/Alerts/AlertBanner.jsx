@@ -29,21 +29,23 @@ function AlertContent({ alert }) {
 
     const [hidden, setHidden] = useState(false)
 
+    if (!alert?.data?.[0]) return null
+
     if (typeof window !== "undefined") {
         viewedAlerts = JSON.parse(localStorage.getItem("alertsViewed"))
     }
 
     const handleClick = () => {
         if (Array.isArray(viewedAlerts)) {
-            viewedAlerts.push(alert?.data[0].id)
+            viewedAlerts.push(alert?.data?.[0].id)
             saveAlertLocalStorage(viewedAlerts)
         } else {
-            saveAlertLocalStorage([alert?.data[0].id])
+            saveAlertLocalStorage([alert?.data?.[0]?.id])
         }
         setHidden(true)
     }
 
-    if (viewedAlerts !== null && viewedAlerts.includes(alert?.data[0]?.id))
+    if (viewedAlerts !== null && viewedAlerts.includes(alert?.data?.[0]?.id))
         return null
 
     return (
@@ -53,10 +55,10 @@ function AlertContent({ alert }) {
                     alert.data[0].type == "warn" ? "destructive" : "default"
                 }
             >
-                {alert.data[0].type == "info" && (
+                {alert.data[0].type === "info" && (
                     <Megaphone className="h-4 w-4" />
                 )}
-                {alert.data[0].type == "warn" && (
+                {alert.data[0].type === "warn" && (
                     <TriangleAlert className="h-4 w-4" />
                 )}
                 <AlertTitle>{alert.data[0].title}</AlertTitle>
