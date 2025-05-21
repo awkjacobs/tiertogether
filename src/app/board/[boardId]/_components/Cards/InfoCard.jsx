@@ -7,12 +7,12 @@ import {
     TooltipTrigger,
 } from "@components/ui/tooltip"
 import { useContext } from "react"
-import { useAtom } from "jotai"
+import { useSetAtom } from "jotai"
 import { selectedItemAtom } from "../../../../atoms"
 
 export default function InfoCard({ item, itemType, size, searchOrCollection }) {
     const { setDialogIsOpen } = useContext(AppDataContext)
-    const [selectedItem, setSelectedItem] = useAtom(selectedItemAtom)
+    const setSelectedItem = useSetAtom(selectedItemAtom)
 
     item.type = itemType
     const name = item?.name ? item?.name : item?.title
