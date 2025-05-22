@@ -22,7 +22,8 @@ import sortItems from "./functions/sortItems"
 import { ErrorBoundary } from "next/dist/client/components/error-boundary"
 import BoardErrorBoundary from "../../error"
 import { useAtom } from "jotai"
-import { showDifferenceAtom } from "../../../../atoms"
+import { showDifferenceAtom } from "@app/atoms"
+import { activeItemAtom } from "../../../../atoms"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
@@ -50,7 +51,7 @@ export default function DraggingContent({ appData }) {
     }, [boardItems, userEntries, board.id])
 
     // drag and drop
-    const [activeItem, setActiveItem] = useState(null)
+    const [activeItem, setActiveItem] = useAtom(activeItemAtom)
     const [startSortable, setStartSortable] = useState()
     const [changedTiers, setChangedTiers] = useState({ start: null, end: null })
 
@@ -215,17 +216,13 @@ export default function DraggingContent({ appData }) {
                         className={`no-scrollbar col-start-2 col-end-5 row-start-2 row-end-3 flex h-full w-full flex-1 flex-col place-self-center overflow-x-visible overflow-y-scroll pb-36 md:pb-72`}
                     >
                         <BoardBar setUserEntries={setUserEntries} />
-                        <TierContainer
-                            ranks={ranks}
-                            activeItem={!!activeItem}
-                        />
+                        <TierContainer ranks={ranks} />
                     </div>
                     <CardQueue
                         board={board}
                         queue={ranks.cardsQueue}
                         queueIsOpen={queueIsOpen}
                         setQueueIsOpen={setQueueIsOpen}
-                        activeItem={!!activeItem}
                     />
                     <DragOverlay modifiers={[restrictToWindowEdges]}>
                         <CardOverlay item={activeItem} />

@@ -58,7 +58,6 @@ export function Tier(props) {
                                         item={item}
                                         tier={props.tier}
                                         active={active}
-                                        activeItem={props.activeItem}
                                     ></Draggable>
                                 )
                             })}

@@ -3,7 +3,7 @@ import { Tier } from "./Tier"
 import { useContext } from "react"
 import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 
-export function TierContainer(props) {
+export function TierContainer({ ranks }) {
     const { appData, userEntries } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
     const { board } = appData
@@ -21,9 +21,8 @@ export function TierContainer(props) {
                         entries={
                             showServerRanks && serverRanks.data
                                 ? serverRanks.data.bleachers
-                                : props.ranks.bleachers
+                                : ranks.bleachers
                         }
-                        {...props}
                     />
                 </div>
             )}
@@ -35,9 +34,8 @@ export function TierContainer(props) {
                         entries={
                             showServerRanks && serverRanks.data
                                 ? serverRanks.data.sRank
-                                : props.ranks.sRank
+                                : ranks.sRank
                         }
-                        {...props}
                     />
                 )}
                 <Tier
@@ -46,9 +44,8 @@ export function TierContainer(props) {
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.aRank
-                            : props.ranks.aRank
+                            : ranks.aRank
                     }
-                    {...props}
                 />
                 <Tier
                     tier="bRank"
@@ -56,9 +53,8 @@ export function TierContainer(props) {
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.bRank
-                            : props.ranks.bRank
+                            : ranks.bRank
                     }
-                    {...props}
                 />
                 <Tier
                     tier="cRank"
@@ -66,9 +62,8 @@ export function TierContainer(props) {
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.cRank
-                            : props.ranks.cRank
+                            : ranks.cRank
                     }
-                    {...props}
                 />
                 <Tier
                     tier="dRank"
@@ -76,9 +71,8 @@ export function TierContainer(props) {
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.dRank
-                            : props.ranks.dRank
+                            : ranks.dRank
                     }
-                    {...props}
                 />
                 <Tier
                     tier="fRank"
@@ -86,9 +80,8 @@ export function TierContainer(props) {
                     entries={
                         showServerRanks && serverRanks.data
                             ? serverRanks.data.fRank
-                            : props.ranks.fRank
+                            : ranks.fRank
                     }
-                    {...props}
                 />
             </div>
             {board.dugout && (
@@ -99,9 +92,8 @@ export function TierContainer(props) {
                         entries={
                             showServerRanks && serverRanks.data
                                 ? serverRanks.data.dugout
-                                : props.ranks.dugout
+                                : ranks.dugout
                         }
-                        {...props}
                     />
                 </div>
             )}

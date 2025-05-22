@@ -44,7 +44,6 @@ export default function SwiperZone(props) {
                                     item={item}
                                     tier={"cardsQueue"}
                                     isActive={isActive}
-                                    activeItem={props.activeItem}
                                     isDesktop={isDesktop}
                                     {...props}
                                 />

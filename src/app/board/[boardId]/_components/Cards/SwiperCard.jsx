@@ -16,7 +16,7 @@ import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
 
 export default function SwiperCard(props) {
-    const { item, tier, isActive, activeItem, isDesktop, queueIsOpen } = props
+    const { item, tier, isActive, isDesktop, queueIsOpen } = props
 
     const { appData } = useContext(AppDataContext)
     const { user, board } = appData
@@ -76,7 +76,6 @@ export default function SwiperCard(props) {
                         key={item.id}
                         item={item}
                         tier={"cardsQueue"}
-                        activeItem={activeItem}
                         active={active}
                         appData={appData}
                     ></Draggable>
