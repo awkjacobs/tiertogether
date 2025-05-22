@@ -21,6 +21,8 @@ import { move } from "./functions/react-dndFuncs"
 import sortItems from "./functions/sortItems"
 import { ErrorBoundary } from "next/dist/client/components/error-boundary"
 import BoardErrorBoundary from "../../error"
+import { useAtom } from "jotai"
+import { showDifferenceAtom } from "../../../../atoms"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
@@ -32,8 +34,8 @@ export default function DraggingContent({ appData }) {
         sortItems(boardItems, userEntries, board.id),
     )
 
-    let showDifference = userEntries !== user.id
-    appData.showDifference = showDifference
+    const [showDifference, setShowDifference] = useAtom(showDifferenceAtom)
+    setShowDifference(userEntries !== user.id)
 
     const [queueIsOpen, setQueueIsOpen] = useState(!showDifference)
 
@@ -46,8 +48,6 @@ export default function DraggingContent({ appData }) {
         if (userEntries === "overall") return
         setRanks(sortItems(boardItems, userEntries, board.id))
     }, [boardItems, userEntries, board.id])
-
-    const [activeCardIndex, setActiveCardIndex] = useState(0)
 
     // drag and drop
     const [activeItem, setActiveItem] = useState(null)
@@ -196,16 +196,11 @@ export default function DraggingContent({ appData }) {
     })
     const sensors = useSensors(mouseSensor, touchSensor)
 
-    const [dialogIsOpen, setDialogIsOpen] = useState(false)
-
     return (
         <AppDataContext.Provider
             value={{
                 appData,
                 userEntries,
-                showDifference,
-                dialogIsOpen,
-                setDialogIsOpen,
             }}
         >
             <ErrorBoundary errorComponent={BoardErrorBoundary}>
@@ -228,8 +223,6 @@ export default function DraggingContent({ appData }) {
                     <CardQueue
                         board={board}
                         queue={ranks.cardsQueue}
-                        activeCardIndex={activeCardIndex}
-                        setActiveCardIndex={setActiveCardIndex}
                         queueIsOpen={queueIsOpen}
                         setQueueIsOpen={setQueueIsOpen}
                         activeItem={!!activeItem}
@@ -237,10 +230,7 @@ export default function DraggingContent({ appData }) {
                     <DragOverlay modifiers={[restrictToWindowEdges]}>
                         <CardOverlay item={activeItem} />
                     </DragOverlay>
-                    <InfoDialog
-                        isOpen={dialogIsOpen}
-                        setIsOpen={setDialogIsOpen}
-                    />
+                    <InfoDialog />
                 </DndContext>
             </ErrorBoundary>
         </AppDataContext.Provider>

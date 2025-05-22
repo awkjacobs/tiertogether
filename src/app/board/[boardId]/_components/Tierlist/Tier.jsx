@@ -4,11 +4,14 @@ import RankedCardClone from "../Cards/RankedCardClone"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { useContext } from "react"
 import ResizableText from "@app/components/Utility/ResizableText"
+import { showDifferenceAtom } from "../../../../atoms"
+import { useAtomValue } from "jotai"
 
 // ? - reduce the number of renders by being more selective of the entries
 
 export function Tier(props) {
     const { appData } = useContext(AppDataContext)
+    const showDifference = useAtomValue(showDifferenceAtom)
     const { active, isOver, setNodeRef } = useSortable({
         id: props.tier,
         data: { type: "tier" },
@@ -63,7 +66,7 @@ export function Tier(props) {
                 />
             </div>
 
-            {!appData.showDifference && (
+            {!showDifference && (
                 <SortableContext items={entries ? entries : []} id={props.tier}>
                     <ul
                         ref={setNodeRef}
@@ -88,7 +91,7 @@ export function Tier(props) {
                     </ul>
                 </SortableContext>
             )}
-            {appData.showDifference && (
+            {showDifference && (
                 <ul className={`flex flex-1 flex-wrap gap-y-2 p-2 md:gap-y-4`}>
                     {entries.map((item, index) => {
                         return (

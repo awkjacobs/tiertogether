@@ -1,4 +1,3 @@
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import Poster from "./Card Components/Poster"
 import {
     Tooltip,
@@ -6,13 +5,12 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@components/ui/tooltip"
-import { useContext } from "react"
 import { useSetAtom } from "jotai"
-import { selectedItemAtom } from "../../../../atoms"
+import { dialogIsOpenAtam, selectedItemAtom } from "../../../../atoms"
 
 export default function InfoCard({ item, itemType, size, searchOrCollection }) {
-    const { setDialogIsOpen } = useContext(AppDataContext)
     const setSelectedItem = useSetAtom(selectedItemAtom)
+    const setDialogIsOpen = useSetAtom(dialogIsOpenAtam)
 
     item.type = itemType
     const name = item?.name ? item?.name : item?.title

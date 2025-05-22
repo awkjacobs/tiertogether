@@ -23,10 +23,11 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { useContext } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import InfoDialogContent from "./InfoDialogContent"
-import { useAtomValue } from "jotai"
-import { selectedItemAtom } from "../../../../atoms"
+import { useAtom, useAtomValue } from "jotai"
+import { dialogIsOpenAtam, selectedItemAtom } from "../../../../atoms"
 
-export default function InfoDialog({ isOpen, setIsOpen }) {
+export default function InfoDialog() {
+    const [dialogIsOpen, setDialogIsOpen] = useAtom(dialogIsOpenAtam)
     const { appData } = useContext(AppDataContext)
     const { board } = appData
 
@@ -53,7 +54,7 @@ export default function InfoDialog({ isOpen, setIsOpen }) {
 
     if (isDesktop) {
         return (
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
                 <ItemDataContext.Provider
                     value={{
                         itemId,
@@ -88,7 +89,7 @@ export default function InfoDialog({ isOpen, setIsOpen }) {
     }
     if (!isDesktop) {
         return (
-            <Drawer open={isOpen} onOpenChange={setIsOpen}>
+            <Drawer open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
                 <ItemDataContext.Provider value={{ itemId, itemType, details }}>
                     <DrawerContent
                         className={`fixed bottom-0 h-[100svh] max-h-[100svh]`}
