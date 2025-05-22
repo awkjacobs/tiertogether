@@ -6,12 +6,13 @@ import { useContext } from "react"
 import ResizableText from "@app/components/Utility/ResizableText"
 import { showDifferenceAtom } from "../../../../atoms"
 import { useAtomValue } from "jotai"
+import { STYLE_SWITCH } from "./const"
 
 // ? - reduce the number of renders by being more selective of the entries
 
 export function Tier(props) {
-    const { appData } = useContext(AppDataContext)
     const showDifference = useAtomValue(showDifferenceAtom)
+
     const { active, isOver, setNodeRef } = useSortable({
         id: props.tier,
         data: { type: "tier" },
@@ -19,33 +20,7 @@ export function Tier(props) {
 
     const entries = props.entries ? props.entries : []
 
-    let style
-    switch (props.tier) {
-        case "sRank":
-            style = "sRank rounded-tl-lg"
-            break
-        case "aRank":
-            style = `bg-teal-500/20`
-            break
-        case "bRank":
-            style = `bg-green-500/20`
-            break
-        case "cRank":
-            style = `bg-yellow-500/20`
-            break
-        case "dRank":
-            style = `bg-orange-500/20`
-            break
-        case "fRank":
-            style = `bg-red-500/20`
-            break
-        case "bleachers":
-        case "dugout":
-            style = `bg-zinc-600/10`
-            break
-        default:
-            break
-    }
+    const style = STYLE_SWITCH(props.tier)
 
     return (
         <section
