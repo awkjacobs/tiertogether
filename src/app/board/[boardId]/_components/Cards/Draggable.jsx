@@ -1,9 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable"
 import { Card } from "./Card"
-import { useState } from "react"
 
 export default function Draggable(props) {
-    // const [dialogIsOpen, setDialogIsOpen] = useState(false)
     const {
         attributes,
         listeners,

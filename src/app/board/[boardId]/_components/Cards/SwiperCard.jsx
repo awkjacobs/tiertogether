@@ -16,17 +16,7 @@ import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
 
 export default function SwiperCard(props) {
-    const {
-        index,
-        item,
-        tier,
-        isActive,
-        activeItem,
-        isDesktop,
-        setActiveCard,
-        setActiveCardIndex,
-        queueIsOpen,
-    } = props
+    const { item, tier, isActive, activeItem, isDesktop, queueIsOpen } = props
 
     const { appData } = useContext(AppDataContext)
     const { user, board } = appData
@@ -41,13 +31,6 @@ export default function SwiperCard(props) {
 
     const allowedToRemoveItemFromBoard =
         user.id === board.ownerId || user.id === item.addedBy.id
-
-    useEffect(() => {
-        if (isActive) {
-            setActiveCard(item)
-            setActiveCardIndex(index)
-        }
-    }, [isActive])
 
     if (details.isSuccess)
         return (

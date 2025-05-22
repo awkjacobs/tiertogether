@@ -1,30 +1,24 @@
-import AddButton from "../AddItem/AddButton"
-import SwiperZone from "./SwiperZone"
-import { useContext, useEffect, useState } from "react"
-import { ChevronDown, ChevronUp } from "lucide-react"
-import { Button } from "@components/ui/button"
 import { useMediaQuery } from "@app/hooks/use-media-query"
-import { useDroppable } from "@dnd-kit/core"
-import { motion } from "motion/react"
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { Button } from "@components/ui/button"
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from "@components/ui/tooltip"
+import { useDroppable } from "@dnd-kit/core"
+import { useAtomValue } from "jotai"
+import { ChevronDown, ChevronUp } from "lucide-react"
+import { motion } from "motion/react"
+import { showDifferenceAtom } from "../../../../atoms"
+import AddButton from "../AddItem/AddButton"
+import SwiperZone from "./SwiperZone"
 
 export default function CardQueue(props) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const { showDifference } = useContext(AppDataContext)
+    const showDifference = useAtomValue(showDifferenceAtom)
 
     const QUEUE_IS_EMPTY = props.queue.length === 0
-
-    const [activeCard, setActiveCard] = useState(props.queue[0])
-
-    useEffect(() => {
-        if (!props.queue[0]) setActiveCard(undefined)
-    }, [props.queue])
 
     function handleClose() {
         props.setQueueIsOpen(!props.queueIsOpen)
@@ -57,15 +51,7 @@ export default function CardQueue(props) {
                 isDesktop={isDesktop}
                 disabled={QUEUE_IS_EMPTY || showDifference}
             />
-            {!QUEUE_IS_EMPTY && (
-                <SwiperZone
-                    {...props}
-                    activeCard={activeCard}
-                    setActiveCard={setActiveCard}
-                    setActiveCardIndex={props.setActiveCardIndex}
-                    isDesktop={isDesktop}
-                />
-            )}
+            {!QUEUE_IS_EMPTY && <SwiperZone {...props} isDesktop={isDesktop} />}
             {QUEUE_IS_EMPTY && <EmptyStatement />}
             <AddButton />
         </motion.div>

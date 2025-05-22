@@ -34,23 +34,18 @@ export default function SwiperZone(props) {
                 }}
                 ref={setNodeRef}
             >
-                {queue.map((item, index) => {
+                {queue.map((item) => {
                     return (
                         <SwiperSlide key={item.id}>
                             {({ isActive }) => (
                                 <SwiperCard
                                     id={item.id}
                                     key={item.id}
-                                    index={index}
                                     item={item}
                                     tier={"cardsQueue"}
                                     isActive={isActive}
                                     activeItem={props.activeItem}
                                     isDesktop={isDesktop}
-                                    setActiveCard={props.setActiveCard}
-                                    setActiveCardIndex={
-                                        props.setActiveCardIndex
-                                    }
                                     {...props}
                                 />
                             )}
