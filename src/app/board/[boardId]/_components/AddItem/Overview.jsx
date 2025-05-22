@@ -1,9 +1,9 @@
 import { Button } from "@components/ui/button"
 import { useSetAtom } from "jotai"
-import { dialogIsOpenAtam, selectedItemAtom } from "../../../../atoms"
+import { dialogIsOpenAtom, selectedItemAtom } from "../../../../atoms"
 
 export default function Details({ item }) {
-    const setDialogIsOpen = useSetAtom(dialogIsOpenAtam)
+    const setDialogIsOpen = useSetAtom(dialogIsOpenAtom)
 
     const setSelectedItem = useSetAtom(selectedItemAtom)
 
