@@ -21,11 +21,14 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@components/ui/tooltip"
+import { useSetAtom } from "jotai"
+import { queueIsOpenAtom } from "@app/atoms"
 
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
     const isOwner = appData.user.id === appData.board.owner.id
+    const setQueueIsOpen = useSetAtom(queueIsOpenAtom)
 
     const [cardSize, setCardSize] = useQueryState("cardSize", {
         defaultValue: "1",
@@ -57,6 +60,10 @@ export default function BoardBar({ setUserEntries }) {
         }
     }
 
+    const handleValueChange = (value) => {
+        setQueueIsOpen(value === appData.user.id)
+        setUserEntries(value)
+    }
     return (
         <div
             className={`my-2 grid w-full grid-cols-[1fr,auto] grid-rows-[auto,auto] items-center gap-2 md:grid-cols-[1fr,auto,auto] md:grid-rows-[auto]`}
@@ -118,7 +125,7 @@ export default function BoardBar({ setUserEntries }) {
                 </TooltipProvider>
                 <Select
                     defaultValue={appData.user.id}
-                    onValueChange={(value) => setUserEntries(value)}
+                    onValueChange={handleValueChange}
                     disabled={!serverRanks.data}
                 >
                     <SelectTrigger className="h-8 flex-1 md:h-10 md:w-52">

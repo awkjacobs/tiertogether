@@ -21,9 +21,8 @@ import { move } from "./functions/react-dndFuncs"
 import sortItems from "./functions/sortItems"
 import { ErrorBoundary } from "next/dist/client/components/error-boundary"
 import BoardErrorBoundary from "../../error"
-import { useAtom } from "jotai"
-import { showDifferenceAtom } from "@app/atoms"
-import { activeItemAtom } from "../../../../atoms"
+import { useAtom, useSetAtom } from "jotai"
+import { showDifferenceAtom, activeItemAtom } from "@app/atoms"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
@@ -35,15 +34,8 @@ export default function DraggingContent({ appData }) {
         sortItems(boardItems, userEntries, board.id),
     )
 
-    const [showDifference, setShowDifference] = useAtom(showDifferenceAtom)
+    const setShowDifference = useSetAtom(showDifferenceAtom)
     setShowDifference(userEntries !== user.id)
-
-    const [queueIsOpen, setQueueIsOpen] = useState(!showDifference)
-
-    useEffect(() => {
-        if (showDifference) setQueueIsOpen(false)
-        else setQueueIsOpen(true)
-    }, [showDifference])
 
     useEffect(() => {
         if (userEntries === "overall") return
@@ -218,12 +210,7 @@ export default function DraggingContent({ appData }) {
                         <BoardBar setUserEntries={setUserEntries} />
                         <TierContainer ranks={ranks} />
                     </div>
-                    <CardQueue
-                        board={board}
-                        queue={ranks.cardsQueue}
-                        queueIsOpen={queueIsOpen}
-                        setQueueIsOpen={setQueueIsOpen}
-                    />
+                    <CardQueue queue={ranks.cardsQueue} />
                     <DragOverlay modifiers={[restrictToWindowEdges]}>
                         <CardOverlay item={activeItem} />
                     </DragOverlay>

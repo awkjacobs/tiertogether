@@ -1,3 +1,4 @@
+import { queueIsOpenAtom, showDifferenceAtom } from "@app/atoms"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Button } from "@components/ui/button"
 import {
@@ -7,31 +8,28 @@ import {
     TooltipTrigger,
 } from "@components/ui/tooltip"
 import { useDroppable } from "@dnd-kit/core"
-import { useAtomValue } from "jotai"
+import { useAtom, useAtomValue } from "jotai"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { motion } from "motion/react"
-import { showDifferenceAtom } from "../../../../atoms"
 import AddButton from "../AddItem/AddButton"
 import SwiperZone from "./SwiperZone"
 
-export default function CardQueue(props) {
+export default function CardQueue({ queue }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const showDifference = useAtomValue(showDifferenceAtom)
+    const queueIsOpen = useAtomValue(queueIsOpenAtom)
 
-    const QUEUE_IS_EMPTY = props.queue.length === 0
+    const QUEUE_IS_EMPTY = queue.length === 0
 
-    function handleClose() {
-        props.setQueueIsOpen(!props.queueIsOpen)
-    }
     const { active, isOver, setNodeRef } = useDroppable({
         id: "cardsQueue",
         data: { type: "tier" },
     })
     const height = isDesktop
-        ? props.queueIsOpen && !QUEUE_IS_EMPTY
+        ? queueIsOpen && !QUEUE_IS_EMPTY
             ? 272
             : 80
-        : props.queueIsOpen && !QUEUE_IS_EMPTY
+        : queueIsOpen && !QUEUE_IS_EMPTY
           ? 136
           : 56
     return (
@@ -46,24 +44,26 @@ export default function CardQueue(props) {
             } bottom-0 flex flex-row justify-center rounded-t-md p-2 shadow-[0px_-14px_34px_-20px_rgba(0,0,0,0.8)] md:p-4`}
         >
             <OpenCloseQueueButton
-                queueIsOpen={props.queueIsOpen}
-                handleClose={handleClose}
                 isDesktop={isDesktop}
                 disabled={QUEUE_IS_EMPTY || showDifference}
             />
-            {!QUEUE_IS_EMPTY && <SwiperZone {...props} isDesktop={isDesktop} />}
+            {!QUEUE_IS_EMPTY && (
+                <SwiperZone queue={queue} isDesktop={isDesktop} />
+            )}
             {QUEUE_IS_EMPTY && <EmptyStatement />}
             <AddButton />
         </motion.div>
     )
 }
 
-function OpenCloseQueueButton({
-    handleClose,
-    queueIsOpen,
-    isDesktop,
-    disabled,
-}) {
+function OpenCloseQueueButton({ isDesktop, disabled }) {
+    const [queueIsOpen, setQueueIsOpen] = useAtom(queueIsOpenAtom)
+
+    function handleClose() {
+        let bool = queueIsOpen
+        setQueueIsOpen(!bool)
+    }
+
     return (
         <TooltipProvider>
             <Tooltip>

@@ -7,16 +7,15 @@ import SwiperCard from "../Cards/SwiperCard"
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 
-export default function SwiperZone(props) {
+export default function SwiperZone({ queue }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const { tier, queue } = props
 
     const swiperDimensions = {
         width: isDesktop ? 460 : 230,
         height: isDesktop ? 240 : 120,
     }
-    const { active, isOver, setNodeRef } = useSortable({
-        id: tier,
+    const { setNodeRef } = useSortable({
+        id: "queue",
         data: { type: "tier" },
     })
     return (
@@ -45,7 +44,6 @@ export default function SwiperZone(props) {
                                     tier={"cardsQueue"}
                                     isActive={isActive}
                                     isDesktop={isDesktop}
-                                    {...props}
                                 />
                             )}
                         </SwiperSlide>
