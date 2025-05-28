@@ -21,8 +21,8 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@components/ui/tooltip"
-import { useSetAtom } from "jotai"
-import { queueIsOpenAtom } from "@app/atoms"
+import { useAtom, useSetAtom } from "jotai"
+import { queueIsOpenAtom, cardSizeAtom } from "@app/atoms"
 
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
@@ -30,40 +30,20 @@ export default function BoardBar({ setUserEntries }) {
     const isOwner = appData.user.id === appData.board.owner.id
     const setQueueIsOpen = useSetAtom(queueIsOpenAtom)
 
-    const [cardSize, setCardSize] = useQueryState("cardSize", {
-        defaultValue: "1",
-    })
-
-    const searchParams = useSearchParams()
-    const currentCardSize = searchParams.get("cardSize")
+    const [cardSize, setCardSize] = useAtom(cardSizeAtom)
 
     const handleZoomIn = () => {
-        switch (currentCardSize) {
-            case "2":
-                setCardSize("3")
-                break
-            default:
-                setCardSize("2")
-                break
-        }
+        setCardSize((prev) => (prev === 3 ? prev : prev + 1))
     }
     const handleZoomOut = () => {
-        switch (currentCardSize) {
-            case "2":
-                setCardSize("1")
-                break
-            case "3":
-                setCardSize("2")
-                break
-            default:
-                break
-        }
+        setCardSize((prev) => (prev === 1 || prev === null ? prev : prev - 1))
     }
 
     const handleValueChange = (value) => {
         setQueueIsOpen(value === appData.user.id)
         setUserEntries(value)
     }
+
     return (
         <div
             className={`my-2 grid w-full grid-cols-[1fr,auto] grid-rows-[auto,auto] items-center gap-2 md:grid-cols-[1fr,auto,auto] md:grid-rows-[auto]`}
@@ -94,7 +74,7 @@ export default function BoardBar({ setUserEntries }) {
                                     variant="ghost"
                                     className={`h-8 w-8 rounded-e-none px-2 md:h-10 md:w-10`}
                                     onClick={handleZoomIn}
-                                    disabled={currentCardSize === "3"}
+                                    disabled={cardSize > 2}
                                 >
                                     <ZoomIn className={`h-4 w-4`} />
                                 </Button>
@@ -109,10 +89,7 @@ export default function BoardBar({ setUserEntries }) {
                                     variant="ghost"
                                     className={`h-8 w-8 rounded-s-none px-2 md:h-10 md:w-10`}
                                     onClick={handleZoomOut}
-                                    disabled={
-                                        currentCardSize === "1" ||
-                                        currentCardSize === null
-                                    }
+                                    disabled={cardSize < 2 || cardSize === null}
                                 >
                                     <ZoomOut className={`h-4 w-4`} />
                                 </Button>

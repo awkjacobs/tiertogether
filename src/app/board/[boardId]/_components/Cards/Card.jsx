@@ -15,12 +15,11 @@ import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
 import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
 import { CARD_SIZE } from "./_const/const"
-import { useSetAtom } from "jotai"
-import { selectedItemAtom } from "@app/atoms"
-import { dialogIsOpenAtom } from "@app/atoms"
+import { useAtomValue, useSetAtom } from "jotai"
+import { selectedItemAtom, dialogIsOpenAtom, cardSizeAtom } from "@app/atoms"
 
-const getCardClassName = (urlCardSize, tier, isDragging) => {
-    const baseClasses = CARD_SIZE[urlCardSize] ?? CARD_SIZE["null"]
+const getCardClassName = (cardSize, tier, isDragging) => {
+    const baseClasses = CARD_SIZE[cardSize] ?? CARD_SIZE["null"]
     const tierClasses =
         tier === "cardsQueue"
             ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
@@ -41,8 +40,7 @@ export function Card({
     const setSelectedItem = useSetAtom(selectedItemAtom)
     const setDialogIsOpen = useSetAtom(dialogIsOpenAtom)
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const searchParams = useSearchParams()
-    const urlCardSize = searchParams.get("cardSize")
+    const cardSize = useAtomValue(cardSizeAtom)
     const { id: itemId, type: itemType } = ITEM_ID_TYPE(item.id)
     const details = useGetDetailsQuery(itemId, itemType)
 
@@ -66,11 +64,8 @@ export function Card({
     }
     if (activeItem)
         return (
-            <li className={getCardClassName(urlCardSize, tier, isDragging)}>
-                <Poster
-                    className={`${CARD_SIZE[urlCardSize]}`}
-                    itemId={item.id}
-                />
+            <li className={getCardClassName(cardSize, tier, isDragging)}>
+                <Poster className={`${CARD_SIZE[cardSize]}`} itemId={item.id} />
             </li>
         )
 
@@ -86,13 +81,13 @@ export function Card({
                                 onClick={handleSelect}
                                 onMouseEnter={handleHover}
                                 className={getCardClassName(
-                                    urlCardSize,
+                                    cardSize,
                                     tier,
                                     isDragging,
                                 )}
                             >
                                 <Poster
-                                    className={`${CARD_SIZE[urlCardSize]}`}
+                                    className={`${CARD_SIZE[cardSize]}`}
                                     itemId={item.id}
                                 />
                                 {children}
@@ -134,12 +129,12 @@ export function Card({
                 <li
                     onClick={handleSelect}
                     onPointerDown={handleHover}
-                    className={getCardClassName(urlCardSize, tier, isDragging)}
+                    className={getCardClassName(cardSize, tier, isDragging)}
                 >
                     {children}
 
                     <Poster
-                        className={`${CARD_SIZE[urlCardSize]}`}
+                        className={`${CARD_SIZE[cardSize]}`}
                         itemId={item.id}
                     />
                 </li>

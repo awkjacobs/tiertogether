@@ -9,3 +9,5 @@ export const showDifferenceAtom = atom(false)
 export const activeItemAtom = atom(null)
 
 export const queueIsOpenAtom = atom(true)
+
+export const cardSizeAtom = atom(1)

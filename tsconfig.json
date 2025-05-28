@@ -8,7 +8,8 @@
             "@lib/*": ["lib/*"],
             "@types/*": ["types/*"],
             "@changelog": ["CHANGELOG.md"],
-            "@content/*": ["./*"]
+            "@content/*": ["./*"],
+            "@app/atoms/*": ["src/app/atoms/*"]
         },
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
