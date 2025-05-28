@@ -65,7 +65,10 @@ export function Card({
     if (activeItem)
         return (
             <li className={getCardClassName(cardSize, tier, isDragging)}>
-                <Poster className={`${CARD_SIZE[cardSize]}`} itemId={item.id} />
+                <Poster
+                    className={`${CARD_SIZE[cardSize] ?? CARD_SIZE["null"]}`}
+                    itemId={item.id}
+                />
             </li>
         )
 
@@ -87,7 +90,7 @@ export function Card({
                                 )}
                             >
                                 <Poster
-                                    className={`${CARD_SIZE[cardSize]}`}
+                                    className={`${CARD_SIZE[cardSize] ?? CARD_SIZE["null"]}`}
                                     itemId={item.id}
                                 />
                                 {children}
@@ -134,8 +137,10 @@ export function Card({
                     {children}
 
                     <Poster
-                        className={`${CARD_SIZE[cardSize]}`}
-                        itemId={item.id}
+<Poster
+    className={`${CARD_SIZE[cardSize] ?? CARD_SIZE["null"]}`}
+    itemId={item.id}
+/>
                     />
                 </li>
             </ItemRankContext.Provider>

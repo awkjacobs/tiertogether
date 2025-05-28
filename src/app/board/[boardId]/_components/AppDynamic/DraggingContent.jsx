@@ -35,7 +35,10 @@ export default function DraggingContent({ appData }) {
     )
 
     const setShowDifference = useSetAtom(showDifferenceAtom)
-    setShowDifference(userEntries !== user.id)
+
+    useEffect(() => {
+        setShowDifference(userEntries !== user.id)
+    }, [setShowDifference, userEntries, user.id])
 
     useEffect(() => {
         if (userEntries === "overall") return
