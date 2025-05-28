@@ -1,8 +1,8 @@
+import { cardSizeAtom, dialogIsOpenAtom, selectedItemAtom } from "@app/atoms"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
 import { useMediaQuery } from "@app/hooks/use-media-query"
-import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
-import { useSearchParams } from "next/navigation"
-import Poster from "./Card Components/Poster"
 import {
     Tooltip,
     TooltipContent,
@@ -10,13 +10,12 @@ import {
     TooltipTrigger,
 } from "@components/ui/tooltip"
 import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
-import { useContext } from "react"
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
-import { ItemRankContext } from "@app/components/_providers/itemRankProvider"
+import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
 import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
-import { CARD_SIZE } from "./_const/const"
 import { useAtomValue, useSetAtom } from "jotai"
-import { selectedItemAtom, dialogIsOpenAtom, cardSizeAtom } from "@app/atoms"
+import { useContext } from "react"
+import { CARD_SIZE } from "./_const/const"
+import Poster from "./Card Components/Poster"
 
 const getCardClassName = (cardSize, tier, isDragging) => {
     const baseClasses = CARD_SIZE[cardSize] ?? CARD_SIZE["null"]
@@ -137,10 +136,8 @@ export function Card({
                     {children}
 
                     <Poster
-<Poster
-    className={`${CARD_SIZE[cardSize] ?? CARD_SIZE["null"]}`}
-    itemId={item.id}
-/>
+                        className={`${CARD_SIZE[cardSize] ?? CARD_SIZE["null"]}`}
+                        itemId={item.id}
                     />
                 </li>
             </ItemRankContext.Provider>
