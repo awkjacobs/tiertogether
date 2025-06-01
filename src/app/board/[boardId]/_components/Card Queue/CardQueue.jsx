@@ -19,7 +19,7 @@ export default function CardQueue({ queue }) {
     const showDifference = useAtomValue(showDifferenceAtom)
     const queueIsOpen = useAtomValue(queueIsOpenAtom)
 
-    const QUEUE_IS_EMPTY = queue.length === 0
+    const QUEUE_IS_EMPTY = !queue || queue.length === 0
 
     const { active, isOver, setNodeRef } = useDroppable({
         id: "cardsQueue",

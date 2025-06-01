@@ -11,10 +11,8 @@ import {
 } from "@components/ui/select"
 import { Separator } from "@components/ui/separator"
 import { ZoomIn, ZoomOut } from "lucide-react"
-import { useSearchParams } from "next/navigation"
-import { useQueryState } from "nuqs"
 import { useContext } from "react"
-import { AppDataContext } from "../../../../components/_providers/appDataProvider"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import {
     Tooltip,
     TooltipContent,
@@ -33,7 +31,7 @@ export default function BoardBar({ setUserEntries }) {
     const [cardSize, setCardSize] = useAtom(cardSizeAtom)
 
     const handleZoomIn = () => {
-        setCardSize((prev) => (prev === 3 ? prev : prev + 1))
+        setCardSize((prev) => (prev == null || prev === 3 ? prev : prev + 1))
     }
     const handleZoomOut = () => {
         setCardSize((prev) => (prev === 1 || prev === null ? prev : prev - 1))
