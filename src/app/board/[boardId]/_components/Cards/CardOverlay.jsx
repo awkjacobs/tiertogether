@@ -3,6 +3,11 @@ import Poster from "./Card Components/Poster"
 import { CARD_SIZE } from "./_const/const"
 import { cardSizeAtom } from "@app/atoms"
 
+/**
+ * Renders a card overlay with a poster for the given item, styled according to the current card size from global state.
+ *
+ * @param {{ id: string, type: string }} item - The item to display in the card overlay.
+ */
 export default function CardOverlay({ item }) {
     const cardSize = useAtomValue(cardSizeAtom)
 

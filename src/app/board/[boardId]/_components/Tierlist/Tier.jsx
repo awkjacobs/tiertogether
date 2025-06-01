@@ -7,7 +7,17 @@ import { showDifferenceAtom } from "../../../../atoms"
 import { useAtomValue } from "jotai"
 import { TIER_STYLE } from "./const"
 
-// ? - reduce the number of renders by being more selective of the entries
+/**
+ * Renders a sortable tier section with draggable or ranked card entries based on the current difference view mode.
+ *
+ * Displays a labeled tier containing a list of entries, which can be reordered via drag-and-drop when not in difference mode, or shown as static ranked cards when difference mode is active.
+ *
+ * @param {object} props - Component properties.
+ * @param {string} props.tier - Identifier for the tier.
+ * @param {Array} [props.entries] - List of entry objects to display in the tier.
+ * @param {string} props.label - Label text for the tier.
+ * @param {boolean} props.queueShouldBeOpen - Indicates if the queue should be open for ranked card clones.
+ */
 
 export function Tier(props) {
     const showDifference = useAtomValue(showDifferenceAtom)

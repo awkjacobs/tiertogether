@@ -14,6 +14,13 @@ import { motion } from "motion/react"
 import AddButton from "../AddItem/AddButton"
 import SwiperZone from "./SwiperZone"
 
+/**
+ * Renders the animated card queue container with controls and content based on queue state.
+ *
+ * Displays a droppable area for cards, an open/close button, the card swiper if the queue is not empty, an empty state message if the queue is empty, and an add button. The container's height and appearance adjust dynamically based on whether the queue is open, empty, and the viewport size.
+ *
+ * @param {Object[]} queue - The list of cards currently in the queue.
+ */
 export default function CardQueue({ queue }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const showDifference = useAtomValue(showDifferenceAtom)
@@ -56,6 +63,15 @@ export default function CardQueue({ queue }) {
     )
 }
 
+/**
+ * Renders a button that toggles the open or closed state of the card queue.
+ *
+ * The button displays a chevron icon indicating the current state and shows a tooltip with the appropriate action ("Open Queue" or "Close Queue"). The button is disabled when the queue cannot be toggled.
+ *
+ * @param {Object} props
+ * @param {boolean} props.isDesktop - Whether the button is rendered in a desktop viewport.
+ * @param {boolean} props.disabled - Whether the button is disabled.
+ */
 function OpenCloseQueueButton({ isDesktop, disabled }) {
     const [queueIsOpen, setQueueIsOpen] = useAtom(queueIsOpenAtom)
 

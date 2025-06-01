@@ -24,6 +24,14 @@ import BoardBar from "./BoardBar"
 import { move } from "./functions/react-dndFuncs"
 import sortItems from "./functions/sortItems"
 
+/**
+ * Renders the main drag-and-drop tier list interface, managing user-specific sorting, state, and interactions.
+ *
+ * Provides context and state for tiered board items, handles drag-and-drop logic for reordering items across tiers, and updates global state to reflect user-specific or overall rankings. Integrates error boundaries and overlays for robust UI and user feedback.
+ *
+ * @param {{ appData: { board: object, user: object } }} props - Contains board data and current user information.
+ * @returns {JSX.Element} The rendered drag-and-drop tier list interface.
+ */
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
 

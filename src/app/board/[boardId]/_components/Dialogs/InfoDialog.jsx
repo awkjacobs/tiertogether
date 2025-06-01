@@ -26,6 +26,11 @@ import InfoDialogContent from "./InfoDialogContent"
 import { useAtom, useAtomValue } from "jotai"
 import { dialogIsOpenAtom, selectedItemAtom } from "@app/atoms"
 
+/**
+ * Displays detailed information about the currently selected item in a modal dialog or drawer, adapting to desktop or mobile viewports.
+ *
+ * Renders either a dialog (on desktop) or a drawer (on mobile) with item details, a backdrop, and controls for adding or removing the item. The open state and selected item are managed via global atoms.
+ */
 export default function InfoDialog() {
     const [dialogIsOpen, setDialogIsOpen] = useAtom(dialogIsOpenAtom)
     const { appData } = useContext(AppDataContext)

@@ -8,6 +8,17 @@ import {
 import { useSetAtom } from "jotai"
 import { dialogIsOpenAtom, selectedItemAtom } from "@app/atoms"
 
+/**
+ * Renders an interactive card displaying item information with tooltip support.
+ *
+ * When clicked, opens a dialog and sets the selected item in global state. The card displays a poster image and shows the item's name or title in a tooltip on hover or focus.
+ *
+ * @param {Object} props
+ * @param {Object} props.item - The item to display. Its `type` property will be set to {@link itemType}.
+ * @param {string} props.itemType - The type to assign to the item.
+ * @param {string} props.size - The size variant for the card.
+ * @param {"search"|"collection"} props.searchOrCollection - Determines styling based on context.
+ */
 export default function InfoCard({ item, itemType, size, searchOrCollection }) {
     const setSelectedItem = useSetAtom(selectedItemAtom)
     const setDialogIsOpen = useSetAtom(dialogIsOpenAtom)
