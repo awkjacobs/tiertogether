@@ -5,7 +5,7 @@ import RankedCardClone from "../Cards/RankedCardClone"
 import ResizableText from "@app/components/Utility/ResizableText"
 import { showDifferenceAtom } from "../../../../atoms"
 import { useAtomValue } from "jotai"
-import { STYLE_SWITCH } from "./const"
+import { TIER_STYLE } from "./const"
 
 // ? - reduce the number of renders by being more selective of the entries
 
@@ -19,7 +19,7 @@ export function Tier(props) {
 
     const entries = props.entries ? props.entries : []
 
-    const style = STYLE_SWITCH(props.tier)
+    const style = TIER_STYLE(props.tier)
 
     return (
         <section

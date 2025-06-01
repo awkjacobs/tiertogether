@@ -1,4 +1,9 @@
-export const STYLE_SWITCH = (tier) => {
+/**
+ * Maps tier names to their corresponding CSS class strings
+ * @param {string} tier - The tier name (sRank, aRank, bRank, etc.)
+ * @returns {string} CSS class string or empty string if tier not found
+ */
+export const TIER_STYLE = (tier) => {
     const styles = {
         sRank: "sRank rounded-tl-lg",
         aRank: "bg-teal-500/20",
