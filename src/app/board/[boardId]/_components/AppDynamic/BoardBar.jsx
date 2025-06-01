@@ -31,10 +31,10 @@ export default function BoardBar({ setUserEntries }) {
     const [cardSize, setCardSize] = useAtom(cardSizeAtom)
 
     const handleZoomIn = () => {
-        setCardSize((prev) => (prev == null || prev === 3 ? prev : prev + 1))
+        setCardSize((prev) => (prev === 3 ? prev : prev + 1))
     }
     const handleZoomOut = () => {
-        setCardSize((prev) => (prev === 1 || prev === null ? prev : prev - 1))
+        setCardSize((prev) => (prev === 1 ? prev : prev - 1))
     }
 
     const handleValueChange = (value) => {
@@ -87,7 +87,7 @@ export default function BoardBar({ setUserEntries }) {
                                     variant="ghost"
                                     className={`h-8 w-8 rounded-s-none px-2 md:h-10 md:w-10`}
                                     onClick={handleZoomOut}
-                                    disabled={cardSize < 2 || cardSize === null}
+                                    disabled={cardSize < 2}
                                 >
                                     <ZoomOut className={`h-4 w-4`} />
                                 </Button>
