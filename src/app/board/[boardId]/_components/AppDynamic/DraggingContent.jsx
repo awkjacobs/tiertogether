@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 
+import { activeItemAtom, showDifferenceAtom } from "@app/atoms"
 import { AppDataContext } from "@components/_providers/appDataProvider"
 import {
     DndContext,
@@ -12,17 +13,16 @@ import {
     useSensors,
 } from "@dnd-kit/core"
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
+import { useAtom, useSetAtom } from "jotai"
+import { ErrorBoundary } from "next/dist/client/components/error-boundary"
+import BoardErrorBoundary from "../../error"
 import CardQueue from "../Card Queue/CardQueue"
-import { CardOverlay } from "../Cards/CardOverlay"
+import CardOverlay from "../Cards/CardOverlay"
 import InfoDialog from "../Dialogs/InfoDialog"
-import { TierContainer } from "../Tierlist/TierContainer"
+import TierContainer from "../Tierlist/TierContainer"
 import BoardBar from "./BoardBar"
 import { move } from "./functions/react-dndFuncs"
 import sortItems from "./functions/sortItems"
-import { ErrorBoundary } from "next/dist/client/components/error-boundary"
-import BoardErrorBoundary from "../../error"
-import { useAtom, useSetAtom } from "jotai"
-import { showDifferenceAtom, activeItemAtom } from "@app/atoms"
 
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
@@ -73,10 +73,7 @@ export default function DraggingContent({ appData }) {
             }
         })
 
-        // ! timeout causes the overlay to sometimes not get the item from active Item, but it did remove the max depth error
-        // setTimeout(() => {
         setActiveItem(event.active.data.current.item)
-        // }, 0)
     }
     function handleDragOver(event) {
         const { active, over, draggingRect } = event
@@ -104,7 +101,6 @@ export default function DraggingContent({ appData }) {
             }
         })
 
-        // setTimeout(() => {
         setRanks((prev) => {
             const activeItems = prev[activeContainer]
             const overItems = prev[overContainer]
@@ -147,7 +143,6 @@ export default function DraggingContent({ appData }) {
                 ],
             }
         })
-        // }, 0)
     }
 
     function handleDragEnd(event) {

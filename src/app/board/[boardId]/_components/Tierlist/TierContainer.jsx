@@ -3,7 +3,7 @@ import { Tier } from "./Tier"
 import { useContext } from "react"
 import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 
-export function TierContainer({ ranks }) {
+export default function TierContainer({ ranks }) {
     const { appData, userEntries } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
     const { board } = appData

@@ -2,7 +2,7 @@ import Poster from "./Card Components/Poster"
 import { useSearchParams } from "next/navigation"
 import { CARD_SIZE } from "./_const/const"
 
-export function CardOverlay({ item }) {
+export default function CardOverlay({ item }) {
     const searchParams = useSearchParams()
     const urlCardSize = searchParams.get("cardSize")
 
