@@ -26,6 +26,21 @@ const getCardClassName = (cardSize, tier, isDragging) => {
     return `${baseClasses} relative block overflow-hidden ${tierClasses} ${isDragging ? "opacity-50" : ""}`
 }
 
+/**
+ * Renders a card component displaying an item with optional ranking, tooltip, and interaction features.
+ *
+ * The card adapts its layout and behavior based on viewport size, active state, and provided props. On desktop, it displays tooltips with item details and ranking information. On mobile, it provides touch-friendly interactions. The card can highlight differences in ranking when the `difference` prop is enabled.
+ *
+ * @param {object} props.item - The item to display in the card, including its ID and ranking data.
+ * @param {React.ReactNode} props.children - Optional child elements to render inside the card.
+ * @param {boolean} props.isDragging - Whether the card is currently being dragged.
+ * @param {string} props.tier - The tier or category of the card, affecting its appearance.
+ * @param {boolean} props.activeItem - If true, renders the card in an active state with minimal content.
+ * @param {boolean} [props.difference=false] - If true, displays additional ranking comparison information in the tooltip.
+ * @param {object} [props.scoreToCompareAgainst] - Optional score data used for ranking comparison.
+ *
+ * @returns {JSX.Element} The rendered card component.
+ */
 export function Card({
     item,
     children,

@@ -15,6 +15,14 @@ export const metadata = {
     description: "Rank media together.",
 }
 
+/**
+ * Defines the root layout for the application, setting up global providers, theming, and metadata.
+ *
+ * Wraps the app with authentication, state management, data fetching, theme, and notification providers, and sets up HTML metadata for SEO and social sharing.
+ *
+ * @param {object} props
+ * @param {React.ReactNode} props.children - The content to render within the layout.
+ */
 export default function RootLayout({ children }) {
     return (
         <ClerkProvider

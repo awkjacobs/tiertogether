@@ -1,6 +1,14 @@
 import { useSortable } from "@dnd-kit/sortable"
 import { Card } from "./Card"
 
+/**
+ * Renders a draggable card component with sortable functionality.
+ *
+ * Integrates with the dnd-kit sortable system to enable drag-and-drop sorting for the provided item.
+ * Passes drag state and sortable props to the underlying {@link Card} component.
+ *
+ * @returns {JSX.Element} A div wrapping the card, configured for drag-and-drop sorting.
+ */
 export default function Draggable(props) {
     const {
         attributes,

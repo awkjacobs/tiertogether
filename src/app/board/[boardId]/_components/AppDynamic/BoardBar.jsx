@@ -22,6 +22,13 @@ import {
 import { useAtom, useSetAtom } from "jotai"
 import { queueIsOpenAtom, cardSizeAtom } from "@app/atoms"
 
+/**
+ * Renders the board control bar with zoom controls, user rank selection, and an edit button.
+ *
+ * Displays the board name and type, allows users to adjust card size, select rank views (overall, self, or other users), and provides an edit option if the user is the board owner.
+ *
+ * @param {{ setUserEntries: (userId: string) => void }} props - Callback to update the displayed user entries when the rank view selection changes.
+ */
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)

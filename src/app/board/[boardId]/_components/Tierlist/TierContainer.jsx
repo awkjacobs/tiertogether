@@ -3,6 +3,15 @@ import { Tier } from "./Tier"
 import { useContext } from "react"
 import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
 
+/**
+ * Renders a collection of ranking tiers for a board, displaying either user-specific or server average ranks.
+ *
+ * Conditionally includes special tiers such as "bleachers" and "dugout" based on board configuration, and dynamically labels each tier using board data.
+ *
+ * @param {Object} ranks - The rank data to display when not showing server averages.
+ *
+ * @returns {JSX.Element} The rendered tier list section.
+ */
 export default function TierContainer({ ranks }) {
     const { appData, userEntries } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)

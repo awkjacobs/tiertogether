@@ -7,6 +7,13 @@ import SwiperCard from "../Cards/SwiperCard"
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 
+/**
+ * Renders a swipeable, sortable card queue using Swiper and drag-and-drop integration.
+ *
+ * Displays each item in the {@link queue} as a card within a swipeable interface, supporting both desktop and mobile layouts. Enables drag-and-drop sorting and card-style transitions.
+ *
+ * @param {Object[]} queue - Array of items to display as swipeable cards.
+ */
 export default function SwiperZone({ queue }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
