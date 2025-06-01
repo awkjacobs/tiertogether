@@ -135,7 +135,7 @@ export default function DraggingContent({ appData }) {
                 ],
                 [overContainer]: [
                     ...prev[overContainer].slice(0, newIndex),
-                    ranks[activeContainer][activeIndex],
+                    activeItems[activeIndex],
                     ...prev[overContainer].slice(
                         newIndex,
                         prev[overContainer].length,
