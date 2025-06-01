@@ -8,7 +8,8 @@
             "@lib/*": ["lib/*"],
             "@types/*": ["types/*"],
             "@changelog": ["CHANGELOG.md"],
-            "@content/*": ["./*"]
+            "@content/*": ["./*"],
+            "@app/atoms/*": ["src/app/atoms/*"]
         },
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
@@ -29,6 +30,13 @@
         ],
         "target": "ES2017"
     },
-    "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+    "include": [
+        "next-env.d.ts",
+        ".next/types/**/*.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.js",
+        "**/*.jsx"
+    ],
     "exclude": ["node_modules"]
 }

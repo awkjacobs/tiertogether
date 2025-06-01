@@ -11,50 +11,42 @@ import {
 } from "@components/ui/select"
 import { Separator } from "@components/ui/separator"
 import { ZoomIn, ZoomOut } from "lucide-react"
-import { useSearchParams } from "next/navigation"
-import { useQueryState } from "nuqs"
 import { useContext } from "react"
-import { AppDataContext } from "../../../../components/_providers/appDataProvider"
+import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from "@components/ui/tooltip"
+import { useAtom, useSetAtom } from "jotai"
+import { queueIsOpenAtom, cardSizeAtom } from "@app/atoms"
 
+/**
+ * Renders the board control bar with zoom controls, user rank selection, and an edit button.
+ *
+ * Displays the board name and type, allows users to adjust card size, select rank views (overall, self, or other users), and provides an edit option if the user is the board owner.
+ *
+ * @param {{ setUserEntries: (userId: string) => void }} props - Callback to update the displayed user entries when the rank view selection changes.
+ */
 export default function BoardBar({ setUserEntries }) {
     const { appData } = useContext(AppDataContext)
     const serverRanks = useGetServerAverages(appData.board.id)
     const isOwner = appData.user.id === appData.board.owner.id
+    const setQueueIsOpen = useSetAtom(queueIsOpenAtom)
 
-    const [cardSize, setCardSize] = useQueryState("cardSize", {
-        defaultValue: "1",
-    })
-
-    const searchParams = useSearchParams()
-    const currentCardSize = searchParams.get("cardSize")
+    const [cardSize, setCardSize] = useAtom(cardSizeAtom)
 
     const handleZoomIn = () => {
-        switch (currentCardSize) {
-            case "2":
-                setCardSize("3")
-                break
-            default:
-                setCardSize("2")
-                break
-        }
+        setCardSize((prev) => (prev === 3 ? prev : prev + 1))
     }
     const handleZoomOut = () => {
-        switch (currentCardSize) {
-            case "2":
-                setCardSize("1")
-                break
-            case "3":
-                setCardSize("2")
-                break
-            default:
-                break
-        }
+        setCardSize((prev) => (prev === 1 ? prev : prev - 1))
+    }
+
+    const handleValueChange = (value) => {
+        setQueueIsOpen(value === appData.user.id)
+        setUserEntries(value)
     }
 
     return (
@@ -87,7 +79,7 @@ export default function BoardBar({ setUserEntries }) {
                                     variant="ghost"
                                     className={`h-8 w-8 rounded-e-none px-2 md:h-10 md:w-10`}
                                     onClick={handleZoomIn}
-                                    disabled={currentCardSize === "3"}
+                                    disabled={cardSize > 2}
                                 >
                                     <ZoomIn className={`h-4 w-4`} />
                                 </Button>
@@ -102,10 +94,7 @@ export default function BoardBar({ setUserEntries }) {
                                     variant="ghost"
                                     className={`h-8 w-8 rounded-s-none px-2 md:h-10 md:w-10`}
                                     onClick={handleZoomOut}
-                                    disabled={
-                                        currentCardSize === "1" ||
-                                        currentCardSize === null
-                                    }
+                                    disabled={cardSize < 2}
                                 >
                                     <ZoomOut className={`h-4 w-4`} />
                                 </Button>
@@ -118,7 +107,7 @@ export default function BoardBar({ setUserEntries }) {
                 </TooltipProvider>
                 <Select
                     defaultValue={appData.user.id}
-                    onValueChange={(value) => setUserEntries(value)}
+                    onValueChange={handleValueChange}
                     disabled={!serverRanks.data}
                 >
                     <SelectTrigger className="h-8 flex-1 md:h-10 md:w-52">

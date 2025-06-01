@@ -8,12 +8,21 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import Head from "next/head"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ReactScan } from "./components/scan/ReactScan"
+import { JotaiProvider } from "./providers/jotai-provider"
 
 export const metadata = {
     title: "tiertogether",
     description: "Rank media together.",
 }
 
+/**
+ * Defines the root layout for the application, setting up global providers, theming, and metadata.
+ *
+ * Wraps the app with authentication, state management, data fetching, theme, and notification providers, and sets up HTML metadata for SEO and social sharing.
+ *
+ * @param {object} props
+ * @param {React.ReactNode} props.children - The content to render within the layout.
+ */
 export default function RootLayout({ children }) {
     return (
         <ClerkProvider
@@ -37,18 +46,20 @@ export default function RootLayout({ children }) {
                 </Head>
                 <ReactScan />
                 <body>
-                    <QueryProvider>
-                        <ReactQueryDevtools />
-                        <ThemeProvider
-                            attribute="class"
-                            defaultTheme="system"
-                            enableSystem
-                            disableTransitionOnChange
-                        >
-                            <NuqsAdapter>{children}</NuqsAdapter>
-                            <Toaster />
-                        </ThemeProvider>
-                    </QueryProvider>
+                    <JotaiProvider>
+                        <QueryProvider>
+                            <ReactQueryDevtools />
+                            <ThemeProvider
+                                attribute="class"
+                                defaultTheme="system"
+                                enableSystem
+                                disableTransitionOnChange
+                            >
+                                <NuqsAdapter>{children}</NuqsAdapter>
+                                <Toaster />
+                            </ThemeProvider>
+                        </QueryProvider>
+                    </JotaiProvider>
                 </body>
             </html>
         </ClerkProvider>

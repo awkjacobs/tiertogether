@@ -1,14 +1,27 @@
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import Draggable from "../Cards/Draggable"
 import RankedCardClone from "../Cards/RankedCardClone"
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
-import { useContext } from "react"
-import ResizableText from "@app/components/Utility/ResizableText"
 
-// ? - reduce the number of renders by being more selective of the entries
+import ResizableText from "@app/components/Utility/ResizableText"
+import { showDifferenceAtom } from "../../../../atoms"
+import { useAtomValue } from "jotai"
+import { TIER_STYLE } from "./const"
+
+/**
+ * Renders a sortable tier section with draggable or ranked card entries based on the current difference view mode.
+ *
+ * Displays a labeled tier containing a list of entries, which can be reordered via drag-and-drop when not in difference mode, or shown as static ranked cards when difference mode is active.
+ *
+ * @param {object} props - Component properties.
+ * @param {string} props.tier - Identifier for the tier.
+ * @param {Array} [props.entries] - List of entry objects to display in the tier.
+ * @param {string} props.label - Label text for the tier.
+ * @param {boolean} props.queueShouldBeOpen - Indicates if the queue should be open for ranked card clones.
+ */
 
 export function Tier(props) {
-    const { appData } = useContext(AppDataContext)
+    const showDifference = useAtomValue(showDifferenceAtom)
+
     const { active, isOver, setNodeRef } = useSortable({
         id: props.tier,
         data: { type: "tier" },
@@ -16,33 +29,7 @@ export function Tier(props) {
 
     const entries = props.entries ? props.entries : []
 
-    let style
-    switch (props.tier) {
-        case "sRank":
-            style = "sRank rounded-tl-lg"
-            break
-        case "aRank":
-            style = `bg-teal-500/20`
-            break
-        case "bRank":
-            style = `bg-green-500/20`
-            break
-        case "cRank":
-            style = `bg-yellow-500/20`
-            break
-        case "dRank":
-            style = `bg-orange-500/20`
-            break
-        case "fRank":
-            style = `bg-red-500/20`
-            break
-        case "bleachers":
-        case "dugout":
-            style = `bg-zinc-600/10`
-            break
-        default:
-            break
-    }
+    const style = TIER_STYLE(props.tier)
 
     return (
         <section
@@ -63,7 +50,7 @@ export function Tier(props) {
                 />
             </div>
 
-            {!appData.showDifference && (
+            {!showDifference && (
                 <SortableContext items={entries ? entries : []} id={props.tier}>
                     <ul
                         ref={setNodeRef}
@@ -81,14 +68,13 @@ export function Tier(props) {
                                         item={item}
                                         tier={props.tier}
                                         active={active}
-                                        activeItem={props.activeItem}
                                     ></Draggable>
                                 )
                             })}
                     </ul>
                 </SortableContext>
             )}
-            {appData.showDifference && (
+            {showDifference && (
                 <ul className={`flex flex-1 flex-wrap gap-y-2 p-2 md:gap-y-4`}>
                     {entries.map((item, index) => {
                         return (

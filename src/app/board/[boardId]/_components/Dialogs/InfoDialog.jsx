@@ -23,10 +23,20 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden"
 import { useContext } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import InfoDialogContent from "./InfoDialogContent"
+import { useAtom, useAtomValue } from "jotai"
+import { dialogIsOpenAtom, selectedItemAtom } from "@app/atoms"
 
-export default function InfoDialog({ isOpen, setIsOpen }) {
-    const { appData, selectedItem } = useContext(AppDataContext)
+/**
+ * Displays detailed information about the currently selected item in a modal dialog or drawer, adapting to desktop or mobile viewports.
+ *
+ * Renders either a dialog (on desktop) or a drawer (on mobile) with item details, a backdrop, and controls for adding or removing the item. The open state and selected item are managed via global atoms.
+ */
+export default function InfoDialog() {
+    const [dialogIsOpen, setDialogIsOpen] = useAtom(dialogIsOpenAtom)
+    const { appData } = useContext(AppDataContext)
     const { board } = appData
+
+    const selectedItem = useAtomValue(selectedItemAtom)
 
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
@@ -49,7 +59,7 @@ export default function InfoDialog({ isOpen, setIsOpen }) {
 
     if (isDesktop) {
         return (
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
                 <ItemDataContext.Provider
                     value={{
                         itemId,
@@ -84,7 +94,7 @@ export default function InfoDialog({ isOpen, setIsOpen }) {
     }
     if (!isDesktop) {
         return (
-            <Drawer open={isOpen} onOpenChange={setIsOpen}>
+            <Drawer open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
                 <ItemDataContext.Provider value={{ itemId, itemType, details }}>
                     <DrawerContent
                         className={`fixed bottom-0 h-[100svh] max-h-[100svh]`}

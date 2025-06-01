@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 
+import { activeItemAtom, showDifferenceAtom } from "@app/atoms"
 import { AppDataContext } from "@components/_providers/appDataProvider"
 import {
     DndContext,
@@ -12,16 +13,25 @@ import {
     useSensors,
 } from "@dnd-kit/core"
 import { restrictToWindowEdges } from "@dnd-kit/modifiers"
+import { useAtom, useSetAtom } from "jotai"
+import { ErrorBoundary } from "next/dist/client/components/error-boundary"
+import BoardErrorBoundary from "../../error"
 import CardQueue from "../Card Queue/CardQueue"
-import { CardOverlay } from "../Cards/CardOverlay"
+import CardOverlay from "../Cards/CardOverlay"
 import InfoDialog from "../Dialogs/InfoDialog"
-import { TierContainer } from "../Tierlist/TierContainer"
+import TierContainer from "../Tierlist/TierContainer"
 import BoardBar from "./BoardBar"
 import { move } from "./functions/react-dndFuncs"
 import sortItems from "./functions/sortItems"
-import { ErrorBoundary } from "next/dist/client/components/error-boundary"
-import BoardErrorBoundary from "../../error"
 
+/**
+ * Renders the main drag-and-drop tier list interface, managing user-specific sorting, state, and interactions.
+ *
+ * Provides context and state for tiered board items, handles drag-and-drop logic for reordering items across tiers, and updates global state to reflect user-specific or overall rankings. Integrates error boundaries and overlays for robust UI and user feedback.
+ *
+ * @param {{ appData: { board: object, user: object } }} props - Contains board data and current user information.
+ * @returns {JSX.Element} The rendered drag-and-drop tier list interface.
+ */
 export default function DraggingContent({ appData }) {
     const { board, user } = appData
 
@@ -32,25 +42,19 @@ export default function DraggingContent({ appData }) {
         sortItems(boardItems, userEntries, board.id),
     )
 
-    let showDifference = userEntries !== user.id
-    appData.showDifference = showDifference
-
-    const [queueIsOpen, setQueueIsOpen] = useState(!showDifference)
+    const setShowDifference = useSetAtom(showDifferenceAtom)
 
     useEffect(() => {
-        if (showDifference) setQueueIsOpen(false)
-        else setQueueIsOpen(true)
-    }, [showDifference])
+        setShowDifference(userEntries !== user.id)
+    }, [setShowDifference, userEntries, user.id])
 
     useEffect(() => {
         if (userEntries === "overall") return
         setRanks(sortItems(boardItems, userEntries, board.id))
     }, [boardItems, userEntries, board.id])
 
-    const [activeCardIndex, setActiveCardIndex] = useState(0)
-
     // drag and drop
-    const [activeItem, setActiveItem] = useState(null)
+    const [activeItem, setActiveItem] = useAtom(activeItemAtom)
     const [startSortable, setStartSortable] = useState()
     const [changedTiers, setChangedTiers] = useState({ start: null, end: null })
 
@@ -77,10 +81,7 @@ export default function DraggingContent({ appData }) {
             }
         })
 
-        // ! timeout causes the overlay to sometimes not get the item from active Item, but it did remove the max depth error
-        // setTimeout(() => {
         setActiveItem(event.active.data.current.item)
-        // }, 0)
     }
     function handleDragOver(event) {
         const { active, over, draggingRect } = event
@@ -108,7 +109,6 @@ export default function DraggingContent({ appData }) {
             }
         })
 
-        // setTimeout(() => {
         setRanks((prev) => {
             const activeItems = prev[activeContainer]
             const overItems = prev[overContainer]
@@ -143,7 +143,7 @@ export default function DraggingContent({ appData }) {
                 ],
                 [overContainer]: [
                     ...prev[overContainer].slice(0, newIndex),
-                    ranks[activeContainer][activeIndex],
+                    activeItems[activeIndex],
                     ...prev[overContainer].slice(
                         newIndex,
                         prev[overContainer].length,
@@ -151,7 +151,6 @@ export default function DraggingContent({ appData }) {
                 ],
             }
         })
-        // }, 0)
     }
 
     function handleDragEnd(event) {
@@ -196,20 +195,11 @@ export default function DraggingContent({ appData }) {
     })
     const sensors = useSensors(mouseSensor, touchSensor)
 
-    const [dialogIsOpen, setDialogIsOpen] = useState(false)
-    // const [selectedItem, setSelectedItem] = useQueryState("sel")
-    const [selectedItem, setSelectedItem] = useState("")
-
     return (
         <AppDataContext.Provider
             value={{
                 appData,
                 userEntries,
-                showDifference,
-                dialogIsOpen,
-                setDialogIsOpen,
-                selectedItem,
-                setSelectedItem,
             }}
         >
             <ErrorBoundary errorComponent={BoardErrorBoundary}>
@@ -224,27 +214,13 @@ export default function DraggingContent({ appData }) {
                         className={`no-scrollbar col-start-2 col-end-5 row-start-2 row-end-3 flex h-full w-full flex-1 flex-col place-self-center overflow-x-visible overflow-y-scroll pb-36 md:pb-72`}
                     >
                         <BoardBar setUserEntries={setUserEntries} />
-                        <TierContainer
-                            ranks={ranks}
-                            activeItem={!!activeItem}
-                        />
+                        <TierContainer ranks={ranks} />
                     </div>
-                    <CardQueue
-                        board={board}
-                        queue={ranks.cardsQueue}
-                        activeCardIndex={activeCardIndex}
-                        setActiveCardIndex={setActiveCardIndex}
-                        queueIsOpen={queueIsOpen}
-                        setQueueIsOpen={setQueueIsOpen}
-                        activeItem={!!activeItem}
-                    />
+                    <CardQueue queue={ranks.cardsQueue} />
                     <DragOverlay modifiers={[restrictToWindowEdges]}>
                         <CardOverlay item={activeItem} />
                     </DragOverlay>
-                    <InfoDialog
-                        isOpen={dialogIsOpen}
-                        setIsOpen={setDialogIsOpen}
-                    />
+                    <InfoDialog />
                 </DndContext>
             </ErrorBoundary>
         </AppDataContext.Provider>

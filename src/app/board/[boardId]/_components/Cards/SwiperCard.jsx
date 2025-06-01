@@ -14,20 +14,27 @@ import { useContext, useEffect } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
+import { useAtomValue } from "jotai"
+import { queueIsOpenAtom } from "@app/atoms"
 
+/**
+ * Renders an interactive card displaying detailed information about an item, including images, title, and additional details, with support for drag-and-drop and conditional actions based on user permissions and loading state.
+ *
+ * @param {object} props - The component props.
+ * @param {object} props.item - The item data to display in the card.
+ * @param {string} props.tier - The tier identifier used for drag-and-drop grouping.
+ * @param {boolean} props.isActive - Whether the card is currently active.
+ * @param {boolean} props.isDesktop - Whether the card is rendered in a desktop layout.
+ *
+ * @returns {JSX.Element} The rendered card component, or a skeleton placeholder while loading.
+ *
+ * @remark
+ * The remove button is only enabled if the current user is the board owner or the user who added the item.
+ */
 export default function SwiperCard(props) {
-    const {
-        index,
-        item,
-        tier,
-        isActive,
-        activeItem,
-        isDesktop,
-        setActiveCard,
-        setActiveCardIndex,
-        queueIsOpen,
-    } = props
+    const { item, tier, isActive, isDesktop } = props
 
+    const queueIsOpen = useAtomValue(queueIsOpenAtom)
     const { appData } = useContext(AppDataContext)
     const { user, board } = appData
     const { active, isOver, setNodeRef } = useDroppable({
@@ -41,13 +48,6 @@ export default function SwiperCard(props) {
 
     const allowedToRemoveItemFromBoard =
         user.id === board.ownerId || user.id === item.addedBy.id
-
-    useEffect(() => {
-        if (isActive) {
-            setActiveCard(item)
-            setActiveCardIndex(index)
-        }
-    }, [isActive])
 
     if (details.isSuccess)
         return (
@@ -93,7 +93,6 @@ export default function SwiperCard(props) {
                         key={item.id}
                         item={item}
                         tier={"cardsQueue"}
-                        activeItem={activeItem}
                         active={active}
                         appData={appData}
                     ></Draggable>

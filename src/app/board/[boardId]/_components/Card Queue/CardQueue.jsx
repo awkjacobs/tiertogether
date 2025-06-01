@@ -1,43 +1,42 @@
-import AddButton from "../AddItem/AddButton"
-import SwiperZone from "./SwiperZone"
-import { useContext, useEffect, useState } from "react"
-import { ChevronDown, ChevronUp } from "lucide-react"
-import { Button } from "@components/ui/button"
+import { queueIsOpenAtom, showDifferenceAtom } from "@app/atoms"
 import { useMediaQuery } from "@app/hooks/use-media-query"
-import { useDroppable } from "@dnd-kit/core"
-import { motion } from "motion/react"
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import { Button } from "@components/ui/button"
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from "@components/ui/tooltip"
+import { useDroppable } from "@dnd-kit/core"
+import { useAtom, useAtomValue } from "jotai"
+import { ChevronDown, ChevronUp } from "lucide-react"
+import { motion } from "motion/react"
+import AddButton from "../AddItem/AddButton"
+import SwiperZone from "./SwiperZone"
 
-export default function CardQueue(props) {
+/**
+ * Renders the animated card queue container with controls and content based on queue state.
+ *
+ * Displays a droppable area for cards, an open/close button, the card swiper if the queue is not empty, an empty state message if the queue is empty, and an add button. The container's height and appearance adjust dynamically based on whether the queue is open, empty, and the viewport size.
+ *
+ * @param {Object[]} queue - The list of cards currently in the queue.
+ */
+export default function CardQueue({ queue }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const { showDifference } = useContext(AppDataContext)
+    const showDifference = useAtomValue(showDifferenceAtom)
+    const queueIsOpen = useAtomValue(queueIsOpenAtom)
 
-    const QUEUE_IS_EMPTY = props.queue.length === 0
+    const QUEUE_IS_EMPTY = !queue || queue.length === 0
 
-    const [activeCard, setActiveCard] = useState(props.queue[0])
-
-    useEffect(() => {
-        if (!props.queue[0]) setActiveCard(undefined)
-    }, [props.queue])
-
-    function handleClose() {
-        props.setQueueIsOpen(!props.queueIsOpen)
-    }
     const { active, isOver, setNodeRef } = useDroppable({
         id: "cardsQueue",
         data: { type: "tier" },
     })
     const height = isDesktop
-        ? props.queueIsOpen && !QUEUE_IS_EMPTY
+        ? queueIsOpen && !QUEUE_IS_EMPTY
             ? 272
             : 80
-        : props.queueIsOpen && !QUEUE_IS_EMPTY
+        : queueIsOpen && !QUEUE_IS_EMPTY
           ? 136
           : 56
     return (
@@ -52,19 +51,11 @@ export default function CardQueue(props) {
             } bottom-0 flex flex-row justify-center rounded-t-md p-2 shadow-[0px_-14px_34px_-20px_rgba(0,0,0,0.8)] md:p-4`}
         >
             <OpenCloseQueueButton
-                queueIsOpen={props.queueIsOpen}
-                handleClose={handleClose}
                 isDesktop={isDesktop}
                 disabled={QUEUE_IS_EMPTY || showDifference}
             />
             {!QUEUE_IS_EMPTY && (
-                <SwiperZone
-                    {...props}
-                    activeCard={activeCard}
-                    setActiveCard={setActiveCard}
-                    setActiveCardIndex={props.setActiveCardIndex}
-                    isDesktop={isDesktop}
-                />
+                <SwiperZone queue={queue} isDesktop={isDesktop} />
             )}
             {QUEUE_IS_EMPTY && <EmptyStatement />}
             <AddButton />
@@ -72,12 +63,23 @@ export default function CardQueue(props) {
     )
 }
 
-function OpenCloseQueueButton({
-    handleClose,
-    queueIsOpen,
-    isDesktop,
-    disabled,
-}) {
+/**
+ * Renders a button that toggles the open or closed state of the card queue.
+ *
+ * The button displays a chevron icon indicating the current state and shows a tooltip with the appropriate action ("Open Queue" or "Close Queue"). The button is disabled when the queue cannot be toggled.
+ *
+ * @param {Object} props
+ * @param {boolean} props.isDesktop - Whether the button is rendered in a desktop viewport.
+ * @param {boolean} props.disabled - Whether the button is disabled.
+ */
+function OpenCloseQueueButton({ isDesktop, disabled }) {
+    const [queueIsOpen, setQueueIsOpen] = useAtom(queueIsOpenAtom)
+
+    function handleClose() {
+        let bool = queueIsOpen
+        setQueueIsOpen(!bool)
+    }
+
     return (
         <TooltipProvider>
             <Tooltip>

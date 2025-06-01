@@ -7,16 +7,22 @@ import SwiperCard from "../Cards/SwiperCard"
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 
-export default function SwiperZone(props) {
+/**
+ * Renders a swipeable, sortable card queue using Swiper and drag-and-drop integration.
+ *
+ * Displays each item in the {@link queue} as a card within a swipeable interface, supporting both desktop and mobile layouts. Enables drag-and-drop sorting and card-style transitions.
+ *
+ * @param {Object[]} queue - Array of items to display as swipeable cards.
+ */
+export default function SwiperZone({ queue }) {
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const { tier, queue } = props
 
     const swiperDimensions = {
         width: isDesktop ? 460 : 230,
         height: isDesktop ? 240 : 120,
     }
-    const { active, isOver, setNodeRef } = useSortable({
-        id: tier,
+    const { setNodeRef } = useSortable({
+        id: "queue",
         data: { type: "tier" },
     })
     return (
@@ -34,24 +40,17 @@ export default function SwiperZone(props) {
                 }}
                 ref={setNodeRef}
             >
-                {queue.map((item, index) => {
+                {queue.map((item) => {
                     return (
                         <SwiperSlide key={item.id}>
                             {({ isActive }) => (
                                 <SwiperCard
                                     id={item.id}
                                     key={item.id}
-                                    index={index}
                                     item={item}
                                     tier={"cardsQueue"}
                                     isActive={isActive}
-                                    activeItem={props.activeItem}
                                     isDesktop={isDesktop}
-                                    setActiveCard={props.setActiveCard}
-                                    setActiveCardIndex={
-                                        props.setActiveCardIndex
-                                    }
-                                    {...props}
                                 />
                             )}
                         </SwiperSlide>

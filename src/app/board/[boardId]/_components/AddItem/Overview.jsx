@@ -1,9 +1,16 @@
-import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { Button } from "@components/ui/button"
-import { useContext } from "react"
+import { useSetAtom } from "jotai"
+import { dialogIsOpenAtom, selectedItemAtom } from "../../../../atoms"
 
+/**
+ * Renders a button that, when clicked, opens a dialog and marks the given item as selected.
+ *
+ * @param {{ item: { id: string | number } }} props - The item to display details for.
+ */
 export default function Details({ item }) {
-    const { setDialogIsOpen, setSelectedItem } = useContext(AppDataContext)
+    const setDialogIsOpen = useSetAtom(dialogIsOpenAtom)
+
+    const setSelectedItem = useSetAtom(selectedItemAtom)
 
     const handleSelect = () => {
         setDialogIsOpen(true)
