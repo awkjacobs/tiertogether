@@ -24,7 +24,7 @@ import { useContext } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import InfoDialogContent from "./InfoDialogContent"
 import { useAtom, useAtomValue } from "jotai"
-import { dialogIsOpenAtom, selectedItemAtom } from "../../../../atoms"
+import { dialogIsOpenAtom, selectedItemAtom } from "@app/atoms"
 
 export default function InfoDialog() {
     const [dialogIsOpen, setDialogIsOpen] = useAtom(dialogIsOpenAtom)

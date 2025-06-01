@@ -14,10 +14,13 @@ import { useContext, useEffect } from "react"
 import { ItemAddRemoveButton } from "../Buttons/ItemAddRemoveButton"
 import { SwiperCardDetails } from "./Card Components/SwiperCardDetails"
 import Draggable from "./Draggable"
+import { useAtomValue } from "jotai"
+import { queueIsOpenAtom } from "@app/atoms"
 
 export default function SwiperCard(props) {
-    const { item, tier, isActive, isDesktop, queueIsOpen } = props
+    const { item, tier, isActive, isDesktop } = props
 
+    const queueIsOpen = useAtomValue(queueIsOpenAtom)
     const { appData } = useContext(AppDataContext)
     const { user, board } = appData
     const { active, isOver, setNodeRef } = useDroppable({
