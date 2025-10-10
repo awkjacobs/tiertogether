@@ -1027,5 +1027,5 @@ export async function PRISMA_SET_IGDG_API_KEY(res) {
 }
 
 export async function PRISMA_GET_IGDB_API_KEY() {
-    return await prisma.igdbApiKey.findFirst({})
+    return await prisma.aPIkey.findFirst({})
 }

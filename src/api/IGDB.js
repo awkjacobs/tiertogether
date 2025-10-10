@@ -1,5 +1,8 @@
 "use server"
 
+import { Prisma } from "@prisma/client"
+import { PRISMA_GET_IGDB_API_KEY } from "./prismaFuncs"
+
 export async function IGBD_GET_TOKEN() {
     const options = {
         method: "POST",
@@ -20,7 +23,8 @@ export async function IGBD_GET_TOKEN() {
     return res
 }
 export async function IGDB_GAME_SEARCH(query) {
-    const key = await prisma.aPIkey.findFirst({})
+    const key = await PRISMA_GET_IGDB_API_KEY()
+
     const options = {
         method: "POST",
         headers: {
@@ -46,7 +50,7 @@ export async function IGDB_GAME_SEARCH(query) {
     return res
 }
 export async function IGDB_GET_DETAILS(id) {
-    const key = await prisma.aPIkey.findFirst({})
+    const key = await PRISMA_GET_IGDB_API_KEY()
 
     const options = {
         method: "POST",
@@ -72,11 +76,11 @@ export async function IGDB_GET_DETAILS(id) {
             console.error("IGDB Get Details Error: " + err)
             throw new Error(err)
         })
-    console.log("get", res)
+
     return res
 }
 export async function IGDB_GET_FRANCHISE(id) {
-    const key = await prisma.aPIkey.findFirst({})
+    const key = await PRISMA_GET_IGDB_API_KEY()
 
     const options = {
         method: "POST",
