@@ -3,11 +3,14 @@ import {
     PRISMA_CREATE_USER,
     PRISMA_GET_INVITATION,
     PRISMA_GET_USER,
+    PRISMA_SET_IGDG_API_KEY,
 } from "@api/prismaFuncs"
 import PageContainer from "@app/components/Utility/PageContainer"
 import { auth, currentUser } from "@clerk/nextjs/server"
 import AppBar from "@components/AppBar/AppBar"
 import HomeContent from "./_components/HomeContent"
+import { IGBD_GET_TOKEN } from "@api/IGDB"
+import prisma from "../../db"
 
 export const metadata = {
     title: "Home | tiertogether",
@@ -52,6 +55,22 @@ export default async function Home() {
     const appData = {
         user: userConst,
         newUser: newUser,
+    }
+
+    const igdbKey = await prisma.aPIkey.findFirst({})
+    if (igdbKey) {
+        const createdAt = new Date(igdbKey.updatedAt)
+        const expiresIn = igdbKey.expires_in // seconds
+        const now = new Date()
+        const expiryDate = new Date(createdAt.getTime() + expiresIn * 1000)
+
+        if (now > expiryDate) {
+            const res = await IGBD_GET_TOKEN()
+            await PRISMA_SET_IGDG_API_KEY(res)
+        }
+    } else {
+        const res = await IGBD_GET_TOKEN()
+        await PRISMA_SET_IGDG_API_KEY(res)
     }
 
     return (

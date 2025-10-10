@@ -1,5 +1,8 @@
 "use server"
 
+import { Prisma } from "@prisma/client"
+import { PRISMA_GET_IGDB_API_KEY } from "./prismaFuncs"
+
 export async function IGBD_GET_TOKEN() {
     const options = {
         method: "POST",
@@ -20,12 +23,14 @@ export async function IGBD_GET_TOKEN() {
     return res
 }
 export async function IGDB_GAME_SEARCH(query) {
+    const key = await PRISMA_GET_IGDB_API_KEY()
+
     const options = {
         method: "POST",
         headers: {
             accept: "application/json",
             "Client-ID": `${process.env.IGBD_CLIENT_ID}`,
-            Authorization: `${process.env.IGBD_ACCESS_TOKEN}`,
+            Authorization: `Bearer ${key.key}`,
         },
         body: `
             search "${query}"; 
@@ -45,12 +50,14 @@ export async function IGDB_GAME_SEARCH(query) {
     return res
 }
 export async function IGDB_GET_DETAILS(id) {
+    const key = await PRISMA_GET_IGDB_API_KEY()
+
     const options = {
         method: "POST",
         headers: {
             accept: "application/json",
             "Client-ID": `${process.env.IGBD_CLIENT_ID}`,
-            Authorization: `${process.env.IGBD_ACCESS_TOKEN}`,
+            Authorization: `Bearer ${key.key}`,
         },
         body: `
             fields name, artworks.image_id, cover.image_id, cover.height, cover.width, genres.*, expansions.*, franchises.*, platforms.name, release_dates.*, storyline, summary, involved_companies.company.*, involved_companies.developer;
@@ -73,12 +80,14 @@ export async function IGDB_GET_DETAILS(id) {
     return res
 }
 export async function IGDB_GET_FRANCHISE(id) {
+    const key = await PRISMA_GET_IGDB_API_KEY()
+
     const options = {
         method: "POST",
         headers: {
             accept: "application/json",
             "Client-ID": `${process.env.IGBD_CLIENT_ID}`,
-            Authorization: `${process.env.IGBD_ACCESS_TOKEN}`,
+            Authorization: `Bearer ${key.key}`,
         },
         body: `
             fields name, games.release_dates.*, games.platforms.name, games.artworks.image_id, games.*;
