@@ -1005,3 +1005,27 @@ export async function PRISMA_ADMIN_DELETE_ALERT(alert) {
     })
     revalidatePath("/*", "page")
 }
+export async function PRISMA_SET_IGDG_API_KEY(res) {
+    const { access_token: key, expires_in } = res
+    const existingKey = await prisma.aPIkey.findFirst({})
+    if (existingKey) {
+        await prisma.aPIkey.update({
+            where: { id: existingKey.id },
+            data: {
+                key,
+                expires_in,
+            },
+        })
+    } else {
+        await prisma.aPIkey.create({
+            data: {
+                key,
+                expires_in,
+            },
+        })
+    }
+}
+
+export async function PRISMA_GET_IGDB_API_KEY() {
+    return await prisma.igdbApiKey.findFirst({})
+}
