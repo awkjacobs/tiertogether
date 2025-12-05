@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 import InviteUserButton from "@components/Buttons/InviteUserButton"
-import Crown from "@components/Utility/Crown"
+import Crown from "@app/components/Utility/Crown"
 
 export default function BoardUsersArea({ board }) {
     const { appData } = useContext(AppDataContext)

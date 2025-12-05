@@ -2,7 +2,7 @@ import { cn } from "@lib/utils"
 import { LoaderCircle } from "lucide-react"
 import Image from "next/image"
 import { useGetDetailsQuery } from "@app/hooks/use-get-fetch-query"
-import MissingPoster from "@components/Utility/MissingPoster"
+import MissingPoster from "@app/components/Utility/MissingPoster"
 import { ITEM_ID_TYPE, POSTER_SOURCE } from "@lib/const"
 
 export default function Poster({ itemId, className }) {

@@ -1,7 +1,7 @@
 import { PRISMA_GET_USER } from "@api/prismaFuncs"
 import { auth } from "@clerk/nextjs/server"
 import AppBar from "@components/AppBar/AppBar"
-import PageContainer from "@components/Utility/PageContainer"
+import PageContainer from "@app/components/Utility/PageContainer"
 import LandingPageContent from "./landing_page/landingPageContent"
 
 export default async function LandingPage() {

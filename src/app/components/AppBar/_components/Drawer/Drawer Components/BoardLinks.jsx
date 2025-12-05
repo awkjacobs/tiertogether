@@ -1,4 +1,4 @@
-import Crown from "@components/Utility/Crown"
+import Crown from "@app/components/Utility/Crown"
 import Link from "next/link"
 import { useState } from "react"
 import EditBoardButton from "@components/Buttons/EditBoardButton"

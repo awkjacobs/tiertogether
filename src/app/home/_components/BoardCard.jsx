@@ -1,6 +1,6 @@
 import Crown from "@app/components/Utility/Crown"
 import EditBoardButton from "@components/Buttons/EditBoardButton"
-import BoardTypeIcon from "@components/Utility/BoardTypeIcons"
+import BoardTypeIcon from "@app/components/Utility/BoardTypeIcons"
 import { BACKDROP_SOURCE } from "@lib/const"
 import { motion } from "motion/react"
 import Image from "next/image"

@@ -15,7 +15,7 @@ import {
     BleachersIcon,
     DugoutIcon,
     SpecialIcon,
-} from "@components/Utility/ExtraRowIcons"
+} from "@app/components/Utility/ExtraRowIcons"
 import {
     ExtraRowTooltip,
     InfoPopover,

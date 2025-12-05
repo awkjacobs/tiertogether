@@ -1,12 +1,12 @@
-import RankBadge from "./Card Components/RankBadge"
 import { Card } from "./Card"
 import { useMediaQuery } from "@app/hooks/use-media-query"
 import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover"
-import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
-import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
+import RankingsTooltipDisplay from "@app/components/Utility/RankingsTooltipDisplay"
+import { RankGroup, RankOverall } from "@app/components/Utility/RankGroup"
 import { COMPARED_RANK, SCORE_DIF } from "@lib/const"
 import { useContext } from "react"
 import { AppDataContext } from "@app/components/_providers/appDataProvider"
+import RankBadge from "./Card Components/RankBadge"
 
 export default function RankedCardClone(props) {
     const { item } = props
@@ -44,12 +44,12 @@ export default function RankedCardClone(props) {
 
     if (!isDesktop)
         return (
-            <Card {...props} difference={difference}>
+            <div className="relative mx-1 overflow-clip rounded">
                 <Popover>
-                    <PopoverTrigger>
+                    <PopoverTrigger className="absolute right-0">
                         <RankBadge difference={difference} />
                     </PopoverTrigger>
-                    <PopoverContent side={"bottom"} className={`w-fit`}>
+                    <PopoverContent side={"top"} className={`w-fit`}>
                         <RankingsTooltipDisplay
                             difference={difference}
                             userEntries={userEntries}
@@ -73,7 +73,8 @@ export default function RankedCardClone(props) {
                         </RankingsTooltipDisplay>
                     </PopoverContent>
                 </Popover>
-            </Card>
+                <Card {...props} difference={difference}></Card>
+            </div>
         )
 
     return (

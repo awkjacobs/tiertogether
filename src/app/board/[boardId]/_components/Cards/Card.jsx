@@ -9,20 +9,20 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@components/ui/tooltip"
-import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
-import RankingsTooltipDisplay from "@components/Utility/RankingsTooltipDisplay"
+import { RankGroup, RankOverall } from "@app/components/Utility/RankGroup"
+import RankingsTooltipDisplay from "@app/components/Utility/RankingsTooltipDisplay"
 import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
 import { useAtomValue, useSetAtom } from "jotai"
 import { useContext } from "react"
-import { CARD_SIZE } from "./_const/const"
 import Poster from "./Card Components/Poster"
+import { CARD_SIZE } from "./_const/const"
 
 const getCardClassName = (cardSize, tier, isDragging) => {
     const baseClasses = CARD_SIZE[cardSize] ?? CARD_SIZE["null"]
     const tierClasses =
         tier === "cardsQueue"
             ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
-            : "mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
+            : "md:mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
     return `${baseClasses} relative block overflow-hidden ${tierClasses} ${isDragging ? "opacity-50" : ""}`
 }
 
