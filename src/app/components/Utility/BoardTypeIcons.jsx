@@ -1,4 +1,4 @@
-import AnimeCross from "@components/Utility/animeCross"
+import AnimeCross from "@app/components/Utility/animeCross"
 import { cn } from "@lib/utils"
 import { Clapperboard, Gamepad2, Tv } from "lucide-react"
 

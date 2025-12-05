@@ -1,4 +1,4 @@
-import PageContainer from "@components/Utility/PageContainer"
+import PageContainer from "@app/components/Utility/PageContainer"
 import { Skeleton } from "@components/ui/skeleton"
 import LogoButton from "../../components/AppBar/_components/LogoButton"
 

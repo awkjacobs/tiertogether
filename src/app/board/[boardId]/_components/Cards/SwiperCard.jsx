@@ -6,7 +6,7 @@ import {
 } from "@app/hooks/use-get-fetch-query"
 import Backdrop from "@components/ui/backdrop"
 import { Skeleton } from "@components/ui/skeleton"
-import MissingPoster from "@components/Utility/MissingPoster"
+import MissingPoster from "@app/components/Utility/MissingPoster"
 import { useDroppable } from "@dnd-kit/core"
 import { BACKDROP_SOURCE, ITEM_ID_TYPE } from "@lib/const"
 import Image from "next/image"

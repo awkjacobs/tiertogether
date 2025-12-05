@@ -9,8 +9,8 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@components/ui/tooltip"
-import { RankGroup, RankOverall } from "@components/utility/RankGroup"
-import RankingsTooltipDisplay from "@components/utility/RankingsTooltipDisplay"
+import { RankGroup, RankOverall } from "@app/components/Utility/RankGroup"
+import RankingsTooltipDisplay from "@app/components/Utility/RankingsTooltipDisplay"
 import { COMPARED_RANK, ITEM_ID_TYPE } from "@lib/const"
 import { useAtomValue, useSetAtom } from "jotai"
 import { useContext } from "react"

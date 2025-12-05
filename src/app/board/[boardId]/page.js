@@ -4,7 +4,7 @@ import {
 } from "@api/prismaFuncs"
 import { serverAverage } from "@lib/serverFuncs"
 import AppBar from "@components/AppBar/AppBar"
-import PageContainer from "@components/Utility/PageContainer"
+import PageContainer from "@app/components/Utility/PageContainer"
 import DraggingContent from "./_components/AppDynamic/DraggingContent"
 import { auth } from "@clerk/nextjs/server"
 import { QueryClient } from "@tanstack/react-query"
@@ -46,7 +46,7 @@ export default async function Board({ params }) {
     await queryClient.prefetchQuery({
         queryKey: ["averages", boardId],
         queryFn: () => serverAverage(boardId),
-    });
+    })
 
     await Promise.all(
         board.items.map(async (item) => {
@@ -69,9 +69,9 @@ export default async function Board({ params }) {
                     queryKey: ["logo", itemId, itemType],
                     queryFn: () => TMDB_GET_IMAGES(itemId, itemType),
                     staleTime: Infinity,
-                })
+                }),
             ])
-        })
+        }),
     )
 
     return (

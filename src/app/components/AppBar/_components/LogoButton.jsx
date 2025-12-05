@@ -1,8 +1,8 @@
 "use client"
 
-import LogoTriangles from "@components/Utility/LogoTriangles"
-import LogoTrianglesBW from "@components/Utility/LogoTrianglesBW"
-import GithubIcon from "@components/Utility/github"
+import LogoTriangles from "@app/components/Utility/LogoTriangles"
+import LogoTrianglesBW from "@app/components/Utility/LogoTrianglesBW"
+import GithubIcon from "@app/components/Utility/github"
 import {
     NavigationMenu,
     NavigationMenuContent,

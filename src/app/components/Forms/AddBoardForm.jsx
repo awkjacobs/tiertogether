@@ -12,7 +12,7 @@ import {
     FormMessage,
 } from "@components/ui/form"
 import { Input } from "@components/ui/input"
-import AnimeCross from "@components/Utility/animeCross"
+import AnimeCross from "@app/components/Utility/animeCross"
 import { Clapperboard, Tv } from "lucide-react"
 import {
     ExtraRowTooltip,

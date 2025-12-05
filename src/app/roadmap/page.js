@@ -1,8 +1,8 @@
 import { PRISMA_GET_USER } from "@api/prismaFuncs"
 import { auth } from "@clerk/nextjs/server"
 import AppBar from "@components/AppBar/AppBar"
-import PageContainer from "@components/Utility/PageContainer"
-import TextBlock from "@components/Utility/TextBlock"
+import PageContainer from "@app/components/Utility/PageContainer"
+import TextBlock from "@app/components/Utility/TextBlock"
 import { GRID_TEMP_COLUMNS } from "@lib/const"
 import ROADMAP from "@content/ROADMAP.mdx"
 

@@ -3,7 +3,7 @@ import { AppDataContext } from "@app/components/_providers/appDataProvider"
 import { LoadingSpinner } from "@app/components/ui/LoadingSpinner"
 import { ScrollArea } from "@app/components/ui/scroll-area"
 import { useGetServerAverages } from "@app/hooks/use-get-serverAverage"
-import { RankGroup, RankOverall } from "@components/Utility/RankGroup"
+import { RankGroup, RankOverall } from "@app/components/Utility/RankGroup"
 import { useContext } from "react"
 import { userRanksArray } from "./userRanksArray"
 
