@@ -1,6 +1,6 @@
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import Draggable from "../Cards/Draggable"
-import RankedCardClone from "../Cards/RankedCardClone"
+import RankedCardClone from "../cards/RankedCardClone"
 
 import ResizableText from "@app/components/Utility/ResizableText"
 import { showDifferenceAtom } from "../../../../atoms"
