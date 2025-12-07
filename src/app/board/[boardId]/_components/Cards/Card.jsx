@@ -22,8 +22,8 @@ const getCardClassName = (cardSize, tier, isDragging) => {
     const tierClasses =
         tier === "cardsQueue"
             ? "swiper-no-swiping shadow-[0_0_16px_0] shadow-black md:opacity-0 md:hover:shadow-[0_0_16px_4px] md:group-hover:opacity-100"
-            : "md:mx-1 shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
-    return `${baseClasses} relative block overflow-hidden ${tierClasses} ${isDragging ? "opacity-50" : ""}`
+            : "shadow-[0_8px_16px_-4px_rgba(0,0,0,1)]"
+    return `${baseClasses} relative block overflow-hidden rounded ${tierClasses} ${isDragging ? "opacity-50" : ""}`
 }
 
 /**
