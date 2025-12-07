@@ -19,15 +19,13 @@ import { TIER_STYLE } from "./const"
  * @param {boolean} queueShouldBeOpen - Indicates if the queue should be open for ranked card clones.
  */
 
-export function Tier({ tier, entries, label, queueShouldBeOpen }) {
+export function Tier({ tier, entries = [], label, queueShouldBeOpen }) {
     const showDifference = useAtomValue(showDifferenceAtom)
 
     const { active, isOver, setNodeRef } = useSortable({
         id: tier,
         data: { type: "tier" },
     })
-
-    const entriesArray = entries ? entries : []
 
     const labelStyle = TIER_STYLE(tier)
 
@@ -51,9 +49,9 @@ export function Tier({ tier, entries, label, queueShouldBeOpen }) {
                 />
             </div>
 
-            <SortableContext items={entriesArray} id={tier}>
+            <SortableContext items={entries} id={tier}>
                 <ul ref={setNodeRef} className={containerStyle}>
-                    {entriesArray.map((item, index) => {
+                    {entries.map((item, index) => {
                         return showDifference ? (
                             <RankedCardClone
                                 id={item.id}
