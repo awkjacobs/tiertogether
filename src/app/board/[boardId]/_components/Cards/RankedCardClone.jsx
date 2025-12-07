@@ -44,7 +44,7 @@ export default function RankedCardClone(props) {
 
     if (!isDesktop)
         return (
-            <div className="relative mx-1 overflow-clip rounded">
+            <div className="relative overflow-clip rounded">
                 <Popover>
                     <PopoverTrigger className="absolute right-0">
                         <RankBadge difference={difference} />
