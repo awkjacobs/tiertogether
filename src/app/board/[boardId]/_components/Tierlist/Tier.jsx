@@ -31,9 +31,7 @@ export function Tier({ tier, entries, label, queueShouldBeOpen }) {
 
     const labelStyle = TIER_STYLE(tier)
 
-    const containerStyle = `m-2 flex flex-1 flex-wrap gap-2 md:gap-y-4 ${
-        isOver ? "" : ""
-    }`
+    const containerStyle = "m-2 flex flex-1 flex-wrap gap-2 md:gap-y-4"
     return (
         <section
             className={`flex min-h-[4.75rem] overflow-hidden shadow-inner first:rounded-t-lg last:rounded-b-lg md:min-h-[7rem] ${
